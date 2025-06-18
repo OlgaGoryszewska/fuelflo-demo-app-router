@@ -1,9 +1,48 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+:root {
+  --primary-orange: #f25822;
+  --primary-black: #181413;
+}
 
 body {
   margin: 0;
-  font-family: sans-serif;
-  background: linear-gradient(to bottom, #E8ECEE, #D2D2D2);
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  background: linear-gradient(to bottom, #e8ecee, #d2d2d2);
+  color: var(--primary-black);
   min-height: 100vh;
+}
+.logo {
+  width: 30px;
+  height: auto;
+  margin: 0.6rem;
+}
+
+.hamburger {
+  width: 30px;
+  height: 41px;
+  margin: 0.6rem;
+  color: var(--primary-orange);
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.navAvatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: white;
+  height: 60px;
+  font-size: 12px;
+  padding: 0.6rem;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 0.6rem;
+
 }

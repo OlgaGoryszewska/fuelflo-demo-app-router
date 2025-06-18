@@ -1,12 +1,9 @@
-
-import AddNewProjectButton from "@/components/AddNewProjectButton";
+import AddNewProjectButton from '@/components/AddNewProjectButton';
 
 export default function Home() {
-  return ( 
+  return (
     <div>
-       <AddNewProjectButton/>
+      <AddNewProjectButton />
     </div>
-    
-
   );
 }
