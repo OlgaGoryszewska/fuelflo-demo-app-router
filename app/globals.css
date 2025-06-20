@@ -2,7 +2,20 @@
 
 :root {
   --primary-orange: #f25822;
+  --primary-orange-light: #FEBD20;
   --primary-black: #181413;
+  --primary-gray-light: #E4E4E4;
+}
+h1{
+  font-size: 20px;
+  color: var(--primary-black);
+  padding-right: 1rem;
+  padding-left: 1rem;
+
+}
+h2{
+  font-size: 16px;
+  color: var(--primary-black);
 }
 
 body {
@@ -12,6 +25,44 @@ body {
   background: linear-gradient(to bottom, #e8ecee, #d2d2d2);
   color: var(--primary-black);
   min-height: 100vh;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 350px;
+  margin: 1rem auto; ;
+  margin-top: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+  border:1.5px solid var(--primary-orange-light);
+}
+label {
+  font-size: 14px;
+  color: var(--primary-black);
+  margin-bottom: 0.4rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+input {
+  padding: 0.6rem;
+  border: 1.5px solid var(--primary-orange-light);
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+}
+button {
+  padding: 0.6rem;
+  background-color: var(--primary-orange);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 1rem;
 }
 .logo {
   width: 30px;
@@ -44,5 +95,17 @@ body {
   height: 40px;
   border-radius: 50%;
   margin-left: 0.6rem;
-
+}
+.icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 1rem;
+  color: var(--primary-orange-light);
+}
+.form-header{
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px dashed var(--primary-gray-light);
 }

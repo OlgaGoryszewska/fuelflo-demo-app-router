@@ -1,6 +1,7 @@
 import './globals.css';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { Poppins } from 'next/font/google';
+import Head from 'next/head';
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -12,6 +13,12 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+          rel="stylesheet"
+        />
+        </Head>
         <nav className="nav">
           <img src="/logo.png" alt="Logo" className="logo" />
           <HiOutlineMenuAlt3 className="hamburger" />
