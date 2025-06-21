@@ -1,21 +1,26 @@
 @import 'tailwindcss';
 
+
+
 :root {
   --primary-orange: #f25822;
-  --primary-orange-light: #FEBD20;
-  --primary-black: #181413;
-  --primary-gray-light: #E4E4E4;
+  --primary-orange-light: #febd20;
+  --primary-black: #3a3331;
+  --primary-gray-light: #e4e4e4;
+
+  --font-roboto-flex: 'Roboto', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
 }
-h1{
+h1 {
   font-size: 20px;
   color: var(--primary-black);
   padding-right: 1rem;
   padding-left: 1rem;
-
 }
-h2{
+h2 {
   font-size: 16px;
   color: var(--primary-black);
+  padding-left: 1rem;
 }
 
 body {
@@ -32,16 +37,16 @@ form {
   justify-content: center;
   width: 100%;
   max-width: 350px;
-  margin: 1rem auto; ;
+  margin: 1rem auto;
   margin-top: 1rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 1rem;
-  border:1.5px solid var(--primary-orange-light);
+  border: 1.5px solid var(--primary-orange-light);
 }
 label {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--primary-black);
   margin-bottom: 0.4rem;
   padding-right: 1rem;
@@ -56,13 +61,15 @@ input {
 }
 button {
   padding: 0.6rem;
-  background-color: var(--primary-orange);
-  color: white;
+  background-color: var(--primary-orange-light);
+  color: var(--primary-black);
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   margin: 1rem;
+  font-family: var(--font-roboto-flex);
+ 
 }
 .logo {
   width: 30px;
@@ -102,7 +109,7 @@ button {
   margin-left: 1rem;
   color: var(--primary-orange-light);
 }
-.form-header{
+.form-header {
   display: flex;
   flex-direction: row;
   padding-top: 0.6rem;
