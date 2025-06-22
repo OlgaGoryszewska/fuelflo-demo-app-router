@@ -1,4 +1,5 @@
 import { MdAdd } from 'react-icons/md';
+import ProgresionBar from '@/components/ProgresionBar';
 
 export default function Projects() {
   return (
@@ -7,18 +8,7 @@ export default function Projects() {
         <MdAdd className="icon" />
         <h1>Add new Project</h1>
       </div>
-      <div className="flex justify-center items-center mx-4">
-        <div className="progresion-number">1</div>
-        <div className="line"></div>
-        <div className="progresion-number">2</div>
-        <div className="line"></div>
-        <div className="progresion-number">3</div>
-        <div className="line "></div>
-        <div className="progresion-number">4</div>
-        <div className="line"></div>
-        <div className="progresion-number">5</div>
-      </div>
-
+      <ProgresionBar />
       <h2>Project Specification</h2>
       <label>
         Name of the Project:

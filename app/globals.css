@@ -120,23 +120,20 @@ button {
   flex-direction: row;
   justify-content: space-between;
 }
-
 .progresion-number {
+  border: 1.5px solid var(--primary-orange-light);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
-  border-color: var(--primary-orange-light);
-  border-style: solid;
-  border-width: 1.5px;
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: 50%;
-  color: var(--primary-gray-light);
+  font-size: 16px;
 }
-.line{
-  width: 100%;
+.line {
+  width: 30px;
   height: 1.5px;
   background-color: var(--primary-gray-light);
+  margin: 0.6rem;
 }
