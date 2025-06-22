@@ -1,5 +1,10 @@
 import { MdAdd } from 'react-icons/md';
 import ProgresionBar from '@/components/ProgresionBar';
+//import StepThree from '@/components/add_new_project/StepThree';
+//import StepOne from '@/components/add_new_project/StepOne';
+//import StepTwo from '@/components/add_new_project/StepTwo';
+//import StepFour from '@/components/add_new_project/StepFour';
+import StepFive from '@/components/add_new_project/StepFive';
 
 export default function Projects() {
   return (
@@ -9,23 +14,11 @@ export default function Projects() {
         <h1>Add new Project</h1>
       </div>
       <ProgresionBar />
-      <h2>Project Specification</h2>
-      <label>
-        Name of the Project:
-        <input name="name" type="text" required className="border" />
-      </label>
-      <label>
-        Name of the Project:
-        <input name="location" type="text" required className="border" />
-      </label>
-      <label>
-        Release Date:
-        <input type="date" name="releaseDate" required className="border" />
-      </label>
-      <label>
-        End Date:
-        <input type="date" name="endDate" required className="border" />
-      </label>
+      {/* <StepOne/> */}
+      {/* <StepTwo/> */}
+      {/* <StepThree/> */}
+      {/* <StepFour/> */}
+      <StepFive />
       <div className="form-footer">
         <button>Previous</button>
         <button>Next</button>

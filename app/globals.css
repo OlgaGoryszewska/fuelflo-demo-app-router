@@ -18,7 +18,7 @@ h1 {
 h2 {
   font-size: 16px;
   color: var(--primary-black);
-  padding-left: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 body {
@@ -47,8 +47,6 @@ label {
   font-size: 12px;
   color: var(--primary-black);
   margin-bottom: 0.4rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
 }
 input {
   padding: 0.6rem;
@@ -130,6 +128,7 @@ button {
   justify-content: center;
   align-items: center;
   font-size: 16px;
+  color: var(--primary-gray-light);
 }
 .line {
   width: 30px;
