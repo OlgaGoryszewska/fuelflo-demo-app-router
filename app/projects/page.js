@@ -1,45 +1,42 @@
+'use client';
+
 import { MdAdd } from 'react-icons/md';
+import { useState } from 'react';
+
+import ProgresionBar from '@/components/ProgresionBar';
+import StepNavigation from '@/components/StepNavigation';
+import StepThree from '@/components/add_new_project/StepThree';
+import StepOne from '@/components/add_new_project/StepOne';
+import StepTwo from '@/components/add_new_project/StepTwo';
+import StepFour from '@/components/add_new_project/StepFour';
+import StepFive from '@/components/add_new_project/StepFive';
+
 
 export default function Projects() {
+
+  const [ currentStep, setCurrentStep ] = useState(0);
+
+  const steps = [
+    <StepOne key="step-1" />,
+    <StepTwo key="step-2" />,
+    <StepThree key="step-3" />,
+    <StepFour key="step-4" />,
+    <StepFive key="step-5" />,
+  ];
+
   return (
     <form>
       <div className="form-header">
         <MdAdd className="icon" />
         <h1>Add new Project</h1>
       </div>
-      <div className="flex justify-center items-center mx-4">
-        <div className="progresion-number">1</div>
-        <div className="line"></div>
-        <div className="progresion-number">2</div>
-        <div className="line"></div>
-        <div className="progresion-number">3</div>
-        <div className="line "></div>
-        <div className="progresion-number">4</div>
-        <div className="line"></div>
-        <div className="progresion-number">5</div>
-      </div>
-
-      <h2>Project Specification</h2>
-      <label>
-        Name of the Project:
-        <input name="name" type="text" required className="border" />
-      </label>
-      <label>
-        Name of the Project:
-        <input name="location" type="text" required className="border" />
-      </label>
-      <label>
-        Release Date:
-        <input type="date" name="releaseDate" required className="border" />
-      </label>
-      <label>
-        End Date:
-        <input type="date" name="endDate" required className="border" />
-      </label>
-      <div className="form-footer">
-        <button>Previous</button>
-        <button>Next</button>
-      </div>
+      <ProgresionBar />
+      {steps[currentStep]}
+      <StepNavigation
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        totalSteps={steps.length}
+      />
     </form>
   );
 }
