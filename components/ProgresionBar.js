@@ -1,17 +1,26 @@
 import React from 'react';
 
-export default function ProgresionBar() {
+const steps = [1, 2, 3, 4, 5];
+
+export default function ProgresionBar({currentStep}) {
   return (
     <div className="flex w-auto justify-center items-center mx-4">
-      <div className="progresion-number">1</div>
-      <div className="line"></div>
-      <div className="progresion-number">2</div>
-      <div className="line"></div>
-      <div className="progresion-number">3</div>
-      <div className="line "></div>
-      <div className="progresion-number">4</div>
-      <div className="line"></div>
-      <div className="progresion-number">5</div>
-    </div>
+  {steps.map((step, index) => (
+    <React.Fragment key={step}>
+      <div
+        className={`progresion-number ${
+          currentStep === index ? 'active-progresion-number' : ''
+        }`}
+      >
+        {step}
+      </div>
+      {index !== steps.length - 1 && <div className="line"></div>}
+    </React.Fragment>
+  ))}
+</div>
+
+    
+
+   
   );
 }

@@ -123,12 +123,15 @@ button {
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--primary-gray-light);
+  color: var(--primary-gray-light)
+}
+.active-progresion-number {
+  background-color: var(--primary-orange-light);
+  color: var(--primary-black);
 }
 .line {
   width: 30px;
