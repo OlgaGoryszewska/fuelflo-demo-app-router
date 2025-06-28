@@ -55,6 +55,7 @@ input {
   font-size: 16px;
   width: 100%;
 }
+
 button {
   padding: 0.6rem;
   background-color: var(--primary-orange-light);
@@ -67,6 +68,19 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+
+.form-button {
+  display: flex;
+  padding: 0.6rem;
+  border: 1.5px solid var(--primary-orange-light);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  margin: 0.6rem;
+
+
+}
+
 .logo {
   width: 30px;
   height: auto;
@@ -99,11 +113,17 @@ button {
   border-radius: 50%;
   margin-left: 0.6rem;
 }
+.button-icon,
 .icon {
   width: 25px;
   height: 25px;
   margin-left: 1rem;
   color: var(--primary-orange-light);
+}
+button-icon {
+  margin-right: 1rem;
+
+
 }
 .form-header {
   display: flex;
