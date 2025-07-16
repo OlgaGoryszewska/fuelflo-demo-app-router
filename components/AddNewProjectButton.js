@@ -1,13 +1,13 @@
 import Link from 'next/link';
+import { MdAdd } from 'react-icons/md';
 
 export default function AddNewProjectButton() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Link
-        href="/projects/"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Create New Project
+    <div>
+      <Link href="/projects/" className="form-button">
+        {' '}
+        <MdAdd className="button-icon" />
+        Add New Project
       </Link>
     </div>
   );

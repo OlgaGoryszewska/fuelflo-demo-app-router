@@ -10,6 +10,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/supabase-js": "^2.50.2",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-currency-input-field": "^3.10.0",

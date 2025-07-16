@@ -12,10 +12,8 @@ import StepTwo from '@/components/add_new_project/StepTwo';
 import StepFour from '@/components/add_new_project/StepFour';
 import StepFive from '@/components/add_new_project/StepFive';
 
-
 export default function Projects() {
-
-  const [ currentStep, setCurrentStep ] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     <StepOne key="step-1" />,
@@ -31,7 +29,7 @@ export default function Projects() {
         <MdAdd className="icon" />
         <h1>Add new Project</h1>
       </div>
-      <ProgresionBar currentStep={currentStep}/>
+      <ProgresionBar currentStep={currentStep} />
       {steps[currentStep]}
       <StepNavigation
         currentStep={currentStep}

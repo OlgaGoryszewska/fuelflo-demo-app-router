@@ -55,6 +55,7 @@ input {
   font-size: 16px;
   width: 100%;
 }
+
 button {
   padding: 0.6rem;
   background-color: var(--primary-orange-light);
@@ -67,12 +68,57 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+li {
+  list-style: none;
+  padding-top: 0.6rem;
+}
+li a {
+  text-decoration: none;
+  color: var(--primary-black);
+  font-size: 16px;
+  padding: 0.6rem;
+
+}
+
+li a:hover {
+  color: var(--primary-orange-light);
+  transition: color 0.3s ease;
+
+}
+
+.form-button {
+  display: flex;
+  padding: 0.6rem;
+  border: 1.5px solid var(--primary-orange-light);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  margin: 0.6rem;
+}
+
 .logo {
   width: 30px;
   height: auto;
   margin: 0.6rem;
 }
 
+.menu-items.closed {
+  display: none;
+
+}
+
+.menu-items.open {
+  display: block;
+  z-index: 1000;
+  position: absolute;
+  background-color: white;
+  width: 50%;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  right: 0;
+  border-radius: 8px;
+
+}
 .hamburger {
   width: 30px;
   height: 41px;
@@ -83,6 +129,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 }
 .navAvatar {
   display: flex;
@@ -99,11 +146,15 @@ button {
   border-radius: 50%;
   margin-left: 0.6rem;
 }
+.button-icon,
 .icon {
   width: 25px;
   height: 25px;
   margin-left: 1rem;
   color: var(--primary-orange-light);
+}
+button-icon {
+  margin-left: 0.6rem;
 }
 .form-header {
   display: flex;
@@ -127,11 +178,12 @@ button {
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--primary-gray-light)
+  color: var(--primary-gray-light);
 }
 .active-progresion-number {
   background-color: var(--primary-orange-light);
   color: var(--primary-black);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .line {
   width: 30px;
