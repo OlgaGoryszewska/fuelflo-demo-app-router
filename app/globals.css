@@ -72,6 +72,19 @@ li {
   list-style: none;
   padding-top: 0.6rem;
 }
+li a {
+  text-decoration: none;
+  color: var(--primary-black);
+  font-size: 16px;
+  padding: 0.6rem;
+
+}
+
+li a:hover {
+  color: var(--primary-orange-light);
+  transition: color 0.3s ease;
+
+}
 
 .form-button {
   display: flex;
@@ -170,6 +183,7 @@ button-icon {
 .active-progresion-number {
   background-color: var(--primary-orange-light);
   color: var(--primary-black);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .line {
   width: 30px;
