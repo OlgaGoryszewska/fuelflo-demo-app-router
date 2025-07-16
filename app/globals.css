@@ -68,6 +68,10 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+li {
+  list-style: none;
+  padding-top: 0.6rem;
+}
 
 .form-button {
   display: flex;
@@ -87,10 +91,20 @@ button {
 
 .menu-items.closed {
   display: none;
+
 }
 
 .menu-items.open {
   display: block;
+  z-index: 1000;
+  position: absolute;
+  background-color: white;
+  width: 50%;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  right: 0;
+  border-radius: 8px;
+
 }
 .hamburger {
   width: 30px;
@@ -102,6 +116,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 }
 .navAvatar {
   display: flex;
