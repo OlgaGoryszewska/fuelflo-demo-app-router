@@ -1,7 +1,5 @@
-import AuthForm from "../auth/AuthForm";
+import AuthForm from '../auth/AuthForm';
 
 export default function SignInPage() {
-  return (
-   <AuthForm />
-  );
+  return <AuthForm />;
 }

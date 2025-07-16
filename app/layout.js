@@ -3,6 +3,7 @@ import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { Poppins } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
 import Head from 'next/head';
+import Menu from '@/components/Menu';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -26,10 +27,7 @@ export default function DashboardLayout({ children }) {
             rel="stylesheet"
           />
         </Head>
-        <nav className="nav">
-          <img src="/logo.png" alt="Logo" className="logo" />
-          <HiOutlineMenuAlt3 className="hamburger" />
-        </nav>
+      <Menu />
         <div className="navAvatar">
           <div>
             <h3>Name</h3>

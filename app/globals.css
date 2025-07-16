@@ -77,8 +77,6 @@ button {
   font-size: 16px;
   background-color: white;
   margin: 0.6rem;
-
-
 }
 
 .logo {
@@ -87,6 +85,13 @@ button {
   margin: 0.6rem;
 }
 
+.menu-items.closed {
+  display: none;
+}
+
+.menu-items.open {
+  display: block;
+}
 .hamburger {
   width: 30px;
   height: 41px;
@@ -121,9 +126,7 @@ button {
   color: var(--primary-orange-light);
 }
 button-icon {
-  margin-right: 1rem;
-
-
+  margin-left: 0.6rem;
 }
 .form-header {
   display: flex;
@@ -147,7 +150,7 @@ button-icon {
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--primary-gray-light)
+  color: var(--primary-gray-light);
 }
 .active-progresion-number {
   background-color: var(--primary-orange-light);
