@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/lib/supabaseClient'; // Adjust the import path as necessary
+import { supabase } from '@/lib/SupabaseClient'; // Adjust the import path as necessary
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
