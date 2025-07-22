@@ -21,6 +21,9 @@ export default function Menu() {
         <li>
           <Link href="/projects">Projects</Link>
         </li>
+        <li>
+          <Link href="/signIn">Signin</Link>
+        </li>
       </ul>
     </div>
   );
