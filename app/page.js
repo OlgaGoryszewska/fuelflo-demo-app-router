@@ -1,5 +1,9 @@
-import AddNewProjectButton from '@/components/AddNewProjectButton';
+import AuthForm from '../components/AuthForm';
 
 export default function Home() {
-  return <AddNewProjectButton />;
+  return (
+    <div>
+      <AuthForm />
+    </div>
+  );
 }
