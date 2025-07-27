@@ -83,6 +83,11 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+.button-big{
+  width: 100%;
+  margin: 0rem;
+  margin-top: 1rem;
+}
 li {
   list-style: none;
   padding-top: 0.6rem;

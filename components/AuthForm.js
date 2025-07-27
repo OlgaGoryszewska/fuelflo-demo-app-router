@@ -43,7 +43,7 @@ export default function AuthForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button onClick={handleSignIn}>Sign In</button>
+      <button className='button-big' onClick={handleSignIn}>Sign In</button>
     </div>
   );
 }
