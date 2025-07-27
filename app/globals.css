@@ -29,7 +29,8 @@ body {
   color: var(--primary-black);
   min-height: 100vh;
 }
-form {
+form,
+.background-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,6 +44,11 @@ form {
   gap: 1rem;
   border: 1.5px solid var(--primary-orange-light);
 }
+.background-container {
+  padding: 1rem;
+}
+
+h3,
 label {
   font-size: 12px;
   color: var(--primary-black);
@@ -77,13 +83,11 @@ li a {
   color: var(--primary-black);
   font-size: 16px;
   padding: 0.6rem;
-
 }
 
 li a:hover {
   color: var(--primary-orange-light);
   transition: color 0.3s ease;
-
 }
 
 .form-button {
@@ -104,7 +108,6 @@ li a:hover {
 
 .menu-items.closed {
   display: none;
-
 }
 
 .menu-items.open {
@@ -117,7 +120,6 @@ li a:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   right: 0;
   border-radius: 8px;
-
 }
 .hamburger {
   width: 30px;
@@ -183,7 +185,9 @@ button-icon {
 .active-progresion-number {
   background-color: var(--primary-orange-light);
   color: var(--primary-black);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 .line {
   width: 30px;

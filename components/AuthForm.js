@@ -18,17 +18,29 @@ export default function AuthForm() {
 
   return (
     <div>
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <h1>Welcome to Fuelflo,</h1>
+      <h3>
+        Log in to access your dashboard and manage your fuel operations with
+        confidence. We are here to support your success—every step of the way.
+      </h3>
+      <label>
+        Email:
+        <input
+          className="mb-4"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
       <button onClick={handleSignIn}>Sign In</button>
     </div>
   );
