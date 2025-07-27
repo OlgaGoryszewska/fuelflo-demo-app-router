@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { supabase } from '../lib/SupabaseClient';
+import Image from 'next/image';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,14 @@ export default function AuthForm() {
 
   return (
     <div>
-      <h1>Welcome to Fuelflo,</h1>
+      <Image
+        src="/images/welcome.png"
+        alt="Fuelflo Logo"
+        width={150}
+        height={150}
+
+      />
+      <h1>Welcome to Fuelflo</h1>
       <h3>
         Log in to access your dashboard and manage your fuel operations with
         confidence. We are here to support your success—every step of the way.
