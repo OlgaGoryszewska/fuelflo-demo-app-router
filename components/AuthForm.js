@@ -19,18 +19,12 @@ export default function AuthForm() {
 
   return (
     <div>
-      <Image
-        src="/images/welcome.png"
-        alt="Fuelflo Logo"
-        width={150}
-        height={150}
-
-      />
+      <img src="/welcome.png" alt="welcome img" className='pb-4'/>
       <h1>Welcome to Fuelflo</h1>
-      <h3>
+      <p className='body-text'>
         Log in to access your dashboard and manage your fuel operations with
         confidence. We are here to support your success—every step of the way.
-      </h3>
+      </p>
       <label>
         Email:
         <input
