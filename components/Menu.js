@@ -19,7 +19,7 @@ export default function Menu() {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/projects">Projects</Link>
+          <Link href="/add-new-project">Projects</Link>
         </li>
         <li>
           <Link href="/signIn">Signin</Link>
