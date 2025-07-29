@@ -1,16 +1,12 @@
-
 import Link from 'next/link';
-import { MdAdd } from 'react-icons/md';
 
 export default function Dashboard() {
   return (
     <div>
-      
       <div>
         <Link href="/projects/" className="form-button">
-          {' '}
-          <MdAdd className="button-icon" />
-         Projects
+          <span className="material-symbols-outlined">tactic</span>
+          Projects
         </Link>
       </div>
     </div>

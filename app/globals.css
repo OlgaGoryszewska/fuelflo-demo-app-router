@@ -172,6 +172,19 @@ li a:hover {
 button-icon {
   margin-left: 0.6rem;
 }
+
+.material-symbols-outlined {
+  font-size: 24px;
+  vertical-align: middle;
+  color: var(--primary-orange-light);
+  margin-right: 8px;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
 .form-header {
   display: flex;
   flex-direction: row;

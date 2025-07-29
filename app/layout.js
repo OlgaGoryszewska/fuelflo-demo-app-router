@@ -1,8 +1,6 @@
 import './globals.css';
-import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { Poppins } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
-import Head from 'next/head';
 import Menu from '@/components/Menu';
 
 const poppins = Poppins({
@@ -17,16 +15,20 @@ const roboto = Roboto_Flex({
   variable: '--font-roboto-flex',
 });
 
-export default function DashboardLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
-        <Head>
+        <head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+            rel="stylesheet"
+          />
           <link
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
             rel="stylesheet"
           />
-        </Head>
+        </head>
         <Menu />
 
         <main>{children}</main>
