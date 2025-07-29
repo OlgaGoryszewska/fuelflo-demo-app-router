@@ -71,7 +71,7 @@ input {
 }
 
 button {
-  padding: 0.6rem;
+  padding: 0.8rem;
   background-color: var(--primary-orange-light);
   color: var(--primary-black);
   border: none;
@@ -105,10 +105,10 @@ li a:hover {
 
 .form-button {
   display: flex;
-  padding: 0.6rem;
+  padding: 0.8rem;
   border: 1.5px solid var(--primary-orange-light);
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 17px;
   background-color: white;
   margin: 0.6rem;
 }
