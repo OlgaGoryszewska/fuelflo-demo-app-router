@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { supabase } from '../lib/SupabaseClient';
-import Image from 'next/image';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -19,9 +18,9 @@ export default function AuthForm() {
 
   return (
     <div>
-      <img src="/welcome.png" alt="welcome img" className='pb-4'/>
+      <img src="/welcome.png" alt="welcome img" className="pb-4" />
       <h1>Welcome to Fuelflo</h1>
-      <p className='body-text'>
+      <p className="body-text">
         Log in to access your dashboard and manage your fuel operations with
         confidence. We are here to support your success—every step of the way.
       </p>
@@ -43,7 +42,9 @@ export default function AuthForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button className='button-big' onClick={handleSignIn}>Sign In</button>
+      <button className="button-big" onClick={handleSignIn}>
+        Sign In
+      </button>
     </div>
   );
 }

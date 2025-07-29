@@ -5,7 +5,7 @@
   --primary-orange-light: #febd20;
   --primary-black: #3a3331;
   --primary-gray-light: #e4e4e4;
-  --primary-mid-gray: #6D6D6D;
+  --primary-mid-gray: #6d6d6d;
 
   --font-roboto-flex: 'Roboto', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
@@ -14,7 +14,6 @@ h1 {
   font-size: 20px;
   color: var(--primary-black);
   padding-right: 1rem;
-
 }
 h2 {
   font-size: 16px;
@@ -55,7 +54,7 @@ label {
   color: var(--primary-black);
   margin-bottom: 0.4rem;
 }
-.body-text{
+.body-text {
   font-size: 12px;
   color: var(--primary-mid-gray);
   margin-bottom: 0.4rem;
@@ -83,7 +82,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
-.button-big{
+.button-big {
   width: 100%;
   margin: 0rem;
   margin-top: 1rem;

@@ -27,8 +27,8 @@ export default function DashboardLayout({ children }) {
             rel="stylesheet"
           />
         </Head>
-      <Menu />
-        
+        <Menu />
+
         <main>{children}</main>
       </body>
     </html>

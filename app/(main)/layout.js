@@ -3,7 +3,6 @@ import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { Poppins } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
 
-
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -20,7 +19,6 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
-       
         <div className="navAvatar">
           <div>
             <h3>Name</h3>

@@ -19,10 +19,13 @@ export default function Menu() {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/add-new-project">Projects</Link>
+          <Link href="/dashboard">Dashboard</Link>
         </li>
         <li>
-          <Link href="/signIn">Signin</Link>
+          <Link href="/add-new-project">Add new Project</Link>
+        </li>
+        <li>
+          <Link href="/signIn">Sign in</Link>
         </li>
       </ul>
     </div>
