@@ -24,6 +24,8 @@ export default function Projects() {
   ];
 
   return (
+    <div>
+      <img src="/baner.png" alt="main page baner" className="pb-4" />
     <form>
       <div className="form-header">
         <MdAdd className="icon" />
@@ -37,5 +39,7 @@ export default function Projects() {
         totalSteps={steps.length}
       />
     </form>
+    </div>
+    
   );
 }
