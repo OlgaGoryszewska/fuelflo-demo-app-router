@@ -3,9 +3,8 @@ import Link from 'next/link';
 export default function Dashboard() {
   return (
     <div>
-
       <div>
-      <img src="/baner.png" alt="main page baner" className="pb-4" />
+        <img src="/baner.png" alt="main page baner" className="pb-4" />
         <Link href="/projects/" className="form-button">
           <span className="material-symbols-outlined">tactic</span>
           Projects
@@ -15,20 +14,19 @@ export default function Dashboard() {
           Technicians
         </Link>
         <Link href="/projects/" className="form-button">
-        <span class="material-symbols-outlined">group</span>
+          <span class="material-symbols-outlined">group</span>
           Customers
         </Link>
         <Link href="/projects/" className="form-button">
-        <span class="material-symbols-outlined">battery_charging_80</span>
+          <span class="material-symbols-outlined">battery_charging_80</span>
           Generators
         </Link>
         <Link href="/projects/" className="form-button">
-        <span class="material-symbols-outlined">add</span>
-          
+          <span class="material-symbols-outlined">add</span>
           Register a new User
         </Link>
         <Link href="/projects/" className="form-button">
-        <span class="material-symbols-outlined">analytics</span>
+          <span class="material-symbols-outlined">analytics</span>
           Reports
         </Link>
       </div>
