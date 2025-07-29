@@ -5,12 +5,14 @@ export default function Projects() {
     <div>
       <img src="/baner.png" alt="main page baner" className="pb-4" />
       <div className="background-container">
-        <div className='flex flex-row items-center border-b-2 border-dashed border-b-gray-300 pb-2'>
-        <span className="material-symbols-outlined">tactic</span>
-        <h1>Projects</h1>
+        <div className="dashed-line">
+          <span className="material-symbols-outlined">tactic</span>
+          <h1>Projects</h1>
         </div>
-          
-          
+        <Link href="/add-new-project" className="form-button">
+          <span class="material-symbols-outlined">add</span>
+          Add new Project
+        </Link>
       </div>
     </div>
   );

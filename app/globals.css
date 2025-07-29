@@ -216,6 +216,13 @@ button-icon {
     background-color 0.3s ease,
     color 0.3s ease;
 }
+.dashed-line {
+  border-bottom: var(--primary-gray-light) 1px dashed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 0.6rem;
+}
 .line {
   width: 30px;
   height: 1.5px;
