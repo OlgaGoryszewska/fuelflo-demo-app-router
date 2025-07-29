@@ -13,6 +13,10 @@ export default function Projects() {
           <span class="material-symbols-outlined">add</span>
           Add new Project
         </Link>
+        <Link href="/add-new-project" className="form-button">
+          <span class="material-symbols-outlined">add</span>
+          Add new Project
+        </Link>
       </div>
     </div>
   );

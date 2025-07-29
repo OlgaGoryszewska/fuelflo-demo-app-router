@@ -22,7 +22,7 @@ export default function Menu() {
           <Link href="/dashboard">Dashboard</Link>
         </li>
         <li>
-          <Link href="/add-new-project">Add new Project</Link>
+          <Link href="/projects">Projects</Link>
         </li>
         <li>
           <Link href="/signIn">Sign in</Link>
