@@ -25,7 +25,6 @@ export default function Projects() {
 
   return (
     <div>
-      <img src="/baner.png" alt="main page baner" className="pb-4" />
       <div className="main-container">
         <form>
           <div className="form-header">

@@ -4,7 +4,6 @@ export default function Dashboard() {
   return (
     <div>
       <div>
-        <img src="/baner.png" alt="main page baner" className="pb-4" />
         <Link href="/projects/" className="form-button">
           <span className="material-symbols-outlined">tactic</span>
           Projects
