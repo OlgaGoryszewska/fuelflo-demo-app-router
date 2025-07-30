@@ -93,6 +93,7 @@ button {
 li {
   border-bottom: 1px solid var(--primary-gray-light);
   padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
 }
 li a {
   text-decoration: none;
@@ -104,6 +105,11 @@ li a {
 li a:hover {
   color: var(--primary-orange-light);
   transition: color 0.3s ease;
+}
+
+.last-li{
+  border-bottom: none;
+
 }
 
 

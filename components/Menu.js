@@ -2,7 +2,7 @@
 import Link from 'next/link';
 
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function Menu() {
         <li>
           <Link href="/projects">Projects</Link>
         </li>
-        <li>
+        <li className='last-li'>
           <Link href="/signIn">Sign in</Link>
         </li>
       </ul>
