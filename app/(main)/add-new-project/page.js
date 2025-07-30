@@ -26,19 +26,21 @@ export default function Projects() {
   return (
     <div>
       <img src="/baner.png" alt="main page baner" className="pb-4" />
-      <form>
-        <div className="form-header">
-          <MdAdd className="icon" />
-          <h1>Add new Project</h1>
-        </div>
-        <ProgresionBar currentStep={currentStep} />
-        {steps[currentStep]}
-        <StepNavigation
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-          totalSteps={steps.length}
-        />
-      </form>
+      <div className="main-container">
+        <form>
+          <div className="form-header">
+            <MdAdd className="icon" />
+            <h1>Add new Project</h1>
+          </div>
+          <ProgresionBar currentStep={currentStep} />
+          {steps[currentStep]}
+          <StepNavigation
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            totalSteps={steps.length}
+          />
+        </form>
+      </div>
     </div>
   );
 }
