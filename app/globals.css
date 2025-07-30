@@ -98,12 +98,15 @@ li a {
   text-decoration: none;
   color: var(--primary-black);
   font-size: 18px;
+  padding-left: 0.6rem;
 }
 
 li a:hover {
   color: var(--primary-orange-light);
   transition: color 0.3s ease;
 }
+
+
 
 .form-button {
   display: flex;
@@ -132,7 +135,8 @@ li a:hover {
   position: absolute;
   background-color: white;
   width: 80%;
-  padding: 0.6rem;
+  padding-left: 0;
+  padding-right: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   right: 0;
   border-radius: 8px;
