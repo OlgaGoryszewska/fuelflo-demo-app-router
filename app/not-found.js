@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function NotFound() {
   return (
     <div className="background-container">
@@ -5,9 +7,9 @@ export default function NotFound() {
       <p className="not-found-message">
         The page you are looking for does not exist.
       </p>
-      <a href="/" className="not-found-link">
+      <Link href="/" className="not-found-link">
         Go back to Home
-      </a>
+      </Link>
     </div>
   );
 }
