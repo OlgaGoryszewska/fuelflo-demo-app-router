@@ -9,13 +9,17 @@ export default function Projects() {
             <span className="material-symbols-outlined">tactic</span>
             <h1>Projects</h1>
           </div>
-          <Link href="/add-new-project" className="form-button">
+          <Link href="/add-new-project" className="card-button">
             <span class="material-symbols-outlined">add</span>
             Add new Project
           </Link>
-          <Link href="/add-new-project" className="form-button">
-            <span class="material-symbols-outlined">add</span>
-            Add new Project
+          <Link href="/" className="card-button">
+            <span class="material-symbols-outlined">workspaces</span>
+            Ongoing Projects
+          </Link>
+          <Link href="/" className="card-button">
+            <span class="material-symbols-outlined">archive</span>
+            Archive
           </Link>
         </div>
       </div>

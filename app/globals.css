@@ -48,7 +48,7 @@ form,
   border: 1.5px solid var(--primary-orange-light);
 }
 .background-container {
-  padding: 1rem;
+  padding: 0.6rem;
 }
 
 h3,
@@ -85,6 +85,20 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+.card-button,
+.form-button {
+  display: flex;
+  padding: 0.8rem;
+  border: 1.5px solid var(--primary-orange-light);
+  border-radius: 8px;
+  font-size: 17px;
+  background-color: white;
+  margin: 0.6rem;
+}
+.card-button {
+  margin: 0;
+}
+
 .button-big {
   width: 100%;
   margin: 0rem;
@@ -107,21 +121,8 @@ li a:hover {
   transition: color 0.3s ease;
 }
 
-.last-li{
+.last-li {
   border-bottom: none;
-
-}
-
-
-
-.form-button {
-  display: flex;
-  padding: 0.8rem;
-  border: 1.5px solid var(--primary-orange-light);
-  border-radius: 8px;
-  font-size: 17px;
-  background-color: white;
-  margin: 0.6rem;
 }
 
 .logo {
@@ -136,7 +137,7 @@ li a:hover {
 
 .menu-items.open {
   display: block;
-  border-bottom: 1px solid var(--primary-gray-light) ;
+  border-bottom: 1px solid var(--primary-gray-light);
   z-index: 1000;
   position: absolute;
   background-color: white;

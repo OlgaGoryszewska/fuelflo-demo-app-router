@@ -6,9 +6,8 @@ export default function SignInPage() {
   return (
     <div className="main-container">
       <div className="background-container">
-      <AuthForm />
+        <AuthForm />
+      </div>
     </div>
-    </div>
-    
   );
 }
