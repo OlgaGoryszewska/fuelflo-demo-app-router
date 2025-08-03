@@ -1,5 +1,6 @@
 'use client';
 //make a CSS style than create a submit function that will log the formData to the console
+// : '',  contractor_adress: '',email: '',mobile:''
 
 export default function StepFive({ formData }) {
   return (
@@ -28,6 +29,12 @@ export default function StepFive({ formData }) {
           <h2 className="">End Date: </h2>
         </div>
         <p className="pl-8 pb-2">{formData.endDate}</p>
+        <h2> Contact to Contractor</h2>
+        <div className=" flex flex-row">
+          <span class="material-symbols-outlined">contacts_product</span>
+          <h2 className="">Name of the Contractor: </h2>
+        </div>
+        <p className="pl-8 pb-2">{formData.contractor_name}</p>
     </div>
   );
 }

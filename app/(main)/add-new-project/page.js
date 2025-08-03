@@ -19,6 +19,10 @@ export default function AddProjectPage() {
     location: '',
     releaseDate: '',
     endDate: '',
+    contractor_name: '',  
+    contractor_adress: '',
+    email: '',
+    mobile:''
   });
 
   const steps = [
