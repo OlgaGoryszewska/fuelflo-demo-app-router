@@ -3,28 +3,38 @@ export default function StepNavigation({
   setCurrentStep,
   totalSteps,
 }) {
+  const isLastStep = currentStep === totalSteps - 1;
+  const isFirstStep = currentStep === 0;
+
   const goNext = () => {
-    if (currentStep < totalSteps - 1) {
+    if (!isLastStep) {
       setCurrentStep(currentStep + 1);
     }
   };
+
   const goPrevious = () => {
-    if (currentStep > 0) {
+    if (!isFirstStep) {
       setCurrentStep(currentStep - 1);
     }
   };
+
   return (
     <div className="form-footer">
-      <button type="button" onClick={goPrevious} disabled={currentStep === 0}>
+      {/* Previous Button */}
+      <button type="button" onClick={goPrevious} disabled={isFirstStep}>
         Previous
       </button>
-      <button
-        type="button"
-        onClick={goNext}
-        disabled={currentStep === totalSteps - 1}
-      >
-        Next
-      </button>
+
+      {/* Submit on last step, Next on others */}
+      {!isLastStep ? (
+        <button type="button" onClick={goNext}>
+          Next
+        </button>
+      ) : (
+        <button type="submit">
+          ✅ Submit
+        </button>
+      )}
     </div>
   );
 }

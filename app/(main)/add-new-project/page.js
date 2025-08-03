@@ -32,7 +32,7 @@ export default function AddProjectPage() {
   return (
     <div>
       <div className="main-container">
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-header">
             <MdAdd className="icon" />
             <h1>Add new Project</h1>
