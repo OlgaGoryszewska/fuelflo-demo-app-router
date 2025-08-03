@@ -31,9 +31,7 @@ export default function StepNavigation({
           Next
         </button>
       ) : (
-        <button type="submit">
-          ✅ Submit
-        </button>
+        <button type="submit">Submit</button>
       )}
     </div>
   );
