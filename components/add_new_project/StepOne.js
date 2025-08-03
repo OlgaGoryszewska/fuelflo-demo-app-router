@@ -1,22 +1,53 @@
-export default function StepOne() {
+export default function StepOne({ formData, setFormData }) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   return (
     <div className="m-4">
       <h2>Project Specification</h2>
       <label>
         Name of the Project:
-        <input name="name" type="text" required />
+        <input
+          name="name"
+          type="text"
+          required
+          value={formData.name}
+          onChange={handleChange}
+        />
       </label>
       <label>
         Localisation of the Project:
-        <input name="location" type="text" required />
+        <input
+          name="location"
+          type="text"
+          required
+          value={formData.location}
+          onChange={handleChange}
+        />
       </label>
       <label>
         Release Date:
-        <input type="date" name="releaseDate" required />
+        <input
+          type="date"
+          name="releaseDate"
+          required
+          value={formData.releaseDate}
+          onChange={handleChange}
+        />
       </label>
       <label>
         End Date:
-        <input type="date" name="endDate" required />
+        <input
+          type="date"
+          name="endDate"
+          required
+          value={formData.endDate}
+          onChange={handleChange}
+        />
       </label>
     </div>
   );

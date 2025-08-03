@@ -12,15 +12,21 @@ import StepTwo from '@/components/add_new_project/StepTwo';
 import StepFour from '@/components/add_new_project/StepFour';
 import StepFive from '@/components/add_new_project/StepFive';
 
-export default function Projects() {
+export default function AddProjectPage() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    location: '',
+    releaseDate: '',
+    endDate: '',
+  });
 
   const steps = [
-    <StepOne key="step-1" />,
-    <StepTwo key="step-2" />,
-    <StepThree key="step-3" />,
-    <StepFour key="step-4" />,
-    <StepFive key="step-5" />,
+    <StepOne key="step-1" formData={formData} setFormData={setFormData} />,
+    <StepTwo key="step-2" formData={formData} setFormData={setFormData} />,
+    <StepThree key="step-3" formData={formData} setFormData={setFormData} />,
+    <StepFour key="step-4" formData={formData} setFormData={setFormData} />,
+    <StepFive key="step-5" formData={formData} setFormData={setFormData} />,
   ];
 
   return (
