@@ -9,7 +9,7 @@ export default function StepFive({ formData }) {
 
       <h3
       
-        className="form-header  bg-gray-50">
+        className="form-header-gray">
         Project Specification
       </h3
       >
@@ -39,7 +39,7 @@ export default function StepFive({ formData }) {
         >
       </div>
       <p className="pl-8 pb-2">{formData.endDate}</p>
-      <h3 className="form-header bg-gray-50">
+      <h3 className="form-header-gray">
       Contact to Contractor</h3
       >
       <div className=" flex flex-row">
