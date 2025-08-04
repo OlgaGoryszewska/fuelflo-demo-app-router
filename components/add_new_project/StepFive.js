@@ -14,41 +14,63 @@ export default function StepFive({ formData }) {
       </h3
       >
       <div className=" flex flex-row">
-        <span class="material-symbols-outlined">brick</span>
-        <h3 className="">Name of the Project: </h3>
+        <span class="material-symbols-outlined ">brick</span>
+        <h3 className="">Name of the Project </h3>
       </div>
-      <p className="pl-8 pb-2 text-orange-200">{formData.name}</p>
+      <p className="form-data-to-read-only">{formData.name}</p>
       <div className=" flex flex-row">
         <span class="material-symbols-outlined">location_on</span>
         <h3
-         className="">Localisation of the Project: </h3
+         className="">Localisation of the Project </h3
         >
       </div>
-      <p className="pl-8 pb-2">{formData.location}</p>
+      <p className="form-data-to-read-only">{formData.location}</p>
       <div className=" flex flex-row">
         <span class="material-symbols-outlined">today</span>
         <h3
-         className="">Relase Date: </h3
+         className="">Relase Date </h3
         >
       </div>
-      <p className="pl-8 pb-2">{formData.releaseDate}</p>
+      <p className="form-data-to-read-only">{formData.releaseDate}</p>
       <div className=" flex flex-row">
         <span class="material-symbols-outlined">today</span>
         <h3
-         className="">End Date: </h3
+         className="">End Date </h3
         >
       </div>
-      <p className="pl-8 pb-2">{formData.endDate}</p>
+      <p className="form-data-to-read-only">{formData.endDate}</p>
       <h3 className="form-header-gray">
       Contact to Contractor</h3
       >
       <div className=" flex flex-row">
         <span class="material-symbols-outlined">contacts_product</span>
         <h3
-         className="">Name of the Contractor: </h3
+         className="">Name of the Contractor</h3
         >
       </div>
-      <p className="pl-8 pb-2">{formData.contractor_name}</p>
+      <p className="form-data-to-read-only">{formData.contractor_name}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">location_on</span>
+        <h3
+         className=""> Adress of the Contractor</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.contractor_name}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">mail</span>
+        <h3
+         className="">Email</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.email}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">mobile</span>
+        <h3
+         className="">Mobile </h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.mobile}</p>
     </div>
+    
   );
 }

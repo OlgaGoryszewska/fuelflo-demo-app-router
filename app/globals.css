@@ -201,6 +201,15 @@ button-icon {
     'GRAD' 0,
     'opsz' 24;
 }
+.form-data-to-read-only{
+  border-bottom: 1px dashed var(--primary-gray-light);
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-mid-gray);
+  font-weight: 300;
+  
+
+}
 
 .form-header,
 .form-header-gray  {
@@ -213,6 +222,7 @@ button-icon {
 .form-header-gray {
   font-weight: 500;
   background-color: #F4F4F4;
+  margin-bottom: 1rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
   border-bottom: 0px;
