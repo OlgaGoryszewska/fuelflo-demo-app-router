@@ -1,7 +1,6 @@
-
 // add function and event listener also forma Data properties onChange like in step one
 
-export default function StepTwo({formData, setFormData}) {
+export default function StepTwo({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -14,8 +13,13 @@ export default function StepTwo({formData, setFormData}) {
       <h2>Contact to Contractor</h2>
       <label>
         Name of the Contractor:
-        <input name="contractor_name" type="text"  value={formData.contractor_name}
-          onChange={handleChange} required />
+        <input
+          name="contractor_name"
+          type="text"
+          value={formData.contractor_name}
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Adress of the Contractor:
