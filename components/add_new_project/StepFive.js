@@ -81,15 +81,61 @@ export default function StepFive({ formData }) {
         <h3 className="">Add Technician </h3>
       </div>
       <p className="form-data-to-read-only">{formData.technician}</p>
-      <div className=" flex flex-row">
+      <h3
+      
+      className="form-header-gray">
+      Add Fleet
+    </h3
+    ><div className=" flex flex-row">
         <span class="material-symbols-outlined">battery_charging_50</span>
         <h3
          className="">Add Generator</h3
         >
       </div>
-      <p className="form-data-to-read-only">{formData.generator}</p>
+      <p className="form-data-to-read-only">{formData.tank}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">oil_barrel</span>
+        <h3
+         className="">Add Fuel Tank</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.tank}</p>
+      <h3
+        className="form-header-gray">
+        Fuel Pricing Details
+      </h3>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">attach_money</span>
+        <h3 className="">Purchase Price </h3>
+      </div>
+      <p className="form-data-to-read-only">{formData.amount}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">attach_money</span>
+        <h3 className="">Selling Price </h3>
+      </div>
+      <p className="form-data-to-read-only">{formData.seling_price}</p>
+      <h3
+      
+      className="form-header-gray">
+      Notes
+    </h3
+    ><div className=" flex flex-row">
+        <span class="material-symbols-outlined">sticky_note_2</span>
+        <h3
+         className="">Specification of the project</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.specification}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">note_stack_add</span>
+        <h3
+         className="">Additional Note</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.additional}</p>
+      
+      
+      
     </div>
-    
-    
   );
 }

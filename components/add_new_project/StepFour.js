@@ -47,7 +47,7 @@ export default function StepFour({formData, setFormData}) {
       </label>
       <label>
         Additional Note:
-        <input name="additional" type="text" value={formData.additioonal}
+        <input name="additional" type="text" value={formData.additional}
           onChange={handleChange} required />
       </label>
     </div>

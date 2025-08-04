@@ -221,10 +221,11 @@ button-icon {
 }
 .form-header-gray {
   font-weight: 500;
-  background-color: #F4F4F4;
+  background-color: #F5F0E8;
   margin-bottom: 1rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
+  margin-left: 0rem;
   border-bottom: 0px;
 }
 
