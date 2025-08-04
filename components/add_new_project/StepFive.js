@@ -70,7 +70,26 @@ export default function StepFive({ formData }) {
         >
       </div>
       <p className="form-data-to-read-only">{formData.mobile}</p>
+      <h3
+      
+        className="form-header-gray">
+        Setup
+      </h3
+      >
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined ">person_apron</span>
+        <h3 className="">Add Technician </h3>
+      </div>
+      <p className="form-data-to-read-only">{formData.technician}</p>
+      <div className=" flex flex-row">
+        <span class="material-symbols-outlined">battery_charging_50</span>
+        <h3
+         className="">Add Generator</h3
+        >
+      </div>
+      <p className="form-data-to-read-only">{formData.generator}</p>
     </div>
+    
     
   );
 }
