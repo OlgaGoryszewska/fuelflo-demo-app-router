@@ -211,6 +211,7 @@ button-icon {
   border-bottom: 1px dashed var(--primary-gray-light);
 }
 .form-header-gray {
+  font-weight: 500;
   background-color: #F4F4F4;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
