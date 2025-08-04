@@ -5,9 +5,10 @@
 export default function StepFive({ formData }) {
   return (
     <div className="ml-4">
-      <h2 className="">Review Before Submitting</h2>
+      <h3 className="text-primary-gray-light">Review Before Submitting</h3>
 
-      <h2> Project Specification</h2>
+      <h2 className="form-header
+       "> Project Specification</h2>
         <div className=" flex flex-row">
           <span class="material-symbols-outlined">brick</span>
           <h2 className="">Name of the Project: </h2>

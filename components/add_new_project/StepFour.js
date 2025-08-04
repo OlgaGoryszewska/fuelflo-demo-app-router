@@ -29,7 +29,7 @@ export default function StepFour() {
           className="border rounded p-2 w-full"
         />
       </label>
-      <h2>Notes</h2>
+      <h2 className='pt-4'>Notes</h2>
       <label>
         Specification of the project:
         <input name="specification" type="text" required />
