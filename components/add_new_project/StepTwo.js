@@ -23,15 +23,32 @@ export default function StepTwo({ formData, setFormData }) {
       </label>
       <label>
         Adress of the Contractor:
-        <input name="contractor_adress" type="text" required />
+        <input
+          name="contractor_adress"
+          type="text"
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Email:
-        <input name="email" type="email" required />
+        <input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Mobile Number:
-        <input name="mobile" type="text" required />
+        <input
+          name="mobile"
+          type="text"
+          value={formData.mobile}
+          onChange={handleChange}
+          required
+        />
       </label>
     </div>
   );

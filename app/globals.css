@@ -201,18 +201,16 @@ button-icon {
     'GRAD' 0,
     'opsz' 24;
 }
-.form-data-to-read-only{
+.form-data-to-read-only {
   border-bottom: 1px dashed var(--primary-gray-light);
   margin-left: 2rem;
   margin-bottom: 1rem;
   color: var(--primary-mid-gray);
   font-weight: 300;
-  
-
 }
 
 .form-header,
-.form-header-gray  {
+.form-header-gray {
   display: flex;
   flex-direction: row;
   padding-top: 0.6rem;
@@ -221,7 +219,7 @@ button-icon {
 }
 .form-header-gray {
   font-weight: 500;
-  background-color: #F5F0E8;
+  background-color: #f5f0e8;
   margin-bottom: 1rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;

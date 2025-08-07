@@ -23,6 +23,13 @@ export default function AddProjectPage() {
     contractor_adress: '',
     email: '',
     mobile: '',
+    technician: '',
+    generator: '',
+    tank: '',
+    amount: '',
+    selling_price: '',
+    specification: '',
+    additional: '',
   });
 
   const steps = [
