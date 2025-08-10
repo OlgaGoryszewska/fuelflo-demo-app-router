@@ -24,7 +24,7 @@ export default function StepTwo({ formData, setFormData }) {
       <label>
         Adress of the Contractor:
         <input
-          name="contractor_adress"
+          name="contractor_address"
           type="text"
           onChange={handleChange}
           required

@@ -2,6 +2,7 @@
 
 import { MdAdd } from 'react-icons/md';
 import { useState } from 'react';
+import { supabase } from '@/lib/SupabaseClient';
 
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
@@ -20,7 +21,7 @@ export default function AddProjectPage() {
     releaseDate: '',
     endDate: '',
     contractor_name: '',
-    contractor_adress: '',
+    contractor_address: '',
     email: '',
     mobile: '',
     technician: '',
@@ -30,7 +31,41 @@ export default function AddProjectPage() {
     selling_price: '',
     specification: '',
     additional: '',
-  });
+  })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const { error } = await supabase
+        .from('projects') // your table name
+        .insert([formData])
+
+      if (error) throw error
+
+      alert('Project added successfully!')
+      // optionally reset form
+      setFormData({
+        name: '',
+        location: '',
+        releaseDate: '',
+        endDate: '',
+        contractor_name: '',
+        contractor_address: '',
+        email: '',
+        mobile: '',
+        technician: '',
+        generator: '',
+        tank: '',
+        amount: '',
+        selling_price: '',
+        specification: '',
+        additional: '',
+      })
+      setCurrentStep(0)
+    } catch (err) {
+      console.error('Error inserting project:', err.message)
+      alert('Failed to add project')
+    }
+  }
 
   const steps = [
     <StepOne key="step-1" formData={formData} setFormData={setFormData} />,
@@ -43,7 +78,7 @@ export default function AddProjectPage() {
   return (
     <div>
       <div className="main-container">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleSubmit}>
           <div className="form-header">
             <MdAdd className="icon" />
             <h1>Add new Project</h1>
