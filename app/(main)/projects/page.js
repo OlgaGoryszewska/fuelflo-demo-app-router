@@ -13,7 +13,7 @@ export default function Projects() {
             <span class="material-symbols-outlined">add</span>
             Add new Project
           </Link>
-          <Link href="/" className="card-button">
+          <Link href="/ongoing-projects-page" className="card-button">
             <span class="material-symbols-outlined">workspaces</span>
             Ongoing Projects
           </Link>

@@ -31,17 +31,17 @@ export default function AddProjectPage() {
     selling_price: '',
     specification: '',
     additional: '',
-  })
+  });
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const { error } = await supabase
         .from('projects') // your table name
-        .insert([formData])
+        .insert([formData]);
 
-      if (error) throw error
+      if (error) throw error;
 
-      alert('Project added successfully!')
+      alert('Project added successfully!');
       // optionally reset form
       setFormData({
         name: '',
@@ -59,13 +59,13 @@ export default function AddProjectPage() {
         selling_price: '',
         specification: '',
         additional: '',
-      })
-      setCurrentStep(0)
+      });
+      setCurrentStep(0);
     } catch (err) {
-      console.error('Error inserting project:', err.message)
-      alert('Failed to add project')
+      console.error('Error inserting project:', err.message);
+      alert('Failed to add project');
     }
-  }
+  };
 
   const steps = [
     <StepOne key="step-1" formData={formData} setFormData={setFormData} />,
