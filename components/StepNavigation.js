@@ -8,7 +8,9 @@ export default function StepNavigation({
 
   const goNext = () => {
     if (!isLastStep) {
-      setCurrentStep(currentStep + 1);
+      setTimeout(() =>
+        setCurrentStep(currentStep + 1),0);
+
     }
   };
 

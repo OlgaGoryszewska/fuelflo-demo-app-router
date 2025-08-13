@@ -23,7 +23,6 @@ export default function DashboardLayout({ children }) {
         <div className="navAvatar">
           <div>
             <h3>Name</h3>
-            <h3>ID: 7767867</h3>
           </div>
           <img src="/avatar.png" alt="Avatar" className="avatar" />
         </div>
