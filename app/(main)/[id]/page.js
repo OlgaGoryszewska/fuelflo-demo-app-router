@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/SupabaseClient';
 
 export default async function ProjectPage({ params }) {
   const { id } = params;
