@@ -2,7 +2,7 @@
 
 import { MdAdd } from 'react-icons/md';
 import { useState } from 'react';
-import { supabase } from '@/lib/SupabaseClient';
+import { supabase } from '@/lib/supabaseClient';
 
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
