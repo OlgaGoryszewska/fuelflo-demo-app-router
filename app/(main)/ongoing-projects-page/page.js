@@ -14,8 +14,7 @@ export default function OngoingProjectsPage() {
       setError(null);
       const { data, error } = await supabase
         .from('projects')
-        .select('id, name') // if you don't have is_active yet, use 'id, name'
-
+        .select('id, name'); // if you don't have is_active yet, use 'id, name'
 
       if (error) setError(error.message);
       setProjects(data || []);
@@ -30,12 +29,16 @@ export default function OngoingProjectsPage() {
         <div className="dashed-line">
           <span className="material-symbols-outlined">workspaces</span>
           <h1>Ongoing Projects</h1>
-          
         </div>
-          <ul className='flex flex-col gap-4'>{projects.map((p) => <li className="card-button" key={p.id}> <span className="material-symbols-outlined">workspaces</span><Link href={`/projects/${p.id}`}>{p.name}</Link></li>)}</ul>
-
-        
-
+        <ul className="flex flex-col gap-4">
+          {projects.map((p) => (
+            <li className="card-button" key={p.id}>
+              {' '}
+              <span className="material-symbols-outlined">workspaces</span>
+              <Link href={`/projects/${p.id}`}>{p.name}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import { supabase } from '@/lib/supabaseClient';
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
 
-
 import StepOne from '@/components/add_new_project/StepOne';
 import StepTwo from '@/components/add_new_project/StepTwo';
 import StepThree from '@/components/add_new_project/StepThree';
@@ -17,7 +16,7 @@ import StepFive from '@/components/add_new_project/StepFive';
 
 export default function AddProjectPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const[ submitting, setSubmitting ] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
