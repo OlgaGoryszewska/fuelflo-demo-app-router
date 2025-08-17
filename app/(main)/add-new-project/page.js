@@ -2,19 +2,23 @@
 
 import { MdAdd } from 'react-icons/md';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
 
-import StepThree from '@/components/add_new_project/StepThree';
+
 import StepOne from '@/components/add_new_project/StepOne';
 import StepTwo from '@/components/add_new_project/StepTwo';
+import StepThree from '@/components/add_new_project/StepThree';
 import StepFour from '@/components/add_new_project/StepFour';
 import StepFive from '@/components/add_new_project/StepFive';
 
 export default function AddProjectPage() {
   const [currentStep, setCurrentStep] = useState(0);
+  const[ submitting, setSubmitting ] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     location: '',
@@ -34,12 +38,15 @@ export default function AddProjectPage() {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       const { error } = await supabase
         .from('projects') // your table name
         .insert([formData]);
 
       if (error) throw error;
+      router.push('/projects'); // redirect to projects page
+      setSubmitting(false);
 
       alert('Project added successfully!');
       // optionally reset form
@@ -89,6 +96,7 @@ export default function AddProjectPage() {
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalSteps={steps.length}
+            submitting={submitting}
           />
         </form>
       </div>

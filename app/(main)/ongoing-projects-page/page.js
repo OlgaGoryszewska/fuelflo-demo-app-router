@@ -1,19 +1,41 @@
-import Link from 'next/link';
+'use client';
 
-export default function ongoingProjects() {
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { supabase } from '@/lib/supabaseClient';
+
+export default function OngoingProjectsPage() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      setError(null);
+      const { data, error } = await supabase
+        .from('projects')
+        .select('id, name') // if you don't have is_active yet, use 'id, name'
+
+
+      if (error) setError(error.message);
+      setProjects(data || []);
+      setLoading(false);
+    }
+    load();
+  }, []);
+
   return (
-    <div>
-      <div className="main-container">
-        <div className="background-container">
-          <div className="dashed-line">
-            <span className="material-symbols-outlined">workspaces</span>
-            <h1>Ongoing Porjects</h1>
-          </div>
-          <Link href="/ongoing-projects-page" className="card-button">
-            <span class="material-symbols-outlined">workspaces</span>
-            Ongoing Projects
-          </Link>
+    <div className="main-container">
+      <div className="background-container">
+        <div className="dashed-line">
+          <span className="material-symbols-outlined">workspaces</span>
+          <h1>Ongoing Projects</h1>
+          
         </div>
+          <ul className='flex flex-col gap-4'>{projects.map((p) => <li className="card-button" key={p.id}> <span className="material-symbols-outlined">workspaces</span><Link href={`/projects/${p.id}`}>{p.name}</Link></li>)}</ul>
+
+        
+
       </div>
     </div>
   );
