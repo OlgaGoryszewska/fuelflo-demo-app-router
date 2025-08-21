@@ -35,7 +35,7 @@ export default function OngoingProjectsPage() {
             <li className="card-button" key={p.id}>
               {' '}
               <span className="material-symbols-outlined">workspaces</span>
-              <Link href={`/projects/${p.id}`}>{p.name}</Link>
+              <Link href={`/ongoing-projects-page/${p.id}`}>{p.name}</Link>
             </li>
           ))}
         </ul>

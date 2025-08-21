@@ -18,17 +18,11 @@ export default function StepTwo({ formData, setFormData }) {
           type="text"
           value={formData.contractor_name}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
         Adress of the Contractor:
-        <input
-          name="contractor_address"
-          type="text"
-          onChange={handleChange}
-          required
-        />
+        <input name="contractor_address" type="text" onChange={handleChange} />
       </label>
       <label>
         Email:
@@ -37,7 +31,6 @@ export default function StepTwo({ formData, setFormData }) {
           type="email"
           value={formData.email}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
@@ -47,7 +40,6 @@ export default function StepTwo({ formData, setFormData }) {
           type="text"
           value={formData.mobile}
           onChange={handleChange}
-          required
         />
       </label>
     </div>

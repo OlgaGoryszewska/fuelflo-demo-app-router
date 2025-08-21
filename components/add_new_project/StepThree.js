@@ -16,7 +16,6 @@ export default function StepThree({ formData, setFormData }) {
           type="text"
           value={formData.technician}
           onChange={handleChange}
-          required
         />
       </label>
       <h2 className="mt-4">Add Fleet</h2>
@@ -27,7 +26,6 @@ export default function StepThree({ formData, setFormData }) {
           type="text"
           value={formData.generator}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
@@ -37,7 +35,6 @@ export default function StepThree({ formData, setFormData }) {
           type="text"
           value={formData.tank}
           onChange={handleChange}
-          required
         />
       </label>
     </div>

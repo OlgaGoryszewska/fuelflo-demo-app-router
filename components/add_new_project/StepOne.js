@@ -14,7 +14,6 @@ export default function StepOne({ formData, setFormData }) {
         <input
           name="name"
           type="text"
-          required
           value={formData.name}
           onChange={handleChange}
         />
@@ -24,7 +23,6 @@ export default function StepOne({ formData, setFormData }) {
         <input
           name="location"
           type="text"
-          required
           value={formData.location}
           onChange={handleChange}
         />
@@ -34,7 +32,6 @@ export default function StepOne({ formData, setFormData }) {
         <input
           type="date"
           name="releaseDate"
-          required
           value={formData.releaseDate}
           onChange={handleChange}
         />
@@ -44,7 +41,6 @@ export default function StepOne({ formData, setFormData }) {
         <input
           type="date"
           name="endDate"
-          required
           value={formData.endDate}
           onChange={handleChange}
         />

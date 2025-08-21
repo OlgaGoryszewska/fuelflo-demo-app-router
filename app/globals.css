@@ -55,12 +55,11 @@ form,
   flex-direction: column;
   justify-content: center;
   max-width: 600px;
-
   width: 100%;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  gap: 1rem;
+  gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
 }
 .background-container {
@@ -186,7 +185,7 @@ li a:hover {
   margin-right: 1rem;
   color: var(--primary-orange-light);
 }
-button-icon {
+.button-icon {
   margin-left: 0.6rem;
 }
 
@@ -201,12 +200,17 @@ button-icon {
     'GRAD' 0,
     'opsz' 24;
 }
+.form-data-to-read,
 .form-data-to-read-only {
   border-bottom: 1px dashed var(--primary-gray-light);
   margin-left: 2rem;
   margin-bottom: 1rem;
   color: var(--primary-mid-gray);
   font-weight: 300;
+}
+.form-data-to-read{
+  margin-bottom: 0rem;
+  padding-top: 0rem;
 }
 
 .form-header,
