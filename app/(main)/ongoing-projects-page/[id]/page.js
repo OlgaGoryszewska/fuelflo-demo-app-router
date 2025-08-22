@@ -130,18 +130,18 @@ export default function ProjectDetailPage() {
         <p className="form-data-to-read">{project.mobile ?? '—'}</p>
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">person_apron</span>
-          <p>Add technician:</p>
+          <p>Asaigned Technicians to the project:</p>
         </div>
         <p className="form-data-to-read">{project.technician ?? '—'}</p>
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">battery_charging_50</span>
-          <p>Add Generator:</p>
+          <p>Generator:</p>
         </div>
         <p className="form-data-to-read">{project.generator ?? '—'}</p>
 
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">oil_barrel</span>
-          <p>Add Fuel Tank:</p>
+          <p>Fuel Tank:</p>
         </div>
         <p className="form-data-to-read">{project.tank ?? '—'}</p>
 
@@ -157,6 +157,11 @@ export default function ProjectDetailPage() {
         </div>
         <p className="form-data-to-read">{project.selling_price ?? '—'}</p>
 
+        <div className="dashed-card flex flex-col items-center">
+          <h2>FUEL DELIVERY</h2>
+            <button>Add Delivery</button>
+     
+        </div>
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">sticky_note_2</span>
           <p>Specification of the project:</p>
@@ -168,9 +173,6 @@ export default function ProjectDetailPage() {
           <p>Additional Note:</p>
         </div>
         <p className="form-data-to-read">{project.additional ?? '—'}</p>
-        <div className="dashed-card">
-            <h2>FUEL DELIVERY</h2>
-        </div>
       </div>
     </div>
   );

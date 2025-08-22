@@ -108,7 +108,6 @@ button {
 }
 .dashed-card {
   border: 1.5px dashed var(--primary-orange-light);
-  
 }
 li {
   border-bottom: 1px solid var(--primary-gray-light);
