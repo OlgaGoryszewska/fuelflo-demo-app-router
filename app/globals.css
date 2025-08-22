@@ -86,6 +86,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
+.dashed-card,
 .card-button,
 .form-button {
   display: flex;
@@ -99,11 +100,15 @@ button {
 .card-button {
   margin: 0;
 }
-
+.dashed-card,
 .button-big {
   width: 100%;
   margin: 0rem;
   margin-top: 1rem;
+}
+.dashed-card {
+  border: 1.5px dashed var(--primary-orange-light);
+  
 }
 li {
   border-bottom: 1px solid var(--primary-gray-light);
@@ -208,7 +213,7 @@ li a:hover {
   color: var(--primary-mid-gray);
   font-weight: 300;
 }
-.form-data-to-read{
+.form-data-to-read {
   margin-bottom: 0rem;
   padding-top: 0rem;
 }

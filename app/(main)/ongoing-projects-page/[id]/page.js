@@ -163,18 +163,14 @@ export default function ProjectDetailPage() {
         </div>
         <p className="form-data-to-read">{project.specification ?? '—'}</p>
 
-        
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">note_stack_add</span>
           <p>Additional Note:</p>
         </div>
         <p className="form-data-to-read">{project.additional ?? '—'}</p>
-    
-
-
-
-        
-
+        <div className="dashed-card">
+            <h2>FUEL DELIVERY</h2>
+        </div>
       </div>
     </div>
   );
