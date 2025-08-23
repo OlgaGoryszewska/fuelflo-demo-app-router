@@ -98,12 +98,12 @@ button {
   background-color: white;
   margin: 0.6rem;
 }
-.card-end-button{
+.card-end-button {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  background-color: #F2F4F8;
-  
+  background-color: var(--primary-orange-light);
+  border-radius: 8px;
 }
 .card-button {
   margin: 0;
@@ -113,8 +113,7 @@ button {
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
-  background-color: #F2F4F8;
-
+  background-color: #f2f4f8;
 }
 .dashed-card {
   border: 1.5px dashed var(--primary-orange-light);
@@ -128,7 +127,6 @@ button {
   padding: 0.6rem;
   color: var(--primary-mid-gray);
   background-color: white;
-  border-bottom: 1px dashed var(--primary-beige-light);
 }
 li {
   border-bottom: 1px solid var(--primary-gray-light);
