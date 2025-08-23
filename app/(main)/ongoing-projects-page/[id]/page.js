@@ -158,7 +158,7 @@ export default function ProjectDetailPage() {
         <p className="form-data-to-read">{project.selling_price ?? '—'}</p>
 
         <div className="dashed-card flex flex-col items-center">
-          <h2>FUEL DELIVERY</h2>
+          <h1>FUEL DELIVERY</h1>
             <button>Add Delivery</button>
      
         </div>
