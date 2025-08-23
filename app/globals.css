@@ -98,6 +98,13 @@ button {
   background-color: white;
   margin: 0.6rem;
 }
+.card-end-button{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: #F2F4F8;
+  
+}
 .card-button {
   margin: 0;
 }
@@ -105,18 +112,22 @@ button {
 .button-big {
   width: 100%;
   margin: 0rem;
-  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+  background-color: #F2F4F8;
+
 }
 .dashed-card {
   border: 1.5px dashed var(--primary-orange-light);
   border-radius: 8px;
 }
-.file-row{
+.file-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   padding: 0.6rem;
+  color: var(--primary-mid-gray);
+  background-color: white;
   border-bottom: 1px dashed var(--primary-beige-light);
 }
 li {

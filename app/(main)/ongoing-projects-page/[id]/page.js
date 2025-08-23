@@ -156,9 +156,9 @@ export default function ProjectDetailPage() {
           <p>Selling Price:</p>
         </div>
         <p className="form-data-to-read">{project.selling_price ?? '—'}</p>
+        <h1 className="pt-1 pl-2  ">FUEL DELIVERY</h1>
 
         <div className="dashed-card flex flex-col ">
-          <h1 className="py-2 pl-2  ">FUEL DELIVERY</h1>
           <div className="background-header p-0">
             <p>Date</p>
             <p>Volume</p>
@@ -170,16 +170,14 @@ export default function ProjectDetailPage() {
             <span className="material-symbols-outlined">folder</span>
           </div>
           <div className="file-row">
-            <p >09.09/25</p>
+            <p>09.09/25</p>
             <p>5000L</p>
             <span className="material-symbols-outlined">folder</span>
           </div>
-            <div className="file-row align-middle">
+          <div className="card-end-button">
             <span className="material-symbols-outlined p-2">add</span>
-            <p className='m-2 text-l font-medium' >Add Delivery</p>
-            </div>
-
-         
+            <p className="m-2 text-l font-medium">Add Delivery</p>
+          </div>
         </div>
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">sticky_note_2</span>
