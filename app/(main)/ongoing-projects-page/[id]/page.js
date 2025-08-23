@@ -176,7 +176,7 @@ export default function ProjectDetailPage() {
           </div>
             <div className="file-row align-middle">
             <span className="material-symbols-outlined p-2">add</span>
-            <p className='m-2' >Add Delivery</p>
+            <p className='m-2 text-l font-medium' >Add Delivery</p>
             </div>
 
          
