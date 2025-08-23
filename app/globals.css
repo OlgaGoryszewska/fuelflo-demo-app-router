@@ -5,6 +5,7 @@
   --primary-orange-light: #febd20;
   --primary-black: #3a3331;
   --primary-gray-light: #e4e4e4;
+  --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #6d6d6d;
 
   --font-roboto-flex: 'Roboto', sans-serif;
@@ -86,7 +87,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
-.dashed-card,
+
 .card-button,
 .form-button {
   display: flex;
@@ -108,6 +109,15 @@ button {
 }
 .dashed-card {
   border: 1.5px dashed var(--primary-orange-light);
+  border-radius: 8px;
+}
+.file-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem;
+  border-bottom: 1px dashed var(--primary-beige-light);
 }
 li {
   border-bottom: 1px solid var(--primary-gray-light);
@@ -227,7 +237,7 @@ li a:hover {
 }
 .form-header-gray {
   font-weight: 500;
-  background-color: #f5f0e8;
+  background-color: var(--primary-beige-light);
   margin-bottom: 1rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
@@ -270,4 +280,12 @@ li a:hover {
   height: 1.5px;
   background-color: var(--primary-gray-light);
   margin: 0.6rem;
+}
+.background-header {
+  border-bottom: 1px dashed var(--primary-beige-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem;
 }
