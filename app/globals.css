@@ -227,6 +227,15 @@ li a:hover {
     'GRAD' 0,
     'opsz' 24;
 }
+.material-symbols-outlined.big {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+  font-size: 34px;
+  margin-left: 0.6rem;
+}
 .form-data-to-read,
 .form-data-to-read-only {
   border-bottom: 1px dashed var(--primary-gray-light);
@@ -243,6 +252,8 @@ li a:hover {
 .form-header,
 .form-header-gray {
   display: flex;
+  align-content: center;
+  
   flex-direction: row;
   padding-top: 0.6rem;
   padding-bottom: 0.4rem;

@@ -95,13 +95,12 @@ export default function ProjectDetailPage() {
         </div>
         <p className="form-data-to-read">{project.location ?? '—'}</p>
         <div className="flex items-center align-center mb-2">
-            <span className="material-symbols-outlined">
-              delivery_truck_speed
-            </span>
-            <p>Fuel Delivery</p>
-          </div>
+          <span className="material-symbols-outlined">
+            delivery_truck_speed
+          </span>
+          <p>Fuel Delivery</p>
+        </div>
         <div className="flex flex-col items-center align-center">
-          
           <div className="dashed-card flex flex-col ">
             <div className="background-header p-0">
               <p>Date</p>
@@ -119,7 +118,9 @@ export default function ProjectDetailPage() {
               <span className="material-symbols-outlined">folder</span>
             </div>
           </div>
-          <Link href="/add-fuel-delivery"><button>Add Delivery</button></Link>
+          <Link href="/add-fuel-delivery">
+            <button>Add Delivery</button>
+          </Link>
         </div>
 
         <div className="flex items-center align-center">

@@ -1,6 +1,6 @@
 'use client';
 
-import { MdAdd } from 'react-icons/md';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
@@ -86,7 +86,7 @@ export default function AddProjectPage() {
       <div className="main-container">
         <form onSubmit={handleSubmit}>
           <div className="form-header">
-            <MdAdd className="icon" />
+          <span class="material-symbols-outlined big ">add</span>
             <h1>Add new Project</h1>
           </div>
           <ProgresionBar currentStep={currentStep} />
