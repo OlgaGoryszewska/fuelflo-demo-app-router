@@ -20,14 +20,11 @@ export default function ProjectDetailPage() {
       setError(null);
       setLoading(true);
 
-      // NOTE: adjust these column names to match your schema.
-      // If your DB uses snake_case: use release_date/end_date.
-      // If you created camelCase columns with quotes, use: '"endDate"'
       const columns = [
         'id',
         'name',
         'location',
-        'endDate', // or 'end_date'  OR  '"endDate"'
+        'endDate',
         'contractor_name',
         'contractor_address',
         'email',
@@ -97,8 +94,14 @@ export default function ProjectDetailPage() {
           <p>Localisation of the project:</p>
         </div>
         <p className="form-data-to-read">{project.location ?? '—'}</p>
-        <div className='flex flex-col items-center align-center'>
-          <h1 className="pt-1 pl-2">FUEL DELIVERY</h1>
+        <div className="flex items-center align-center mb-2">
+            <span className="material-symbols-outlined">
+              delivery_truck_speed
+            </span>
+            <p>Fuel Delivery</p>
+          </div>
+        <div className="flex flex-col items-center align-center">
+          
           <div className="dashed-card flex flex-col ">
             <div className="background-header p-0">
               <p>Date</p>
@@ -116,10 +119,8 @@ export default function ProjectDetailPage() {
               <span className="material-symbols-outlined">folder</span>
             </div>
           </div>
-          <button >Add Delivery
-        </button>
+          <button>Add Delivery</button>
         </div>
-
 
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">today</span>
