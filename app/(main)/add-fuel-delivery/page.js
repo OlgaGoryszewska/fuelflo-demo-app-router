@@ -5,11 +5,15 @@ import StepNavigation from "@/components/StepNavigation";
 import { useState } from "react";
 
 import StepOneDelivery from "/components/add-fuel-delivery-components/StepOneDelivery";
+import ModalFuelDelivery from "@/components/add-fuel-delivery-components/ModalFuelDelivery";
+
+
 export default function AddFuelDeliveryPage() {
     const [ currentStep, setCurrentStep ] = useState(0);
 
     const steps = [
     <StepOneDelivery key="step-1"  />,
+    <ModalFuelDelivery key="step-2" />,
     ];
   return (
     <div className="main-container">
