@@ -17,8 +17,9 @@ h1 {
   padding-right: 1rem;
 }
 h2 {
-  font-size: 20px;
-  color: var(--primary-black);
+  font-size: 24px;
+  font-family: var(--font-roboto-flex);
+  
   margin-bottom: 0.6rem;
 }
 h3,
