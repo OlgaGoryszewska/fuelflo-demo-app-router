@@ -119,7 +119,7 @@ export default function ProjectDetailPage() {
               <span className="material-symbols-outlined">folder</span>
             </div>
           </div>
-          <button>Add Delivery</button>
+          <Link href="/add-fuel-delivery"><button>Add Delivery</button></Link>
         </div>
 
         <div className="flex items-center align-center">

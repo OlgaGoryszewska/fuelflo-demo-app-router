@@ -23,6 +23,10 @@ export default function Menu() {
     };
   }, []);
 
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="menu" ref={menuRef}>
       <nav className="nav">
@@ -31,16 +35,19 @@ export default function Menu() {
       </nav>
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
         <li>
-          <Link href="/">Home</Link>
+          <Link onClick={handleLinkClick} href="/">Home</Link>
         </li>
         <li>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link onClick={handleLinkClick} href="/dashboard">Dashboard</Link>
         </li>
         <li>
-          <Link href="/projects">Projects</Link>
+          <Link onClick={handleLinkClick} href="/projects">Projects</Link>
+        </li>
+        <li >
+          <Link onClick={handleLinkClick} href="/add-fuel-delivery">ADD FUEL DELIVERY</Link>
         </li>
         <li className="last-li">
-          <Link href="/signIn">Sign in</Link>
+          <Link onClick={handleLinkClick} href="/signIn">Sign in</Link>
         </li>
       </ul>
     </div>
