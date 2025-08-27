@@ -1,5 +1,3 @@
-'use client'
-
 
 export default function StepOneDelivery({ formData, setFormData }) {
     const handleChange = (e) => {
