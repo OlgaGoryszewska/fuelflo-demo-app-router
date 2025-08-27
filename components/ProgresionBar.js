@@ -4,7 +4,7 @@ const steps = [1, 2, 3, 4, 5];
 
 export default function ProgresionBar({ currentStep }) {
   return (
-    <div className="flex w-auto justify-center items-center mx-4">
+    <div className="flex w-auto justify-center items-center mx-4 my-4">
       {steps.map((step, index) => (
         <React.Fragment key={step}>
           <div
