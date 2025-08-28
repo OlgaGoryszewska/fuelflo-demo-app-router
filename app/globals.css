@@ -63,7 +63,7 @@ form,
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
-  background-color: #FCFBF8;
+  background-color: #FEFDFC;
 }
 .background-container {
   padding: 0.6rem;
@@ -259,7 +259,6 @@ li a:hover {
 .form-header-gray {
   display: flex;
   align-content: center;
-  
   flex-direction: row;
   padding-top: 0.6rem;
   padding-bottom: 0.4rem;
@@ -290,6 +289,7 @@ li a:hover {
   align-items: center;
   font-size: 18px;
   color: var(--primary-gray-light);
+  background-color: white;
 }
 .active-progresion-number {
   background-color: var(--primary-orange-light);
