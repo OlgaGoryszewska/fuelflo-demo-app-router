@@ -9,7 +9,7 @@ export default function StepOneDelivery({ formData, setFormData }) {
     };
     return (
       <div className="m-4">
-        <img src="/fuel.png" alt="main page image" className="pb-4 m-auto filter opacity-70  " />
+        <img src="/fuel.png" alt="main page image" className="pb-4 m-auto filter opacity-80  " />
         <h2 > Delivery Specification
         </h2>
          <label>
