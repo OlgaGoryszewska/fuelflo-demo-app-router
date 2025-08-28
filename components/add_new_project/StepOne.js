@@ -8,7 +8,7 @@ export default function StepOne({ formData, setFormData }) {
   };
   return (
     <div className="m-4">
-      <h2>Project Specification</h2>
+      <h2>Specification</h2>
       <label>
         Name of the Project:
         <input
