@@ -1,6 +1,7 @@
 import './globals.css';
 import { Poppins } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
+import { Italiana } from 'next/font/google';
 import Menu from '@/components/Menu';
 
 const poppins = Poppins({
@@ -14,6 +15,12 @@ const roboto = Roboto_Flex({
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-roboto-flex',
 });
+const italiana = Italiana({
+  weight: '400',         
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-italiana',
+});
 
 export default function RootLayout({ children }) {
   return (
@@ -25,6 +32,10 @@ export default function RootLayout({ children }) {
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+          rel="stylesheet"
+        />
+          <link
+          href="https://fonts.googleapis.com/css2?family=Italiana&display=swap"
           rel="stylesheet"
         />
       </head>

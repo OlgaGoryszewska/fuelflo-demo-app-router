@@ -10,6 +10,7 @@
 
   --font-roboto-flex: 'Roboto', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
+  --font-italiana: 'Italiana', serif;
 }
 h1 {
   font-size: 22px;
@@ -17,8 +18,8 @@ h1 {
   padding-right: 1rem;
 }
 h2 {
-  font-size: 24px;
-  font-family: var(--font-roboto-flex);
+  font-size: 32px;
+  font-family: var(--font-italiana);
   
   margin-bottom: 0.6rem;
 }
