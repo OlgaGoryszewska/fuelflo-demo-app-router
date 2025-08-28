@@ -63,6 +63,7 @@ form,
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
+  background-color: #FCFBF8;
 }
 .background-container {
   padding: 0.6rem;
@@ -74,11 +75,12 @@ input {
   border-radius: 4px;
   font-size: 16px;
   width: 100%;
+  background-color: white;
 }
 
 button {
   padding: 0.8rem;
-  background-color: var(--primary-orange-light);
+  background-color: #FDE5AA;
   color: var(--primary-black);
   border: none;
   border-radius: 30px;
@@ -87,6 +89,9 @@ button {
   margin: 1rem;
   font-family: var(--font-roboto-flex);
   width: 10rem;
+}
+.button-big{
+  background-color: #FDE5AA;
 }
 
 .card-button,

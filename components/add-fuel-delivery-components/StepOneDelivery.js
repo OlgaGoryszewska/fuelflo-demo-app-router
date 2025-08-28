@@ -9,6 +9,7 @@ export default function StepOneDelivery({ formData, setFormData }) {
     };
     return (
       <div className="m-4">
+        <img src="/fuel.png" alt="main page image" className="pb-4 w-1/2" />
         <h2 > Fuel delivery Specification
         </h2>
          <label>
