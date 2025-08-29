@@ -9,7 +9,7 @@ export default function IntroAddFuelDelivery() {
             close
           </span>
         </div>
-        <img src="/modal.png" alt="main page image"  />
+        <img src="/meter-blob.png" alt="main page image"  />
         <div className="m-4 ">
         <p className="mb-4">Follow 5 steps tank refill evidence collection</p>
         <p className="mb-4">1. Fill up Setup Form</p>
