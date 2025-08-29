@@ -16,7 +16,7 @@ const roboto = Roboto_Flex({
   variable: '--font-roboto-flex',
 });
 const italiana = Italiana({
-  weight: '400',         
+  weight: '400',
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-italiana',
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
           rel="stylesheet"
         />
-          <link
+        <link
           href="https://fonts.googleapis.com/css2?family=Italiana&display=swap"
           rel="stylesheet"
         />

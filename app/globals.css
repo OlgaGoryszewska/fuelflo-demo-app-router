@@ -20,7 +20,7 @@ h1 {
 h2 {
   font-size: 38px;
   font-family: var(--font-italiana);
-  
+
   margin-bottom: 0.6rem;
 }
 h3,
@@ -64,7 +64,7 @@ form,
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
-  background-color: #FEFDFC;
+  background-color: #fefdfc;
 }
 .background-container {
   padding: 0.6rem;
@@ -81,7 +81,7 @@ input {
 
 button {
   padding: 0.8rem;
-  background-color: #FDE5AA;
+  background-color: #fde5aa;
   color: var(--primary-black);
   border: none;
   border-radius: 30px;
@@ -92,7 +92,6 @@ button {
   width: 10rem;
 }
 
-
 .card-button,
 .form-button {
   display: flex;
@@ -102,7 +101,6 @@ button {
   font-size: 18px;
   background-color: white;
   margin-bottom: 0.3rem;
-
 }
 .card-end-button {
   display: flex;
@@ -119,7 +117,6 @@ button {
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
-
 }
 .dashed-card {
   border-radius: 8px;

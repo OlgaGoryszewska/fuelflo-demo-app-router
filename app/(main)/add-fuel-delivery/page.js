@@ -1,20 +1,19 @@
 'use client';
 
-import ProgresionBar from "@/components/ProgresionBar";
-import StepNavigation from "@/components/StepNavigation";
-import { useState } from "react";
+import ProgresionBar from '@/components/ProgresionBar';
+import StepNavigation from '@/components/StepNavigation';
+import { useState } from 'react';
 
-import StepOneDelivery from "/components/add-fuel-delivery-components/StepOneDelivery";
-import ModalFuelDelivery from "@/components/add-fuel-delivery-components/ModalFuelDelivery";
-
+import StepOneDelivery from '/components/add-fuel-delivery-components/StepOneDelivery';
+import ModalFuelDelivery from '@/components/add-fuel-delivery-components/ModalFuelDelivery';
 
 export default function AddFuelDeliveryPage() {
-    const [ currentStep, setCurrentStep ] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
 
-    const steps = [
-    <StepOneDelivery key="step-1"  />,
+  const steps = [
+    <StepOneDelivery key="step-1" />,
     <ModalFuelDelivery key="step-2" />,
-    ];
+  ];
   return (
     <div className="main-container">
       <form>
@@ -26,10 +25,10 @@ export default function AddFuelDeliveryPage() {
         {steps[currentStep]}
 
         <StepNavigation
-         currentStep={currentStep}
-         setCurrentStep={setCurrentStep}
-         totalSteps={steps.length}/>
-       
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          totalSteps={steps.length}
+        />
       </form>
     </div>
   );

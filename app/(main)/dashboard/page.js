@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Dashboard() {
   return (
     <div>
-      <div className='m-2.5'>
+      <div className="m-2.5">
         <Link href="/projects/" className="form-button">
           <span className="material-symbols-outlined">tactic</span>
           Projects
