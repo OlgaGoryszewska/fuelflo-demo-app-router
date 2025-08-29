@@ -50,7 +50,7 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link onClick={handleLinkClick} href="/add-fuel-delivery">
+          <Link onClick={handleLinkClick} href="/add-fuel-delivery/intro">
             ADD FUEL DELIVERY
           </Link>
         </li>

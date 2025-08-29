@@ -36,13 +36,14 @@ export default function AuthForm() {
       <label>
         Password:
         <input
+          className="mb-8"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button className="button-big" onClick={handleSignIn}>
+      <button className="button-big " onClick={handleSignIn}>
         Sign In
       </button>
     </div>

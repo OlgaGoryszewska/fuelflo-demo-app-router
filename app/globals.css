@@ -48,7 +48,7 @@ body {
   padding: 0;
   font-family: Poppins, sans-serif;
   font-size: 18px;
-  background: linear-gradient(to bottom, #e8ecee, #d2d2d2);
+  background: linear-gradient(to bottom, #d2d2d2, #e8ecee);
   color: var(--primary-black);
   min-height: 100vh;
 }
@@ -91,9 +91,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 10rem;
 }
-.button-big{
-  background-color: #FDE5AA;
-}
+
 
 .card-button,
 .form-button {
@@ -103,7 +101,8 @@ button {
   border-radius: 8px;
   font-size: 18px;
   background-color: white;
-  margin: 0.6rem;
+  margin-bottom: 0.3rem;
+
 }
 .card-end-button {
   display: flex;
@@ -120,7 +119,7 @@ button {
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
-  background-color: #f2f4f8;
+
 }
 .dashed-card {
   border-radius: 8px;
@@ -200,6 +199,7 @@ li a:hover {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   background-color: white;
   height: 60px;
   font-size: 14px;
