@@ -48,7 +48,7 @@ body {
   padding: 0;
   font-family: Poppins, sans-serif;
   font-size: 18px;
-  background: linear-gradient(to bottom, #d2d2d2, #e8ecee);
+  background: linear-gradient(to bottom, #e8ecee, #d2d2d2);
   color: var(--primary-black);
   min-height: 100vh;
 }
