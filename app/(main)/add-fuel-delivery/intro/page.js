@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function IntroAddFuelDelivery() {
   return (
     <div className="main-container">
@@ -15,7 +17,7 @@ export default function IntroAddFuelDelivery() {
         <p className="mb-4">3. Enter the reading by scan or manually</p>
         <p className="mb-4">4. Take a picture after refill of the tank</p>
         <p className="mb-4">5. Enter the reading by scan or manually after refilling a tank</p>
-        <button src="/add-fuel-delivery" className="button-big ">Get Started</button>
+        <button className="button-big "><Link href="/add-fuel-delivery">Get Started</Link></button>
         </div>
 
       </form>
