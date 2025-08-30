@@ -7,8 +7,8 @@ export default function StepOne({ formData, setFormData }) {
     }));
   };
   return (
-    <div className="m-4">
-      <img src="/project.png" alt="project planin" className="pb-4 m-auto " />
+    <div className="mx-4">
+      <img src="/blob-plus.png" alt="project planin" className="w-2/5 mx-auto " />
       <h2>Specification</h2>
       <label>
         Name of the Project:

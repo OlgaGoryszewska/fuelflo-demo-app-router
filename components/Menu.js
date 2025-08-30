@@ -30,7 +30,7 @@ export default function Menu() {
   return (
     <div className="menu" ref={menuRef}>
       <nav className="nav">
-        <img src="/logo.png" alt="Logo" className="logo" />
+        <img src="/flo-logo.png" alt="Logo" className="logo" />
         <HiOutlineMenuAlt3 className="hamburger" onClick={toggleMenu} />
       </nav>
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
