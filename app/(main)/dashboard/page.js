@@ -16,8 +16,8 @@ export default function Dashboard() {
           <span className="material-symbols-outlined">group</span>
           Customers
         </Link>
-        <Link href="/projects/" className="form-button">
-          <span className="material-symbols-outlined">battery_charging_80</span>
+        <Link href="/generators" className="form-button">
+          <span class="material-symbols-outlined">gas_meter</span>
           Generators
         </Link>
         <Link href="/projects/" className="form-button">

@@ -189,7 +189,6 @@ li a:hover {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  
 }
 .navAvatar {
   display: flex;
