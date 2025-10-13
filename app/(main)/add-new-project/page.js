@@ -27,7 +27,7 @@ export default function AddProjectPage() {
     email: '',
     mobile: '',
     technician: '',
-    generator: '',
+    genrator: '',
     tank: '',
     amount: '',
     selling_price: '',

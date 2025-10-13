@@ -23,7 +23,7 @@ export default function StepOneDelivery({ formData, setFormData }) {
         <input name="name" type="text" onChange={handleChange} />
       </label>
       <label>
-        Find Tank:
+        Find External Tank:
         <input name="name" type="text" onChange={handleChange} />
       </label>
       <label>

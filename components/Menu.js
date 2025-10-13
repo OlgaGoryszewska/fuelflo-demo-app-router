@@ -51,7 +51,7 @@ export default function Menu() {
         </li>
         <li>
           <Link onClick={handleLinkClick} href="/generators">
-           Generators
+            Generators
           </Link>
         </li>
         <li>

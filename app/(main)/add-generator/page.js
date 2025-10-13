@@ -1,44 +1,142 @@
 'use client';
 
-export default function AddGenerator({ formData, setFormData }) {
+import { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+
+export default function AddGenerator() {
+  const [formData, setFormData] = useState({
+    model_no: '',
+    fleet_no: '',
+    localisation: '',
+    fuel_capacity: '',
+    fuel_consumption_100: '',
+    run_hours_100_load: '',
+    external_tank: '',
+    notes: '',
+  });
+
+  const [message, setMessage] = useState('');
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // 3️⃣ send to Supabase
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { data, error } = await supabase
+      .from('generators')
+      .insert([formData]);
+
+    if (error) {
+      console.error(error);
+      setMessage('❌ Error: ' + error.message);
+    } else {
+      setMessage('✅ Generator added successfully!');
+      // reset form
+      setFormData({
+        model_no: '',
+        fleet_no: '',
+        localisation: '',
+        fuel_capacity: '',
+        fuel_consumption_100: '',
+        run_hours_100_load: '',
+        external_tank: '',
+        notes: '',
+      });
+    }
   };
   return (
     <div className="m-2.5">
-      <form className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="form-header">
+          <span className="material-symbols-outlined big ">add</span>
+          <h1>Add Generator</h1>
+        </div>
         <div className="m-4">
           <img
             src="/generator.png"
             alt="generator image"
             className="w-1/2 mx-auto"
           />
-          <h2>Add Generator</h2>
-          <label>
-            Name:
-            <input name="name" type="text" onChange={handleChange} />
-          </label>
+          <h2>Specification</h2>
+
           <label>
             Model No:
-            <input name="name" type="text" onChange={handleChange} />
+            <input
+              name="model_no"
+              type="text"
+              onChange={handleChange}
+              value={formData.model_no}
+            />
+          </label>
+          <label>
+            Fleet No:
+            <input
+              name="fleet_no"
+              type="text"
+              onChange={handleChange}
+              value={formData.fleet_no}
+            />
+          </label>
+          <label>
+            Localisation:
+            <input
+              name="localisation"
+              type="text"
+              onChange={handleChange}
+              value={formData.localisation}
+            />
           </label>
           <label>
             Fuel Capacity:
-            <input name="name" type="text" onChange={handleChange} />
+            <input
+              name="fuel_capacity"
+              type="text"
+              onChange={handleChange}
+              value={formData.fuel_capacity}
+            />
           </label>
           <label>
             Fuel consumption 100% load:
-            <input name="name" type="text" onChange={handleChange} />
+            <input
+              name="fuel_consumption_100"
+              type="text"
+              onChange={handleChange}
+              value={formData.fuel_consumption_100}
+            />
           </label>
           <label>
             Run hours at 100% load:
-            <input name="name" type="text" onChange={handleChange} />
+            <input
+              name="run_hours_100_load"
+              type="text"
+              onChange={handleChange}
+              value={formData.run_hours_100_load}
+            />
+          </label>
+          <label>
+            Choose External Tank:
+            <input
+              name="external_tank"
+              type="text"
+                onChange={handleChange}
+                value={formData.external_tank}
+            />
+          </label>
+          <label>
+            Notes:
+            <input
+              type="text"
+              name="notes"
+              onChange={handleChange}
+              value={formData.notes}
+            />
           </label>
         </div>
+        <button type="submit">Submit</button>
+        {message && <p className="mt-2">{message}</p>}
       </form>
     </div>
   );
