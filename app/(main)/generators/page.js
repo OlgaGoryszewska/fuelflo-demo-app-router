@@ -8,6 +8,15 @@ export default function Generators() {
             </span>
             <h1 className='ml-2'>Generators</h1>
           </div>
+        
+            <label className="" htmlFor="search">Search by name or ID
+            <input
+              type="text"
+              placeholder="Search Generators..."
+              className="mb-4"
+            />  
+            </label>
+          
       <Link href="/add-generator/" className="form-button">
         <span className="material-symbols-outlined">add</span>
         Add Generator
