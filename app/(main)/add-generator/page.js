@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabaseClient';
 
 export default function AddGenerator() {
   const [formData, setFormData] = useState({
+    name: '',
     model_no: '',
     fleet_no: '',
     localisation: '',
@@ -36,6 +37,7 @@ export default function AddGenerator() {
       setMessage('✅ Generator added successfully!');
       // reset form
       setFormData({
+        name: '',
         model_no: '',
         fleet_no: '',
         localisation: '',
@@ -61,7 +63,6 @@ export default function AddGenerator() {
             className="w-1/2 mx-auto"
           />
           <h2>Specification</h2>
-
           <label>
             Model No:
             <input
@@ -69,6 +70,16 @@ export default function AddGenerator() {
               type="text"
               onChange={handleChange}
               value={formData.model_no}
+            />
+          </label>
+
+          <label>
+            Name:
+            <input
+              name="name"
+              type="text"
+              onChange={handleChange}
+              value={formData.name}
             />
           </label>
           <label>
@@ -121,8 +132,8 @@ export default function AddGenerator() {
             <input
               name="external_tank"
               type="text"
-                onChange={handleChange}
-                value={formData.external_tank}
+              onChange={handleChange}
+              value={formData.external_tank}
             />
           </label>
           <label>
