@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
-      <div className="navAvatar">
+        <div className="navAvatar">
           <div>
             <p>Name</p>
           </div>
@@ -30,7 +30,7 @@ export default function DashboardLayout({ children }) {
           alt="main page baner"
           className="filter opacity-80"
         />
-        
+
         <main>{children}</main>
       </body>
     </html>
