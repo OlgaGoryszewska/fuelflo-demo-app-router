@@ -1,51 +1,31 @@
-import Link from 'next/link';
+// app/generators/page.jsx
+import { createClient } from '@/lib/supabase/server';
 
-export default function Generators() {
+export const dynamic = 'force-dynamic';
+
+export default async function GeneratorsPage() {
+  const supabase = await createClient();
+
+  // Fetch generators from database
+  const { data, error } = await supabase.from('generators').select('*');
+
+  if (error) {
+    return <p>Error loading generators: {error.message}</p>;
+  }
+
   return (
-    <div className="m-2.5">
-      <div className="form-header mb-4">
-        <span class="material-symbols-outlined big ">bolt</span>
-        <h1 className="ml-2">Generators</h1>
-      </div>
+    <div style={{ padding: 20 }}>
+      <h1>Generators</h1>
 
-      <label className="" htmlFor="search">
-        Search by name or ID
-        <input
-          type="text"
-          placeholder="Search Generators..."
-          className="mb-4"
-        />
-      </label>
-      <div className="background-container mb-4">
-      <div className="form-header mb-4">
-        <span class="material-symbols-outlined ">bolt</span>
-        <h3 className="ml-2">Text</h3>
-      </div>
-        
-      </div>
-
-      <Link href="/add-generator/" className="form-button">
-        <span className="material-symbols-outlined">add</span>
-        Add Generator
-      </Link>
-      <div className="form-header mb-4">
-        <span class="material-symbols-outlined big ">gas_meter</span>
-        <h1 className="ml-2">External Tanks</h1>
-      </div>
-      <label className="" htmlFor="search">
-        Search by name or ID
-        <input
-          type="text"
-          placeholder="Search Generators..."
-          className="mb-4"
-        />
-      </label>
-    
-
-      <Link href="/add-generator/" className="form-button">
-        <span className="material-symbols-outlined">add</span>
-        Add Tank
-      </Link>
+      {data && data.length > 0 ? (
+        <ul>
+          {data.map((generator) => (
+            <li key={generator.id}>{generator.name}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No generators found.</p>
+      )}
     </div>
   );
 }
