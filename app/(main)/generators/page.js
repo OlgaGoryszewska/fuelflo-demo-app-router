@@ -14,15 +14,23 @@ export default async function GeneratorsPage() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Generators</h1>
+    <div className="m-2.5">
+      <div className="form-header mb-4">
+        <span className="material-symbols-outlined big">bolt</span>
+        <h1 className="ml-2">Generators</h1>
+      </div>
 
       {data && data.length > 0 ? (
-        <ul>
+        <div>
           {data.map((generator) => (
-            <li key={generator.id}>{generator.name}</li>
+            <div className="background-container mb-4" key={generator.id}>
+              <div className="form-header mb-4">
+                <span className="material-symbols-outlined">bolt</span>
+                <h3 className="ml-2">{generator.name}</h3>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No generators found.</p>
       )}
