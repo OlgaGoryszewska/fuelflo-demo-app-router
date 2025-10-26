@@ -240,6 +240,16 @@ li a:hover {
   font-size: 34px;
   margin-left: 0.6rem;
 }
+.material-symbols-outlined.tin{
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 0;
+  font-size: 18px;
+  color: #858788;
+  margin-left: 0.3rem;
+}
 .form-data-to-read,
 .form-data-to-read-only {
   border-bottom: 1px dashed var(--primary-gray-light);
@@ -316,4 +326,10 @@ li a:hover {
   justify-content: space-between;
   width: 100%;
   padding: 0.6rem;
+}
+
+.generator-localisation {
+  font-size: 14px;
+  color: var(--primary-mid-gray);
+  
 }

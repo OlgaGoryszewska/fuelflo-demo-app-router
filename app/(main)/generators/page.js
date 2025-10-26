@@ -26,8 +26,13 @@ export default async function GeneratorsPage() {
             <div className="background-container mb-4" key={generator.id}>
               <div className="form-header mb-4">
                 <span className="material-symbols-outlined">bolt</span>
-                <h3 className="ml-2">{generator.name}</h3>
+                <h3 className="ml-2 uppercase">{generator.name}</h3>
               </div>
+              <div className="flex items-start mb-2">
+                <span class="material-symbols-outlined tin ">location_on</span>
+                <p className='generator-localisation'> {generator.localisation}</p>
+              </div>
+              <p className='ml-2 text-sm'>Fuel consumption 100% load per houer:</p>
             </div>
           ))}
         </div>
