@@ -37,7 +37,7 @@ export default async function GeneratorsPage() {
                   {generator.localisation}
                 </p>
               </div>
-              <p >Generator fuel</p>
+              <p className="pt-4">Generator fuel</p>
               <div className="fuel-bar"></div>
               <p className="generator-localisation text-right">100%</p>
               <div className="gen-grid">
@@ -47,13 +47,25 @@ export default async function GeneratorsPage() {
                 </div>
                 <div className="generator-inf-box">
                   <p className="box-text">Consumption 100% load</p>
-                  <p className="box-insert">{generator.fuel_consumption_100} L/H</p>
+                  <p className="box-insert">
+                    {generator.fuel_consumption_100} L/H
+                  </p>
                 </div>
                 <div className="generator-inf-box">
                   <p className="box-text">Run on full load</p>
-                  <p className="box-insert">{generator.run_hours_100_load} H</p></div>
+                  <p className="box-insert">{generator.run_hours_100_load} H</p>
+                </div>
               </div>
-              <p >External Tanks:</p>
+              <p className="pt-4">External Tanks</p>
+              <div className="flex p-3 items-center rounded-2xl bg-white shadow">
+                <span className="material-symbols-outlined">gas_meter</span>
+
+                <p>
+                  {generator.external_tank
+                    ? generator.external_tank
+                    : 'No external tanks connected.'}
+                </p>
+              </div>
             </div>
           ))}
         </div>

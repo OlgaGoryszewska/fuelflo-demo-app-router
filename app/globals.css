@@ -7,7 +7,7 @@
   --primary-gray-light: #e4e4e4;
   --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #6d6d6d;
-  --dark-blue: #7291A4;
+  --dark-blue: #7291a4;
 
   --font-roboto-flex: 'Roboto', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
@@ -67,10 +67,9 @@ form,
   border: 1.5px solid var(--primary-orange-light);
   background-color: #fefdfc;
 }
-.generator-container{
-  background: linear-gradient(to bottom, #fff 50%, #FEE39F );
+.generator-container {
+  background: linear-gradient(to bottom, #fff 50%, #fee39f);
   padding: 0.6rem;
-
 }
 .background-container {
   padding: 0.6rem;
@@ -346,7 +345,7 @@ li a:hover {
   border-radius: 10px;
 }
 .generator-inf-box {
-  background: linear-gradient(to top, #fff, #F0F9FE);
+  background: linear-gradient(to top, #fff, #f0f9fe);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -355,13 +354,13 @@ li a:hover {
   font-size: 14px;
 }
 
-.box-insert{
+.box-insert {
   padding: 0.6rem;
   padding-top: 0px;
   font-size: 16px;
   color: var(--dark-blue);
 }
-.gen-grid{
+.gen-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
