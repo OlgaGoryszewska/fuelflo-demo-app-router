@@ -30,7 +30,7 @@ export default function OngoingProjectsPage() {
           <span className="material-symbols-outlined">workspaces</span>
           <h1>Ongoing Projects</h1>
         </div>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-2">
           {projects.map((p) => (
             <li className="card-button" key={p.id}>
               {' '}
