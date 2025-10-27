@@ -353,6 +353,7 @@ li a:hover {
 .box-text {
   padding: 0.6rem;
   font-size: 14px;
+  font-weight: 400;
 }
 
 .box-insert {
