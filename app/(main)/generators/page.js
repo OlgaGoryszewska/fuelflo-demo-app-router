@@ -66,6 +66,22 @@ export default async function GeneratorsPage() {
                     : 'No external tanks connected.'}
                 </p>
               </div>
+              <div className="gen-grid">
+                <div className="generator-inf-box">
+                  <p className="box-text">Model No</p>
+                  <p className="box-insert">{generator.model_no}</p>
+                </div>
+                <div className="generator-inf-box">
+                  <p className="box-text">Fleet No</p>
+                  <p className="box-insert">
+                    {generator.fleet_no} 
+                  </p>
+                </div>
+                <div className="generator-inf-box">
+                  <p className="box-text">Prime power</p>
+                  <p className="box-insert">{generator.prime_power} kVA/kW</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

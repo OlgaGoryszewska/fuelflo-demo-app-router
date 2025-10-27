@@ -348,6 +348,7 @@ li a:hover {
   background: linear-gradient(to top, #fff, #f0f9fe);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
 }
 .box-text {
   padding: 0.6rem;
