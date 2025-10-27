@@ -37,7 +37,7 @@ export default async function GeneratorsPage() {
                   {generator.localisation}
                 </p>
               </div>
-              <p className="ml-2 text-sm">Generator fuel</p>
+              <p >Generator fuel</p>
               <div className="fuel-bar"></div>
               <p className="generator-localisation text-right">100%</p>
               <div className="gen-grid">
