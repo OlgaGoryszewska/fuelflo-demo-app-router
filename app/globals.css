@@ -60,12 +60,11 @@ form,
   justify-content: center;
   max-width: 600px;
   width: 100%;
-  background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
-  background-color: #fefdfc;
+  background: linear-gradient(to top, #f0f9fe , #fff 70%);
 }
 .generator-container {
   background: linear-gradient(to bottom, #fff 50%, #fee39f);
@@ -101,12 +100,24 @@ button {
 .form-button {
   display: flex;
   padding: 0.8rem;
-  border: 1.5px solid var(--primary-orange-light);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   border-radius: 8px;
   font-size: 18px;
-  background-color: white;
   margin-bottom: 0.3rem;
 }
+.card-button:hover,
+.form-button:hover {
+  background-color: linear-gradient(to left, #fff, #DBF0FD); /* your hover color */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* optional hover shadow */
+  transition: background-color 0.3s ease;
+}
+.card-button:active,
+.form-button:active {
+  background-color: linear-gradient(to top, #fff, #DBF0FD); /* darker color when pressed */
+  transform:  scale(0.97); /* optional: click feedback */
+}
+
 .card-end-button {
   display: flex;
   justify-content: space-between;
