@@ -23,16 +23,37 @@ export default async function GeneratorsPage() {
       {data && data.length > 0 ? (
         <div>
           {data.map((generator) => (
-            <div className="background-container mb-4" key={generator.id}>
+            <div className="generator-container mb-4" key={generator.id}>
               <div className="form-header mb-4">
                 <span className="material-symbols-outlined">bolt</span>
                 <h3 className="ml-2 uppercase">{generator.name}</h3>
               </div>
               <div className="flex items-start mb-2">
-                <span class="material-symbols-outlined tin ">location_on</span>
-                <p className='generator-localisation'> {generator.localisation}</p>
+                <span className="material-symbols-outlined tin ">
+                  location_on
+                </span>
+                <p className="generator-localisation">
+                  {' '}
+                  {generator.localisation}
+                </p>
               </div>
-              <p className='ml-2 text-sm'>Fuel consumption 100% load per houer:</p>
+              <p className="ml-2 text-sm">Generator fuel</p>
+              <div className="fuel-bar"></div>
+              <p className="generator-localisation text-right">100%</p>
+              <div className="gen-grid">
+                <div className="generator-inf-box">
+                  <p className="box-text">Tank Capacity</p>
+                  <p className="box-insert">{generator.fuel_capacity} L</p>
+                </div>
+                <div className="generator-inf-box">
+                  <p className="box-text">Consumption 100% load</p>
+                  <p className="box-insert">{generator.fuel_consumption_100} L/H</p>
+                </div>
+                <div className="generator-inf-box">
+                  <p className="box-text">Run on full load</p>
+                  <p className="box-insert">{generator.run_hours_100_load} H</p></div>
+              </div>
+              <p >External Tanks:</p>
             </div>
           ))}
         </div>

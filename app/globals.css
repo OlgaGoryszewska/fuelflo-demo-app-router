@@ -7,6 +7,7 @@
   --primary-gray-light: #e4e4e4;
   --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #6d6d6d;
+  --dark-blue: #7291A4;
 
   --font-roboto-flex: 'Roboto', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
@@ -52,6 +53,7 @@ body {
   min-height: 100vh;
 }
 form,
+.generator-container,
 .background-container {
   display: flex;
   flex-direction: column;
@@ -64,6 +66,11 @@ form,
   gap: 0.4rem;
   border: 1.5px solid var(--primary-orange-light);
   background-color: #fefdfc;
+}
+.generator-container{
+  background: linear-gradient(to bottom, #fff 50%, #FEE39F );
+  padding: 0.6rem;
+
 }
 .background-container {
   padding: 0.6rem;
@@ -240,7 +247,7 @@ li a:hover {
   font-size: 34px;
   margin-left: 0.6rem;
 }
-.material-symbols-outlined.tin{
+.material-symbols-outlined.tin {
   font-variation-settings:
     'FILL' 0,
     'wght' 100,
@@ -331,5 +338,31 @@ li a:hover {
 .generator-localisation {
   font-size: 14px;
   color: var(--primary-mid-gray);
-  
+}
+.fuel-bar {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to right, #febd20, #f25822);
+  border-radius: 10px;
+}
+.generator-inf-box {
+  background: linear-gradient(to top, #fff, #F0F9FE);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.box-text {
+  padding: 0.6rem;
+  font-size: 14px;
+}
+
+.box-insert{
+  padding: 0.6rem;
+  padding-top: 0px;
+  font-size: 16px;
+  color: var(--dark-blue);
+}
+.gen-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
 }
