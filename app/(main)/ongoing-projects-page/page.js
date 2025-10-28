@@ -27,7 +27,6 @@ export default function OngoingProjectsPage() {
     <div className="main-container">
       <div>
         <div className="form-header mb-4">
-          
           <h1 className="ml-2">Ongoing Projects</h1>
         </div>
         <ul className="flex flex-col gap-2">

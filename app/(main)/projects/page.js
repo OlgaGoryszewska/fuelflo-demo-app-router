@@ -4,11 +4,10 @@ export default function Projects() {
   return (
     <div>
       <div className="main-container">
-      <div className="form-header mb-2">
-            <h1 >Projects</h1>
-          </div>
+        <div className="form-header mb-2">
+          <h1>Projects</h1>
+        </div>
         <div className="flex flex-col gap-2">
-          
           <Link href="/add-new-project" className="card-button">
             <span className="material-symbols-outlined">add</span>
             Add new Project

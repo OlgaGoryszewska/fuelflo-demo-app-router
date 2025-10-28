@@ -16,7 +16,6 @@ export default async function GeneratorsPage() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        
         <h1 className="ml-2">Generators</h1>
       </div>
 
@@ -73,9 +72,7 @@ export default async function GeneratorsPage() {
                 </div>
                 <div className="generator-inf-box">
                   <p className="box-text">Fleet No</p>
-                  <p className="box-insert">
-                    {generator.fleet_no} 
-                  </p>
+                  <p className="box-insert">{generator.fleet_no}</p>
                 </div>
                 <div className="generator-inf-box">
                   <p className="box-text">Prime power</p>

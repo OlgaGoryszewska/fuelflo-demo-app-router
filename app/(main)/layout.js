@@ -25,7 +25,6 @@ export default function DashboardLayout({ children }) {
           </div>
           <img src="/avatar.png" alt="Avatar" className="avatar" />
         </div>
-      
 
         <main>{children}</main>
       </body>

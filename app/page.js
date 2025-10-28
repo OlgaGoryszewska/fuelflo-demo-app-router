@@ -35,13 +35,11 @@ export default function Home() {
         </p>
         <img src="/hello-blob.png" alt="main page image" className="pb-4 " />
         <h2 className="text-4xl text-center pt-4">Benefits by Role</h2>
-        
       </div>
       <div className="form-button mx-4">For Managers & Hire Desk</div>
       <div className="form-button mx-4">For Technicians</div>
       <div className="form-button mx-4">For Fuel Suppliers</div>
       <div className="form-button mx-4">For Event Organisers</div>
-
     </div>
   );
 }

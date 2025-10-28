@@ -19,9 +19,7 @@ h1 {
   padding-right: 1rem;
   text-transform: uppercase;
   font-weight: 500;
-  letter-spacing:3px ;
-
-
+  letter-spacing: 3px;
 }
 h2 {
   font-size: 38px;
@@ -70,7 +68,7 @@ form,
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
   border: 1px solid var(--primary-gray-light);
-  background: linear-gradient(to top, #f0f9fe , #fff 70%);
+  background: linear-gradient(to top, #f0f9fe, #fff 70%);
 }
 
 .generator-container {
@@ -80,7 +78,7 @@ form,
 .background-container {
   padding: 0.6rem;
 }
-.open-card{
+.open-card {
   margin-top: -2rem;
   padding: 0.6rem;
   padding-top: 2rem;
@@ -126,18 +124,32 @@ button {
   font-size: 18px;
   margin-bottom: 0.3rem;
   border: 1px solid var(--primary-gray-light);
-  transition: transform 0.6s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.3s ease;
+  transition-duration: 400ms;
 }
 .card-button:hover,
 .form-button:hover {
-  background-color: linear-gradient(to left, #fff, #DBF0FD); /* your hover color */
- 
+  background-color: linear-gradient(to left, #fff, #dbf0fd);
+  background: linear-gradient(
+    to right,
+    #fff 50%,
+    #fee39f
+  ); /* your hover color */
 }
 .card-button:active,
 .form-button:active {
-  background-color: linear-gradient(to top, #fff, #DBF0FD); /* darker color when pressed */
-  transform:  scale(0.93);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* optional: click feedback */
+  background-color: linear-gradient(
+    to top,
+    #fff,
+    #dbf0fd
+  ); /* darker color when pressed */
+  transform: scale(0.93);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #fff 50%, #fee39f);
+
+  /* optional: click feedback */
 }
 
 .card-end-button {
