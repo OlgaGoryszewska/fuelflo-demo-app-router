@@ -52,6 +52,7 @@ body {
   color: var(--primary-black);
   min-height: 100vh;
 }
+.open-card,
 form,
 .generator-container,
 .background-container {
@@ -73,6 +74,16 @@ form,
 }
 .background-container {
   padding: 0.6rem;
+}
+.open-card{
+  margin-top: -0.7rem;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 0px 0px 8px 8px;
+  border-top: none;
+}
+.border-active {
+  border: 1px solid var(--primary-orange-light);
 }
 
 input {
@@ -101,23 +112,24 @@ button {
 .form-button {
   display: flex;
   padding: 0.8rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   background-color: #fff;
   border-radius: 8px;
   font-size: 18px;
   margin-bottom: 0.3rem;
   border: 1px solid var(--primary-gray-light);
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
 }
 .card-button:hover,
 .form-button:hover {
   background-color: linear-gradient(to left, #fff, #DBF0FD); /* your hover color */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* optional hover shadow */
-  transition: background-color 0.3s ease;
+ 
 }
 .card-button:active,
 .form-button:active {
   background-color: linear-gradient(to top, #fff, #DBF0FD); /* darker color when pressed */
-  transform:  scale(0.97); /* optional: click feedback */
+  transform:  scale(0.93);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* optional: click feedback */
 }
 
 .card-end-button {
@@ -242,7 +254,7 @@ li a:hover {
 .material-symbols-outlined {
   font-size: 26px;
   vertical-align: middle;
-  color: var(--primary-orange-light);
+  color: var(--primary-black);
   margin-right: 8px;
   font-variation-settings:
     'FILL' 0,
