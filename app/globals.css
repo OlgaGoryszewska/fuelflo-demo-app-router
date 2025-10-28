@@ -81,6 +81,7 @@ form,
   margin-bottom: 1rem;
   border-radius: 0px 0px 8px 8px;
   border-top: none;
+  background: linear-gradient(to bottom, #fff 50%, #fee39f);
 }
 .border-active {
   border: 1px solid var(--primary-orange-light);
