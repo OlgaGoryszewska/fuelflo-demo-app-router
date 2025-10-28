@@ -15,7 +15,7 @@ export default function Dashboard() {
         onClick={() => setOpenCard(!openCard)} 
         className={`form-button ${openCard ? 'border-active' : ''}`}>
           <span className="material-symbols-outlined">tactic</span>
-          Projects<ChevronDown className={`ml-auto transition-transform ${openCard ? 'rotate-180' : ''}`} />
+          Projects <ChevronDown className={`ml-auto transition-transform text-gray-400 ${openCard ? 'rotate-180' : ''}`} />
         </div>
         {openCard && (<div className="open-card ">
           

@@ -255,7 +255,7 @@ li a:hover {
 .material-symbols-outlined {
   font-size: 26px;
   vertical-align: middle;
-  color: var(--primary-black);
+  color: var(--primary-mid-gray);
   margin-right: 8px;
   font-variation-settings:
     'FILL' 0,
