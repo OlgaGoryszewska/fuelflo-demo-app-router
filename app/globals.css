@@ -14,9 +14,14 @@
   --font-italiana: 'Italiana', serif;
 }
 h1 {
-  font-size: 22px;
-  color: var(--primary-black);
+  font-size: 16px;
+  color: var(--primary-mid-gray);
   padding-right: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing:3px ;
+
+
 }
 h2 {
   font-size: 38px;
@@ -76,11 +81,13 @@ form,
   padding: 0.6rem;
 }
 .open-card{
-  margin-top: -0.7rem;
+  margin-top: -2rem;
   padding: 0.6rem;
+  padding-top: 2rem;
   margin-bottom: 1rem;
   border-radius: 0px 0px 8px 8px;
   border-top: none;
+  border-bottom: none;
   background: linear-gradient(to bottom, #fff 50%, #fee39f);
 }
 .border-active {
@@ -113,9 +120,9 @@ button {
 .form-button {
   display: flex;
   padding: 0.8rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 25px;
   font-size: 18px;
   margin-bottom: 0.3rem;
   border: 1px solid var(--primary-gray-light);
@@ -227,8 +234,8 @@ li a:hover {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  background-color: white;
-  height: 60px;
+  background: linear-gradient(to right, #fff 50%, #fee39f);
+  height: 50px;
   font-size: 14px;
   padding: 0.6rem;
 }
@@ -266,10 +273,10 @@ li a:hover {
 .material-symbols-outlined.big {
   font-variation-settings:
     'FILL' 0,
-    'wght' 400,
+    'wght' 300,
     'GRAD' 0,
     'opsz' 48;
-  font-size: 34px;
+  font-size: 28px;
   margin-left: 0.6rem;
 }
 .material-symbols-outlined.tin {
@@ -301,7 +308,7 @@ li a:hover {
   align-content: center;
   flex-direction: row;
   padding-top: 0.6rem;
-  padding-bottom: 0.4rem;
+  padding-bottom: 0.2rem;
   border-bottom: 1px solid var(--primary-gray-light);
 }
 .form-header-gray {

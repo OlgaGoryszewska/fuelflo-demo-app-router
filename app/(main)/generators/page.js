@@ -16,7 +16,7 @@ export default async function GeneratorsPage() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <span className="material-symbols-outlined big">bolt</span>
+        
         <h1 className="ml-2">Generators</h1>
       </div>
 

@@ -4,9 +4,8 @@ export default function Projects() {
   return (
     <div>
       <div className="main-container">
-      <div className="form-header mb-4">
-            <span className="material-symbols-outlined big">tactic</span>
-            <h1 className="ml-2">Projects</h1>
+      <div className="form-header mb-2">
+            <h1 >Projects</h1>
           </div>
         <div className="flex flex-col gap-2">
           

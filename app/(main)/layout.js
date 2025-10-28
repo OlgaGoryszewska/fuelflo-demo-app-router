@@ -25,11 +25,7 @@ export default function DashboardLayout({ children }) {
           </div>
           <img src="/avatar.png" alt="Avatar" className="avatar" />
         </div>
-        <img
-          src="/baner.png"
-          alt="main page baner"
-          className="filter opacity-80"
-        />
+      
 
         <main>{children}</main>
       </body>
