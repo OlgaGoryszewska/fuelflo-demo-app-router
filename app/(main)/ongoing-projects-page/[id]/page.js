@@ -80,10 +80,6 @@ export default function ProjectDetailPage() {
   return (
     <div className="main-container">
       <div className="background-container">
-        <div className="dashed-line">
-          <span className="material-symbols-outlined">workspaces</span>
-          <h1>Project</h1>
-        </div>
         <div className="flex items-center align-center">
           <span className="material-symbols-outlined">workspaces</span>
           <p>Name of the Project:</p>

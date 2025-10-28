@@ -35,15 +35,13 @@ export default function Home() {
         </p>
         <img src="/hello-blob.png" alt="main page image" className="pb-4 " />
         <h2 className="text-4xl text-center pt-4">Benefits by Role</h2>
-        {roleBlocks.map((roleBlock) => (
-          <div
-            key={roleBlock.title}
-            className="border border-gray-300 rounded-lg p-4 mb-2 w-full max-w-md shadow-md "
-          >
-            <h3 className="text-2xl mb-2">{roleBlock.title}</h3>
-          </div>
-        ))}
+        
       </div>
+      <div className="form-button mx-4">For Managers & Hire Desk</div>
+      <div className="form-button mx-4">For Technicians</div>
+      <div className="form-button mx-4">For Fuel Suppliers</div>
+      <div className="form-button mx-4">For Event Organisers</div>
+
     </div>
   );
 }

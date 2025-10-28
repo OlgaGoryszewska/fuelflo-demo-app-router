@@ -25,10 +25,10 @@ export default function OngoingProjectsPage() {
 
   return (
     <div className="main-container">
-      <div className="background-container">
-        <div className="dashed-line">
-          <span className="material-symbols-outlined">workspaces</span>
-          <h1>Ongoing Projects</h1>
+      <div>
+        <div className="form-header mb-4">
+          <span className="material-symbols-outlined big">workspaces</span>
+          <h1 className="ml-2">Ongoing Projects</h1>
         </div>
         <ul className="flex flex-col gap-2">
           {projects.map((p) => (
