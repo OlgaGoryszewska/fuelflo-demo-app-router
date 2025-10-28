@@ -83,11 +83,11 @@ export default function AddProjectPage() {
   return (
     <div>
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-          <div className="form-header">
-            <span class="material-symbols-outlined big ">add</span>
-            <h1>Add new Project</h1>
+      <div className="form-header mb-2">
+            <h1 className=''>Add new Project</h1>
           </div>
+        <form onSubmit={handleSubmit}>
+         
           <ProgresionBar currentStep={currentStep} />
           {steps[currentStep]}
           <StepNavigation
