@@ -194,8 +194,9 @@ button {
   padding: 0.6rem;
   color: var(--primary-mid-gray);
   background-color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 0.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 li {
   border-bottom: 1px solid var(--primary-gray-light);
