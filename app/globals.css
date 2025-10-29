@@ -115,7 +115,8 @@ button {
 }
 .small-button {
   padding: 0.3rem;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 500;
   width: fit-content;
   border: var(--primary-orange-light) 1.5px solid;
   border-radius: 25px;
