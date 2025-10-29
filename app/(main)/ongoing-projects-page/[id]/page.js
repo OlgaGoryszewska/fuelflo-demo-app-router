@@ -24,7 +24,8 @@ export default function ProjectDetailPage() {
         'id',
         'name',
         'location',
-        'endDate',
+        'start_date',
+        'end_date',
         'contractor_name',
         'contractor_address',
         'email',
@@ -79,112 +80,122 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="main-container">
-      <div className="background-container">
-        <div className="flex items-center align-center">
+      <div className="form-header mb-4">
+        <h1 className="ml-2">Project</h1>
+      </div>
+      <div className="background-container mb-8">
+        <div className="form-header mb-4">
           <span className="material-symbols-outlined">workspaces</span>
-          <p>Name of the Project:</p>
-        </div>
-        <p className="form-data-to-read">{project.name ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">location_on</span>
-          <p>Localisation of the project:</p>
-        </div>
-        <p className="form-data-to-read">{project.location ?? '—'}</p>
-        <div className="flex items-center align-center mb-2">
-          <span className="material-symbols-outlined">
-            delivery_truck_speed
-          </span>
-          <p>Fuel Delivery</p>
-        </div>
-        <div className="flex flex-col items-center align-center">
-          <div className="dashed-card flex flex-col ">
-            <div className="background-header p-0">
-              <p>Date</p>
-              <p>Volume</p>
-              <p>File</p>
-            </div>
-            <div className="file-row">
-              <p>09.09/25</p>
-              <p>5000L</p>
-              <span className="material-symbols-outlined">folder</span>
-            </div>
-            <div className="file-row">
-              <p>09.09/25</p>
-              <p>5000L</p>
-              <span className="material-symbols-outlined">folder</span>
-            </div>
-          </div>
-          <Link href="/add-fuel-delivery">
-            <button>Add Delivery</button>
-          </Link>
+          <h3 className="ml-2 uppercase">{project.name}</h3>
         </div>
 
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">today</span>
-          <p>Release Date:</p>
+        <div className="flex items-start mb-2">
+          <span className="material-symbols-outlined tin ">location_on</span>
+          <p className="generator-localisation"> {project.location}</p>
         </div>
-        <p className="form-data-to-read">{project.releaseDate ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">today</span>
-          <p>End Date:</p>
+        <div />
+        <p className="generator-localisation">Starting date</p>
+        <div className='date-box'>
+        <span className="material-symbols-outlined tin">today</span>
+        <p className="generator-localisation" >
+          {project.start_date ?? 'Lack of information'}
+        </p>
         </div>
-        <p className="form-data-to-read">{project.endDate ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">contacts_product</span>
-          <p>Name of the Contractor:</p>
+        <p className="generator-localisation">End date</p>
+        <div className='date-box'>
+        <span className="material-symbols-outlined tin">today</span>
+        <p className="generator-localisation" >
+          {project.end_date ?? 'Lack of information'}
+        </p>
         </div>
-        <p className="form-data-to-read">{project.contractor_name ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">location_on</span>
-          <p>Address of the Contractor:</p>
-        </div>
-        <p className="form-data-to-read">{project.contractor_address ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">mail</span>
-          <p>Email:</p>
-        </div>
-        <p className="form-data-to-read">{project.email ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">mobile</span>
-          <p>Mobile:</p>
-        </div>
-        <p className="form-data-to-read">{project.mobile ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">person_apron</span>
-          <p>Asaigned Technicians:</p>
-        </div>
-        <p className="form-data-to-read">{project.technician ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">battery_charging_50</span>
-          <p>Generator:</p>
-        </div>
-        <p className="form-data-to-read">{project.generator ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">oil_barrel</span>
-          <p>Fuel Tank:</p>
-        </div>
-        <p className="form-data-to-read">{project.tank ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">attach_money</span>
-          <p>Purchase Price:</p>
-        </div>
-        <p className="form-data-to-read">{project.amount ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">attach_money</span>
-          <p>Selling Price:</p>
-        </div>
-        <p className="form-data-to-read">{project.selling_price ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">sticky_note_2</span>
-          <p>Specification of the project:</p>
-        </div>
-        <p className="form-data-to-read">{project.specification ?? '—'}</p>
-        <div className="flex items-center align-center">
-          <span className="material-symbols-outlined">note_stack_add</span>
-          <p>Additional Note:</p>
-        </div>
-        <p className="form-data-to-read">{project.additional ?? '—'}</p>
       </div>
+      <div className="flex items-center align-center mb-2">
+        <span className="material-symbols-outlined">delivery_truck_speed</span>
+        <p>Fuel Delivery</p>
+      </div>
+      <div className="flex flex-col items-center align-center">
+        <div className="dashed-card flex flex-col ">
+          <div className="background-header p-0">
+            <p>Date</p>
+            <p>Volume</p>
+            <p>File</p>
+          </div>
+          <div className="file-row">
+            <p>09.09/25</p>
+            <p>5000L</p>
+            <span className="material-symbols-outlined">folder</span>
+          </div>
+          <div className="file-row">
+            <p>09.09/25</p>
+            <p>5000L</p>
+            <span className="material-symbols-outlined">folder</span>
+          </div>
+        </div>
+        <Link href="/add-fuel-delivery">
+          <button>Add Delivery</button>
+        </Link>
+      </div>
+
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">today</span>
+        <p>Release Date:</p>
+      </div>
+
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">contacts_product</span>
+        <p>Name of the Contractor:</p>
+      </div>
+      <p className="form-data-to-read">{project.contractor_name ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">location_on</span>
+        <p>Address of the Contractor:</p>
+      </div>
+      <p className="form-data-to-read">{project.contractor_address ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">mail</span>
+        <p>Email:</p>
+      </div>
+      <p className="form-data-to-read">{project.email ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">mobile</span>
+        <p>Mobile:</p>
+      </div>
+      <p className="form-data-to-read">{project.mobile ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">person_apron</span>
+        <p>Asaigned Technicians:</p>
+      </div>
+      <p className="form-data-to-read">{project.technician ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">battery_charging_50</span>
+        <p>Generator:</p>
+      </div>
+      <p className="form-data-to-read">{project.generator ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">oil_barrel</span>
+        <p>Fuel Tank:</p>
+      </div>
+      <p className="form-data-to-read">{project.tank ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">attach_money</span>
+        <p>Purchase Price:</p>
+      </div>
+      <p className="form-data-to-read">{project.amount ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">attach_money</span>
+        <p>Selling Price:</p>
+      </div>
+      <p className="form-data-to-read">{project.selling_price ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">sticky_note_2</span>
+        <p>Specification of the project:</p>
+      </div>
+      <p className="form-data-to-read">{project.specification ?? '—'}</p>
+      <div className="flex items-center align-center">
+        <span className="material-symbols-outlined">note_stack_add</span>
+        <p>Additional Note:</p>
+      </div>
+      <p className="form-data-to-read">{project.additional ?? '—'}</p>
     </div>
   );
 }

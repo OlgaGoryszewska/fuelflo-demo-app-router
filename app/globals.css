@@ -412,3 +412,14 @@ li a:hover {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
+
+.date-box {
+  display: flex;
+  flex-direction:row;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  border: var(--primary-gray-light) 1px solid;
+  padding: 0.6rem;
+  border-radius: 25px;
+  background-color: white;
+}
