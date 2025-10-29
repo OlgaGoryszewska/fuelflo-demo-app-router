@@ -70,6 +70,9 @@ form,
   border: 1px solid var(--primary-gray-light);
   background: linear-gradient(to top, #f0f9fe, #fff 70%);
 }
+form {
+  background: white;
+}
 
 .generator-container {
   background: linear-gradient(to bottom, #fff 50%, #fee39f);
@@ -115,6 +118,8 @@ button {
 }
 .small-button {
   padding: 0.3rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
   font-size: 12px;
   font-weight: 500;
   width: fit-content;
@@ -123,7 +128,6 @@ button {
   margin-top: -0.6rem;
   margin-bottom: 0.3rem;
   background-color: #fee39f;
-  
 }
 
 .card-button,
@@ -194,7 +198,7 @@ button {
   padding: 0.6rem;
   color: var(--primary-mid-gray);
   background-color: white;
-  border-radius: 10px;
+  border-radius: 25px;
   margin-bottom: 0.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -285,23 +289,23 @@ li a:hover {
 }
 
 .material-symbols-outlined {
-  font-size: 26px;
+  font-size: 24px;
   vertical-align: middle;
-  color: var(--primary-mid-gray);
+  color: #fee39f;
   margin-right: 8px;
   font-variation-settings:
     'FILL' 0,
-    'wght' 400,
+    'wght' 100,
     'GRAD' 0,
     'opsz' 24;
 }
 .material-symbols-outlined.big {
   font-variation-settings:
     'FILL' 0,
-    'wght' 300,
+    'wght' 100,
     'GRAD' 0,
-    'opsz' 48;
-  font-size: 28px;
+    'opsz' 0;
+  font-size: 24px;
   margin-left: 0.6rem;
 }
 .material-symbols-outlined.tin {
@@ -347,11 +351,9 @@ li a:hover {
   margin-left: 0rem;
   border-bottom: 0px;
 }
-.form-hearer-with-button{
+.form-hearer-with-button {
   padding-top: 0rem;
   margin-top: 0rem;
-  
-
 }
 
 .form-footer {
@@ -438,7 +440,6 @@ li a:hover {
   display: flex;
   flex-direction: row;
   gap: 0.4rem;
-  margin-bottom: 0.6rem;
   margin-top: 0rem;
   border: var(--primary-gray-light) 1px solid;
   padding: 0.6rem;
