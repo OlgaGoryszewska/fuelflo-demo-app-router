@@ -115,7 +115,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
         <p className="pt-4">Generators</p>
-        <div className="flex p-3 items-center rounded-4xl bg-white shadow">
+        <div className="card-button">
           <span className="material-symbols-outlined">bolt</span>
 
           <p>
@@ -124,7 +124,7 @@ export default function ProjectDetailPage() {
         </div>
 
         <p className="pt-4">External tanks</p>
-        <div className="flex p-3 items-center rounded-4xl bg-white shadow mb-4">
+        <div className="card-button">
           <span className="material-symbols-outlined">bolt</span>
 
           <p>{project.tank ? project.tank : 'No external tanks connected.'}</p>
@@ -136,7 +136,7 @@ export default function ProjectDetailPage() {
           <span className="material-symbols-outlined">
             delivery_truck_speed
           </span>
-          <p className="uppercase">Fuel Delivery</p>
+          <h3 className="ml-2 uppercase">Fuel Delivery</h3>
           <Link className=" small-button ml-auto " href="/add-fuel-delivery">
             <div>Add Delivery</div>
           </Link>
