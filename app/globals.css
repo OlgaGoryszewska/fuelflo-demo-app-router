@@ -106,12 +106,23 @@ button {
   background-color: #fde5aa;
   color: var(--primary-black);
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   font-size: 18px;
   cursor: pointer;
   margin: 1rem;
   font-family: var(--font-roboto-flex);
   width: 10rem;
+}
+.small-button {
+  padding: 0.3rem;
+  font-size: 14px;
+  width: fit-content;
+  border: var(--primary-orange-light) 1.5px solid;
+  border-radius: 25px;
+  margin-top: -0.6rem;
+  margin-bottom: 0.3rem;
+  background-color: #fee39f;
+  
 }
 
 .card-button,
@@ -314,6 +325,7 @@ li a:hover {
   padding-top: 0rem;
 }
 
+.form-header-with-button,
 .form-header,
 .form-header-gray {
   display: flex;
@@ -323,6 +335,7 @@ li a:hover {
   padding-bottom: 0.2rem;
   border-bottom: 1px solid var(--primary-gray-light);
 }
+
 .form-header-gray {
   font-weight: 500;
   background-color: var(--primary-beige-light);
@@ -331,6 +344,12 @@ li a:hover {
   padding-right: 0.6rem;
   margin-left: 0rem;
   border-bottom: 0px;
+}
+.form-hearer-with-button{
+  padding-top: 0rem;
+  margin-top: 0rem;
+  
+
 }
 
 .form-footer {
@@ -371,7 +390,6 @@ li a:hover {
   margin: 0.6rem;
 }
 .background-header {
-  border-bottom: 1px dashed var(--primary-beige-light);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -382,6 +400,7 @@ li a:hover {
 .generator-localisation {
   font-size: 14px;
   color: var(--primary-mid-gray);
+  margin-right: 0.5rem;
 }
 .fuel-bar {
   width: 100%;
@@ -415,11 +434,13 @@ li a:hover {
 
 .date-box {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   gap: 0.4rem;
   margin-bottom: 0.6rem;
+  margin-top: 0rem;
   border: var(--primary-gray-light) 1px solid;
   padding: 0.6rem;
   border-radius: 25px;
   background-color: white;
+  width: fit-content;
 }
