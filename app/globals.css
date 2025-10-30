@@ -147,15 +147,16 @@ button {
 }
 .card-button:hover,
 .form-button:hover {
-  background: linear-gradient(to top, #fff 50%, #fee39f);
+ border: 2px solid var(--primary-orange-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
 }
 .card-button:active,
 .form-button:active {
+  border: 2px solid var(--primary-orange-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(to bottom, #fff, #fee39f);
 
-  /* optional: click feedback */
 }
 
 .card-end-button {

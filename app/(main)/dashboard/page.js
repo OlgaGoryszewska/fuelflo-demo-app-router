@@ -8,6 +8,9 @@ export default function Dashboard() {
   return (
     <div>
       <div className="m-2.5">
+      <div className="form-header mb-4">
+        <h1 className="ml-2">dashboard</h1>
+      </div>
         <div
           onClick={() => setOpenCard(!openCard)}
           className={`form-button ${openCard ? 'border-active' : ''}`}

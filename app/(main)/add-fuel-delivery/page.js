@@ -16,11 +16,11 @@ export default function AddFuelDeliveryPage() {
   ];
   return (
     <div className="main-container">
+      <div className="form-header mb-4">
+        <h1 className="ml-2">Add fuel delivery</h1>
+      </div>
       <form>
-        <div className="form-header">
-          <span className="material-symbols-outlined big ">add</span>
-          <h1>Add Fuel Delivery</h1>
-        </div>
+        
         <ProgresionBar currentStep={currentStep} />
         {steps[currentStep]}
 

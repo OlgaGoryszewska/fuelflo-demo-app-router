@@ -22,7 +22,8 @@ export default function StepTwo({ formData, setFormData }) {
       </label>
       <label>
         Adress of the Contractor:
-        <input name="contractor_address" type="text" onChange={handleChange} />
+        <input name="contractor_address"
+        value={formData.contractor_address} type="text" onChange={handleChange} />
       </label>
       <label>
         Email:

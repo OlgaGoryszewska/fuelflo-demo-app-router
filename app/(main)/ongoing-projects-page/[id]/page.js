@@ -94,8 +94,8 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation"> {project.location}</p>
         </div>
         <div />
-        <div className="flex flex-row gap-3">
-          <div>
+        <div className="flex flex-row justify-evenly">
+          <div div className="flex flex-col justyfy-center items-center">
             <p className="generator-localisation">🚀 Starting date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
@@ -104,7 +104,7 @@ export default function ProjectDetailPage() {
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex flex-col justyfy-center items-center">
             <p className="generator-localisation">🏁 End date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
@@ -114,7 +114,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </div>
-        <p className="pt-4">Generators</p>
+        <p className="pt-3">Generators</p>
         <div className="card-button">
           <span className="material-symbols-outlined">bolt</span>
 
@@ -123,7 +123,7 @@ export default function ProjectDetailPage() {
           </p>
         </div>
 
-        <p className="pt-4">External tanks</p>
+        <p className="pt-3">External tanks</p>
         <div className="card-button">
           <span className="material-symbols-outlined">bolt</span>
 

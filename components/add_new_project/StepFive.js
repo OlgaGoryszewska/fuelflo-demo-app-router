@@ -20,12 +20,12 @@ export default function StepFive({ formData }) {
         <span className="material-symbols-outlined">today</span>
         <h3>Release Date </h3>
       </div>
-      <p className="form-data-to-read-only">{formData.releaseDate}</p>
+      <p className="form-data-to-read-only">{formData.start_date}</p>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">today</span>
         <h3>End Date </h3>
       </div>
-      <p className="form-data-to-read-only">{formData.endDate}</p>
+      <p className="form-data-to-read-only">{formData.end_date}</p>
       <h3 className="form-header-gray">Contact to Contractor</h3>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">contacts_product</span>
@@ -36,7 +36,7 @@ export default function StepFive({ formData }) {
         <span className="material-symbols-outlined">location_on</span>
         <h3> Adress of the Contractor</h3>
       </div>
-      <p className="form-data-to-read-only">{formData.contractor_addres}</p>
+      <p className="form-data-to-read-only">{formData.contractor_address}</p>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">mail</span>
         <h3>Email</h3>

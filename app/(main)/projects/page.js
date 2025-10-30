@@ -4,7 +4,7 @@ export default function Projects() {
   return (
     <div>
       <div className="main-container">
-        <div className="form-header mb-2">
+        <div className="form-header mb-2 ml-2.5">
           <h1>Projects</h1>
         </div>
         <div className="flex flex-col gap-2">

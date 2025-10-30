@@ -36,8 +36,8 @@ export default function StepOne({ formData, setFormData }) {
         Release Date:
         <input
           type="date"
-          name="releaseDate"
-          value={formData.releaseDate}
+          name="start_date"
+          value={formData.start_date}
           onChange={handleChange}
         />
       </label>
@@ -45,8 +45,8 @@ export default function StepOne({ formData, setFormData }) {
         End Date:
         <input
           type="date"
-          name="endDate"
-          value={formData.endDate}
+          name="end_date"
+          value={formData.end_date}
           onChange={handleChange}
         />
       </label>

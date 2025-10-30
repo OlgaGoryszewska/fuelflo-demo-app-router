@@ -51,11 +51,11 @@ export default function AddGenerator() {
   };
   return (
     <div className="m-2.5">
+      <div className="form-header mb-4">
+        <h1 className="ml-2">Project</h1>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="form-header">
-          <span className="material-symbols-outlined big ">add</span>
-          <h1>Add Generator</h1>
-        </div>
+       
         <div className="m-4">
           <img
             src="/generator.png"
