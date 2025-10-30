@@ -83,7 +83,7 @@ export default function ProjectDetailPage() {
       <div className="form-header mb-4">
         <h1 className="ml-2">Project</h1>
       </div>
-      <div className="background-container mb-8">
+      <div className="background-container mb-4">
         <div className="form-header mb-4">
           <span className="material-symbols-outlined">workspaces</span>
           <h3 className="ml-2 uppercase">{project.name}</h3>
@@ -125,9 +125,33 @@ export default function ProjectDetailPage() {
 
         <p className="pt-3">External tanks</p>
         <div className="card-button">
-          <span className="material-symbols-outlined">bolt</span>
+          <span className="material-symbols-outlined">gas_meter</span>
 
           <p>{project.tank ? project.tank : 'No external tanks connected.'}</p>
+        </div>
+        <p className="pt-3">Technicians</p>
+        <div className="card-button">
+          <span className="material-symbols-outlined">person_apron</span>
+
+          <p>
+            {project.generator
+              ? project.technician
+              : 'No technicians assigned.'}
+          </p>
+        </div>
+        <div className="gen-grid pb-4">
+          <div className="generator-inf-box">
+            <p className="box-text">Fuel Purchase Price</p>
+            <p className="box-insert">{project.amount}</p>
+          </div>
+          <div className="generator-inf-box">
+            <p className="box-text">Fuel Selling Price</p>
+            <p className="box-insert">{project.selling_price}</p>
+          </div>
+          <div className="generator-inf-box">
+            <p className="box-text">Estimated Earnings</p>
+            <p className="box-insert">{project.selling_price}</p>
+          </div>
         </div>
       </div>
 
@@ -159,6 +183,23 @@ export default function ProjectDetailPage() {
             <span className="material-symbols-outlined">folder</span>
           </div>
         </div>
+      </div>
+      <div className="background-container mb-4">
+        <div className="form-header mb-4">
+          <span className="material-symbols-outlined">contacts_product</span>
+          <h3 className="ml-2 uppercase">contractor</h3>
+        </div>
+
+        <p className="generator-localisation">
+          {project.contractor_name ?? 'Lack of information'}
+        </p>
+        <div className="flex align-center mb-2">
+        <span className="material-symbols-outlined tin border radious-xl">location_on</span>
+        <p className="generator-localisation">
+          {project.contractor_address ?? 'Lack of information'}
+        </p>
+        </div>
+        
       </div>
     </div>
   );

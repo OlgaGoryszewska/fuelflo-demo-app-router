@@ -147,7 +147,7 @@ button {
 }
 .card-button:hover,
 .form-button:hover {
- border: 2px solid var(--primary-orange-light);
+  border: 2px solid var(--primary-orange-light);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
@@ -156,7 +156,6 @@ button {
   border: 2px solid var(--primary-orange-light);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
-
 }
 
 .card-end-button {
@@ -394,7 +393,7 @@ li a:hover {
 }
 
 .generator-localisation {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--primary-mid-gray);
   margin-right: 0.5rem;
 }
@@ -431,11 +430,13 @@ li a:hover {
 .date-box {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 0.4rem;
   margin-top: 0rem;
   border: var(--primary-gray-light) 1px solid;
   padding: 0.6rem;
   border-radius: 25px;
   background-color: white;
+  background: white;
   width: fit-content;
 }

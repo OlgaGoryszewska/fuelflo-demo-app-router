@@ -55,7 +55,6 @@ export default function AddGenerator() {
         <h1 className="ml-2">Project</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-       
         <div className="m-4">
           <img
             src="/generator.png"

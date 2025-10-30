@@ -20,7 +20,6 @@ export default function AddFuelDeliveryPage() {
         <h1 className="ml-2">Add fuel delivery</h1>
       </div>
       <form>
-        
         <ProgresionBar currentStep={currentStep} />
         {steps[currentStep]}
 
