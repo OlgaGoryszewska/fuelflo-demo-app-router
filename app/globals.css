@@ -131,9 +131,11 @@ button {
   background-color: #fee39f;
   
 }
+.file-row:hover,
 .small-button:hover{
-  border: var(--primary-orange-light) 1.5px solid;
-
+  border: 2px solid var(--primary-orange-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
 }
 .small-button-green {
   background-color: #E4F7C1;
@@ -188,8 +190,14 @@ button {
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
- 
 }
+.button-big:hover {
+  border: 2px solid var(--primary-orange-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+
 .dashed-card {
   border-radius: 8px;
   box-shadow:
@@ -207,7 +215,9 @@ button {
   border-radius: 25px;
   margin-bottom: 0.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--primary-gray-light);
 }
+
 li {
   border-bottom: 1px solid var(--primary-gray-light);
   padding-top: 0.6rem;

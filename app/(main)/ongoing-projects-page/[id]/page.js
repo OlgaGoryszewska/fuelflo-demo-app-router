@@ -226,7 +226,7 @@ export default function ProjectDetailPage() {
       </div>
       <button className=" button-big ">
       <Link  href="/add-fuel-delivery">
-            <div>Add Delivery</div>
+            <div>Add Fuel Delivery</div>
           </Link>
       </button>
       
