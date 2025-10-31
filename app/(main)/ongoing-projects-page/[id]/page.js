@@ -37,6 +37,7 @@ export default function ProjectDetailPage() {
         'selling_price',
         'specification',
         'additional',
+        'company_name',
       ].join(',');
 
       const idValue = isNaN(Number(id)) ? id : Number(id);
@@ -87,6 +88,12 @@ export default function ProjectDetailPage() {
         <div className="form-header mb-4">
           <span className="material-symbols-outlined">workspaces</span>
           <h3 className="ml-2 uppercase">{project.name}</h3>
+          <Link
+            className=" small-button-green ml-auto "
+            href="/add-fuel-delivery"
+          >
+            <div>Active</div>
+          </Link>
         </div>
 
         <div className="flex items-start mb-2">
@@ -94,8 +101,8 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation"> {project.location}</p>
         </div>
         <div />
-        <div className="flex flex-row justify-evenly">
-          <div div className="flex flex-col justyfy-center items-center">
+        <div className="flex flex-row justify-between ">
+          <div className="flex flex-col justyfy-center items-center">
             <p className="generator-localisation">🚀 Starting date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
@@ -190,16 +197,19 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">contractor</h3>
         </div>
 
-        <p className="generator-localisation">
-          {project.contractor_name ?? 'Lack of information'}
-        </p>
+        <h2 className="">{project.contractor_name ?? 'Lack of information'}</h2>
         <div className="flex align-center mb-2">
-        <span className="material-symbols-outlined tin border radious-xl">location_on</span>
-        <p className="generator-localisation">
-          {project.contractor_address ?? 'Lack of information'}
-        </p>
+          <span className="material-symbols-outlined tin">location_on</span>
+          <p className="generator-localisation">
+            {project.contractor_address ?? 'Lack of information'}
+          </p>
         </div>
-        
+        <div className="flex align-center mb-2">
+          <span className="material-symbols-outlined tin ">location_city</span>
+          <p className="generator-localisation">
+            {project.company_name ?? 'Lack of information'}
+          </p>
+        </div>
       </div>
     </div>
   );
