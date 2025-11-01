@@ -197,7 +197,7 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">contractor</h3>
         </div>
 
-        <h2 >{project.contractor_name ?? '-'}</h2>
+        <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
           <span className="material-symbols-outlined tin ">location_city</span>
           <p className="generator-localisation">
@@ -212,24 +212,18 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex align-center mb-2">
           <span className="material-symbols-outlined tin">email</span>
-          <p className="generator-localisation">
-            {project.email ?? '-'}
-          </p>
+          <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
           <span className="material-symbols-outlined tin">mobile</span>
-          <p className="generator-localisation">
-            {project.mobile ?? '-'}
-          </p>
+          <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
-      
       </div>
       <button className=" button-big ">
-      <Link  href="/add-fuel-delivery">
-            <div>Add Fuel Delivery</div>
-          </Link>
+        <Link href="/add-fuel-delivery">
+          <div>Add Fuel Delivery</div>
+        </Link>
       </button>
-      
     </div>
   );
 }
