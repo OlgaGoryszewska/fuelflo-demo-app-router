@@ -97,11 +97,28 @@ export default function Dashboard() {
             Add new Partner
           </Link>
         </div>)}
+        <div onClick={() => toggleCard('equipment')} className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}><span className="material-symbols-outlined">gas_meter</span>
+        Equipment  <ChevronDown
+            className={`ml-auto transition-transform text-gray-400 ${openCard === 'texternal partners' ? 'rotate-180' : ''}`}
+          />
 
-        <Link href="/generators" className="form-button">
-          <span className="material-symbols-outlined">gas_meter</span>
-          Equipment
-        </Link>
+        </div>
+        {openCard === 'equipment' && (<div className="open-card ">
+          <Link href="/generators" className="card-button">
+            <span className="material-symbols-outlined">ev_station</span>
+            Generators
+          </Link>
+          <Link href="/external-tanks" className="card-button">
+            <span className="material-symbols-outlined">gas_meter</span>
+            External Tanks
+          </Link>
+          <Link href="/add-generator" className="card-button">
+            <span className="material-symbols-outlined">add</span>
+            Add new Equipment
+          </Link>
+        </div>)}
+
+        
         <Link href="/projects/" className="form-button">
           <span className="material-symbols-outlined">add</span>
           Register a new User

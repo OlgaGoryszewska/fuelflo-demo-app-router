@@ -52,7 +52,7 @@ export default function AddGenerator() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Project</h1>
+        <h1 className="ml-2">Add Equipment</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="m-4">
