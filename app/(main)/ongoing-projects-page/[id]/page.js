@@ -4,14 +4,18 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
+import { ChevronDown } from 'lucide-react';
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
-  const router = useRouter();
-
+  const [openCard, setOpenCard] = useState(null);
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const toggleCard = (cardName) => {
+    setOpenCard((prev) => (prev === cardName ? null : cardName));
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -103,7 +107,7 @@ export default function ProjectDetailPage() {
         <div />
         <div className="flex flex-row justify-between ">
           <div className="flex flex-col justyfy-center items-center">
-            <p className="generator-localisation">🚀 Starting date</p>
+            <p >Starting date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
               <p className="generator-localisation">
@@ -112,7 +116,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-col justyfy-center items-center">
-            <p className="generator-localisation">🏁 End date</p>
+            <p >End date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
               <p className="generator-localisation">
@@ -121,22 +125,46 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </div>
-        <p className="pt-3">Generators</p>
-        <div className="card-button">
-          <span className="material-symbols-outlined">bolt</span>
-
-          <p>
-            {project.generator ? project.generator : 'No generators connected.'}
-          </p>
+        <div
+          onClick={() => toggleCard('generators')}
+          className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
+        >
+          <p className="">Generators</p>
+          <ChevronDown
+            className={`ml-auto transition-transform text-gray-400 ${openCard === 'generators' ? 'rotate-180' : ''}`}
+          />
         </div>
+        {openCard === 'generators' && (
+          <div className="card-button">
+            <span className="material-symbols-outlined">bolt</span>
 
+            <p>
+              {project.generator
+                ? project.generator
+                : 'No generators connected.'}
+            </p>
+          </div>
+        )}
+        <div onClick={() => toggleCard('tanks')} className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle">
         <p className="pt-3">External tanks</p>
-        <div className="card-button">
+        <ChevronDown
+            className={`ml-auto transition-transform text-gray-400 ${openCard === 'tanks' ? 'rotate-180' : ''}`}
+          />
+        </div>
+        {openCard === 'tanks' && (<div className="card-button">
           <span className="material-symbols-outlined">gas_meter</span>
 
           <p>{project.tank ? project.tank : 'No external tanks connected.'}</p>
-        </div>
+        </div>)}
+        
+        <div onClick={() => toggleCard('technicians')} className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle">
         <p className="pt-3">Technicians</p>
+        <ChevronDown
+            className={`ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
+          />
+
+        </div>
+        { openCard === 'technicians' && (
         <div className="card-button">
           <span className="material-symbols-outlined">person_apron</span>
 
@@ -145,7 +173,8 @@ export default function ProjectDetailPage() {
               ? project.technician
               : 'No technicians assigned.'}
           </p>
-        </div>
+        </div>)}
+        
         <div className="gen-grid pb-4">
           <div className="generator-inf-box">
             <p className="box-text">Fuel Purchase Price</p>
