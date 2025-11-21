@@ -1,3 +1,5 @@
+import GeneratorDropdown from './GeneratorDropdown';
+
 export default function StepThree({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,15 +21,7 @@ export default function StepThree({ formData, setFormData }) {
         />
       </label>
       <h2 className="mt-4">Add Fleet</h2>
-      <label>
-        Add Generator:
-        <input
-          name="generator"
-          type="text"
-          value={formData.generator}
-          onChange={handleChange}
-        />
-      </label>
+      <GeneratorDropdown />
       <label>
         Add Fuel Tank:
         <input

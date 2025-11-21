@@ -8,7 +8,7 @@ export default function AddGenerator() {
     name: '',
     model_no: '',
     fleet_no: '',
-    localisation: '',
+    localization: '',
     fuel_capacity: '',
     fuel_consumption_100: '',
     run_hours_100_load: '',
