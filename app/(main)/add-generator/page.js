@@ -40,7 +40,7 @@ export default function AddGenerator() {
         name: '',
         model_no: '',
         fleet_no: '',
-        localisation: '',
+        localization: '',
         fuel_capacity: '',
         fuel_consumption_100: '',
         run_hours_100_load: '',
@@ -91,12 +91,12 @@ export default function AddGenerator() {
             />
           </label>
           <label>
-            Localisation:
+            Localization:
             <input
-              name="localisation"
+              name="localization"
               type="text"
               onChange={handleChange}
-              value={formData.localisation}
+              value={formData.localization}
             />
           </label>
           <label>

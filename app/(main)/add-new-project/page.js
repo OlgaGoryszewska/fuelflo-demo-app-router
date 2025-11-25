@@ -38,12 +38,10 @@ export default function AddProjectPage() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const { error } = await supabase
-        .from('projects') // your table name
-        .insert([formData]);
+      const { error } = await supabase.from('projects').insert([formData]);
 
       if (error) throw error;
-      router.push('/projects'); // redirect to projects page
+      router.push('/projects');
       setSubmitting(false);
 
       alert('Project added successfully!');

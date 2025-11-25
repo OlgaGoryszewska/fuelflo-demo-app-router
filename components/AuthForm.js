@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ export default function AuthForm() {
       password,
     });
     if (error) alert(error.message);
-    else (router.push('/dashboard'));
+    else router.push('/dashboard');
   };
 
   return (

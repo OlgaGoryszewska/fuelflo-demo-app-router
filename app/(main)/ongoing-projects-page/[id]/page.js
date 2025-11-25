@@ -107,7 +107,7 @@ export default function ProjectDetailPage() {
         <div />
         <div className="flex flex-row justify-between ">
           <div className="flex flex-col justyfy-center items-center">
-            <p >Starting date</p>
+            <p>Starting date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
               <p className="generator-localisation">
@@ -116,7 +116,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-col justyfy-center items-center">
-            <p >End date</p>
+            <p>End date</p>
             <div className="date-box">
               <span className="material-symbols-outlined tin">today</span>
               <p className="generator-localisation">
@@ -145,36 +145,46 @@ export default function ProjectDetailPage() {
             </p>
           </div>
         )}
-        <div onClick={() => toggleCard('tanks')} className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle">
-        <p className="pt-3">External tanks</p>
-        <ChevronDown
+        <div
+          onClick={() => toggleCard('tanks')}
+          className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
+        >
+          <p className="pt-3">External tanks</p>
+          <ChevronDown
             className={`ml-auto transition-transform text-gray-400 ${openCard === 'tanks' ? 'rotate-180' : ''}`}
           />
         </div>
-        {openCard === 'tanks' && (<div className="card-button">
-          <span className="material-symbols-outlined">gas_meter</span>
+        {openCard === 'tanks' && (
+          <div className="card-button">
+            <span className="material-symbols-outlined">gas_meter</span>
 
-          <p>{project.tank ? project.tank : 'No external tanks connected.'}</p>
-        </div>)}
-        
-        <div onClick={() => toggleCard('technicians')} className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle">
-        <p className="pt-3">Technicians</p>
-        <ChevronDown
+            <p>
+              {project.tank ? project.tank : 'No external tanks connected.'}
+            </p>
+          </div>
+        )}
+
+        <div
+          onClick={() => toggleCard('technicians')}
+          className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
+        >
+          <p className="pt-3">Technicians</p>
+          <ChevronDown
             className={`ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
           />
-
         </div>
-        { openCard === 'technicians' && (
-        <div className="card-button">
-          <span className="material-symbols-outlined">person_apron</span>
+        {openCard === 'technicians' && (
+          <div className="card-button">
+            <span className="material-symbols-outlined">person_apron</span>
 
-          <p>
-            {project.generator
-              ? project.technician
-              : 'No technicians assigned.'}
-          </p>
-        </div>)}
-        
+            <p>
+              {project.generator
+                ? project.technician
+                : 'No technicians assigned.'}
+            </p>
+          </div>
+        )}
+
         <div className="gen-grid pb-4">
           <div className="generator-inf-box">
             <p className="box-text">Fuel Purchase Price</p>
