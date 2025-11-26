@@ -27,7 +27,7 @@ export default function AddProjectPage() {
     email: '',
     mobile: '',
     technician: '',
-    generator: '',
+    generator_id: '',
     tank: '',
     amount: '',
     selling_price: '',
@@ -39,16 +39,12 @@ export default function AddProjectPage() {
     setSubmitting(true);
 
     try {
-      // 1️⃣ take "generator" out of formData
-      const { generator, ...rest } = formData;
-
-      // 2️⃣ build the object that matches your "projects" table
       const payload = {
-        ...rest,
-        generator_id: generator || null, // 👈 FK column in DB
+        ...formData,
+        generator_id: formData.generator_id || null,
       };
 
-      console.log('Payload to insert:', payload); // TEMP: see what we send
+      console.log('Payload to insert:', payload);
 
       const { error } = await supabase.from('projects').insert([payload]);
 
@@ -68,7 +64,7 @@ export default function AddProjectPage() {
         email: '',
         mobile: '',
         technician: '',
-        generator: '',
+        generator_id: '',
         tank: '',
         amount: '',
         selling_price: '',

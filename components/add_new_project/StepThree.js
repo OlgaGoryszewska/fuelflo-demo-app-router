@@ -13,7 +13,7 @@ export default function StepThree({ formData, setFormData }) {
     console.log('Selected generator:', id); // TEMP
     setFormData((prevData) => ({
       ...prevData,
-      generator: id,
+      generator_id: id,
     }));
   };
 
@@ -31,7 +31,7 @@ export default function StepThree({ formData, setFormData }) {
       </label>
       <h2 className="mt-4">Add Fleet</h2>
       <GeneratorDropdown
-        value={formData.generator}
+        value={formData.generator_id}
         onChange={handleGeneratorChange}
       />
       <label>

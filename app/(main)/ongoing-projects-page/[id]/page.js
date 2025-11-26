@@ -35,7 +35,7 @@ export default function ProjectDetailPage() {
         'email',
         'mobile',
         'technician',
-        'generator',
+        'generator_id',
         'tank',
         'amount',
         'selling_price',
@@ -139,8 +139,8 @@ export default function ProjectDetailPage() {
             <span className="material-symbols-outlined">bolt</span>
 
             <p>
-              {project.generator
-                ? project.generator
+              {project.generator_id
+                ? project.generator_id
                 : 'No generators connected.'}
             </p>
           </div>
