@@ -1,6 +1,7 @@
 import GeneratorDropdown from './GeneratorDropdown';
 
 export default function StepThree({ formData, setFormData }) {
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -8,6 +9,17 @@ export default function StepThree({ formData, setFormData }) {
       [name]: value,
     }));
   };
+
+
+  const handleGeneratorChange = (id) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      generator: id,
+    }));
+  };
+    
+  
+
   return (
     <div className="m-4">
       <h2>Setup</h2>
@@ -21,7 +33,9 @@ export default function StepThree({ formData, setFormData }) {
         />
       </label>
       <h2 className="mt-4">Add Fleet</h2>
-      <GeneratorDropdown />
+      <GeneratorDropdown
+      value={formData.generator}
+      onChange={handleGeneratorChange} />
       <label>
         Add Fuel Tank:
         <input
@@ -34,3 +48,4 @@ export default function StepThree({ formData, setFormData }) {
     </div>
   );
 }
+

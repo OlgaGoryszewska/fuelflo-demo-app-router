@@ -96,7 +96,9 @@ form {
   border: 1px solid var(--primary-orange-light);
 }
 
-input {
+input,
+select,
+option {
   padding: 0.6rem;
   border: 1.5px solid var(--primary-orange-light);
   border-radius: 25px;

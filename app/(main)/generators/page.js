@@ -33,7 +33,7 @@ export default async function GeneratorsPage() {
                 </span>
                 <p className="generator-localisation">
                   {' '}
-                  {generator.localisation}
+                  {generator.localization}
                 </p>
               </div>
               <p className="pt-4">Generator fuel</p>
