@@ -37,8 +37,20 @@ export default function AddProjectPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
     try {
-      const { error } = await supabase.from('projects').insert([formData]);
+      // 1️⃣ take "generator" out of formData
+      const { generator, ...rest } = formData;
+
+      // 2️⃣ build the object that matches your "projects" table
+      const payload = {
+        ...rest,
+        generator_id: generator || null, // 👈 FK column in DB
+      };
+
+      console.log('Payload to insert:', payload); // TEMP: see what we send
+
+      const { error } = await supabase.from('projects').insert([payload]);
 
       if (error) throw error;
       router.push('/projects');
