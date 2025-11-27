@@ -101,13 +101,41 @@ export default function ProjectDetailPage() {
         </div>
 
         <div className="flex items-start">
-          <span className="material-symbols-outlined tin ">location_on</span>
-          <p className="generator-localisation"> {project.location}</p>
-        </div>
+  <span className="material-symbols-outlined tin">location_on</span>
+  {project.location ? (
+    <Link
+      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        project.location
+      )}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="generator-localisation underline text-blue-600"
+    >
+      {project.location}
+    </Link>
+  ) : (
+    <p className="generator-localisation">Lack of information</p>
+  )}
+</div>
+{project.location && (
+  <div className="mt-4 w-full h-64">
+    <iframe
+      title="Project location map"
+      className="w-full h-full rounded-lg border-0"
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      src={`https://www.google.com/maps/embed/v1/place?key=${
+        process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+      }&q=${encodeURIComponent(project.location)}`}
+      allowFullScreen
+    />
+  </div>
+)}
+
         <div />
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-          <span className="material-symbols-outlined ">today</span>
+          <span className="material-symbols-outlined tin ">today</span>
             <p>Starting date</p>
             <div className="date-box">
               
@@ -117,7 +145,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-          <span className="material-symbols-outlined ">today</span>
+          <span className="material-symbols-outlined tin ">today</span>
             <p>End date</p>
             <div className="date-box">
              
