@@ -191,6 +191,7 @@ button {
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
+  border-color: 1px solid var(--primary-gray-light);
 }
 .button-big:hover {
   border: 2px solid var(--primary-orange-light);
@@ -330,9 +331,7 @@ li a:hover {
     'wght' 100,
     'GRAD' 0,
     'opsz' 0;
-  font-size: 21px;
   color: #858788;
-  margin-left: 0.3rem;
 }
 .form-data-to-read,
 .form-data-to-read-only {
@@ -418,7 +417,6 @@ li a:hover {
 }
 
 .generator-localisation {
-  font-size: 16px;
   color: var(--primary-mid-gray);
   margin-right: 0.5rem;
 }
@@ -430,6 +428,9 @@ li a:hover {
 }
 .project-inf-box,
 .generator-inf-box {
+  display:flex;
+  flex-direction: column;
+  justify-content:space-between;
   background: linear-gradient(to top, #fff, #f0f9fe);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -463,9 +464,8 @@ li a:hover {
   align-items: center;
   gap: 0.4rem;
   margin-top: 0rem;
-  border: var(--primary-gray-light) 1px solid;
   padding: 0.6rem;
-  border-radius: 25px;
+
   background-color: white;
   background: white;
   width: fit-content;

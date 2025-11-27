@@ -100,25 +100,27 @@ export default function ProjectDetailPage() {
           </Link>
         </div>
 
-        <div className="flex items-start mb-2">
+        <div className="flex items-start">
           <span className="material-symbols-outlined tin ">location_on</span>
           <p className="generator-localisation"> {project.location}</p>
         </div>
         <div />
-        <div className="flex flex-row justify-between ">
-          <div className="flex flex-col justyfy-center items-center">
+        <div className="flex flex-col justify-between ">
+          <div className="flex flex-row justyfy-center items-center">
+          <span className="material-symbols-outlined ">today</span>
             <p>Starting date</p>
             <div className="date-box">
-              <span className="material-symbols-outlined tin">today</span>
+              
               <p className="generator-localisation">
                 {project.start_date ?? 'Lack of information'}
               </p>
             </div>
           </div>
-          <div className="flex flex-col justyfy-center items-center">
+          <div className="flex flex-row justyfy-center items-center">
+          <span className="material-symbols-outlined ">today</span>
             <p>End date</p>
             <div className="date-box">
-              <span className="material-symbols-outlined tin">today</span>
+             
               <p className="generator-localisation">
                 {project.end_date ?? 'Lack of information'}
               </p>
