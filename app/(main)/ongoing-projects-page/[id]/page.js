@@ -186,15 +186,15 @@ export default function ProjectDetailPage() {
         )}
 
         <div className="gen-grid pb-4">
-          <div className="generator-inf-box">
+          <div className="project-inf-box">
             <p className="box-text">Fuel Purchase Price</p>
             <p className="box-insert">{project.amount}</p>
           </div>
-          <div className="generator-inf-box">
+          <div className="project-inf-box">
             <p className="box-text">Fuel Selling Price</p>
             <p className="box-insert">{project.selling_price}</p>
           </div>
-          <div className="generator-inf-box">
+          <div className="project-inf-box">
             <p className="box-text">Estimated Earnings</p>
             <p className="box-insert">{project.selling_price}</p>
           </div>

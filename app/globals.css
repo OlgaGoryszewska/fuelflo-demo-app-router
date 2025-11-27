@@ -428,12 +428,16 @@ li a:hover {
   background: linear-gradient(to right, #febd20, #f25822);
   border-radius: 10px;
 }
+.project-inf-box,
 .generator-inf-box {
   background: linear-gradient(to top, #fff, #f0f9fe);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 1rem;
   border: 1px solid var(--primary-gray-light);
+}
+.project-inf-box {
+  background: linear-gradient(to top,#fff 70%,#fff7e4  );
 }
 .box-text {
   padding: 0.6rem;
