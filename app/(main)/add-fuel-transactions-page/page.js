@@ -26,16 +26,7 @@ export default function AddFuelDeliveryPage() {
       <p className="body-text">I am currently performing </p>
       <MyToggleComponent />
 
-      <form>
-        <ProgresionBar currentStep={currentStep} />
-        {steps[currentStep]}
-
-        <StepNavigation
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-          totalSteps={steps.length}
-        />
-      </form>
+     <div className='generator-container'></div>
     </div>
   );
 }

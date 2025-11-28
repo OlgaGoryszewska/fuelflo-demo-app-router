@@ -9,7 +9,7 @@ export default function MyToggleComponent() {
   return (
     <div className="toggle-component flex mb-4 ">
       <p
-        className={`mr-4 delivery ${isToggled ? 'on' : 'off'}`}
+        className={`mr-4 gray-text delivery ${isToggled ? 'on' : 'off'}`}
         onClick={handleToggle}
       >
         Delivery
@@ -21,7 +21,7 @@ export default function MyToggleComponent() {
         <div className="toggle-ball"></div>
       </div>
       <p
-        className={`ml-4 return ${isToggled ? 'on' : 'off'}`}
+        className={`ml-4 gray-text return ${isToggled ? 'on' : 'off'}`}
         onClick={handleToggle}
       >
         Return{' '}

@@ -41,6 +41,9 @@ label {
   margin-bottom: 0.4rem;
   padding-bottom: 0.6rem;
 }
+.gray-text {
+  color: var(--primary-mid-gray);
+}
 
 .main-container {
   display: flex;
@@ -507,4 +510,11 @@ li a:hover {
 .toggle-container.on .toggle-ball {
   /* Move it 26px + 4px margin = 30px to the right */
   transform: translateX(26px);
+}
+.toggle-component {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
 }
