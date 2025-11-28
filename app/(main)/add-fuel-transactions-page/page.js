@@ -1,7 +1,8 @@
-'use client';
+ 'use client';
 
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
+import MyToggleComponent from '@/components/Toggle/ToggledTransaction';
 import { useState } from 'react';
 
 import StepOneDelivery from '/components/add-fuel-delivery-components/StepOneDelivery';
@@ -17,8 +18,12 @@ export default function AddFuelDeliveryPage() {
   return (
     <div className="main-container">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add fuel delivery</h1>
+        <h1 className="ml-2">Add fuel transaction</h1>
       </div>
+      <p className="mb-4 body-text">Please fill in the details below to add a new fuel transaction.</p>
+      <p className="body-text">I am currently performing </p>
+      <MyToggleComponent />
+
       <form>
         <ProgresionBar currentStep={currentStep} />
         {steps[currentStep]}

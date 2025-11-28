@@ -44,21 +44,6 @@ export default function Menu() {
             Dashboard
           </Link>
         </li>
-        <li>
-          <Link onClick={handleLinkClick} href="/projects">
-            Projects
-          </Link>
-        </li>
-        <li>
-          <Link onClick={handleLinkClick} href="/generators">
-            Generators
-          </Link>
-        </li>
-        <li>
-          <Link onClick={handleLinkClick} href="/add-fuel-delivery/intro">
-            ADD FUEL DELIVERY
-          </Link>
-        </li>
         <li className="last-li">
           <Link onClick={handleLinkClick} href="/signIn">
             Sign in
