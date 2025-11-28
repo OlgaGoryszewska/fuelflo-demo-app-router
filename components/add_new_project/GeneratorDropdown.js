@@ -11,7 +11,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 
-export default function GeneratorDropdown( {value, onChange} ) {
+export default function GeneratorDropdown({ value, onChange }) {
   const [generators, setGenerators] = useState([]);
   useEffect(() => {
     async function fetchGenerators() {
@@ -31,13 +31,13 @@ export default function GeneratorDropdown( {value, onChange} ) {
     <div>
       <label className="flex flex-col ">
         Generator:
-        <select className='pr-4 mr-4'
-        value='{value }'
-        onChange={(e) => onChange(e.target.value)}>
-
-          
+        <select
+          className="pr-4 mr-4"
+          value="{value }"
+          onChange={(e) => onChange(e.target.value)}
+        >
           {generators.map((g) => (
-            <option className='pr-4 mr-4' key={g.id} value={g.id}>
+            <option className="pr-4 mr-4" key={g.id} value={g.id}>
               {g.name}
             </option>
           ))}

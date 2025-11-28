@@ -428,9 +428,9 @@ li a:hover {
 }
 .project-inf-box,
 .generator-inf-box {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  justify-content:space-between;
+  justify-content: space-between;
   background: linear-gradient(to top, #fff, #f0f9fe);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -438,7 +438,7 @@ li a:hover {
   border: 1px solid var(--primary-gray-light);
 }
 .project-inf-box {
-  background: linear-gradient(to top,#fff 70%,#fff7e4  );
+  background: linear-gradient(to top, #fff 70%, #fff7e4);
 }
 .box-text {
   padding: 0.6rem;
@@ -506,5 +506,5 @@ li a:hover {
 }
 .toggle-container.on .toggle-ball {
   /* Move it 26px + 4px margin = 30px to the right */
-  transform: translateX(26px); 
+  transform: translateX(26px);
 }

@@ -92,63 +92,58 @@ export default function ProjectDetailPage() {
         <div className="form-header mb-4">
           <span className="material-symbols-outlined">workspaces</span>
           <h3 className="ml-2 uppercase">{project.name}</h3>
-          <Link
-            className=" small-button-green ml-auto "
-            href="/add-fuel-delivery"
-          >
+          <div className=" small-button-green ml-auto ">
             <div>Active</div>
-          </Link>
+          </div>
         </div>
 
         <div className="flex items-start">
-  <span className="material-symbols-outlined tin">location_on</span>
-  {project.location ? (
-    <Link
-      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        project.location
-      )}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="generator-localisation underline text-blue-600"
-    >
-      {project.location}
-    </Link>
-  ) : (
-    <p className="generator-localisation">Lack of information</p>
-  )}
-</div>
-{project.location && (
-  <div className="mt-4 w-full h-64">
-    <iframe
-      title="Project location map"
-      className="w-full h-full rounded-lg border-0"
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      src={`https://www.google.com/maps/embed/v1/place?key=${
-        process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-      }&q=${encodeURIComponent(project.location)}`}
-      allowFullScreen
-    />
-  </div>
-)}
+          <span className="material-symbols-outlined tin">location_on</span>
+          {project.location ? (
+            <Link
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                project.location
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="generator-localisation underline text-blue-600"
+            >
+              {project.location}
+            </Link>
+          ) : (
+            <p className="generator-localisation">Lack of information</p>
+          )}
+        </div>
+        {project.location && (
+          <div className="mt-4 w-full h-64">
+            <iframe
+              title="Project location map"
+              className="w-full h-full rounded-lg border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps/embed/v1/place?key=${
+                process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+              }&q=${encodeURIComponent(project.location)}`}
+              allowFullScreen
+            />
+          </div>
+        )}
 
         <div />
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-          <span className="material-symbols-outlined tin ">today</span>
+            <span className="material-symbols-outlined tin ">today</span>
             <p>Starting date</p>
             <div className="date-box">
-              
               <p className="generator-localisation">
                 {project.start_date ?? 'Lack of information'}
               </p>
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-          <span className="material-symbols-outlined tin ">today</span>
+            <span className="material-symbols-outlined tin ">today</span>
             <p>End date</p>
             <div className="date-box">
-             
               <p className="generator-localisation">
                 {project.end_date ?? 'Lack of information'}
               </p>
@@ -237,7 +232,10 @@ export default function ProjectDetailPage() {
             delivery_truck_speed
           </span>
           <h3 className="ml-2 uppercase">Fuel Delivery</h3>
-          <Link className=" small-button ml-auto " href="/add-fuel-delivery">
+          <Link
+            className=" small-button ml-auto "
+            href="/add-fuel-transactions-page"
+          >
             <div>Add Delivery</div>
           </Link>
         </div>
@@ -289,7 +287,7 @@ export default function ProjectDetailPage() {
         </div>
       </div>
       <button className=" button-big ">
-        <Link href="/add-fuel-delivery">
+        <Link href="/add-fuel-transactions-page">
           <div>Add Fuel Delivery</div>
         </Link>
       </button>

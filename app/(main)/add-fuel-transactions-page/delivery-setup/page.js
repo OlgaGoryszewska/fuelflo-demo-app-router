@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
