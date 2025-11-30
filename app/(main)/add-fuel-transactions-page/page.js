@@ -10,6 +10,12 @@ import ModalFuelDelivery from '@/components/add-fuel-delivery-components/ModalFu
 
 export default function AddFuelDeliveryPage() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isToggled, setIsToggled] = useState(false);
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+    console.log('Toggled state:', !isToggled);
+  }
 
   const steps = [
     <StepOneDelivery key="step-1" />,
@@ -25,8 +31,8 @@ export default function AddFuelDeliveryPage() {
       </p>
       <p className="body-text">I am currently performing </p>
       <MyToggleComponent />
+       </div>
 
-     <div className='generator-container'></div>
-    </div>
+
   );
 }

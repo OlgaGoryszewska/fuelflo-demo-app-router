@@ -7,6 +7,7 @@ export default function MyToggleComponent() {
     setIsToggled(!isToggled);
   };
   return (
+    <div>
     <div className="toggle-component flex mb-4 ">
       <p
         className={`mr-4 gray-text delivery ${isToggled ? 'on' : 'off'}`}
@@ -26,6 +27,11 @@ export default function MyToggleComponent() {
       >
         Return{' '}
       </p>
+      
     </div>
+    <div className={`generator-container  ${isToggled ? 'off' : 'on'}`}
+        onClick={handleToggle}></div>
+    </div>
+   
   );
 }

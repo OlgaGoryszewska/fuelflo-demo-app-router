@@ -42,7 +42,8 @@ label {
   padding-bottom: 0.6rem;
 }
 .gray-text {
-  color: var(--primary-mid-gray);
+  color: var(--primary-gray-light);
+  font-size: 24px;
 }
 
 .main-container {
@@ -517,4 +518,8 @@ li a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
+}
+.generator-container.off {
+  background: linear-gradient(to bottom, #fff 50%, #7291a4);
+
 }
