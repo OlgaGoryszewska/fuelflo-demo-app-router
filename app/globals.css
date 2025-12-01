@@ -7,6 +7,7 @@
   --primary-gray-light: #e4e4e4;
   --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #6d6d6d;
+  --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
 
   --font-roboto-flex: 'Roboto', sans-serif;
@@ -24,8 +25,7 @@ h1 {
 h2 {
   font-size: 30px;
   font-family: var(--font-italiana);
-  color: var(--primary-mid-gray);
-
+  color: var(--primary-gray-soft);
   margin-bottom: 0.6rem;
 }
 h3,
@@ -42,7 +42,7 @@ label {
   padding-bottom: 0.6rem;
 }
 .gray-text {
-  color: var(--primary-gray-light);
+  color: var(--primary-gray-soft);
   font-size: 24px;
 }
 
@@ -520,6 +520,5 @@ li a:hover {
   gap: 0.6rem;
 }
 .generator-container.off {
-  background: linear-gradient(to bottom, #fff 50%, #7291a4);
-
+  background: linear-gradient(to bottom, #fff 50%, #c5d6e1);
 }

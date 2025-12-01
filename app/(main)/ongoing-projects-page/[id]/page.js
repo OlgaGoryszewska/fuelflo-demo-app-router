@@ -234,7 +234,7 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">Fuel Delivery</h3>
           <Link
             className=" small-button ml-auto "
-            href="/add-fuel-transactions-page"
+            href={`/add-fuel-transactions-page?projectId=${project.id}`}
           >
             <div>Add Delivery</div>
           </Link>
@@ -287,7 +287,7 @@ export default function ProjectDetailPage() {
         </div>
       </div>
       <button className=" button-big ">
-        <Link href="/add-fuel-transactions-page">
+        <Link  href={`/add-fuel-transactions-page?projectId=${project.id}`}>
           <div>Add Fuel Delivery</div>
         </Link>
       </button>

@@ -1,37 +1,51 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState,useEffect, use } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function MyToggleComponent() {
   const [isToggled, setIsToggled] = useState(false);
   const handleToggle = () => {
     setIsToggled(!isToggled);
   };
+
+
+
   return (
     <div>
-    <div className="toggle-component flex mb-4 ">
-      <p
-        className={`mr-4 gray-text delivery ${isToggled ? 'on' : 'off'}`}
-        onClick={handleToggle}
-      >
-        Delivery
-      </p>
-      <div
-        className={`toggle-container ${isToggled ? 'on' : 'off'}`}
-        onClick={handleToggle}
-      >
-        <div className="toggle-ball"></div>
+      <div className="toggle-component flex mb-4 ">
+        <p
+          className={`mr-4 gray-text delivery ${isToggled ? 'on' : 'off'}`}
+          onClick={handleToggle}
+        >
+          Delivery
+        </p>
+        <div
+          className={`toggle-container ${isToggled ? 'on' : 'off'}`}
+          onClick={handleToggle}
+        >
+          <div className="toggle-ball"></div>
+        </div>
+        <p
+          className={`ml-4 gray-text return ${isToggled ? 'on' : 'off'}`}
+          onClick={handleToggle}
+        >
+          Return{' '}
+        </p>
       </div>
-      <p
-        className={`ml-4 gray-text return ${isToggled ? 'on' : 'off'}`}
+      <div
+        className={`generator-container  ${isToggled ? 'off' : 'on'}`}
         onClick={handleToggle}
       >
-        Return{' '}
-      </p>
+         <div className="form-header mb-4">
+        <span class="material-symbols-outlined">delivery_truck_speed</span>
+        <h3 className="ml-2 uppercase" onClick={handleToggle}> Fuel 
+        {` ${isToggled ? 'Return' : 'Delivery'}`}
+        </h3>
+      </div>
+      <p>You are currently on the project</p>
+      </div>
+      
       
     </div>
-    <div className={`generator-container  ${isToggled ? 'off' : 'on'}`}
-        onClick={handleToggle}></div>
-    </div>
-   
   );
 }

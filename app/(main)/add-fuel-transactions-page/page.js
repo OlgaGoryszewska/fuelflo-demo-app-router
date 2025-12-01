@@ -15,7 +15,7 @@ export default function AddFuelDeliveryPage() {
   const handleToggle = () => {
     setIsToggled(!isToggled);
     console.log('Toggled state:', !isToggled);
-  }
+  };
 
   const steps = [
     <StepOneDelivery key="step-1" />,
@@ -30,9 +30,8 @@ export default function AddFuelDeliveryPage() {
         Please fill in the details below to add a new fuel transaction.
       </p>
       <p className="body-text">I am currently performing </p>
-      <MyToggleComponent />
-       </div>
-
-
+      <MyToggleComponent 
+      />
+    </div>
   );
 }
