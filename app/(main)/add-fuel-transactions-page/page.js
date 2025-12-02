@@ -30,8 +30,7 @@ export default function AddFuelDeliveryPage() {
         Please fill in the details below to add a new fuel transaction.
       </p>
       <p className="body-text">I am currently performing </p>
-      <MyToggleComponent 
-      />
+      <MyToggleComponent />
     </div>
   );
 }

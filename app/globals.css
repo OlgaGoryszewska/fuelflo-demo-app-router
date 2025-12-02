@@ -25,7 +25,7 @@ h1 {
 h2 {
   font-size: 30px;
   font-family: var(--font-italiana);
-  color: var(--primary-gray-soft);
+  color: var(--primary-mid-gray);
   margin-bottom: 0.6rem;
 }
 h3,
@@ -41,10 +41,7 @@ label {
   margin-bottom: 0.4rem;
   padding-bottom: 0.6rem;
 }
-.gray-text {
-  color: var(--primary-gray-soft);
-  font-size: 24px;
-}
+
 
 .main-container {
   display: flex;
@@ -65,7 +62,7 @@ body {
 form,
 .generator-container,
 .background-container,
-.background-container-white  {
+.background-container-white {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -326,6 +323,16 @@ li a:hover {
     'GRAD' 0,
     'opsz' 24;
 }
+.material-symbols-outlined.black {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 0;
+  font-size: 24px;
+  color: var(--primary-mid-gray);
+  margin: 0rem;
+}
 .material-symbols-outlined.big {
   font-variation-settings:
     'FILL' 0,
@@ -481,50 +488,34 @@ li a:hover {
   width: fit-content;
 }
 .toggle-container {
-  width: 55px;
-  height: 28px;
-  background-color: var(--primary-orange-light);
+  box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
+  height: 46px;
+  background-color: #fff;
   border-radius: 34px;
-  position: relative;
   cursor: pointer;
   transition: background-color 0.4s;
   display: flex;
-  align-items: center; /* Vertically center the ball */
+  align-items: center;
+  justify-content: space-between;
+  max-width: fit-content;
+  padding: 0.4rem;
+  margin-top: 1rem;
+  border-bottom: 1px solid var(--primary-gray-light);
 }
-
-/* State when the toggle is ON (right side) */
-.toggle-container.on {
-  background-color: var(--dark-blue);
-}
-
-.toggle-ball {
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 4px; /* Center it vertically within the 34px container (34-26)/2 */
-  left: 4px; /* Initial position on the left */
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 0 1px #7291a4(0, 0, 0, 0.5);
-}
-.delivery.off {
-  color: var(--primary-orange-light);
-}
-.return.on {
-  color: var(--dark-blue);
-}
-.toggle-container.on .toggle-ball {
-  /* Move it 26px + 4px margin = 30px to the right */
-  transform: translateX(26px);
-}
-.toggle-component {
+.toggle-wrapper{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
+  border-bottom: 1px solid var(--primary-gray-light);
+  justify-content: space-evenly;
+  padding-bottom: 1.5rem;
 }
-.generator-container.off {
-  background: linear-gradient(to bottom, #fff 50%, #c5d6e1);
+.toggle-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delivery {
+  color: var(--primary-mid-gray);
+  font-weight: 400;
+  padding: 0.4rem;
 }
