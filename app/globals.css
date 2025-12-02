@@ -60,10 +60,12 @@ body {
   color: var(--primary-black);
   min-height: 100vh;
 }
+
 .open-card,
 form,
 .generator-container,
-.background-container {
+.background-container,
+.background-container-white  {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,6 +86,10 @@ form {
   padding: 0.6rem;
 }
 .background-container {
+  padding: 0.6rem;
+}
+.background-container-white {
+  background: white;
   padding: 0.6rem;
 }
 .open-card {

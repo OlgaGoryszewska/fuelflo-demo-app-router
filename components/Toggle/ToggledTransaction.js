@@ -1,6 +1,7 @@
 'use client';
 import React, { useState,useEffect, use } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import StepNavigation from '../StepNavigation';
 
 export default function MyToggleComponent() {
   const [isToggled, setIsToggled] = useState(false);
@@ -33,7 +34,7 @@ export default function MyToggleComponent() {
         </p>
       </div>
       <div
-        className={`generator-container  ${isToggled ? 'off' : 'on'}`}
+        className={`background-container-white  ${isToggled ? 'off' : 'on'}`}
         onClick={handleToggle}
       >
          <div className="form-header mb-4">
@@ -43,6 +44,13 @@ export default function MyToggleComponent() {
         </h3>
       </div>
       <p>You are currently on the project</p>
+      <p className='generator-localisation'>Project Name</p>
+      <p>Find Generator</p>
+      <button className='button-big'>Skan QR Code</button>
+      <p>Search by Name </p>
+      <input></input>
+      <StepNavigation />
+
       </div>
       
       
