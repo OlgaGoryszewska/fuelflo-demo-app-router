@@ -9,7 +9,7 @@ export default function Menu() {
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
-  // ✅ Close menu when clicking outside
+  //  Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {

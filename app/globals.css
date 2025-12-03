@@ -247,7 +247,7 @@ li a:hover {
 }
 
 .logo {
-  width: 50px;
+  width: 40px;
   height: auto;
   margin: 0.3rem;
 }
@@ -271,8 +271,8 @@ li a:hover {
 }
 .hamburger {
   width: 40px;
-  height: 41px;
-  margin: 0.6rem;
+  height: 35px;
+  margin: 0.5rem;
   color: var(--primary-orange);
 }
 .nav {
@@ -280,20 +280,24 @@ li a:hover {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
+  background: linear-gradient(to right, #fff 50%, #fee39f);
+  height: 50px;
+  border-bottom: 1px solid var(--primary-gray-light);
+
 }
 .navAvatar {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  background: linear-gradient(to right, #fff 50%, #fee39f);
+
   height: 50px;
   font-size: 14px;
-  padding: 0.6rem;
+  padding: 0.8rem;
 }
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-left: 0.6rem;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -481,7 +485,6 @@ li a:hover {
   gap: 0.4rem;
   margin-top: 0rem;
   padding: 0.6rem;
-
   background-color: white;
   background: white;
   width: fit-content;
@@ -497,17 +500,18 @@ li a:hover {
   align-items: center;
   justify-content: space-between;
   max-width: fit-content;
-  padding: 0.4rem;
-  margin-top: 1rem;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
   border-bottom: 1px solid var(--primary-gray-light);
+  border: 1px solid var(--primary-gray-light);
 }
 .toggle-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: 1px solid var(--primary-gray-light);
   justify-content: space-evenly;
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
 }
 .toggle-container:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

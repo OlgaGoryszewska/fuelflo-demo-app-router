@@ -45,13 +45,14 @@ export default function MyToggleComponent() {
         <span className="material-symbols-outlined black pr-2">qr_code</span>
         Skan QR Code
       </button>
+    
+      <div className="flex flex-col items-center">
       <h3 className="m-auto body-text">or</h3>
 
-      <div className="input-container">
         <input type="text" placeholder="Search by name..." />
       </div>
 
-      <StepNavigation />
+      
     </div>
   );
 }

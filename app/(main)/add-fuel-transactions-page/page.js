@@ -27,11 +27,9 @@ export default function AddFuelDeliveryPage() {
         <h1 className="ml-2">Add fuel transaction</h1>
       </div>
       <div className="background-container-white">
-        <p className=" body-text">
-          Please fill in the details below to add a new fuel transaction.
-        </p>
-        <p className="body-text">I am currently performing </p>
+    
         <MyToggleComponent />
+        <StepNavigation />
       </div>
     </div>
   );
