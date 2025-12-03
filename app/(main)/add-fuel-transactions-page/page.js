@@ -29,7 +29,10 @@ export default function AddFuelDeliveryPage() {
       <div className="background-container-white">
     
         <MyToggleComponent />
-        <StepNavigation />
+        <div className="flex flex-row justify-between items-center mb-4 mt-4">
+        <button>Previous</button>
+        <button>Next</button>
+        </div>
       </div>
     </div>
   );

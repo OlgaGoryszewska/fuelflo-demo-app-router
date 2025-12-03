@@ -40,16 +40,16 @@ export default function MyToggleComponent() {
           </p>
         </div>
       </div>
-      <p className="pt-4">Find Generator</p>
-      <button className="button-big">
+     
+      <button className="button-big-border-orange mb-4 ">
         <span className="material-symbols-outlined black pr-2">qr_code</span>
-        Skan QR Code
+        Skan Generator QR Code
       </button>
     
       <div className="flex flex-col items-center">
-      <h3 className="m-auto body-text">or</h3>
+      <h3 className="delivery ">or</h3>
 
-        <input type="text" placeholder="Search by name..." />
+        <input className="input-gray" type="text" placeholder="Search by name..." />
       </div>
 
       
