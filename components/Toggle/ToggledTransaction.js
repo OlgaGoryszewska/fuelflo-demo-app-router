@@ -11,13 +11,12 @@ export default function MyToggleComponent() {
 
   return (
     <div>
-      <div className="background-container-white">
-        <div className=" toggle-wrapper justify-evenly">
+      <div className=" toggle-wrapper justify-evenly">
         <div
           className={`toggle-container ${isToggled ? 'on' : 'off'}`}
           onClick={handleToggle}
         >
-          <span className="material-symbols-outlined black">
+          <span className="material-symbols-outlined black mr-2">
             delivery_truck_speed
           </span>
           <p
@@ -41,18 +40,18 @@ export default function MyToggleComponent() {
           </p>
         </div>
       </div>
-      <p className='pt-2'>Find Generator</p>
-      <button className="button-big"><span className="material-symbols-outlined black pr-2">
-qr_code
-</span>Skan QR Code</button>
-<h3 className='m-auto body-text'>or</h3>
-      
-<div className="input-container">
-  <input type="text" placeholder="Search by name..." />
-</div>
-      
+      <p className="pt-4">Find Generator</p>
+      <button className="button-big">
+        <span className="material-symbols-outlined black pr-2">qr_code</span>
+        Skan QR Code
+      </button>
+      <h3 className="m-auto body-text">or</h3>
+
+      <div className="input-container">
+        <input type="text" placeholder="Search by name..." />
+      </div>
+
       <StepNavigation />
-    </div>
     </div>
   );
 }

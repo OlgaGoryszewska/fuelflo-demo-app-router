@@ -42,7 +42,6 @@ label {
   padding-bottom: 0.6rem;
 }
 
-
 .main-container {
   display: flex;
   flex-direction: column;
@@ -502,7 +501,7 @@ li a:hover {
   margin-top: 1rem;
   border-bottom: 1px solid var(--primary-gray-light);
 }
-.toggle-wrapper{
+.toggle-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
