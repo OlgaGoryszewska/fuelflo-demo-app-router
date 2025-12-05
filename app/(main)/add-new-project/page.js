@@ -49,7 +49,7 @@ export default function AddProjectPage() {
       const { error } = await supabase.from('projects').insert([payload]);
 
       if (error) throw error;
-      router.push('/projects');
+      router.push('/ongoing-projects-page/[id]');
       setSubmitting(false);
 
       alert('Project added successfully!');
