@@ -23,10 +23,11 @@ h1 {
   letter-spacing: 3px;
 }
 h2 {
-  font-size: 30px;
-  font-family: var(--font-italiana);
-  color: var(--primary-mid-gray);
+  font-size: 25px;
+  font-family: var(--font-poppins);
+  color: var(--primary-black);
   margin-bottom: 0.6rem;
+  font-weight: 600;
 }
 h3,
 label {
@@ -128,7 +129,7 @@ button {
   cursor: pointer;
   font-family: var(--font-roboto-flex);
   width: 10rem;
-  border: 1px solid var(--primary-gray-light);
+  box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
 }
 
 .small-button-green,
@@ -175,12 +176,14 @@ button {
     box-shadow 0.3s ease;
   transition-duration: 200ms;
 }
+button:hover,
 .card-button:hover,
 .form-button:hover {
   border: 2px solid var(--primary-orange-light);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
+button:active,
 .card-button:active,
 .form-button:active {
   border: 2px solid var(--primary-orange-light);
