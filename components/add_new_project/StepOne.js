@@ -17,7 +17,7 @@ export default function StepOne({ formData, setFormData }) {
       <label>
         Name of the Project:
         <input
-        className="input-gray"
+     
           name="name"
           type="text"
           value={formData.name}
@@ -27,7 +27,7 @@ export default function StepOne({ formData, setFormData }) {
       <label>
         Localisation of the Project:
         <input
-        className="input-gray"
+    
           name="location"
           type="text"
           value={formData.location}
@@ -37,7 +37,7 @@ export default function StepOne({ formData, setFormData }) {
       <label>
         Release Date:
         <input
-        className="input-gray"
+
           type="date"
           name="start_date"
           value={formData.start_date}
@@ -47,7 +47,7 @@ export default function StepOne({ formData, setFormData }) {
       <label>
         End Date:
         <input
-        className="input-gray"
+
           type="date"
           name="end_date"
           value={formData.end_date}

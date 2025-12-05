@@ -123,6 +123,7 @@ button {
   padding: 0.6rem;
   background-color: #fde5aa;
   color: var(--primary-black);
+  font-weight: 500;
   border: none;
   border-radius: 25px;
   font-size: 18px;
@@ -144,6 +145,7 @@ button {
   margin-top: -0.4rem;
   margin-bottom: 0.7rem;
   background-color: #fee39f;
+  font-weight: 500;
 }
 .file-row:hover,
 .small-button:hover {
@@ -159,6 +161,7 @@ button {
   margin-top: -0.4rem;
   margin-bottom: 0.7rem;
   color: var(--primary-mid-gray);
+  font-weight: 500;
 }
 
 .card-button,
@@ -175,6 +178,7 @@ button {
     transform 1s ease,
     box-shadow 0.3s ease;
   transition-duration: 200ms;
+  font-weight: 500;
 }
 button:hover,
 .card-button:hover,
