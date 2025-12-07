@@ -42,7 +42,7 @@ label {
   margin-bottom: 0.4rem;
   padding-bottom: 0.6rem;
 }
-span{
+span {
   color: var(--primary-black);
   font-weight: 500;
 }
@@ -110,7 +110,7 @@ form {
 input,
 select,
 option {
-  color:var(--primary-mid-gray);
+  color: var(--primary-mid-gray);
   padding: 0.6rem;
   border: 1.5px solid var(--primary-orange-light);
   border-radius: 25px;
@@ -118,9 +118,8 @@ option {
   width: 100%;
   background-color: white;
 }
-.input-gray{
+.input-gray {
   border: 2px solid var(--primary-gray-light);
-
 }
 button-navigator,
 button {
@@ -216,7 +215,7 @@ button:active,
   margin-bottom: 0.6rem;
   border-color: 1px solid var(--primary-gray-light);
 }
-.button-big-border-orange{
+.button-big-border-orange {
   border: 2px solid var(--primary-orange-light);
   background-color: #fff;
   color: var(--primary-mid-gray);
@@ -227,7 +226,6 @@ button:active,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
-
 
 .dashed-card {
   border-radius: 8px;
@@ -307,7 +305,6 @@ li a:hover {
   background: linear-gradient(to right, #fff 50%, #fee39f);
   height: 50px;
   border-bottom: 1px solid var(--primary-gray-light);
-
 }
 .navAvatar {
   display: flex;
@@ -422,7 +419,6 @@ li a:hover {
   justify-content: space-between;
   padding: 1rem;
   padding-top: 2rem;
-
 }
 .progresion-number {
   border: 1.5px solid var(--primary-orange-light);
@@ -545,6 +541,12 @@ li a:hover {
 }
 .toggle-container:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.toggle-container.on {
+  background-color: var(--primary-orange-light);
+}
+.toggle-container.off {
+  background-color: #fff;
 }
 
 .delivery {
