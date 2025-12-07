@@ -34,7 +34,7 @@ export default function StepFive({ formData }) {
       <p className="form-data-to-read-only">{formData.contractor_name}</p>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">location_on</span>
-        <h3> Adress of the Contractor</h3>
+        <h3> Address of the Contractor</h3>
       </div>
       <p className="form-data-to-read-only">{formData.contractor_address}</p>
       <div className=" flex flex-row">
@@ -58,7 +58,7 @@ export default function StepFive({ formData }) {
         <span className="material-symbols-outlined">battery_charging_50</span>
         <h3>Add Generator</h3>
       </div>
-      <p className="form-data-to-read-only">{formData.generator}</p>
+      <p className="form-data-to-read-only">{formData.generator_id}</p>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">oil_barrel</span>
         <h3>Add Fuel Tank</h3>

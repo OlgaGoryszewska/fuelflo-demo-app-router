@@ -36,6 +36,11 @@ export default function AddProjectPage() {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Only allow submit on the last step
+    if (currentStep !== steps.length - 1) {
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -44,15 +49,13 @@ export default function AddProjectPage() {
         generator_id: formData.generator_id || null,
       };
 
-      console.log('Payload to insert:', payload);
-
       const { error } = await supabase.from('projects').insert([payload]);
 
       if (error) throw error;
-      router.push('/ongoing-projects-page/[id]');
+      router.push('/ongoing-projects-page/');
       setSubmitting(false);
-
       alert('Project added successfully!');
+      
       // optionally reset form
       setFormData({
         name: '',
@@ -92,7 +95,7 @@ export default function AddProjectPage() {
         <div className="form-header mb-4">
           <h1 className="">Add new Project</h1>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form>
           <ProgresionBar currentStep={currentStep} />
           {steps[currentStep]}
           <StepNavigation
@@ -100,6 +103,7 @@ export default function AddProjectPage() {
             setCurrentStep={setCurrentStep}
             totalSteps={steps.length}
             submitting={submitting}
+            onSubmit={handleSubmit}
           />
         </form>
       </div>
