@@ -134,15 +134,15 @@ export default function Dashboard() {
           </div>
         )}
 
-        <Link href="/projects/" className="form-button mt-4">
+        <Link href="/not-found" className="form-button mt-4">
           <span className="material-symbols-outlined">add</span>
           Register a new User
         </Link>
-        <Link href="/projects/" className="form-button">
-        <span className="material-symbols-outlined">qr_code</span>
+        <Link href="/create-qr-code" className="form-button">
+          <span className="material-symbols-outlined">qr_code</span>
           Create a new QR Code
         </Link>
-        <Link href="/projects/" className="form-button">
+        <Link href="/not-found" className="form-button">
           <span className="material-symbols-outlined">analytics</span>
           Reports
         </Link>
