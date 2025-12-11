@@ -1,5 +1,4 @@
 'use client';
-import Search from '@/ui/search';
 
 export default function CreateQrCodePage() {
   return (
@@ -9,7 +8,6 @@ export default function CreateQrCodePage() {
       </div>
       <div className="background-container-white">
         <p>Search for generator by name</p>
-        <Search placeholder="Search for generator by name" />
       </div>
     </div>
   );
