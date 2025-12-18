@@ -114,7 +114,7 @@ export default function FetchGeneratorsByName() {
                   <p>{g.name}</p>
 
                   <div
-                  className="rounded bg-black px-3 py-1 text-white"
+                  className="button-black"
                     type="button"
                     onClick={() => createQrCodeSvg(g)}
                     
