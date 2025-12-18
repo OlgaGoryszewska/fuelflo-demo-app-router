@@ -130,7 +130,7 @@ export default function FetchGeneratorsByName() {
 
           {qrSvg && selected && (
             <div className=" flex flex-col items-center justify-center mt-6">
-              
+              <p className='font-medium'>{selected.name}</p>
               <div
                 className="mt-3 w-[300px]  m-auto  bg-white "
                 dangerouslySetInnerHTML={{ __html: qrSvg }}
@@ -138,12 +138,12 @@ export default function FetchGeneratorsByName() {
 
               {svgDownloadHref && (
                 <div className="button-border-black">
+                  
                 <a
                   href={svgDownloadHref}
                   download={`generator-${selected.id}.svg`}
-                  
                 >
-                  Download SVG
+                  Download QR code
                 </a>
                 </div>
               )}

@@ -234,9 +234,10 @@ button:active,
   color: var(--primary-mid-gray);
   border-radius: 0.375rem;
   padding: 0.25rem 0.75rem; 
+  margin-top: 1rem;
   margin-bottom: 2rem;
-}
 
+}
 
 .dashed-card {
   border-radius: 8px;
