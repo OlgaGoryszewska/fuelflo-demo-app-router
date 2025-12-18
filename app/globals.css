@@ -121,6 +121,8 @@ option {
 .input-gray {
   border: 2px solid var(--primary-gray-light);
 }
+
+
 button-navigator,
 button {
   padding: 0.6rem;

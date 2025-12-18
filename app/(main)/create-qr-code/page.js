@@ -1,32 +1,58 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { useEffect, useMemo, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import QRCode from 'qrcode';
 
 export default function FetchGeneratorsByName() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const [selected, setSelected] = useState(null);
+  const [qrSvg, setQrSvg] = useState(null);
+  const [qrError, setQrError] = useState(null);
+
+  const createQrCodeSvg = async (generator) => {
+    try {
+      setQrError(null);
+      setSelected(generator);
+
+      // Put inside QR whatever you want to scan later:
+      // Recommended: JSON (easy to extend later)
+      const payload = JSON.stringify({ generatorId: generator.id });
+
+      const svgString = await QRCode.toString(payload, {
+        type: 'svg',
+        margin: 2,
+        errorCorrectionLevel: 'M',
+      });
+
+      setQrSvg(svgString);
+    } catch (e) {
+      console.error(e);
+      setQrError('Could not generate SVG QR code.');
+      setQrSvg(null);
+    }
+  };
+
   useEffect(() => {
-    // Don’t search if empty / too short
     if (query.trim().length < 2) {
       setResults([]);
       setError(null);
       return;
     }
 
-    // Debounce so we don’t spam Supabase on every keystroke
     const timer = setTimeout(async () => {
       setIsLoading(true);
       setError(null);
 
       const { data, error } = await supabase
-        .from("generators")
-        .select("id, name")
-        .ilike("name", `%${query}%`) // case-insensitive "contains"
-        .order("name", { ascending: true })
+        .from('generators')
+        .select('id, name')
+        .ilike('name', `%${query}%`)
+        .order('name', { ascending: true })
         .limit(10);
 
       if (error) {
@@ -41,6 +67,20 @@ export default function FetchGeneratorsByName() {
 
     return () => clearTimeout(timer);
   }, [query]);
+
+  // Download URL for the SVG
+  const svgDownloadHref = useMemo(() => {
+    if (!qrSvg) return null;
+    const blob = new Blob([qrSvg], { type: 'image/svg+xml;charset=utf-8' });
+    return URL.createObjectURL(blob);
+  }, [qrSvg]);
+
+  // Cleanup blob URL
+  useEffect(() => {
+    return () => {
+      if (svgDownloadHref) URL.revokeObjectURL(svgDownloadHref);
+    };
+  }, [svgDownloadHref]);
 
   return (
     <div className="main-container">
@@ -57,7 +97,6 @@ export default function FetchGeneratorsByName() {
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          
         />
 
         <div className="mt-3">
@@ -70,12 +109,46 @@ export default function FetchGeneratorsByName() {
 
           <ul className="mt-2 space-y-2">
             {results.map((g) => (
-              <li key={g.id} className="mx-2 ">
-                <p >{g.name}</p>
-                
+              <li key={g.id} className="mx-2">
+                <div className="flex items-center justify-between gap-3">
+                  <p>{g.name}</p>
+
+                  <div
+                  className="rounded bg-black px-3 py-1 text-white"
+                    type="button"
+                    onClick={() => createQrCodeSvg(g)}
+                    
+                  >
+                    Generate QR code
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
+
+          {qrError && <p className="mt-4 text-red-600">{qrError}</p>}
+
+          {qrSvg && selected && (
+            <div className=" flex flex-col items-center justify-center mt-6">
+              
+              <div
+                className="mt-3 w-[300px]  m-auto  bg-white "
+                dangerouslySetInnerHTML={{ __html: qrSvg }}
+              />
+
+              {svgDownloadHref && (
+                <a
+                  href={svgDownloadHref}
+                  download={`generator-${selected.id}.svg`}
+                  className=" border rounded px-3 py-1"
+                  
+
+                >
+                  Download SVG
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </form>
     </div>
