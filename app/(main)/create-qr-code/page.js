@@ -57,7 +57,7 @@ export default function FetchGeneratorsByName() {
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border rounded p-2 w-full"
+          
         />
 
         <div className="mt-3">
@@ -70,9 +70,9 @@ export default function FetchGeneratorsByName() {
 
           <ul className="mt-2 space-y-2">
             {results.map((g) => (
-              <li key={g.id} className="border rounded p-2">
-                <p className="font-semibold">{g.name}</p>
-                <p className="text-sm opacity-70">ID: {g.id}</p>
+              <li key={g.id} className="mx-2 ">
+                <p >{g.name}</p>
+                
               </li>
             ))}
           </ul>
