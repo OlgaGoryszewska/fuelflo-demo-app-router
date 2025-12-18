@@ -137,15 +137,15 @@ export default function FetchGeneratorsByName() {
               />
 
               {svgDownloadHref && (
+                <div className="button-border-black">
                 <a
                   href={svgDownloadHref}
                   download={`generator-${selected.id}.svg`}
-                  className=" border rounded px-3 py-1"
                   
-
                 >
                   Download SVG
                 </a>
+                </div>
               )}
             </div>
           )}

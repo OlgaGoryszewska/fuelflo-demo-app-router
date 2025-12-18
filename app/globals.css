@@ -228,6 +228,15 @@ button:active,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
+.button-border-black{
+  border: 2px solid var(--primary-black);
+  background-color: #fff;
+  color: var(--primary-mid-gray);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.75rem; 
+  margin-bottom: 2rem;
+}
+
 
 .dashed-card {
   border-radius: 8px;
