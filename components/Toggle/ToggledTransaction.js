@@ -5,6 +5,9 @@
 import React, { useState, useEffect, use } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import StepNavigation from '../StepNavigation';
+import Image from 'next/image';
+import delivery from '@/public/delivery.png';
+
 
 export default function MyToggleComponent() {
   const [selectedOption, setSelectedOption] = useState('delivery');
@@ -33,10 +36,15 @@ export default function MyToggleComponent() {
           <p className="delivery ">Return </p>
         </div>
       </div>
-      <p className="mb-4 "
+      <p className="mb-4 font-medium text-center "
       onClick={() => handleToggle(selectedOption === 'return' ? 'delivery' : 'return')}>
         You currently perform fuel  {selectedOption}
       </p>
+      <Image
+         src={delivery} // Use the imported image
+         alt="Description of my image"
+         className='mb-4'
+      />
 
       <button className="button-big-border-orange mb-4 ">
         <span className="material-symbols-outlined black pr-2">qr_code</span>
