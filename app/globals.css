@@ -562,6 +562,8 @@ li a:hover {
 }
 .toggle-container.on {
   border: 2px solid var(--primary-black);
+  box-shadow: 0 2px 4px rgb(248, 190, 103);
+  
 }
 .toggle-container.off {
   border: 1px solid var(--primary-gray-light);
