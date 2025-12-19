@@ -33,6 +33,10 @@ export default function MyToggleComponent() {
           <p className="delivery ">Return </p>
         </div>
       </div>
+      <p className="mb-4 "
+      onClick={() => handleToggle(selectedOption === 'return' ? 'delivery' : 'return')}>
+        You currently perform fuel  {selectedOption}
+      </p>
 
       <button className="button-big-border-orange mb-4 ">
         <span className="material-symbols-outlined black pr-2">qr_code</span>
