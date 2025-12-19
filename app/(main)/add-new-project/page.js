@@ -55,7 +55,7 @@ export default function AddProjectPage() {
       router.push('/ongoing-projects-page/');
       setSubmitting(false);
       alert('Project added successfully!');
-      
+
       // optionally reset form
       setFormData({
         name: '',

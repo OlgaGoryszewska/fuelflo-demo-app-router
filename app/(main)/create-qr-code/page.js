@@ -103,9 +103,10 @@ export default function FetchGeneratorsByName() {
           {isLoading && <p>Loading…</p>}
           {error && <p className="text-red-600">Error: {error}</p>}
 
-          {!isLoading && !error && query.trim().length >= 2 && results.length === 0 && (
-            <p>No generators found.</p>
-          )}
+          {!isLoading &&
+            !error &&
+            query.trim().length >= 2 &&
+            results.length === 0 && <p>No generators found.</p>}
 
           <ul className="mt-2 space-y-2">
             {results.map((g) => (
@@ -114,10 +115,9 @@ export default function FetchGeneratorsByName() {
                   <p>{g.name}</p>
 
                   <div
-                  className="button-black"
+                    className="button-black"
                     type="button"
                     onClick={() => createQrCodeSvg(g)}
-                    
                   >
                     Generate QR code
                   </div>
@@ -130,7 +130,7 @@ export default function FetchGeneratorsByName() {
 
           {qrSvg && selected && (
             <div className=" flex flex-col items-center justify-center mt-6">
-              <p className='font-medium'>{selected.name}</p>
+              <p className="font-medium">{selected.name}</p>
               <div
                 className="mt-3 w-[300px]  m-auto  bg-white "
                 dangerouslySetInnerHTML={{ __html: qrSvg }}
@@ -138,13 +138,12 @@ export default function FetchGeneratorsByName() {
 
               {svgDownloadHref && (
                 <div className="button-border-black">
-                  
-                <a
-                  href={svgDownloadHref}
-                  download={`generator-${selected.id}.svg`}
-                >
-                  Download QR code
-                </a>
+                  <a
+                    href={svgDownloadHref}
+                    download={`generator-${selected.id}.svg`}
+                  >
+                    Download QR code
+                  </a>
                 </div>
               )}
             </div>

@@ -21,7 +21,7 @@ export default function DashboardLayout({ children }) {
       <body>
         <div className="navAvatar">
           <div>
-            <p >Name</p>
+            <p>Name</p>
           </div>
           <img src="/avatar.png" alt="Avatar" className="avatar" />
         </div>
