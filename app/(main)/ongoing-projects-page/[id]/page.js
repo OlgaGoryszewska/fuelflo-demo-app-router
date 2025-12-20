@@ -98,7 +98,7 @@ export default function ProjectDetailPage() {
         </div>
 
         <div className="flex items-start">
-          <span className="material-symbols-outlined tin">location_on</span>
+          <span className="material-symbols-outlined">location_on</span>
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -132,7 +132,7 @@ export default function ProjectDetailPage() {
         <div />
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-            <span className="material-symbols-outlined tin ">today</span>
+            <span className="material-symbols-outlined ">today</span>
             <p>Starting date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -141,7 +141,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-            <span className="material-symbols-outlined tin ">today</span>
+            <span className="material-symbols-outlined ">today</span>
             <p>End date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -228,10 +228,8 @@ export default function ProjectDetailPage() {
 
       <div className="generator-container mb-4">
         <div className="form-header-with-button ">
-          <span className="material-symbols-outlined">
-            delivery_truck_speed
-          </span>
-          <h3 className="ml-2 uppercase">Fuel Delivery</h3>
+          <span className="material-symbols-outlined">swap_horiz</span>
+          <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
             href={`/add-fuel-transactions-page?projectId=${project.id}`}
@@ -244,17 +242,19 @@ export default function ProjectDetailPage() {
           <div className="background-header p-0">
             <p>Date</p>
             <p>Volume</p>
-            <p>File</p>
+            <p>Form</p>
           </div>
           <div className="file-row">
             <p>09.09/25</p>
             <p>5000L</p>
-            <span className="material-symbols-outlined">folder</span>
+            <span className="material-symbols-outlined ">replay</span>
           </div>
           <div className="file-row">
             <p>09.09/25</p>
             <p>5000L</p>
-            <span className="material-symbols-outlined">folder</span>
+            <span className="material-symbols-outlined">
+              delivery_truck_speed
+            </span>
           </div>
         </div>
       </div>

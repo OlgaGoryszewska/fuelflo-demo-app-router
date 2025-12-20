@@ -1,7 +1,5 @@
-
-
 'use client';
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 import FuelReturnForm from '@/components/fuel-transactions/fuel-return-form.js';
 import FuelDeliveryForm from '@/components/fuel-transactions/fuel-delivery-form.js';
@@ -11,7 +9,6 @@ export default function MyToggleComponent() {
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
-
 
   return (
     <div>
@@ -37,22 +34,6 @@ export default function MyToggleComponent() {
       <div className="mt-6">
         {selectedOption === 'delivery' && <FuelDeliveryForm />}
         {selectedOption === 'return' && <FuelReturnForm />}
-      </div>
-     
-    
-      <button className="button-big-border-orange mb-4 ">
-        <span className="material-symbols-outlined black pr-2">qr_code</span>
-        Skan Generator QR Code
-      </button>
-
-      <div className="flex flex-col items-center">
-        <h3 className="delivery ">or</h3>
-
-        <input
-          className="input-gray"
-          type="text"
-          placeholder="Search by name..."
-        />
       </div>
     </div>
   );

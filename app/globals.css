@@ -171,6 +171,8 @@ button {
 .card-button,
 .form-button {
   display: flex;
+  justify-items: center;
+  align-items:center ;
   padding: 0.6rem;
   box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
   background-color: #fff;
@@ -356,7 +358,7 @@ li a:hover {
 .material-symbols-outlined {
   font-size: 24px;
   vertical-align: middle;
-  color: #fee39f;
+  color: var(--primary-black);
   margin-right: 8px;
   font-variation-settings:
     'FILL' 0,
@@ -563,7 +565,6 @@ li a:hover {
 .toggle-container.on {
   border: 2px solid var(--primary-black);
   box-shadow: 0 2px 4px rgb(248, 190, 103);
-  
 }
 .toggle-container.off {
   border: 1px solid var(--primary-gray-light);
