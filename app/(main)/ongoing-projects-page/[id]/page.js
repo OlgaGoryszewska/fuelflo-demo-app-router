@@ -241,20 +241,18 @@ export default function ProjectDetailPage() {
         <div className="flex flex-col items-center align-center">
           <div className="background-header p-0">
             <p>Date</p>
-            <p>Volume</p>
-            <p>Form</p>
+            <p>Vol</p>
+
           </div>
           <div className="file-row">
             <p>09.09/25</p>
-            <p>5000L</p>
-            <span className="material-symbols-outlined ">replay</span>
+            <p>- 5000 L</p>
+          
           </div>
           <div className="file-row">
             <p>09.09/25</p>
-            <p>5000L</p>
-            <span className="material-symbols-outlined">
-              delivery_truck_speed
-            </span>
+            <p> + 5000 L</p>
+            
           </div>
         </div>
       </div>
