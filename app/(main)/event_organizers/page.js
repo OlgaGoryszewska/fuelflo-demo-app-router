@@ -14,10 +14,11 @@ export default function EventOrganizersPage() {
       setError(null);
       const { data, error } = await supabase
         .from('event_organizers')
-        .select('id', 'name')
+        .select('name, id')
         .order('name', { ascending: true });
 
       if (error) setError(error.message);
+      console.log('Data from Supabase:', data); 
       setOrganizers(data || []);
       setLoading(false);
     }
@@ -34,7 +35,7 @@ export default function EventOrganizersPage() {
           {organizers.map((o) => (
             <li key={o.id}>
               <span className="material-symbols-outlined">festival</span>{' '}
-              <Link href={`/event_organizers/${o.id}`}>{o.name ?? '(No name)'}</Link>
+              <Link href={`/event_organizers/${o.id}`}>{o.name ?? 'No name'}</Link>
             </li>
           ))}
         </ul>
