@@ -172,7 +172,7 @@ button {
 .form-button {
   display: flex;
   justify-items: center;
-  align-items:center ;
+  align-items: center;
   padding: 0.6rem;
   box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
   background-color: #fff;

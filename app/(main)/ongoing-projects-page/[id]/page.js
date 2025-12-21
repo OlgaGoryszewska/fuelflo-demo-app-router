@@ -242,24 +242,49 @@ export default function ProjectDetailPage() {
           <div className="background-header p-0">
             <p>Date</p>
             <p>Vol</p>
-
           </div>
           <div className="file-row">
             <p>09.09/25</p>
             <p>- 5000 L</p>
-          
           </div>
           <div className="file-row">
             <p>09.09/25</p>
             <p> + 5000 L</p>
-            
           </div>
         </div>
       </div>
       <div className="background-container mb-4">
         <div className="form-header mb-4">
-          <span className="material-symbols-outlined">contacts_product</span>
-          <h3 className="ml-2 uppercase">contractor</h3>
+          <span className="material-symbols-outlined">festival</span>
+          <h3 className="ml-2 uppercase">event organizer</h3>
+        </div>
+
+        <h2>{project.contractor_name ?? '-'}</h2>
+        <div className="flex align-center mb-2">
+          <span className="material-symbols-outlined tin ">location_city</span>
+          <p className="generator-localisation">
+            {project.company_name ?? '-'}
+          </p>
+        </div>
+        <div className="flex align-center mb-2">
+          <span className="material-symbols-outlined tin">location_on</span>
+          <p className="generator-localisation">
+            {project.contractor_address ?? '-'}
+          </p>
+        </div>
+        <div className="flex align-center mb-2">
+          <span className="material-symbols-outlined tin">email</span>
+          <p className="generator-localisation">{project.email ?? '-'}</p>
+        </div>
+        <div className="flex align-center mb-2">
+          <span className="material-symbols-outlined tin">mobile</span>
+          <p className="generator-localisation">{project.mobile ?? '-'}</p>
+        </div>
+      </div>
+      <div className="background-container mb-4">
+        <div className="form-header mb-4">
+          <span className="material-symbols-outlined">delivery_truck_bolt</span>
+          <h3 className="ml-2 uppercase">fuel suppliers</h3>
         </div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
@@ -286,7 +311,7 @@ export default function ProjectDetailPage() {
       </div>
       <button className=" button-big ">
         <Link href={`/add-fuel-transactions-page?projectId=${project.id}`}>
-          <div>Add Fuel Delivery</div>
+          <div>Add Fuel Transaction</div>
         </Link>
       </button>
     </div>

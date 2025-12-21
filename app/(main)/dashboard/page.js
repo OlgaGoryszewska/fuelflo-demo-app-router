@@ -85,23 +85,17 @@ export default function Dashboard() {
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
-            <Link
-              href="/ongoing-external-partners-page"
-              className="card-button"
-            >
+            <Link href="/event_organizers/" className="card-button">
               <span className="material-symbols-outlined">festival</span>
               Evetns Organizers
             </Link>
-            <Link
-              href="/ongoing-external-partners-page"
-              className="card-button"
-            >
+            <Link href="/event_organizers/" className="card-button">
               <span className="material-symbols-outlined">
                 delivery_truck_bolt
               </span>
               Fuel Suppliers
             </Link>
-            <Link href="/add-new-external-partner" className="card-button">
+            <Link href="/add-event-organizer" className="card-button">
               <span className="material-symbols-outlined">add</span>
               Add new Partner
             </Link>
