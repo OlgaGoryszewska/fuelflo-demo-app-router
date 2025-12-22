@@ -18,7 +18,7 @@ export default function EventOrganizersPage() {
         .order('name', { ascending: true });
 
       if (error) setError(error.message);
-      console.log('Data from Supabase:', data); 
+      console.log('Data from Supabase:', data);
       setOrganizers(data || []);
       setLoading(false);
     }
@@ -35,7 +35,9 @@ export default function EventOrganizersPage() {
           {organizers.map((o) => (
             <li key={o.id}>
               <span className="material-symbols-outlined">festival</span>{' '}
-              <Link href={`/event_organizers/${o.id}`}>{o.name ?? 'No name'}</Link>
+              <Link href={`/event_organizers/${o.id}`}>
+                {o.name ?? 'No name'}
+              </Link>
             </li>
           ))}
         </ul>

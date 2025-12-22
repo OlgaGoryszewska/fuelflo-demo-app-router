@@ -142,11 +142,15 @@ export default function AddGenerator() {
               name="notes"
               onChange={handleChange}
               value={formData.notes}
+              className='mb-4'
             />
           </label>
-        </div>
-        <button type="submit">Submit</button>
+          <button 
+          className='button-big '
+          type="submit">Submit</button>
         {message && <p className="mt-2">{message}</p>}
+        </div>
+        
       </form>
     </div>
   );

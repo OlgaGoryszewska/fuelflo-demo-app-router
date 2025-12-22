@@ -217,6 +217,7 @@ button:active,
   margin: 0rem;
   margin-bottom: 0.6rem;
   border-color: 1px solid var(--primary-gray-light);
+  
 }
 .button-big-border-orange {
   border: 2px solid var(--primary-orange-light);

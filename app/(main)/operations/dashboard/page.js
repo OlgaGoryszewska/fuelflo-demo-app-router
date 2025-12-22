@@ -64,7 +64,9 @@ export default function Dashboard() {
               Technicians
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">supervisor_account</span>
+              <span className="material-symbols-outlined">
+                supervisor_account
+              </span>
               Hire Desk Coordinator
             </Link>
           </div>
@@ -91,7 +93,6 @@ export default function Dashboard() {
               </span>
               Fuel Suppliers
             </Link>
-         
           </div>
         )}
         <div
@@ -121,7 +122,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        <Link href="/not-found" className="form-button mt-4">
+        <Link href="/add_new_user" className="form-button mt-4">
           <span className="material-symbols-outlined">add</span>
           Register a new User
         </Link>

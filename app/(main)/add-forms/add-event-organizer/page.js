@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import Image from 'next/image';
+import event from '@/public/event_baner.png';
 
-export default function AddFuleSupplier() {
+export default function AddEventOrganizer() {
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -25,19 +27,19 @@ export default function AddFuleSupplier() {
     setSubmitting(true);
 
     const { data, error } = await supabase
-      .from('fuel_suppliers')
+      .from('event_organizers')
       .insert([formData]);
 
     if (error) {
       console.error(error);
       setMessage('❌ Error: ' + error.message);
     } else {
-      setMessage('Added successfully!');
+      setMessage('✅ Event Organizer added successfully!');
       // reset form
       setFormData({
         name: '',
         surname: '',
-        company: '',
+        company_name: '',
         address: '',
         email: '',
         mob: '',
@@ -49,11 +51,13 @@ export default function AddFuleSupplier() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add Fuel Supplier</h1>
+        <h1 className="ml-2">Add Event Organizer</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <Image
+        />
         <div className="m-4">
-
+          
           <label>
             Name:
             <input
@@ -76,10 +80,10 @@ export default function AddFuleSupplier() {
           <label>
             Company:
             <input
-              name="company"
+              name="company_name"
               type="text"
               onChange={handleChange}
-              value={formData.company}
+              value={formData.company_name}
             />
           </label>
           <label>
@@ -107,11 +111,14 @@ export default function AddFuleSupplier() {
               type="text"
               onChange={handleChange}
               value={formData.email}
+              className='mb-4'
             />
           </label>
+          <button className="button-big" type="submit">
+            Submit
+          </button>
+          {message && <p className="mt-2">{message}</p>}
         </div>
-        <button type="submit">Submit</button>
-        {message && <p className="mt-2">{message}</p>}
       </form>
     </div>
   );

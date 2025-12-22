@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function AddEventOrganizer() {
+export default function AddFuelSupplier() {
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -25,19 +25,19 @@ export default function AddEventOrganizer() {
     setSubmitting(true);
 
     const { data, error } = await supabase
-      .from('event_organizers')
+      .from('fuel_suppliers')
       .insert([formData]);
 
     if (error) {
       console.error(error);
       setMessage('❌ Error: ' + error.message);
     } else {
-      setMessage('✅ Event Organizer added successfully!');
+      setMessage('Added successfully!');
       // reset form
       setFormData({
         name: '',
         surname: '',
-        company_name: '',
+        company: '',
         address: '',
         email: '',
         mob: '',
@@ -49,16 +49,10 @@ export default function AddEventOrganizer() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add Event Organizer</h1>
+        <h1 className="ml-2">Add Fuel Supplier</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="m-4">
-          <img
-            src="/generator.png"
-            alt="generator image"
-            className="w-1/2 mx-auto"
-          />
-          <h2>Specification</h2>
           <label>
             Name:
             <input
@@ -79,12 +73,12 @@ export default function AddEventOrganizer() {
             />
           </label>
           <label>
-            Company_name:
+            Company:
             <input
-              name="company_name"
+              name="company"
               type="text"
               onChange={handleChange}
-              value={formData.company_name}
+              value={formData.company}
             />
           </label>
           <label>
@@ -112,11 +106,15 @@ export default function AddEventOrganizer() {
               type="text"
               onChange={handleChange}
               value={formData.email}
+              className='mb-4'
             />
           </label>
-        </div>
-        <button type="submit">Submit</button>
+          <button 
+        className='button-big '
+        type="submit">Submit</button>
         {message && <p className="mt-2">{message}</p>}
+        </div>
+        
       </form>
     </div>
   );

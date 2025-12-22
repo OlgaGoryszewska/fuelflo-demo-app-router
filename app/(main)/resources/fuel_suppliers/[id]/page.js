@@ -18,7 +18,7 @@ export default function EventOrganizersPage() {
         .order('name', { ascending: true });
 
       if (error) setError(error.message);
-      console.log('Data from Supabase:', data); 
+      console.log('Data from Supabase:', data);
       setSuppliers(data || []);
       setLoading(false);
     }
@@ -35,7 +35,9 @@ export default function EventOrganizersPage() {
           {suppliers.map((s) => (
             <li key={supabase.id}>
               <span className="material-symbols-outlined">festival</span>{' '}
-              <Link href={`/fuel_suppliers/${s.id}`}>{s.name ?? 'No name'}</Link>
+              <Link href={`/fuel_suppliers/${s.id}`}>
+                {s.name ?? 'No name'}
+              </Link>
             </li>
           ))}
         </ul>

@@ -6,7 +6,6 @@ import * as React from 'react';
 import Image from 'next/image';
 import event from '@/public/event_baner.png';
 
-
 export default function EventOrganizerPage({ params }) {
   const { id } = React.use(params);
   const [organizer, setOrganizer] = useState(null);
@@ -42,29 +41,33 @@ export default function EventOrganizerPage({ params }) {
         <h1 className="ml-2">Event Organizer Details</h1>
       </div>
       <div className="background-container-white p-4">
-        <Image src={event} alt="Event Banner" className="mb-4 brightness-90 contrast-90 saturate-90 opacity-95" />
+        <Image
+          src={event}
+          alt="Event Banner"
+          className="mb-4 brightness-90 contrast-90 saturate-90 opacity-95"
+        />
 
-        <h2>{organizer.name} {organizer.surname}</h2>
+        <h2>
+          {organizer.name} {organizer.surname}
+        </h2>
         <div className="flex align-center">
-        <span className="material-symbols-outlined ">location_city</span>
-        <p>Company: {organizer.company_name}</p>
+          <span className="material-symbols-outlined ">location_city</span>
+          <p>Company: {organizer.company_name}</p>
         </div>
 
         <div className="flex align-center">
-        <span className="material-symbols-outlined ">location_on</span>
-        
-        <p>Address: {organizer.address}</p>
+          <span className="material-symbols-outlined ">location_on</span>
+
+          <p>Address: {organizer.address}</p>
         </div>
         <div className="flex align-center">
-        <span className="material-symbols-outlined ">mobile</span>
-        <p>Mobile: {organizer.mob}</p>
+          <span className="material-symbols-outlined ">mobile</span>
+          <p>Mobile: {organizer.mob}</p>
         </div>
         <div className="flex align-center">
           <span className="material-symbols-outlined ">email</span>
           <p>Email: {organizer.email}</p>
         </div>
-        
-        
       </div>
     </div>
   );
