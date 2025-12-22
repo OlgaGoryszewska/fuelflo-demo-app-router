@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import * as React from 'react';
+import Image from 'next/image';
+import event from '@/public/event_baner.png';
 
 
 export default function EventOrganizerPage({ params }) {
@@ -40,6 +42,8 @@ export default function EventOrganizerPage({ params }) {
         <h1 className="ml-2">Event Organizer Details</h1>
       </div>
       <div className="background-container-white p-4">
+        <Image src={event} alt="Event Banner" className="mb-4 brightness-90 contrast-90 saturate-90 opacity-95" />
+
         <h2>{organizer.name} {organizer.surname}</h2>
         <p>Company: {organizer.company_name}</p>
         <p>Address: {organizer.address}</p>
