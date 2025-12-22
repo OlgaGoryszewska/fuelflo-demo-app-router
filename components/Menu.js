@@ -40,7 +40,7 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link onClick={handleLinkClick} href="/dashboard">
+          <Link onClick={handleLinkClick} href="/operations/dashboard">
             Dashboard
           </Link>
         </li>

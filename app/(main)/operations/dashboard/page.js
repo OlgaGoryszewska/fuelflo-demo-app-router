@@ -28,7 +28,7 @@ export default function Dashboard() {
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
-            <Link href="/ongoing-projects-page" className="card-button">
+            <Link href="/resources/ongoing-projects-page" className="card-button">
               <span className="material-symbols-outlined">workspaces</span>
               Ongoing Projects
             </Link>
@@ -36,7 +36,7 @@ export default function Dashboard() {
               <span className="material-symbols-outlined">archive</span>
               Archive
             </Link>
-            <Link href="/add-new-project" className="card-button">
+            <Link href="/add-forms/add-new-project" className="card-button">
               <span className="material-symbols-outlined">add</span>
               Add new Project
             </Link>
@@ -83,11 +83,11 @@ export default function Dashboard() {
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
-            <Link href="/event_organizers/" className="card-button">
+            <Link href="/resources/event_organizers/" className="card-button">
               <span className="material-symbols-outlined">festival</span>
-              Evetns Organizers
+              Event Organizers
             </Link>
-            <Link href="/event_organizers/" className="card-button">
+            <Link href="/resources/event_organizers/" className="card-button">
               <span className="material-symbols-outlined">
                 delivery_truck_bolt
               </span>

@@ -35,7 +35,7 @@ export default function EventOrganizersPage() {
           {organizers.map((o) => (
             <li key={o.id}>
               <span className="material-symbols-outlined">festival</span>{' '}
-              <Link href={`/event_organizers/${o.id}`}>
+              <Link href={`/resources/event_organizers/${o.id}`}>
                 {o.name ?? 'No name'}
               </Link>
             </li>
