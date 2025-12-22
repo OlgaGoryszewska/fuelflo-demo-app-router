@@ -56,20 +56,16 @@ export default function Dashboard() {
         {openCard === 'technicians' && (
           <div className="open-card ">
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">workspaces</span>
+              <span className="material-symbols-outlined">groups_3</span>
               Managers
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">workspaces</span>
+              <span className="material-symbols-outlined">person_apron</span>
               Technicians
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">workspaces</span>
+              <span className="material-symbols-outlined">supervisor_account</span>
               Hire Desk Coordinator
-            </Link>
-            <Link href="/add-new-technician" className="card-button">
-              <span className="material-symbols-outlined">add</span>
-              Add new Personel
             </Link>
           </div>
         )}
@@ -95,10 +91,7 @@ export default function Dashboard() {
               </span>
               Fuel Suppliers
             </Link>
-            <Link href="/add-event-organizer" className="card-button">
-              <span className="material-symbols-outlined">add</span>
-              Add new Partner
-            </Link>
+         
           </div>
         )}
         <div
