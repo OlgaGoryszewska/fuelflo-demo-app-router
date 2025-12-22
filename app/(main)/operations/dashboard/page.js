@@ -107,15 +107,15 @@ export default function Dashboard() {
         </div>
         {openCard === 'equipment' && (
           <div className="open-card ">
-            <Link href="/generators" className="card-button">
+            <Link href="/resources/generators" className="card-button">
               <span className="material-symbols-outlined">ev_station</span>
               Generators
             </Link>
-            <Link href="/external-tanks" className="card-button">
+            <Link href="/resources/external-tanks" className="card-button">
               <span className="material-symbols-outlined">gas_meter</span>
               External Tanks
             </Link>
-            <Link href="/add-generator" className="card-button">
+            <Link href="/add-forms/add-generator" className="card-button">
               <span className="material-symbols-outlined">add</span>
               Add new Equipment
             </Link>
