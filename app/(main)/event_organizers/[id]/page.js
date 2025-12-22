@@ -45,10 +45,26 @@ export default function EventOrganizerPage({ params }) {
         <Image src={event} alt="Event Banner" className="mb-4 brightness-90 contrast-90 saturate-90 opacity-95" />
 
         <h2>{organizer.name} {organizer.surname}</h2>
+        <div className="flex align-center">
+        <span className="material-symbols-outlined ">location_city</span>
         <p>Company: {organizer.company_name}</p>
+        </div>
+
+        <div className="flex align-center">
+        <span className="material-symbols-outlined ">location_on</span>
+        
         <p>Address: {organizer.address}</p>
-        <p>Email: {organizer.email}</p>
+        </div>
+        <div className="flex align-center">
+        <span className="material-symbols-outlined ">mobile</span>
         <p>Mobile: {organizer.mob}</p>
+        </div>
+        <div className="flex align-center">
+          <span className="material-symbols-outlined ">email</span>
+          <p>Email: {organizer.email}</p>
+        </div>
+        
+        
       </div>
     </div>
   );
