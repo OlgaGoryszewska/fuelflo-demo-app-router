@@ -18,6 +18,13 @@ export default async function GeneratorsPage() {
       <div className="form-header mb-4">
         <h1 className="ml-2">Generators</h1>
       </div>
+      <div className='mb-4'>
+        <label htmlFor="Search for generator">
+          Search for generator
+        </label>
+        <input type="search" 
+        />
+      </div>
 
       {data && data.length > 0 ? (
         <div>
