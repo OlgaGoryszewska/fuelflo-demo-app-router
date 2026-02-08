@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import delivery from '@/public/delivery.png';
+import { SearchGenerators } from '@/components/SearchGenerators';
 
 export default function FuelDeliveryForm() {
   return (
@@ -9,7 +10,7 @@ export default function FuelDeliveryForm() {
         You currently perform fuel Delivery
       </p>
       <Image
-        src={delivery} // Use the imported image
+        src={delivery} 
         alt="Description of my image"
         className="mb-4"
       />
@@ -20,13 +21,9 @@ export default function FuelDeliveryForm() {
 
       <div className="flex flex-col items-center">
         <h3 className="delivery ">or</h3>
-
-        <input
-          className="input-gray"
-          type="text"
-          placeholder="Search by name..."
-        />
+        
       </div>
+      <SearchGenerators/>
     </div>
   );
 }

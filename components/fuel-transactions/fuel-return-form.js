@@ -8,8 +8,7 @@ export default function FuelReturnForm() {
       <p className="mb-4 font-medium text-center ">
         You currently perform fuel Return
       </p>
-      <Image
-        src={returnImage} // Use the imported image
+      <Image// Use the imported image
         alt="Description of my image"
         className="mb-4"
       />
@@ -24,7 +23,7 @@ export default function FuelReturnForm() {
         <input
           className="input-gray"
           type="text"
-          placeholder="Search by name..."
+          placeholder="Search Generator by name..."
         />
       </div>
     </div>
