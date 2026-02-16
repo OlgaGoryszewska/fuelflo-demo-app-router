@@ -49,10 +49,15 @@ export default function AddProjectPage() {
         generator_id: formData.generator_id || null,
       };
 
-      const { error } = await supabase.from('projects').insert([payload]);
+      const { data, error } = await supabase
+      .from('projects')
+      .insert([payload])
+      .select('id')
+      .single();
 
       if (error) throw error;
-      router.push('/ongoing-projects-page/');
+      console.log("NEW ID:", data?.id);
+      router.push(`/resources/ongoing-projects-page/${data.id}`);
       setSubmitting(false);
       alert('Project added successfully!');
 

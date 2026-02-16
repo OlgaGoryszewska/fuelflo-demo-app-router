@@ -33,6 +33,7 @@ export function SearchGenerators() {
   return (
     <div>
       <input
+        className='input-gray'
         type="text"
         placeholder="Search Generator by name..."
         value={query}

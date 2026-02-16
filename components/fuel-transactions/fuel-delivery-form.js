@@ -1,3 +1,11 @@
+// make a form on submitt
+// add steps
+// add navigation
+
+
+
+
+
 'use client';
 import Image from 'next/image';
 import delivery from '@/public/delivery.png';
@@ -5,7 +13,7 @@ import { SearchGenerators } from '@/components/SearchGenerators';
 
 export default function FuelDeliveryForm() {
   return (
-    <div>
+    <form>
       <p className="mb-4 font-medium text-center ">
         You currently perform fuel Delivery
       </p>
@@ -24,6 +32,6 @@ export default function FuelDeliveryForm() {
         
       </div>
       <SearchGenerators/>
-    </div>
+    </form>
   );
 }

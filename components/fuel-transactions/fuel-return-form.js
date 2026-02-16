@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import returnImage from '@/public/return.png';
+import { SearchGenerators } from '@/components/SearchGenerators';
 
 export default function FuelReturnForm() {
   return (
@@ -8,7 +9,8 @@ export default function FuelReturnForm() {
       <p className="mb-4 font-medium text-center ">
         You currently perform fuel Return
       </p>
-      <Image// Use the imported image
+      <Image
+        src={returnImage}
         alt="Description of my image"
         className="mb-4"
       />
@@ -19,13 +21,8 @@ export default function FuelReturnForm() {
 
       <div className="flex flex-col items-center">
         <h3 className="delivery ">or</h3>
-
-        <input
-          className="input-gray"
-          type="text"
-          placeholder="Search Generator by name..."
-        />
       </div>
+      <SearchGenerators/>
     </div>
   );
 }
