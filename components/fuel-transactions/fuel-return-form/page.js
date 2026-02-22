@@ -1,24 +1,16 @@
-// make a form on submitt
-// add steps
-// add navigation
-
-
-
-
-
 'use client';
 import Image from 'next/image';
-import delivery from '@/public/delivery.png';
-import { SearchGenerators } from '@/components/SearchGenerators';
+import returnImage from '@/public/return.png';
+import GeneratorDropdown from '../../add_new_project/GeneratorDropdown';
 
-export default function FuelDeliveryForm() {
+export default function FuelReturnForm() {
   return (
-    <form>
+    <div>
       <p className="mb-4 font-medium text-center ">
-        You currently perform fuel Delivery
+        You currently perform fuel Return
       </p>
       <Image
-        src={delivery} 
+        src={returnImage}
         alt="Description of my image"
         className="mb-4"
       />
@@ -29,9 +21,9 @@ export default function FuelDeliveryForm() {
 
       <div className="flex flex-col items-center">
         <h3 className="delivery ">or</h3>
-        
       </div>
-      <SearchGenerators/>
-    </form>
+      <GeneratorDropdown />
+      
+    </div>
   );
 }

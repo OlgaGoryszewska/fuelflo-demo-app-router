@@ -80,6 +80,12 @@ form,
 }
 form {
   background: white;
+  
+}
+
+.form-no-style{
+  border: none;
+  box-shadow: none;
 }
 
 .generator-container {

@@ -27,17 +27,18 @@ export default function GeneratorDropdown({ value, onChange }) {
     fetchGenerators();
   }, []);
 
+
   return (
-    <div>
-      <label className="flex flex-col ">
-        Generator:
+    <div className='w-full'>
+      <label className="flex flex-col w-full">
+        Choose a generator:
         <select
-          className="pr-4 mr-4"
+          className="pr-4 mr-4 w-full b-white"
           value="{value }"
           onChange={(e) => onChange(e.target.value)}
         >
           {generators.map((g) => (
-            <option className="pr-4 mr-4" key={g.id} value={g.id}>
+            <option className="pr-4 mr-4 b-white" key={g.id} value={g.id}>
               {g.name}
             </option>
           ))}
