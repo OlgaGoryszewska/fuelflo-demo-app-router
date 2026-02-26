@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -22,9 +21,10 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">tactic</span>
           Projects{' '}
-          <ChevronDown
-            className={`ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
-          />
+          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}>
+          keyboard_arrow_down
+          </span>
+           
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
@@ -49,9 +49,9 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">communities</span>
           Personel{' '}
-          <ChevronDown
-            className={`ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
-          />
+          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}>
+          keyboard_arrow_down
+          </span>
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
@@ -77,9 +77,9 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">handshake</span>External
           Partners
-          <ChevronDown
-            className={`ml-auto transition-transform text-gray-400 ${openCard === 'texternal partners' ? 'rotate-180' : ''}`}
-          />
+          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}>
+          keyboard_arrow_down
+          </span>
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
@@ -101,9 +101,9 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">gas_meter</span>
           Equipment{' '}
-          <ChevronDown
-            className={`ml-auto transition-transform text-gray-400 ${openCard === 'texternal partners' ? 'rotate-180' : ''}`}
-          />
+          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}>
+          keyboard_arrow_down
+          </span>
         </div>
         {openCard === 'equipment' && (
           <div className="open-card ">
