@@ -18,7 +18,7 @@ export default function AddFuelDeliveryPage() {
   return (
     <div className="main-container">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add fuel transaction</h1>
+        <h1 className="ml-2">Add fuel transaction to Project: </h1>
       </div>
       <div className="background-container-white">
         <MyToggleComponent />

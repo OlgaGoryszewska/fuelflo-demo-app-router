@@ -10,7 +10,7 @@
 'use client';
 import Image from 'next/image';
 import delivery from '@/public/delivery.png';
-import GeneratorDropdown from '../../add_new_project/GeneratorDropdown';
+import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 
 export default function StepOneFuelDeliveryForm() {
   return (

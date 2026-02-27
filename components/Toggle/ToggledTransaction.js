@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 
 import FuelReturnForm from '@/components/fuel-transactions/fuel-return-form/page.js';
-import StepOneFuelDeliveryForm from '@/components/fuel-transactions/fuel-delivery-form/step-one-fuel-delivery-form.js';
+import StepOneFuelDeliveryForm from '@/app/(main)/resources/ongoing-projects-page/[id]/add-fuel-transactions-page/fuel-delivery-form/step-one-fuel-delivery-form.js';
+
 
 export default function MyToggleComponent() {
   const [selectedOption, setSelectedOption] = useState('delivery');

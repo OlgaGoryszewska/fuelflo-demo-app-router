@@ -232,7 +232,7 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
-            href={`/add-forms/add-fuel-transactions-page?projectId=${project.id}`}
+            href={`/resources/ongoing-projects-page/${project.id}/add-fuel-transactions-page`}
           >
             <div>Add Delivery</div>
           </Link>
