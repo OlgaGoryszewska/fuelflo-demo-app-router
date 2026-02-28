@@ -3,9 +3,13 @@
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
 import MyToggleComponent from '@/components/Toggle/ToggledTransaction';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function AddFuelDeliveryPage() {
+  const { id } = useParams();
+  const [project, setProject] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggled, setIsToggled] = useState(false);
 
@@ -14,11 +18,24 @@ export default function AddFuelDeliveryPage() {
     console.log('Toggled state:', !isToggled);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await supabase
+        .from('projects')
+        .select('id, name')
+        .eq('id', id)
+        .single();
+      setProject(data);
+    };
+
+    fetchData();
+  }, [id]);
+
   const steps = [];
   return (
     <div className="main-container">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add fuel transaction to Project: </h1>
+        <h1 className="ml-2">Add fuel transaction Project: {project?.name} </h1>
       </div>
       <div className="background-container-white">
         <MyToggleComponent />

@@ -54,10 +54,8 @@ export default function AddEventOrganizer() {
         <h1 className="ml-2">Add Event Organizer</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Image
-        />
+        <Image />
         <div className="m-4">
-          
           <label>
             Name:
             <input
@@ -111,7 +109,7 @@ export default function AddEventOrganizer() {
               type="text"
               onChange={handleChange}
               value={formData.email}
-              className='mb-4'
+              className="mb-4"
             />
           </label>
           <button className="button-big" type="submit">

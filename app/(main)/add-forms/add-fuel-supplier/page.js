@@ -106,15 +106,14 @@ export default function AddFuelSupplier() {
               type="text"
               onChange={handleChange}
               value={formData.email}
-              className='mb-4'
+              className="mb-4"
             />
           </label>
-          <button 
-        className='button-big '
-        type="submit">Submit</button>
-        {message && <p className="mt-2">{message}</p>}
+          <button className="button-big " type="submit">
+            Submit
+          </button>
+          {message && <p className="mt-2">{message}</p>}
         </div>
-        
       </form>
     </div>
   );

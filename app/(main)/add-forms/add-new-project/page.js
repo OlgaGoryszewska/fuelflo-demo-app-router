@@ -50,13 +50,13 @@ export default function AddProjectPage() {
       };
 
       const { data, error } = await supabase
-      .from('projects')
-      .insert([payload])
-      .select('id')
-      .single();
+        .from('projects')
+        .insert([payload])
+        .select('id')
+        .single();
 
       if (error) throw error;
-      console.log("NEW ID:", data?.id);
+      console.log('NEW ID:', data?.id);
       router.push(`/resources/ongoing-projects-page/${data.id}`);
       setSubmitting(false);
       alert('Project added successfully!');

@@ -80,10 +80,9 @@ form,
 }
 form {
   background: white;
-  
 }
 
-.form-no-style{
+.form-no-style {
   border: none;
   box-shadow: none;
 }
@@ -118,7 +117,7 @@ select,
 option {
   color: var(--primary-mid-gray);
   padding: 0.6rem;
-  border: 1.5px solid var(--primary-orange-light);
+  border: 1.5px solid var(--primary-gray-light);
   border-radius: 25px;
   font-size: 16px;
   width: 100%;
@@ -223,7 +222,6 @@ button:active,
   margin: 0rem;
   margin-bottom: 0.6rem;
   border-color: 1px solid var(--primary-gray-light);
-  
 }
 .button-big-border-orange {
   border: 2px solid var(--primary-orange-light);

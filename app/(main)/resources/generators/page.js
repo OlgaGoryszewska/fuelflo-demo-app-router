@@ -1,6 +1,6 @@
 // app/generators/page.jsx
 import { createClient } from '@/lib/supabase/server';
-import { SearchGenerators } from '@/components/SearchGenerators';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -13,15 +13,13 @@ export default async function GeneratorsPage() {
     return <p>Error loading generators: {error.message}</p>;
   }
 
-    
-
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
         <h1 className="ml-2">Generators</h1>
       </div>
-      <SearchGenerators />
-      
+
+
       {data && data.length > 0 ? (
         <div>
           {data.map((generator) => (

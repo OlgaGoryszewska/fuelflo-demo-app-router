@@ -21,14 +21,18 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">tactic</span>
           Projects{' '}
-          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}>
-          keyboard_arrow_down
+          <span
+            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
+          >
+            keyboard_arrow_down
           </span>
-           
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
-            <Link href="/resources/ongoing-projects-page" className="card-button">
+            <Link
+              href="/resources/ongoing-projects-page"
+              className="card-button"
+            >
               <span className="material-symbols-outlined">workspaces</span>
               Ongoing Projects
             </Link>
@@ -49,8 +53,10 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">communities</span>
           Personel{' '}
-          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}>
-          keyboard_arrow_down
+          <span
+            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
+          >
+            keyboard_arrow_down
           </span>
         </div>
         {openCard === 'technicians' && (
@@ -77,8 +83,10 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">handshake</span>External
           Partners
-          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}>
-          keyboard_arrow_down
+          <span
+            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
+          >
+            keyboard_arrow_down
           </span>
         </div>
         {openCard === 'external partners' && (
@@ -101,8 +109,10 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">gas_meter</span>
           Equipment{' '}
-          <span className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}>
-          keyboard_arrow_down
+          <span
+            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
+          >
+            keyboard_arrow_down
           </span>
         </div>
         {openCard === 'equipment' && (
