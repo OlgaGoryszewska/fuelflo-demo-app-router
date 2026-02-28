@@ -15,10 +15,12 @@ export default function FuelReturnForm() {
 
       <div className="flex flex-col items-center">
         <h3 className="delivery ">or</h3>
-      </div>
+        </div>
+      
       <GeneratorDropdown />
-      <label className="delivery ">Select external tank:</label>
+      <label >Select external tank:</label>
       <TankDropdown />
+      
     </form>
   );
 }
