@@ -35,9 +35,17 @@ export default function AddFuelDeliveryPage() {
   return (
     <div className="main-container">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add fuel transaction Project: {project?.name} </h1>
+        <h1 className="ml-2">Add fuel transaction </h1>
       </div>
       <div className="background-container-white">
+      <div className="form-header mb-4">
+          <span className="material-symbols-outlined">workspaces</span>
+          <h3 className="ml-2 uppercase">{project?.name}</h3>
+          <div className=" small-button-green ml-auto ">
+            <div>Active</div>
+          </div>
+        </div>
+
         <MyToggleComponent />
         <div className="flex flex-row justify-between items-center mb-4 mt-4">
           <button>Previous</button>

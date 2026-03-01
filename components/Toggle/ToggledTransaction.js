@@ -12,7 +12,7 @@ export default function MyToggleComponent() {
 
   return (
     <div>
-      <div className=" toggle-wrapper justify-evenly">
+      <div className=" toggle-wrapper ">
         <div
           className={`toggle-container ${selectedOption === 'delivery' ? 'on' : 'off'}`}
           onClick={() => handleToggle('delivery')}
