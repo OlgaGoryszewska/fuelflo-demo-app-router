@@ -39,7 +39,6 @@ export default function AddFuelDeliveryPage() {
       </div>
       <div className="background-container-white">
       <div className="form-header mb-4">
-          <span className="material-symbols-outlined">workspaces</span>
           <h3 className="ml-2 uppercase">{project?.name}</h3>
           <div className=" small-button-green ml-auto ">
             <div>Active</div>

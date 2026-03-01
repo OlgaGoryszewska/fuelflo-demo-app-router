@@ -86,17 +86,31 @@ export default function ProjectDetailPage() {
   return (
     <div className="main-container">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Project</h1>
+        <h1 className="ml-2">{project.name}</h1>
       </div>
       <div className="background-container mb-4">
-        <div className="form-header mb-4">
-          <span className="material-symbols-outlined">workspaces</span>
-          <h3 className="ml-2 uppercase">{project.name}</h3>
           <div className=" small-button-green ml-auto ">
             <div>Active</div>
-          </div>
+
         </div>
 
+       
+        {project.location && (
+          <div className="w-full h-64">
+            <iframe
+              title="Project location map"
+              className="w-full h-full rounded-lg border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps/embed/v1/place?key=${
+                process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+              }&q=${encodeURIComponent(project.location)}`}
+              allowFullScreen
+            />
+          </div>
+        )}
+
+        <div />
         <div className="flex items-start">
           <span className="material-symbols-outlined">location_on</span>
           {project.location ? (
@@ -114,22 +128,6 @@ export default function ProjectDetailPage() {
             <p className="generator-localisation">Lack of information</p>
           )}
         </div>
-        {project.location && (
-          <div className="mt-4 w-full h-64">
-            <iframe
-              title="Project location map"
-              className="w-full h-full rounded-lg border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=${
-                process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-              }&q=${encodeURIComponent(project.location)}`}
-              allowFullScreen
-            />
-          </div>
-        )}
-
-        <div />
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
             <span className="material-symbols-outlined ">today</span>
