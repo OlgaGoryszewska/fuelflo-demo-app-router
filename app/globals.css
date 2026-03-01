@@ -539,6 +539,7 @@ li a:hover {
   width: fit-content;
 }
 .toggle-container {
+  font-family: var(--font-roboto-flex);
   box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
   height: 46px;
   background-color: #fff;
@@ -547,29 +548,31 @@ li a:hover {
   transition: background-color 0.4s;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 130px;
+  justify-content: flex-start;
+  width: 150px;
   padding-right: 0.8rem;
   padding-left: 0.8rem;
   border-bottom: 1px solid var(--primary-gray-light);
   border: 1px solid var(--primary-gray-light);
+  gap: 0.6rem;
 }
 .toggle-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content:space-between;
   padding-bottom: 1.5rem;
   margin-top: 0.8rem;
   border-bottom: 1px solid var(--primary-gray-light);
   margin-bottom: 1.5rem;
+  gap: 2rem;
 }
 .toggle-container:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .toggle-container.on {
-  border: 2px solid var(--primary-black);
-  box-shadow: 0 2px 4px rgb(248, 190, 103);
+  
+  background-color: var(--primary-orange-light);
 }
 .toggle-container.off {
   border: 1px solid var(--primary-gray-light);

@@ -27,11 +27,11 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
           rel="stylesheet"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap"
           rel="stylesheet"
         />
         <link
