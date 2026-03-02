@@ -89,12 +89,10 @@ export default function ProjectDetailPage() {
         <h1 className="ml-2">{project.name}</h1>
       </div>
       <div className="background-container mb-4">
-          <div className=" small-button-green ml-auto ">
-            <div>Active</div>
-
+        <div className=" small-button-green ml-auto ">
+          <div>Active</div>
         </div>
 
-       
         {project.location && (
           <div className="w-full h-64">
             <iframe
@@ -230,7 +228,7 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
-            href={`/resources/ongoing-projects-page/${project.id}/add-fuel-transactions-page`}
+            href={`/resources/ongoing-projects-page/${project.id}/add-fuel-transactions-page/`}
           >
             <div>Add Delivery</div>
           </Link>

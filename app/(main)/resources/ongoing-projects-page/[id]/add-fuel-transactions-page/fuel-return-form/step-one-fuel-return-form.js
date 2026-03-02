@@ -7,8 +7,12 @@ import TankDropdown from '@/components/dropdowns/tank-dropdown';
 export default function FuelReturnForm() {
   return (
     <form className="form-no-style">
-      <Image src={returnImage} alt="Description of my image" className=" m-auto w-32
-      " />
+      <Image
+        src={returnImage}
+        alt="Description of my image"
+        className=" m-auto w-32
+      "
+      />
       <button className="button-big-border-orange mb-4 ">
         <span className="material-symbols-outlined black pr-2">qr_code</span>
         Skan Generator QR Code
@@ -16,12 +20,11 @@ export default function FuelReturnForm() {
 
       <div className="flex flex-col items-center">
         <h3 className="delivery ">or</h3>
-        </div>
-      
+      </div>
+
       <GeneratorDropdown />
-      <label >Select external tank:</label>
+      <label>Select external tank:</label>
       <TankDropdown />
-      
     </form>
   );
 }

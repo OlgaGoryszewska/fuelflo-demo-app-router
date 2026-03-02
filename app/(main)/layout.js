@@ -19,13 +19,6 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
-        <div className="navAvatar">
-          <div>
-            <p>Name</p>
-          </div>
-          <img src="/avatar.png" alt="Avatar" className="avatar" />
-        </div>
-
         <main>{children}</main>
       </body>
     </html>

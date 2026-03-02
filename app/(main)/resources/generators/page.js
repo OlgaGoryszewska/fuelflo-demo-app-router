@@ -1,7 +1,6 @@
 // app/generators/page.jsx
 import { createClient } from '@/lib/supabase/server';
 
-
 export const dynamic = 'force-dynamic';
 
 export default async function GeneratorsPage() {
@@ -18,7 +17,6 @@ export default async function GeneratorsPage() {
       <div className="form-header mb-4">
         <h1 className="ml-2">Generators</h1>
       </div>
-
 
       {data && data.length > 0 ? (
         <div>

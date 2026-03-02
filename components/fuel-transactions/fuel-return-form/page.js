@@ -9,8 +9,8 @@ export default function FuelReturnForm() {
     <div>
       <Image src={returnImage} alt="Description of my image" className="mb-4" />
       <button className="button-big-border-orange mb-4 ">
-        <span className="material-symbols-outlined black pr-2">qr_code</span>
-        Skan Generator QR Code
+      
+        Skan QR Code
       </button>
 
       <div className="flex flex-col items-center">
