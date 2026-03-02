@@ -1,29 +1,29 @@
 'use client';
 import Image from 'next/image';
-import returnImage from '@/public/return.png';
+import qr2 from '@/public/qr2.png';
 import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 
-export default function FuelReturnForm() {
+export default function StepOneFuelReturnForm() {
   return (
     <form className="form-no-style">
-      <Image
-        src={returnImage}
-        alt="Description of my image"
-        className=" m-auto w-32
-      "
-      />
-      <button className="button-big-border-orange mb-4 ">
-        <span className="material-symbols-outlined black pr-2">qr_code</span>
-        Skan Generator QR Code
+       <p className="h-mid-gray-s " >Generator</p>
+       <p className="body-text " >Skan or select to identify</p>
+
+      <button className="qr-code-scanning-button mb-2">
+        <Image 
+        alt="qr code to scan"
+        src={qr2}
+        className='w-28 '/>
+        <p>Skan QR Code</p>
       </button>
 
       <div className="flex flex-col items-center">
-        <h3 className="delivery ">or</h3>
+        <h3 className="steps-text">or</h3>
       </div>
 
       <GeneratorDropdown />
-      <label>Select external tank:</label>
+      <p className="h-mid-gray-s " >External Tank</p>
       <TankDropdown />
     </form>
   );

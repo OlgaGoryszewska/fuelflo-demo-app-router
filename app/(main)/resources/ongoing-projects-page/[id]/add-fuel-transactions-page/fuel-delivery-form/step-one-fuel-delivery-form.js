@@ -16,15 +16,14 @@ export default function StepOneFuelDeliveryForm() {
         src={qr2}
         className='w-28 '/>
         <p>Skan QR Code</p>
-        
       </button>
 
       <div className="flex flex-col items-center">
-        <h3 className="delivery ">or </h3>
+        <h3 className="steps-text">or</h3>
       </div>
 
       <GeneratorDropdown />
-      <label>Select external tank:</label>
+      <p className="h-mid-gray-s " >External Tank</p>
       <TankDropdown />
     </form>
   );
