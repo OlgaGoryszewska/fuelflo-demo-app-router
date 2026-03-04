@@ -31,6 +31,7 @@ export default function AddFuelDeliveryPage() {
     fetchData();
   }, [id]);
 
+
   const steps = [];
   return (
     <div className="main-container">
@@ -38,21 +39,11 @@ export default function AddFuelDeliveryPage() {
         <h1 className="ml-2">Add fuel transaction </h1>
       </div>
       <div className="background-container-white">
-       
-        <p className="steps-text pr-2">Step 1 of 3</p>
-       
-
-
-      
-
-        <div className="flex align-center "></div>
-
+      <p className="steps-text pr-2">Setup</p>
+      <div className="divider-full"></div>
         <MyToggleComponent />
-        <div className="flex flex-row justify-between items-center mb-4 mt-4">
-          <button>Previous</button>
-          <button>Next</button>
-        </div>
       </div>
+      <StepNavigation/>
     </div>
   );
 }

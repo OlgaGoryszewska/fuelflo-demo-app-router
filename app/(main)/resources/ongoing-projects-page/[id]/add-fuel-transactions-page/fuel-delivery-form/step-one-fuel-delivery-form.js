@@ -8,7 +8,7 @@ export default function StepOneFuelDeliveryForm() {
   return (
     <form className="form-no-style">
        <p className="h-mid-gray-s " >Generator</p>
-       <p className="body-text " >Skan or select to identify</p>
+       <p className="steps-text " >Skan or select to identify</p>
 
       <button className="qr-code-scanning-button mb-2">
         <Image 
@@ -18,13 +18,17 @@ export default function StepOneFuelDeliveryForm() {
         <p>Skan QR Code</p>
       </button>
 
-      <div className="flex flex-col items-center">
+      <div className="divider">
         <h3 className="steps-text">or</h3>
       </div>
 
       <GeneratorDropdown />
+      
       <p className="h-mid-gray-s " >External Tank</p>
       <TankDropdown />
+     
+     
     </form>
+    
   );
 }

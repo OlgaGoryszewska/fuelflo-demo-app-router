@@ -92,6 +92,7 @@ export default function ProjectDetailPage() {
         <div className=" small-button-green ml-auto ">
           <div>Active</div>
         </div>
+        <div className="divider-full"></div>
 
         {project.location && (
           <div className="w-full h-64">
