@@ -3,10 +3,15 @@ import Image from 'next/image';
 import qr2 from '@/public/qr2.png';
 import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
+import MyToggleComponent from '../Toggle/ToggledTransaction';
 
-export default function StepOneFuelDeliveryForm() {
+export default function Setup() {
   return (
-    <form className="form-no-style">
+    <div>
+    
+         <p className="steps-text pr-2">Setup</p>
+      <div className="divider-full"></div>
+        <MyToggleComponent />
        <p className="h-mid-gray-s " >Generator</p>
        <p className="steps-text " >Skan or select to identify</p>
 
@@ -28,7 +33,7 @@ export default function StepOneFuelDeliveryForm() {
       <TankDropdown />
      
      
-    </form>
+    </div>
     
   );
 }

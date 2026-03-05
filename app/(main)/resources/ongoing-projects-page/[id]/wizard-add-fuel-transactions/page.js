@@ -1,11 +1,10 @@
 'use client';
 
-import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
-import MyToggleComponent from '@/components/Toggle/ToggledTransaction';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import Setup from '@/components/fuel-transaction/setup-form';
 
 export default function AddFuelDeliveryPage() {
   const { id } = useParams();
@@ -38,12 +37,10 @@ export default function AddFuelDeliveryPage() {
       <div className="form-header mb-4">
         <h1 className="ml-2">Add fuel transaction </h1>
       </div>
-      <div className="background-container-white">
-      <p className="steps-text pr-2">Setup</p>
-      <div className="divider-full"></div>
-        <MyToggleComponent />
-      </div>
+      <form className="form-no-style">
+       <Setup/>
       <StepNavigation/>
+      </form>
     </div>
   );
 }

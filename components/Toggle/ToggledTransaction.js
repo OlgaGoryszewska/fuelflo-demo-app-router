@@ -1,9 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 
-import StepOneFuelReturnForm from '@/app/(main)/resources/ongoing-projects-page/[id]/add-fuel-transactions-page/fuel-return-form/step-one-fuel-return-form.js';
-import StepOneFuelDeliveryForm from '@/app/(main)/resources/ongoing-projects-page/[id]/add-fuel-transactions-page/fuel-delivery-form/step-one-fuel-delivery-form.js';
-
+import SetupForm from '@/components/fuel-transaction/setup-form';
 export default function MyToggleComponent() {
   const [selectedOption, setSelectedOption] = useState('delivery');
   const handleToggle = (option) => {
@@ -32,8 +30,8 @@ export default function MyToggleComponent() {
         </div>
       </div>
       <div className="mt-6">
-        {selectedOption === 'delivery' && <StepOneFuelDeliveryForm />}
-        {selectedOption === 'return' && <StepOneFuelReturnForm />}
+        {selectedOption === 'delivery' && <SetupForm />}
+        {selectedOption === 'return' && <SetupForm />}
       </div>
     </div>
   );

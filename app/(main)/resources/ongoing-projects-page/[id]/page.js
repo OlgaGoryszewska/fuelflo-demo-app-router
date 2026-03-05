@@ -229,7 +229,7 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
-            href={`/resources/ongoing-projects-page/${project.id}/add-fuel-transactions-page/`}
+            href={`/resources/ongoing-projects-page/${project.id}/wizard-add-fuel-transactions`}
           >
             <div>Add Delivery</div>
           </Link>
@@ -306,13 +306,13 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
-      <button className=" button-big ">
-        <Link
-          href={`/add-forms/add-fuel-transactions-page?projectId=${project.id}`}
+       
+        <Link className=" button-big "
+          href={`/resources/ongoing-projects-page/${project.id}/wizard-add-fuel-transactions`}
         >
           <div>Add Fuel Transaction</div>
         </Link>
-      </button>
+      
     </div>
   );
 }
