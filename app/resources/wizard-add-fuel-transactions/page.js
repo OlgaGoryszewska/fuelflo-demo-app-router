@@ -8,8 +8,7 @@ import Setup from '@/components/fuel-transaction/setup-form';
 
 export default function AddFuelDeliveryPage() {
   const { id } = useParams();
-  const [project, setProject] = useState(null);
-  const [currentStep, setCurrentStep] = useState(0);
+ 
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -44,3 +43,4 @@ export default function AddFuelDeliveryPage() {
     </div>
   );
 }
+
