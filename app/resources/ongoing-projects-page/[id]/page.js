@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import { ChevronDown } from 'lucide-react';
@@ -200,7 +200,7 @@ export default function ProjectDetailPage() {
             <span className="material-symbols-outlined">person_apron</span>
 
             <p>
-              {project.generator
+              {project.technician
                 ? project.technician
                 : 'No technicians assigned.'}
             </p>
@@ -229,8 +229,9 @@ export default function ProjectDetailPage() {
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
-            href={`/resources/wizard-add-fuel-transactions`}         >
-            <div>Add Delivery</div>
+            href={`/resources/wizard-add-fuel-transactions/`}
+          >
+            Add Delivery
           </Link>
         </div>
 
@@ -305,13 +306,6 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
-       
-        <Link className=" button-big "
-          href={`/resources/ongoing-projects-page/${project.id}/wizard-add-fuel-transactions`}
-        >
-          <div>Add Fuel Transaction</div>
-        </Link>
-      
     </div>
   );
 }

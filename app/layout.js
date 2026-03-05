@@ -16,24 +16,11 @@ const roboto = Roboto_Flex({
   variable: '--font-roboto-flex',
 });
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
-        <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      
       <body>
         <Menu />
-
         <main>{children}</main>
       </body>
     </html>

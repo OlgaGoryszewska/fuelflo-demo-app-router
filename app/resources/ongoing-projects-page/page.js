@@ -33,7 +33,6 @@ export default function OngoingProjectsPage() {
           {projects.map((p) => (
             <li className="card-button" key={p.id}>
               {' '}
-              
               <Link href={`/resources/ongoing-projects-page/${p.id}`}>
                 {p.name}
               </Link>
