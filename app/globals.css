@@ -12,10 +12,6 @@
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
   --white: #fff;
-
-  --font-roboto-flex: 'Roboto', sans-serif;
-  --font-poppins: 'Poppins', sans-serif;
-  --font-italiana: 'Italiana', serif;
 }
 h1 {
   font-size: 16px;
@@ -333,7 +329,7 @@ li a:hover {
   z-index: 1000;
   position: absolute;
   background-color: white;
-  width: 80%;
+  width: 60%;
   padding-left: 0;
   padding-right: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

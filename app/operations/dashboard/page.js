@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -19,13 +21,10 @@ export default function Dashboard() {
           onClick={() => toggleCard('projects')}
           className={`form-button ${openCard === 'projects' ? 'border-active' : ''}`}
         >
-          <span className="material-symbols-outlined">tactic</span>
+          <AccountTreeOutlinedIcon className='mp-4'/>
           Projects{' '}
-          <span
-            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
-          >
-            keyboard_arrow_down
-          </span>
+     
+          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
@@ -53,11 +52,7 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">communities</span>
           Personel{' '}
-          <span
-            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
-          >
-            keyboard_arrow_down
-          </span>
+          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
@@ -83,11 +78,7 @@ export default function Dashboard() {
         >
           <span className="material-symbols-outlined">handshake</span>External
           Partners
-          <span
-            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
-          >
-            keyboard_arrow_down
-          </span>
+          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
