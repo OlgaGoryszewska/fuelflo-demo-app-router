@@ -1,6 +1,11 @@
 // app/generators/page.jsx
 import { createClient } from '@/lib/supabase/server';
 
+//icons
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
+
 export const dynamic = 'force-dynamic';
 
 export default async function GeneratorsPage() {
@@ -23,13 +28,10 @@ export default async function GeneratorsPage() {
           {data.map((generator) => (
             <div className="generator-container mb-4" key={generator.id}>
               <div className="form-header mb-4">
-                <span className="material-symbols-outlined">bolt</span>
-                <h3 className="ml-2 uppercase">{generator.name}</h3>
+                <h3 className="uppercase">{generator.name}</h3>
               </div>
-              <div className="flex items-start mb-2">
-                <span className="material-symbols-outlined tin ">
-                  location_on
-                </span>
+              <div className="flex gap-2 items-start mb-2">
+                <LocationOnOutlinedIcon/>
                 <p className="generator-localisation">
                   {' '}
                   {generator.localization}
@@ -54,9 +56,11 @@ export default async function GeneratorsPage() {
                   <p className="box-insert">{generator.run_hours_100_load} H</p>
                 </div>
               </div>
+              <div>
               <p className="pt-4">External Tanks</p>
-              <div className="flex p-3 items-center rounded-2xl bg-white shadow">
-                <span className="material-symbols-outlined">gas_meter</span>
+              </div>
+              <div className="form-button">
+                
 
                 <p>
                   {generator.external_tank

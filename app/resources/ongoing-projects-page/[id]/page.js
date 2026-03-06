@@ -5,6 +5,15 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import { ChevronDown } from 'lucide-react';
+// icons
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import InsertInvitationOutlinedIcon from '@mui/icons-material/InsertInvitationOutlined';
+import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
+import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
+import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -111,7 +120,7 @@ export default function ProjectDetailPage() {
 
         <div />
         <div className="flex items-start">
-          <span className="material-symbols-outlined">location_on</span>
+          <LocationOnOutlinedIcon/>
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -129,7 +138,7 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-            <span className="material-symbols-outlined ">today</span>
+          <InsertInvitationOutlinedIcon/>
             <p>Starting date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -138,7 +147,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-            <span className="material-symbols-outlined ">today</span>
+          <InsertInvitationOutlinedIcon/>
             <p>End date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -158,7 +167,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'generators' && (
           <div className="card-button">
-            <span className="material-symbols-outlined">bolt</span>
+            <BoltOutlinedIcon/>
 
             <p>
               {project.generator_id
@@ -178,7 +187,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'tanks' && (
           <div className="card-button">
-            <span className="material-symbols-outlined">gas_meter</span>
+            <OilBarrelOutlinedIcon />
 
             <p>
               {project.tank ? project.tank : 'No external tanks connected.'}
@@ -197,7 +206,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'technicians' && (
           <div className="card-button">
-            <span className="material-symbols-outlined">person_apron</span>
+            <EngineeringOutlinedIcon/>
 
             <p>
               {project.technician
@@ -225,7 +234,7 @@ export default function ProjectDetailPage() {
 
       <div className="generator-container mb-4">
         <div className="form-header-with-button ">
-          <span className="material-symbols-outlined">swap_horiz</span>
+          <BoltOutlinedIcon/>
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
           <Link
             className=" small-button ml-auto "
@@ -252,57 +261,57 @@ export default function ProjectDetailPage() {
       </div>
       <div className="background-container mb-4">
         <div className="form-header mb-4">
-          <span className="material-symbols-outlined">festival</span>
+          <Person4OutlinedIcon />
           <h3 className="ml-2 uppercase">event organizer</h3>
         </div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin ">location_city</span>
+        <LocationOnOutlinedIcon/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">location_on</span>
+        <LocationOnOutlinedIcon/>
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">email</span>
+        <AlternateEmailOutlinedIcon/>
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">mobile</span>
+        <CallOutlinedIcon/>
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
       <div className="background-container mb-4">
         <div className="form-header mb-4">
-          <span className="material-symbols-outlined">delivery_truck_bolt</span>
+          <Person4OutlinedIcon />
           <h3 className="ml-2 uppercase">fuel suppliers</h3>
         </div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin ">location_city</span>
+        <LocationOnOutlinedIcon/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">location_on</span>
+        <LocationOnOutlinedIcon/>
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">email</span>
+        <AlternateEmailOutlinedIcon/>
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <span className="material-symbols-outlined tin">mobile</span>
+          <CallOutlinedIcon/>
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
