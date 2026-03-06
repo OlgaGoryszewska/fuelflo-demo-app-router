@@ -1,8 +1,21 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
+import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -32,15 +45,17 @@ export default function Dashboard() {
               href="/resources/ongoing-projects-page"
               className="card-button"
             >
-              <span className="material-symbols-outlined">workspaces</span>
+              <RouteOutlinedIcon/>
               Ongoing Projects
             </Link>
             <Link href="/" className="card-button">
-              <span className="material-symbols-outlined">archive</span>
+            <ArchiveOutlinedIcon/>
               Archive
             </Link>
             <Link href="/add-forms/add-new-project" className="card-button">
-              <span className="material-symbols-outlined">add</span>
+            <AddOutlinedIcon/>
+            
+              
               Add new Project
             </Link>
           </div>
@@ -50,25 +65,27 @@ export default function Dashboard() {
           onClick={() => toggleCard('technicians')}
           className={`form-button ${openCard === 'technicians' ? 'border-active' : ''}`}
         >
-          <span className="material-symbols-outlined">communities</span>
+          <PeopleOutlineOutlinedIcon/>
           Personel{' '}
           <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">groups_3</span>
+            <EngineeringOutlinedIcon/>
               Managers
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">person_apron</span>
+            <EngineeringOutlinedIcon/>
               Technicians
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <span className="material-symbols-outlined">
-                supervisor_account
-              </span>
+              <ManageAccountsOutlinedIcon/>
               Hire Desk Coordinator
+            </Link>
+            <Link href="/add-forms/add-generator" className="card-button">
+              <AddOutlinedIcon/>
+              Add Personel
             </Link>
           </div>
         )}
@@ -76,21 +93,23 @@ export default function Dashboard() {
           onClick={() => toggleCard('external partners')}
           className={`form-button  ${openCard === 'external partners' ? 'border-active' : ''}`}
         >
-          <span className="material-symbols-outlined">handshake</span>External
-          Partners
+          <GroupsOutlinedIcon/>
+          External Partners
           <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
             <Link href="/resources/event_organizers/" className="card-button">
-              <span className="material-symbols-outlined">festival</span>
+              <Person4OutlinedIcon/>
               Event Organizers
             </Link>
             <Link href="/resources/event_organizers/" className="card-button">
-              <span className="material-symbols-outlined">
-                delivery_truck_bolt
-              </span>
+              <Person4OutlinedIcon/>
               Fuel Suppliers
+            </Link>
+            <Link href="/add-forms/add-generator" className="card-button">
+              <AddOutlinedIcon/>
+              Add Partner
             </Link>
           </div>
         )}
@@ -98,41 +117,37 @@ export default function Dashboard() {
           onClick={() => toggleCard('equipment')}
           className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
         >
-          <span className="material-symbols-outlined">gas_meter</span>
+          <BoltOutlinedIcon/>
           Equipment{' '}
-          <span
-            className={`material-symbols-outlined ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
-          >
-            keyboard_arrow_down
-          </span>
+          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'external tank' ? 'rotate-180' : ''}`}/>
         </div>
         {openCard === 'equipment' && (
           <div className="open-card ">
             <Link href="/resources/generators" className="card-button">
-              <span className="material-symbols-outlined">ev_station</span>
+            <BoltOutlinedIcon/>
               Generators
             </Link>
             <Link href="/resources/external-tanks" className="card-button">
-              <span className="material-symbols-outlined">gas_meter</span>
+              <PropaneTankOutlinedIcon/>
               External Tanks
             </Link>
             <Link href="/add-forms/add-generator" className="card-button">
-              <span className="material-symbols-outlined">add</span>
+              <AddOutlinedIcon/>
               Add new Equipment
             </Link>
           </div>
         )}
 
         <Link href="/add_new_user" className="form-button mt-4">
-          <span className="material-symbols-outlined">add</span>
+        <AddOutlinedIcon/>
           Register a new User
         </Link>
         <Link href="/create-qr-code" className="form-button">
-          <span className="material-symbols-outlined">qr_code</span>
+          <QrCodeOutlinedIcon/>
           Create a new QR Code
         </Link>
         <Link href="/not-found" className="form-button">
-          <span className="material-symbols-outlined">analytics</span>
+          <AssessmentOutlinedIcon/>
           Reports
         </Link>
       </div>
