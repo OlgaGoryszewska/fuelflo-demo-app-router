@@ -508,10 +508,7 @@ li a:hover {
   padding: 0.6rem;
 }
 
-.generator-localisation {
-  color: var(--primary-mid-gray);
-  margin-right: 0.5rem;
-}
+
 .fuel-bar {
   width: 100%;
   height: 20px;

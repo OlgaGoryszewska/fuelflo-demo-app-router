@@ -32,7 +32,7 @@ export default async function GeneratorsPage() {
               </div>
               <div className="flex gap-2 items-start mb-2">
                 <LocationOnOutlinedIcon/>
-                <p className="generator-localisation">
+                <p >
                   {' '}
                   {generator.localization}
                 </p>
