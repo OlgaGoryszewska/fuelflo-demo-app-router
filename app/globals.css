@@ -6,16 +6,17 @@
   --primary-black: #312f2e;
   --button-black: #272934;
   --primary-mid-black: #484a47;
-  --primary-gray-light: #e4e4e4;
+  --primary-gray-light: #e5e7eb;
   --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #717887;
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
   --light-blue:hsl(200, 49%, 92%);
   --white: #fff;
+
 }
 h1 {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--primary-mid-gray);
   padding-right: 1rem;
   text-transform: uppercase;
@@ -37,18 +38,18 @@ label {
 }
 
 .body-text {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--primary-mid-gray);
   margin-bottom: 0.4rem;
   padding-bottom: 0.6rem;
 }
 .steps-text {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
 .h-mid-gray-s {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--primary-black);
   font-weight: 500;
   letter-spacing: 5%;
@@ -94,7 +95,6 @@ form {
   background: white;
 }
 .form-transaction {
-  max-height: 537px;
   padding: 1rem;
 }
 
@@ -479,7 +479,8 @@ li a:hover {
   flex-direction: row;
   gap: 1rem;
   justify-content: space-between;
-  margin-bottom: 0.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--primary-gray-light)
 }
 .progresion-number {
   border: 1.5px solid var(--primary-orange-light);
@@ -611,14 +612,14 @@ li a:hover {
 }
 .divider-full {
   height: 1px;
-  background-color: #e5e7eb; /* soft gray */
+  background-color: var(--primary-gray-light); /* soft gray */
   width: 100%;
 }
 .divider::before,
 .divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #e5e7eb; /* soft gray line */
+  border-bottom: 1px solid var(--primary-gray-light); /* soft gray line */
 }
 
 .divider::before {
@@ -640,5 +641,6 @@ li a:hover {
 }
 
 .highlight {
+
   font-weight: 600;
 }
