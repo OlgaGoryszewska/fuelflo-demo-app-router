@@ -640,6 +640,5 @@ li a:hover {
 }
 
 .highlight {
-  color: var(--primary-orange-light);
   font-weight: 600;
 }
