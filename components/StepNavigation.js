@@ -1,4 +1,3 @@
-
 export default function StepNavigation({
   currentStep,
   setCurrentStep,
@@ -25,7 +24,7 @@ export default function StepNavigation({
     <div className="form-footer">
       {/* Previous Button */}
       <button type="button" onClick={goPrevious} disabled={isFirstStep}>
-        Previous
+        Back
       </button>
 
       {/* Submit on last step, Next on others */}

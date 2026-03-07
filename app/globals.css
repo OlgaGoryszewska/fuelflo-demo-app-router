@@ -8,9 +8,10 @@
   --primary-mid-black: #484a47;
   --primary-gray-light: #e4e4e4;
   --primary-beige-light: #f5f0e8;
-  --primary-mid-gray: #6d6d6d;
+  --primary-mid-gray: #717887;
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
+  --light-blue:hsl(200, 49%, 92%);
   --white: #fff;
 }
 h1 {
@@ -22,7 +23,7 @@ h1 {
   letter-spacing: 3px;
 }
 h2 {
-  font-size: 25px;
+  font-size: 22px;
   font-family: var(--font-poppins);
   color: var(--primary-black);
   margin-bottom: 0.6rem;
@@ -45,7 +46,6 @@ label {
   font-size: 14px;
   color: var(--primary-mid-gray);
   font-weight: 100;
-  
 }
 .h-mid-gray-s {
   font-size: 16px;
@@ -89,10 +89,13 @@ form,
   border: 1px solid var(--primary-gray-light);
   background: linear-gradient(to top, #f0f9fe, #fff 70%);
 }
+
 form {
   background: white;
-
-
+}
+.form-transaction {
+  max-height: 537px;
+  padding: 1rem;
 }
 
 .form-no-style {
@@ -166,7 +169,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 8rem;
   box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
-  border: 2px solid var(--primary-orange-light);
+  border: 1px solid var(--light-blue);
 }
 
 .small-button-green,
@@ -219,10 +222,8 @@ button {
     box-shadow 0.3s ease;
   transition-duration: 200ms;
 }
-.form-button-orange{
+.form-button-orange {
   border: 1px solid var(--primary-black);
-  
-
 }
 
 button:hover,
@@ -448,7 +449,7 @@ li a:hover {
   margin-bottom: 0rem;
   padding-top: 0rem;
 }
-
+.form-header-steps,
 .form-header-with-button,
 .form-header,
 .form-header-gray {
@@ -456,7 +457,12 @@ li a:hover {
   align-content: center;
   flex-direction: row;
   padding-bottom: 0.2rem;
+  margin-top: 1rem;
+  
+}
+.form-header-steps{
   border-bottom: 1px solid var(--primary-gray-light);
+  margin-top: 0px;
 }
 
 .form-header-gray {
@@ -468,14 +474,12 @@ li a:hover {
   border-bottom: 0px;
 }
 
-
 .form-footer {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   justify-content: space-between;
   margin-bottom: 0.4rem;
-  
 }
 .progresion-number {
   border: 1.5px solid var(--primary-orange-light);
@@ -516,7 +520,6 @@ li a:hover {
   width: 100%;
   padding: 0.6rem;
 }
-
 
 .fuel-bar {
   width: 100%;
@@ -579,7 +582,6 @@ li a:hover {
   width: 100%;
   padding-left: 1rem;
   gap: 1rem;
-
 }
 .toggle-wrapper {
   display: grid;
@@ -606,7 +608,6 @@ li a:hover {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 0.2rem;
-
 }
 .divider-full {
   height: 1px;
@@ -626,4 +627,19 @@ li a:hover {
 
 .divider::after {
   margin-left: 12px;
+}
+
+.steps {
+  padding-left: 20px;
+  border-bottom: none;
+}
+
+.steps li {
+  line-height: 1.6;
+  border-bottom: none;
+}
+
+.highlight {
+  color: var(--primary-orange-light);
+  font-weight: 600;
 }

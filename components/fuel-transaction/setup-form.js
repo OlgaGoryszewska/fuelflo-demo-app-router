@@ -1,5 +1,3 @@
-
-
 'use client';
 import Image from 'next/image';
 import qr2 from '@/public/qr2.png';
@@ -10,8 +8,8 @@ import MyToggleComponent from '../Toggle/ToggledTransaction';
 export default function Setup() {
   return (
     <div>
-    <div className='form-header mt-2 '>
-      <p className="steps-text pr-2">Setup</p>
+      <div className="form-header-steps">
+        <p className="steps-text pr-2">Setup</p>
       </div>
       <MyToggleComponent />
       <p className="h-mid-gray-s ">Generator</p>
@@ -31,6 +29,5 @@ export default function Setup() {
       <p className="h-mid-gray-s ">External Tank</p>
       <TankDropdown />
     </div>
-   
   );
 }

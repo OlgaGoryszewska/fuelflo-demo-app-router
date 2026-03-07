@@ -31,11 +31,8 @@ export default async function GeneratorsPage() {
                 <h3 className="uppercase">{generator.name}</h3>
               </div>
               <div className="flex gap-2 items-start mb-2">
-                <LocationOnOutlinedIcon/>
-                <p >
-                  {' '}
-                  {generator.localization}
-                </p>
+                <LocationOnOutlinedIcon />
+                <p> {generator.localization}</p>
               </div>
               <p className="pt-4">Generator fuel</p>
               <div className="fuel-bar"></div>
@@ -57,11 +54,9 @@ export default async function GeneratorsPage() {
                 </div>
               </div>
               <div>
-              <p className="pt-4">External Tanks</p>
+                <p className="pt-4">External Tanks</p>
               </div>
               <div className="form-button">
-                
-
                 <p>
                   {generator.external_tank
                     ? generator.external_tank

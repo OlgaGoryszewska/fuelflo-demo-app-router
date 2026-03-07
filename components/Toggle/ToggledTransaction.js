@@ -16,19 +16,18 @@ export default function MyToggleComponent() {
           className={`toggle-container ${selectedOption === 'delivery' ? 'on' : 'off'}`}
           onClick={() => handleToggle('delivery')}
         >
-          <ElectricRickshawOutlinedIcon/>
+          <ElectricRickshawOutlinedIcon />
           <p className="delivery">Delivery</p>
         </div>
         <div
           className={`toggle-container ${selectedOption === 'return' ? 'on' : 'off'}`}
           onClick={() => handleToggle('return')}
         >
-          <UndoOutlinedIcon/>
+          <UndoOutlinedIcon />
 
           <p className="delivery ">Return </p>
         </div>
       </div>
-   
     </div>
   );
 }

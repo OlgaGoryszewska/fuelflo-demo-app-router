@@ -34,10 +34,11 @@ export default function Dashboard() {
           onClick={() => toggleCard('projects')}
           className={`form-button ${openCard === 'projects' ? 'border-active' : ''}`}
         >
-          <AccountTreeOutlinedIcon className='mp-4'/>
+          <AccountTreeOutlinedIcon className="mp-4" />
           Projects{' '}
-     
-          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}/>
+          <KeyboardArrowDownOutlinedIcon
+            className={` ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
+          />
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
@@ -45,17 +46,15 @@ export default function Dashboard() {
               href="/resources/ongoing-projects-page"
               className="card-button"
             >
-              <RouteOutlinedIcon/>
+              <RouteOutlinedIcon />
               Ongoing Projects
             </Link>
             <Link href="/" className="card-button">
-            <ArchiveOutlinedIcon/>
+              <ArchiveOutlinedIcon />
               Archive
             </Link>
             <Link href="/add-forms/add-new-project" className="card-button">
-            <AddOutlinedIcon/>
-            
-              
+              <AddOutlinedIcon />
               Add new Project
             </Link>
           </div>
@@ -65,26 +64,28 @@ export default function Dashboard() {
           onClick={() => toggleCard('technicians')}
           className={`form-button ${openCard === 'technicians' ? 'border-active' : ''}`}
         >
-          <PeopleOutlineOutlinedIcon/>
+          <PeopleOutlineOutlinedIcon />
           Personel{' '}
-          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}/>
+          <KeyboardArrowDownOutlinedIcon
+            className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
+          />
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
             <Link href="/ongoing-technicians-page" className="card-button">
-            <EngineeringOutlinedIcon/>
+              <EngineeringOutlinedIcon />
               Managers
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-            <EngineeringOutlinedIcon/>
+              <EngineeringOutlinedIcon />
               Technicians
             </Link>
             <Link href="/ongoing-technicians-page" className="card-button">
-              <ManageAccountsOutlinedIcon/>
+              <ManageAccountsOutlinedIcon />
               Hire Desk Coordinator
             </Link>
             <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon/>
+              <AddOutlinedIcon />
               Add Personel
             </Link>
           </div>
@@ -93,22 +94,24 @@ export default function Dashboard() {
           onClick={() => toggleCard('external partners')}
           className={`form-button  ${openCard === 'external partners' ? 'border-active' : ''}`}
         >
-          <GroupsOutlinedIcon/>
+          <GroupsOutlinedIcon />
           External Partners
-          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}/>
+          <KeyboardArrowDownOutlinedIcon
+            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
+          />
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
             <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon/>
+              <Person4OutlinedIcon />
               Event Organizers
             </Link>
             <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon/>
+              <Person4OutlinedIcon />
               Fuel Suppliers
             </Link>
             <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon/>
+              <AddOutlinedIcon />
               Add Partner
             </Link>
           </div>
@@ -117,44 +120,48 @@ export default function Dashboard() {
           onClick={() => toggleCard('equipment')}
           className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
         >
-          <BoltOutlinedIcon/>
+          <BoltOutlinedIcon />
           Equipment{' '}
-          <KeyboardArrowDownOutlinedIcon className={` ml-auto transition-transform text-gray-400 ${openCard === 'external tank' ? 'rotate-180' : ''}`}/>
+          <KeyboardArrowDownOutlinedIcon
+            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external tank' ? 'rotate-180' : ''}`}
+          />
         </div>
         {openCard === 'equipment' && (
           <div className="open-card ">
             <Link href="/resources/generators" className="card-button">
-            <BoltOutlinedIcon/>
+              <BoltOutlinedIcon />
               Generators
             </Link>
             <Link href="/resources/external-tanks" className="card-button">
-              <PropaneTankOutlinedIcon/>
+              <PropaneTankOutlinedIcon />
               External Tanks
             </Link>
             <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon/>
+              <AddOutlinedIcon />
               Add new Equipment
             </Link>
           </div>
         )}
 
         <Link href="/add_new_user" className="form-button mt-4">
-        <AddOutlinedIcon/>
+          <AddOutlinedIcon />
           Register a new User
         </Link>
         <Link href="/create-qr-code" className="form-button">
-          <QrCodeOutlinedIcon/>
+          <QrCodeOutlinedIcon />
           Create a new QR Code
         </Link>
         <Link href="/not-found" className="form-button">
-          <AssessmentOutlinedIcon/>
+          <AssessmentOutlinedIcon />
           Reports
         </Link>
         <Link
-            className="form-button-orange"
-            href={`/resources/wizard-add-fuel-transactions/`}
-          ><AddOutlinedIcon/>Add Fuel Delivery
-          </Link>
+          className="form-button-orange"
+          href={`/resources/wizard-add-fuel-transactions/`}
+        >
+          <AddOutlinedIcon />
+          Add Fuel Delivery
+        </Link>
       </div>
     </div>
   );

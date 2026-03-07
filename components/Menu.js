@@ -45,8 +45,11 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link onClick={handleLinkClick} href="/resources/wizard-add-fuel-transactions/
-          ">
+          <Link
+            onClick={handleLinkClick}
+            href="/resources/wizard-add-fuel-transactions/
+          "
+          >
             Add fuel transaction
           </Link>
         </li>

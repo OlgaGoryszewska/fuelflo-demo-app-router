@@ -122,7 +122,7 @@ export default function ProjectDetailPage() {
 
         <div />
         <div className="flex items-start">
-          <LocationOnOutlinedIcon/>
+          <LocationOnOutlinedIcon />
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -140,7 +140,7 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-          <InsertInvitationOutlinedIcon/>
+            <InsertInvitationOutlinedIcon />
             <p>Starting date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -149,7 +149,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-          <InsertInvitationOutlinedIcon/>
+            <InsertInvitationOutlinedIcon />
             <p>End date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -169,7 +169,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'generators' && (
           <div className="card-button">
-            <BoltOutlinedIcon/>
+            <BoltOutlinedIcon />
 
             <p>
               {project.generator_id
@@ -208,7 +208,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'technicians' && (
           <div className="card-button">
-            <EngineeringOutlinedIcon/>
+            <EngineeringOutlinedIcon />
 
             <p>
               {project.technician
@@ -236,9 +236,8 @@ export default function ProjectDetailPage() {
 
       <div className="generator-container mb-4">
         <div className="form-header-with-button ">
-          <BoltOutlinedIcon/>
+          <BoltOutlinedIcon />
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
-         
         </div>
 
         <div className="flex flex-col items-center align-center">
@@ -264,23 +263,23 @@ export default function ProjectDetailPage() {
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex gap-2align-center mb-2">
-        <ApartmentOutlinedIcon/>
+          <ApartmentOutlinedIcon />
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-        <LocationOnOutlinedIcon/>
+          <LocationOnOutlinedIcon />
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-        <AlternateEmailOutlinedIcon/>
+          <AlternateEmailOutlinedIcon />
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-        <CallOutlinedIcon/>
+          <CallOutlinedIcon />
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
@@ -292,31 +291,33 @@ export default function ProjectDetailPage() {
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
-        <ApartmentOutlinedIcon/>
+          <ApartmentOutlinedIcon />
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-        <LocationOnOutlinedIcon/>
+          <LocationOnOutlinedIcon />
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-        <AlternateEmailOutlinedIcon/>
+          <AlternateEmailOutlinedIcon />
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <CallOutlinedIcon/>
+          <CallOutlinedIcon />
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
       <Link
-            className="form-button-orange"
-            href={`/resources/wizard-add-fuel-transactions/`}
-          ><AddOutlinedIcon/>Add Fuel Transaction
-          </Link>
+        className="form-button-orange"
+        href={`/resources/wizard-add-fuel-transactions/`}
+      >
+        <AddOutlinedIcon />
+        Add Fuel Transaction
+      </Link>
     </div>
   );
 }
