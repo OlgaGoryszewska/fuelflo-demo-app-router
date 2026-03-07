@@ -9,16 +9,15 @@ export default function IntroForm() {
 
         <ol className="steps">
           <li>
-            Take a photo of the 
+            1. Take a photo of the 
             <strong className="highlight"> starting</strong> meter
           </li>
-          <li>Scan or enter the meter reading</li>
-          <li>Take a photo
+          <li>2. Scan or enter the meter reading</li>
+          <li>3. Take a photo
             <strong className="highlight"> after</strong> the tank refill
           </li>
           <li>
-            Scan or enter {' '}
-            <strong className="highlight"> the final</strong> meter reading
+            4. Scan or enter the final meter reading
           </li>
         </ol>
       </section>

@@ -169,7 +169,7 @@ button {
   font-family: var(--font-roboto-flex);
   width: 8rem;
   box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
-  border: 1px solid var(--light-blue);
+  border: 2px solid var(--light-blue);
 }
 
 .small-button-green,
@@ -636,7 +636,7 @@ li a:hover {
 }
 
 .steps li {
-  line-height: 1.6;
+  line-height: 2;
   border-bottom: none;
 }
 
