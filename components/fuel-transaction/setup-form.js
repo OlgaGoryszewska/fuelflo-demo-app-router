@@ -1,3 +1,5 @@
+
+
 'use client';
 import Image from 'next/image';
 import qr2 from '@/public/qr2.png';
