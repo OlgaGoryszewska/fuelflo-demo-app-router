@@ -150,6 +150,11 @@ export default function Dashboard() {
           <AssessmentOutlinedIcon/>
           Reports
         </Link>
+        <Link
+            className="form-button-orange"
+            href={`/resources/wizard-add-fuel-transactions/`}
+          ><AddOutlinedIcon/>Add Fuel Delivery
+          </Link>
       </div>
     </div>
   );

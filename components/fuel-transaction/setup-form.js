@@ -8,8 +8,9 @@ import MyToggleComponent from '../Toggle/ToggledTransaction';
 export default function Setup() {
   return (
     <div>
+    <div className='form-header mt-2 mb-4'>
       <p className="steps-text pr-2">Setup</p>
-      <div className="divider-full"></div>
+      </div>
       <MyToggleComponent />
       <p className="h-mid-gray-s ">Generator</p>
       <p className="steps-text ">Skan or select to identify</p>
@@ -28,5 +29,6 @@ export default function Setup() {
       <p className="h-mid-gray-s ">External Tank</p>
       <TankDropdown />
     </div>
+   
   );
 }

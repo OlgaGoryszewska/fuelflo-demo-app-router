@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 
-import SetupForm from '@/components/fuel-transaction/setup-form';
+import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
+import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
 export default function MyToggleComponent() {
   const [selectedOption, setSelectedOption] = useState('delivery');
   const handleToggle = (option) => {
@@ -15,24 +16,19 @@ export default function MyToggleComponent() {
           className={`toggle-container ${selectedOption === 'delivery' ? 'on' : 'off'}`}
           onClick={() => handleToggle('delivery')}
         >
-          <span className="material-symbols-outlined black mr-2">
-            delivery_truck_speed
-          </span>
+          <ElectricRickshawOutlinedIcon/>
           <p className="delivery">Delivery</p>
         </div>
         <div
           className={`toggle-container ${selectedOption === 'return' ? 'on' : 'off'}`}
           onClick={() => handleToggle('return')}
         >
-          <span className="material-symbols-outlined black">replay</span>
+          <UndoOutlinedIcon/>
 
           <p className="delivery ">Return </p>
         </div>
       </div>
-      <div className="mt-6">
-        {selectedOption === 'delivery' && <SetupForm />}
-        {selectedOption === 'return' && <SetupForm />}
-      </div>
+   
     </div>
   );
 }

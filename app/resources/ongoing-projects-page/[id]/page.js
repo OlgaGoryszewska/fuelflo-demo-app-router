@@ -14,6 +14,8 @@ import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -236,12 +238,7 @@ export default function ProjectDetailPage() {
         <div className="form-header-with-button ">
           <BoltOutlinedIcon/>
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
-          <Link
-            className=" small-button ml-auto "
-            href={`/resources/wizard-add-fuel-transactions/`}
-          >
-            Add Delivery
-          </Link>
+         
         </div>
 
         <div className="flex flex-col items-center align-center">
@@ -266,8 +263,8 @@ export default function ProjectDetailPage() {
         </div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
-        <div className="flex align-center mb-2">
-        <LocationOnOutlinedIcon/>
+        <div className="flex gap-2align-center mb-2">
+        <ApartmentOutlinedIcon/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
@@ -295,7 +292,7 @@ export default function ProjectDetailPage() {
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
-        <LocationOnOutlinedIcon/>
+        <ApartmentOutlinedIcon/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
@@ -315,6 +312,11 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
+      <Link
+            className="form-button-orange"
+            href={`/resources/wizard-add-fuel-transactions/`}
+          ><AddOutlinedIcon/>Add Fuel Transaction
+          </Link>
     </div>
   );
 }
