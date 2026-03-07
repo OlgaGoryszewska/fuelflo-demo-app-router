@@ -91,6 +91,8 @@ form,
 }
 form {
   background: white;
+
+
 }
 
 .form-no-style {
@@ -149,7 +151,7 @@ option {
   font-weight: 600;
   font-size: 20px;
   letter-spacing: 5%;
-  border: 1px solid var(--primary-gray-light);
+  border: 2px solid var(--primary-orange-light);
 }
 button-navigator,
 button {
@@ -453,7 +455,6 @@ li a:hover {
   display: flex;
   align-content: center;
   flex-direction: row;
-
   padding-bottom: 0.2rem;
   border-bottom: 1px solid var(--primary-gray-light);
 }
@@ -473,8 +474,8 @@ li a:hover {
   flex-direction: row;
   gap: 1rem;
   justify-content: space-between;
-  padding: 1rem;
-  padding-top: 2rem;
+  margin-bottom: 0.4rem;
+  
 }
 .progresion-number {
   border: 1.5px solid var(--primary-orange-light);
@@ -578,13 +579,15 @@ li a:hover {
   width: 100%;
   padding-left: 1rem;
   gap: 1rem;
+
 }
 .toggle-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -602,6 +605,7 @@ li a:hover {
   color: #6b7280; /* subtle gray */
   font-size: 14px;
   font-weight: 500;
+  margin-bottom: 0.2rem;
 
 }
 .divider-full {

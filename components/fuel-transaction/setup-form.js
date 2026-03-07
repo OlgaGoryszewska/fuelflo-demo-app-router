@@ -8,14 +8,14 @@ import MyToggleComponent from '../Toggle/ToggledTransaction';
 export default function Setup() {
   return (
     <div>
-    <div className='form-header mt-2 mb-4'>
+    <div className='form-header mt-2 '>
       <p className="steps-text pr-2">Setup</p>
       </div>
       <MyToggleComponent />
       <p className="h-mid-gray-s ">Generator</p>
       <p className="steps-text ">Skan or select to identify</p>
 
-      <button className="qr-code-scanning-button mb-2">
+      <button className="qr-code-scanning-button my-2">
         <Image alt="qr code to scan" src={qr2} className="w-28 " />
         <p>Skan QR Code</p>
       </button>
