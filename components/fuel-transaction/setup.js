@@ -9,7 +9,7 @@ export default function Setup() {
   return (
     <div>
       <div className="form-header-steps">
-        <p className="steps-text pr-2">Setup</p>
+        <p className="steps-text pr-2">Step 1 of 5 | Setup </p>
       </div>
       <MyToggleComponent />
       <p className="h-mid-gray-s ">Generator</p>

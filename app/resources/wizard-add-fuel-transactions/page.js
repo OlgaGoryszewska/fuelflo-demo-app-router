@@ -4,16 +4,20 @@
 'use client';
 
 import { useState } from 'react';
-//steps
-import IntroForm from '@/components/fuel-transaction/Intro-form';
-import Setup from '@/components/fuel-transaction/setup-form';
 import StepNavigation from '@/components/StepNavigation';
+//steps
+import IntroForm from '@/components/fuel-transaction/Intro';
+import Setup from '@/components/fuel-transaction/setup';
+import ImageBefore from '@/components/fuel-transaction/image-before'
 
 export default function Wizzard() {
   const [currentStep, setCurrentStep] = useState(0);
 
-  const steps = [<IntroForm key="step-1"/>,
-    <Setup key="step-2" />];
+  const steps = [
+  <IntroForm key={0}/>,
+  <Setup key={1} />,
+  <ImageBefore key={2}/>];
+  
   return (
     <div className="main-container">
       <div className="form-header mt-4">

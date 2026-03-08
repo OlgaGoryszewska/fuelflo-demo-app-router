@@ -18,7 +18,7 @@ export default function IntroForm() {
         <ol className="steps">
         <li>
            
-            <strong className="highlight"> 1.   Setup</strong>
+            <strong className="highlight"> 1. Setup</strong>
           </li>
             
           <li>

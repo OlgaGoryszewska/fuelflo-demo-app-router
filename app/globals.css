@@ -148,6 +148,7 @@ option {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
   width: 100%;
   background-color: var(--white);
   color: var(--button-black);
@@ -170,6 +171,14 @@ button {
   width: 8rem;
   box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
+}
+button:disabled{
+  color: var(--primary-gray-light);
+  border: 2px solid var(--primary-gray-light);
+  box-shadow: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .small-button-green,
