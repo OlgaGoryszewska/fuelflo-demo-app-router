@@ -1,3 +1,9 @@
+
+
+import Image from "next/image";
+import scan from "@/public/scan.png"
+
+
 export default function IntroForm() {
   return (
     <div>
@@ -6,6 +12,7 @@ export default function IntroForm() {
       </div>
       <section>
         <h2>Collect tank refill evidence in 4 steps</h2>
+        <Image src={scan}  alt=" scaning meter"/>
 
         <ol className="steps">
           <li>

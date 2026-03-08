@@ -168,7 +168,7 @@ button {
   cursor: pointer;
   font-family: var(--font-roboto-flex);
   width: 8rem;
-  box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
+  box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
 }
 
