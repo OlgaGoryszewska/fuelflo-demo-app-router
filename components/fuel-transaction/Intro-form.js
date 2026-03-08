@@ -12,7 +12,8 @@ export default function IntroForm() {
       </div>
       <section>
         <h2>Collect tank refill evidence in 5 steps</h2>
-        <Image src={scan}  alt=" scaning meter"/>
+        <Image src={scan}  alt=" scaning meter" className="h-42 w-42 m-auto
+        "/>
 
         <ol className="steps">
         <li>

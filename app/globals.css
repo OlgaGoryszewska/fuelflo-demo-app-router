@@ -16,7 +16,7 @@
 
 }
 h1 {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--primary-mid-gray);
   padding-right: 1rem;
   text-transform: uppercase;
@@ -32,7 +32,7 @@ h2 {
 }
 h3,
 label {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--primary-black);
   margin-bottom: 0.4rem;
 }
@@ -44,12 +44,12 @@ label {
   padding-bottom: 0.6rem;
 }
 .steps-text {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
 .h-mid-gray-s {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--primary-black);
   font-weight: 500;
   letter-spacing: 5%;
@@ -68,10 +68,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: Poppins, sans-serif;
-  font-size: 18px;
   background: linear-gradient(to bottom right, #fcfeff 0%, #c5d6e1 100%);
   color: var(--primary-black);
   min-height: 100vh;
+  font-size: 16px;
 }
 
 .open-card,
@@ -572,6 +572,7 @@ li a:hover {
   width: fit-content;
 }
 .toggle-container {
+
   display: flex;
   font-family: var(--font-roboto-flex);
   height: 46px;
@@ -631,16 +632,14 @@ li a:hover {
 }
 
 .steps {
-  padding-left: 20px;
   border-bottom: none;
 }
 
 .steps li {
-  line-height: 2;
+  line-height: 1.4;
   border-bottom: none;
 }
 
 .highlight {
-
   font-weight: 600;
 }
