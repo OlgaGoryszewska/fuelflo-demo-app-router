@@ -157,6 +157,16 @@ option {
   letter-spacing: 5%;
   border: 2px solid var(--primary-orange-light);
 }
+.window {
+  display: flex;
+  height: 150px;
+  width: 100%;
+  border: 1px solid var(--primary-gray-light);
+  border-radius: 15px;
+
+}
+
+
 button-navigator,
 button {
   padding: 0.4rem;

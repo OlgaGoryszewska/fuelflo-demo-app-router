@@ -8,8 +8,9 @@ import StepNavigation from '@/components/StepNavigation';
 //steps
 import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
-import ImageBefore from '@/components/fuel-transaction/image-before'
-import ImageAfter from '@/components/fuel-transaction/image-after';
+import OperationBefore from '@/components/fuel-transaction/operation-before'
+import OperationAfter from '@/components/fuel-transaction/operation-after';
+import Review from '@/components/fuel-transaction/review';
 
 export default function Wizard() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -17,8 +18,9 @@ export default function Wizard() {
   const steps = [
   <IntroForm key={0}/>,
   <Setup key={1} />,
-  <ImageBefore key={2}/>,
-  <ImageAfter key={3}/>];
+  <OperationBefore key={2}/>,
+  <OperationAfter key={3}/>,
+  <Review key={4}/>];
 
   const totalSteps= steps.length;
 
