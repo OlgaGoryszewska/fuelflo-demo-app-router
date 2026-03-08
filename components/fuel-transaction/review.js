@@ -1,6 +1,4 @@
 'use client'
-import Image from "next/image"
-import camera from "@/public/camera.png"
 
 export default function Review () {
     return(
@@ -18,7 +16,6 @@ export default function Review () {
       <div className="window"></div>
       <p className="mt-4 h-mid-gray-s"> Meter Reading after delivery</p>
       <input className="mb-4"></input>
-
     </div>
     )
 
