@@ -9,6 +9,7 @@ import StepNavigation from '@/components/StepNavigation';
 import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
 import ImageBefore from '@/components/fuel-transaction/image-before'
+import ImageAfter from '@/components/fuel-transaction/image-after';
 
 export default function Wizard() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -16,8 +17,9 @@ export default function Wizard() {
   const steps = [
   <IntroForm key={0}/>,
   <Setup key={1} />,
-  <ImageBefore key={2}/>];
-  
+  <ImageBefore key={2}/>,
+  <ImageAfter key={3}/>];
+
   const totalSteps= steps.length;
 
 
