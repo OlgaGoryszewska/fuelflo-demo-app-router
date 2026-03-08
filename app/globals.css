@@ -148,7 +148,7 @@ option {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 150px;
   width: 100%;
   background-color: var(--white);
   color: var(--button-black);
