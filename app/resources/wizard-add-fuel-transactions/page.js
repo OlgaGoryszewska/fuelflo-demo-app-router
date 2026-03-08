@@ -10,13 +10,17 @@ import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
 import ImageBefore from '@/components/fuel-transaction/image-before'
 
-export default function Wizzard() {
+export default function Wizard() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
   <IntroForm key={0}/>,
   <Setup key={1} />,
   <ImageBefore key={2}/>];
+  
+  const totalSteps= steps.length;
+
+
   
   return (
     <div className="main-container">
@@ -29,6 +33,7 @@ export default function Wizzard() {
         <StepNavigation
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
+          totalSteps={totalSteps}
         />
       </form>
     </div>

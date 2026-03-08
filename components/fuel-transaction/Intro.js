@@ -27,7 +27,7 @@ export default function IntroForm() {
           </li>
           <li><strong className="highlight">3. </strong> Scan or enter the meter reading</li>
           <li><strong className="highlight">4. </strong> Take a photo
-            <strong className="highlight"> after</strong> the tank refill
+            <strong className="highlight"> after </strong> the tank refill
           </li>
           <li>
           <strong className="highlight">5. </strong> Scan or enter the final meter reading
