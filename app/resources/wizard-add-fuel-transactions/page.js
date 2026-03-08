@@ -12,7 +12,8 @@ import StepNavigation from '@/components/StepNavigation';
 export default function Wizzard() {
   const [currentStep, setCurrentStep] = useState(0);
 
-  const steps = [<Setup key="step-1" />, <IntroForm key="step-2" />];
+  const steps = [<IntroForm key="step-1"/>,
+    <Setup key="step-2" />];
   return (
     <div className="main-container">
       <div className="form-header mt-4">
