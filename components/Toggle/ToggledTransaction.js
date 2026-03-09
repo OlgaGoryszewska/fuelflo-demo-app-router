@@ -11,7 +11,7 @@ export default function MyToggleComponent() {
 
   return (
     <div>
-      <p className="h-mid-gray-s mt-4 mb-2">Choose transaction</p>
+      <p className="h-mid-gray-s mt-4 mb-2">Choose transaction type</p>
       <div className=" toggle-wrapper ">
         
         <div

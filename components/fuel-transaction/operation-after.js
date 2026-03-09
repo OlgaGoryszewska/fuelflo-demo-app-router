@@ -6,9 +6,9 @@ export default function OperationAfter () {
     return(
     <div>
     <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 3 of 4</p>
+        <p className="steps-text pr-2">Step 4 of 5</p>
       </div>
-      <h2 className="mt-4">Operation after Fuel delivery</h2>
+      <h2 className="mt-4">Collect data after fuel delivery</h2>
       <p className="mt-4 h-mid-gray-s">Take a Photo </p>
       
       <p className="steps-text">Take a clear picture showing the full meter display</p>

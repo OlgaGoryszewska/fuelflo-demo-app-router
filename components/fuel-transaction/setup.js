@@ -9,7 +9,7 @@ export default function Setup() {
   return (
     <div>
       <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 1 of 4  </p>
+        <p className="steps-text pr-2">Step 1 of 5  </p>
       </div>
       
       <MyToggleComponent />
@@ -27,7 +27,7 @@ export default function Setup() {
 
       <GeneratorDropdown />
 
-      <p className="h-mid-gray-s ">External Tank</p>
+      <p className="h-mid-gray-s pt-2">External Tank</p>
       <TankDropdown />
     </div>
   );

@@ -6,9 +6,9 @@ export default function OperationBefore () {
     return(
     <div>
     <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 2 of 4</p>
+        <p className="steps-text pr-2">Step 2 of 5</p>
       </div>
-      <h2 className="mt-4">Operation before Fuel delivery</h2>
+      <h2 className="mt-4">Collect data before fuel delivery</h2>
       <p className="mt-4 h-mid-gray-s">Take a Photo </p>
       
       <p className="steps-text">Take a clear picture showing the full meter display</p>
