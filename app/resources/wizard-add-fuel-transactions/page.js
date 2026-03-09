@@ -10,7 +10,9 @@ import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
 import OperationBefore from '@/components/fuel-transaction/operation-before'
 import OperationAfter from '@/components/fuel-transaction/operation-after';
-import Review from '@/components/fuel-transaction/review';
+import ReviewBefore from '@/components/fuel-transaction/review-before';
+import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert'
+
 
 export default function Wizard() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -19,8 +21,11 @@ export default function Wizard() {
   <IntroForm key={0}/>,
   <Setup key={1} />,
   <OperationBefore key={2}/>,
-  <OperationAfter key={3}/>,
-  <Review key={4}/>];
+  <ReviewBefore key={3}/>,
+  <BeforeDeliverySuccessAlert key={4}/>,
+  <OperationAfter key={5}/>,
+  ,
+  ];
 
   const totalSteps= steps.length;
 

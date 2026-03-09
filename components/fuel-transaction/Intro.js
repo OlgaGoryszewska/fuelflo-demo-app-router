@@ -18,13 +18,12 @@ export default function IntroForm() {
         <ol className="steps">
         <li>
            
-            <strong className="highlight"> 1. Setup operation </strong>
+            <strong className="highlight"> 1.  </strong>Setup operation
           </li>
             
           <li>
           <strong className="highlight">2. </strong>  Take a photo of the 
             <strong className="highlight"> starting</strong> meter and enter meter reading
-            NOW YOU CAN refill the tank
           </li>
           <li><strong className="highlight">3. </strong> Take a photo
             <strong className="highlight"> after </strong> the tank refill and enter meter current status

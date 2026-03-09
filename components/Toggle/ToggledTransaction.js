@@ -11,7 +11,9 @@ export default function MyToggleComponent() {
 
   return (
     <div>
+      <p className="h-mid-gray-s mt-4 mb-2">Choose transaction</p>
       <div className=" toggle-wrapper ">
+        
         <div
           className={`toggle-container ${selectedOption === 'delivery' ? 'on' : 'off'}`}
           onClick={() => handleToggle('delivery')}

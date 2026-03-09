@@ -11,6 +11,7 @@ export default function Setup() {
       <div className="form-header-steps">
         <p className="steps-text pr-2">Step 1 of 4  </p>
       </div>
+      
       <MyToggleComponent />
       <p className="h-mid-gray-s ">Generator</p>
       <p className="steps-text ">Skan or select to identify</p>
