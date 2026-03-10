@@ -16,6 +16,7 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
 import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import CachedIcon from '@mui/icons-material/Cached';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -59,6 +60,11 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
+        <Link href="/resources/transactions" className="form-button">
+              <CachedIcon />
+              Transactions
+            </Link>
+
 
         <div
           onClick={() => toggleCard('technicians')}

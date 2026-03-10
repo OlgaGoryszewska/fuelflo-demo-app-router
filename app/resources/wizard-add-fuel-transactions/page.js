@@ -12,6 +12,8 @@ import OperationBefore from '@/components/fuel-transaction/operation-before'
 import OperationAfter from '@/components/fuel-transaction/operation-after';
 import ReviewBefore from '@/components/fuel-transaction/review-before';
 import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert'
+import ReviewAfter from '@/components/fuel-transaction/review-after'
+import AfterDeliverySuccessAlert from '@/components/fuel-transaction/after-delivery-success-alert'
 
 
 export default function Wizard() {
@@ -24,7 +26,9 @@ export default function Wizard() {
   <ReviewBefore key={3}/>,
   <BeforeDeliverySuccessAlert key={4}/>,
   <OperationAfter key={5}/>,
-  ,
+  <ReviewAfter key={6}/>,
+  <AfterDeliverySuccessAlert key={7}/>
+  
   ];
 
   const totalSteps= steps.length;
