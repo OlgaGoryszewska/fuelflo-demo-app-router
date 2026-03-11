@@ -313,7 +313,7 @@ export default function ProjectDetailPage() {
       </div>
       <Link
         className="form-button-orange"
-        href={`/resources/wizard-add-fuel-transactions/`}
+        href={`/resources/transactions/new/`}
       >
         <AddOutlinedIcon />
         Add Fuel Transaction

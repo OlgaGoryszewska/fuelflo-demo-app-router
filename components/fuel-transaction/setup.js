@@ -5,14 +5,19 @@ import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import MyToggleComponent from '../Toggle/ToggledTransaction';
 
-export default function Setup() {
+export default function Setup(formData,setFormData) {
   return (
     <div>
       <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 1 of 5  </p>
+        <p className="steps-text pr-2">Step 1 of 5 </p>
       </div>
-      
-      <MyToggleComponent />
+
+      <MyToggleComponent
+      value={formData.type}
+      onChange={(newType) =>
+        setFormData((prev) => ({...prev, type:newType,}))
+      } />
+       <p className="steps-text mt-2">Chosen type: {formData.type}</p>
       <p className="h-mid-gray-s ">Generator</p>
       <p className="steps-text ">Skan or select to identify</p>
 
@@ -32,4 +37,3 @@ export default function Setup() {
     </div>
   );
 }
-

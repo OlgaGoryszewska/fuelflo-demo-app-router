@@ -1,8 +1,5 @@
-
-
-import Image from "next/image";
-import scan from "@/public/scan.png"
-
+import Image from 'next/image';
+import scan from '@/public/scan.png';
 
 export default function IntroForm() {
   return (
@@ -12,31 +9,36 @@ export default function IntroForm() {
       </div>
       <section>
         <h2>Collect data in 5 steps</h2>
-        <Image src={scan}  alt=" scaning meter" className="h-42 w-42 m-auto
-        "/>
+        <Image
+          src={scan}
+          alt=" scaning meter"
+          className="h-42 w-42 m-auto
+        "
+        />
 
         <ol className="steps">
-        <li>
-           
-            <strong className="highlight"> 1.  </strong>Setup transaction
-          </li>
-            
           <li>
-          <strong className="highlight">2. </strong>  Take a photo of the 
-            <strong className="highlight"> starting</strong> meter and enter meter reading
+            <strong className="highlight"> 1. </strong>Setup transaction
           </li>
+
           <li>
-          <strong className="highlight">3. </strong>Review fuel data
-          </li>
-          <li><strong className="highlight">4. </strong> Take a photo
-            <strong className="highlight"> after </strong> the tank refill and enter meter current status
+            <strong className="highlight">2. </strong> Take a photo of the
+            <strong className="highlight"> starting</strong> meter and enter
+            meter reading
           </li>
           <li>
-          <strong className="highlight">5. </strong>Review fuel data
+            <strong className="highlight">3. </strong>Review fuel data
+          </li>
+          <li>
+            <strong className="highlight">4. </strong> Take a photo
+            <strong className="highlight"> after </strong> the tank refill and
+            enter meter current status
+          </li>
+          <li>
+            <strong className="highlight">5. </strong>Review fuel data
           </li>
         </ol>
       </section>
     </div>
   );
 }
-

@@ -17,6 +17,8 @@ import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
 import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import CachedIcon from '@mui/icons-material/Cached';
+import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
+import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -60,11 +62,38 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
-        <Link href="/resources/transactions" className="form-button">
-              <CachedIcon />
-              Transactions
-            </Link>
 
+        <div
+          onClick={() => toggleCard('transactions')}
+          className={`form-button ${openCard === 'transactions' ? 'border-active' : ''}`}
+        >
+          <CachedIcon /> Transactions{' '}
+          <KeyboardArrowDownOutlinedIcon
+            className={` ml-auto transition-transform text-gray-400 ${openCard === 'transactions' ? 'rotate-180' : ''}`}
+          />
+        </div>
+        {openCard === 'transactions' && (
+          <div className="open-card ">
+            <Link
+              href="/resources/transactions/deliveries"
+              className="card-button"
+            >
+              <ElectricRickshawOutlinedIcon />
+              Deliveries
+            </Link>
+            <Link
+              href="/resources/transactions/returns"
+              className="card-button"
+            >
+              <UndoOutlinedIcon />
+              Returns
+            </Link>
+            <Link href="/resources/transactions/new" className="card-button">
+              <AddOutlinedIcon />
+              Add New Transaction
+            </Link>
+          </div>
+        )}
 
         <div
           onClick={() => toggleCard('technicians')}
@@ -163,7 +192,7 @@ export default function Dashboard() {
         </Link>
         <Link
           className="form-button-orange"
-          href={`/resources/wizard-add-fuel-transactions/`}
+          href={`/resources/transactions/new/`}
         >
           <AddOutlinedIcon />
           Add Fuel Delivery

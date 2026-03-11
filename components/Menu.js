@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import logo from '@/public/flo-logo.png';
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +32,7 @@ export default function Menu() {
   return (
     <div className="menu" ref={menuRef}>
       <nav className="nav">
-        <img src="/flo-logo.png" alt="Logo" className="logo" />
+        <Image src={logo} alt="Logo" className="logo" />
         <HiOutlineMenuAlt3 className="hamburger" onClick={toggleMenu} />
       </nav>
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
@@ -45,11 +47,7 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link
-            onClick={handleLinkClick}
-            href="/resources/wizard-add-fuel-transactions/
-          "
-          >
+          <Link onClick={handleLinkClick} href={`/resources/transactions/new/`}>
             Add fuel transaction
           </Link>
         </li>

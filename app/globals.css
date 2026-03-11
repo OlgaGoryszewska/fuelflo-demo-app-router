@@ -11,9 +11,8 @@
   --primary-mid-gray: #717887;
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
-  --light-blue:hsl(200, 49%, 92%);
+  --light-blue: hsl(200, 49%, 92%);
   --white: #fff;
-
 }
 h1 {
   font-size: 16px;
@@ -48,7 +47,7 @@ label {
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
-.delivery{
+.delivery {
   font-weight: 600;
   font-size: 18px;
 }
@@ -185,7 +184,7 @@ button {
   box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
 }
-button:disabled{
+button:disabled {
   color: var(--primary-gray-light);
   border: 2px solid var(--primary-gray-light);
   box-shadow: none;
@@ -480,9 +479,8 @@ li a:hover {
   flex-direction: row;
   padding-bottom: 0.2rem;
   margin-top: 1rem;
-  
 }
-.form-header-steps{
+.form-header-steps {
   border-bottom: 1px solid var(--primary-gray-light);
   margin-top: 0px;
 }
@@ -502,7 +500,7 @@ li a:hover {
   gap: 1rem;
   justify-content: space-between;
   padding-top: 1rem;
-  border-top: 1px solid var(--primary-gray-light)
+  border-top: 1px solid var(--primary-gray-light);
 }
 .progresion-number {
   border: 1.5px solid var(--primary-orange-light);
@@ -594,7 +592,6 @@ li a:hover {
   width: fit-content;
 }
 .toggle-container {
-
   display: flex;
   font-family: var(--font-roboto-flex);
   height: 46px;
