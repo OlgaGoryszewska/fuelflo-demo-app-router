@@ -3,7 +3,6 @@ export default function StepNavigation({
   setCurrentStep,
   totalSteps,
   submitting,
-
 }) {
   const isLastStep = currentStep === totalSteps - 1;
   const isFirstStep = currentStep === 0;

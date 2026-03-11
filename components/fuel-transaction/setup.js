@@ -5,7 +5,7 @@ import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import MyToggleComponent from '../Toggle/ToggledTransaction';
 
-export default function Setup({formData,setFormData}) {
+export default function Setup({ formData, setFormData }) {
   return (
     <div>
       <div className="form-header-steps">
@@ -32,12 +32,18 @@ export default function Setup({formData,setFormData}) {
       <div className="divider">
         <h3 className="steps-text">or</h3>
       </div>
-
-      <GeneratorDropdown />
-
-      <p className="h-mid-gray-s pt-2">External Tank</p>
+      <p className="h-mid-gray-s ">Select generator</p>
+      <GeneratorDropdown
+        value={formData.generator_id}
+        onChange={(newGeneratorId) =>
+          setFormData((prev) => ({
+            ...prev,
+            generator_id: newGeneratorId,
+          }))
+        }
+      />
+      <p className="h-mid-gray-s pt-2">Select external tank</p>
       <TankDropdown />
-
     </div>
   );
 }

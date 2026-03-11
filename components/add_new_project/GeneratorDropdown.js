@@ -1,29 +1,24 @@
-// generator dropdown component,
-//i must fetch the list of generators from supabase and display them in a dropdown menu
-//1st step is to create a function GeneratorDropdown
-// define state to hold the list of generators
-//2nd step is to use useEffect to fetch the list of generators from supabase when the component mounts
-//3rd step is to render a select element with options for each generator
-// 4th send it to the parent component and add promptly to the add-new-project page
 
 'use client';
-
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 
 export default function GeneratorDropdown({ value, onChange }) {
   const [generators, setGenerators] = useState([]);
+
   useEffect(() => {
     async function fetchGenerators() {
       const { data, error } = await supabase
         .from('generators')
         .select('id, name');
+
       if (error) {
         console.error('Error fetching generators:', error);
       } else {
         setGenerators(data || []);
       }
     }
+
     fetchGenerators();
   }, []);
 
@@ -32,12 +27,18 @@ export default function GeneratorDropdown({ value, onChange }) {
       <label className="flex flex-col w-full">
         <select
           className="pr-4 mr-4 w-full b-white"
-          value="{value }"
-          onChange={(e) => onChange(e.target.value)}
+          value={value}
+          onChange={(e) => {
+            const selectedId = e.target.value;
+
+            onChange(selectedId);
+            console.log('generator:', selectedId);
+          }}
         >
-          <option value=""> Select Generator </option>
+          <option value="">Select Generator</option>
+
           {generators.map((g) => (
-            <option className="pr-4 mr-4 b-white" key={g.id} value={g.id}>
+            <option key={g.id} value={g.id}>
               {g.name}
             </option>
           ))}

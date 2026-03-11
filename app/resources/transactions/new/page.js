@@ -37,24 +37,27 @@ export default function NewTransaction() {
 
     const { data, error } = await supabase
       .from('fuel_transactions')
-      .insert([{
-        type: formData.type,
-        project_id: formData.project_id || null,
-        generator_id: formData.generator_id || null,
-        technician_id: formData.technician_id || null,
-        completed_at: formData.completed_at || null,
-        before_fuel_level: formData.before_fuel_level || null,
-        before_photo_url: formData.before_photo_url || null,
-        before_meter_reading: formData.before_meter_reading || null,}])
+      .insert([
+        {
+          type: formData.type,
+          project_id: formData.project_id || null,
+          generator_id: formData.generator_id || null,
+          technician_id: formData.technician_id || null,
+          completed_at: formData.completed_at || null,
+          before_fuel_level: formData.before_fuel_level || null,
+          before_photo_url: formData.before_photo_url || null,
+          before_meter_reading: formData.before_meter_reading || null,
+        },
+      ])
       .select();
 
-      setSubmitting(false);
+    setSubmitting(false);
 
-      if(error) {
-        console.error(error.message);
-        return;
-      }
-      console.log('Inserted data:', data);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+    console.log('Inserted data:', data);
   }
 
   const steps = [

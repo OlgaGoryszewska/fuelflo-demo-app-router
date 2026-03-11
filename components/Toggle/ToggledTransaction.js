@@ -11,7 +11,10 @@ export default function MyToggleComponent({ value, onChange }) {
       <div className="toggle-wrapper">
         <div
           className={`toggle-container ${value === 'delivery' ? 'on' : 'off'}`}
-          onClick={() => {onChange('delivery'); console.log('delivery');}}
+          onClick={() => {
+            onChange('delivery');
+            console.log('delivery');
+          }}
         >
           <ElectricRickshawOutlinedIcon />
           <p className="delivery">Delivery</p>
