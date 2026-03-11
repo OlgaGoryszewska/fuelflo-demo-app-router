@@ -43,7 +43,9 @@ export default function Setup({ formData, setFormData }) {
         }
       />
       <p className="h-mid-gray-s pt-2">Select external tank</p>
-      <TankDropdown />
+      <TankDropdown 
+      value= {formData.tank_id}
+      onChange={(newTankId) => setFormData((prev) => ({...prev,tank_id: newTankId}))}/>
     </div>
   );
 }

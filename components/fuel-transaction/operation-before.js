@@ -21,11 +21,13 @@ export default function OperationBefore() {
           alt="icon of camera"
           src={camera}
         />
+        
         <p className="pl-6">Open camera</p>
       </button>
+      <input type="file" accept="image/*" capture="environment"></input>
       <p className="mt-4 h-mid-gray-s"> Type Meter Reading</p>
 
-      <input className="mb-4"></input>
+      <input type="text" className="mb-4"></input>
     </div>
   );
 }

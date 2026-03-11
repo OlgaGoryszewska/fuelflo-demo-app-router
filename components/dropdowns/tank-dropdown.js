@@ -4,17 +4,17 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 
 export default function TankDropdown({ value, onChange }) {
-  const [tanks, setTanks] = useState([]);
+  const [tank, setTank] = useState([]);
   useEffect(() => {
-    async function fetchTanks() {
+    async function fetchTank() {
       const { data, error } = await supabase.from('tanks').select('id, name');
       if (error) {
         console.error('Error fetching tanks:', error);
       } else {
-        setTanks(data || []);
+        setTank(data || []);
       }
     }
-    fetchTanks();
+    fetchTank();
   }, []);
 
   return (
@@ -22,11 +22,16 @@ export default function TankDropdown({ value, onChange }) {
       <label className="flex flex-col w-full">
         <select
           className="pr-4 mr-4 w-full b-white"
-          value="{value }"
-          onChange={(e) => onChange(e.target.value)}
+          value={value }
+          onChange={(e) => {
+            const selectedId = e.target.value;
+
+            onChange(selectedId);
+            console.log('tank:', selectedId);
+          }}
         >
           <option value=""> Select Tank </option>
-          {tanks.map((t) => (
+          {tank.map((t) => (
             <option className="pr-4 mr-4 b-white" key={t.id} value={t.id}>
               {t.name}
             </option>
