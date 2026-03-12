@@ -35,17 +35,24 @@ export default function Setup({ formData, setFormData }) {
       <p className="h-mid-gray-s ">Select generator</p>
       <GeneratorDropdown
         value={formData.generator_id}
-        onChange={(newGeneratorId) =>
+        onChange={(generator) =>
           setFormData((prev) => ({
             ...prev,
-            generator_id: newGeneratorId,
+            generator_id: generator.id,
+            generator_name: generator.name,
           }))
         }
       />
       <p className="h-mid-gray-s pt-2">Select external tank</p>
-      <TankDropdown 
-      value= {formData.tank_id}
-      onChange={(newTankId) => setFormData((prev) => ({...prev,tank_id: newTankId}))}/>
+      <TankDropdown
+        value={formData.tank_id}
+        onChange={(tank) =>
+          setFormData((prev) => ({ 
+            ...prev, 
+            tank_id: tank.id,
+          tank_name:tank.name }))
+        }
+      />
     </div>
   );
 }

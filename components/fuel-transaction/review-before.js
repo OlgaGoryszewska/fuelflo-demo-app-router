@@ -1,15 +1,15 @@
 'use client';
 
-export default function ReviewBefore({formData}) {
+export default function ReviewBefore({ formData }) {
   return (
     <div>
       <div className="form-header-steps">
         <p className="steps-text pr-2">Step 3 of 5</p>
       </div>
       <h2 className="mt-4">Review </h2>
-      <p className="mt-4 h-mid-gray-s">Generator:{formData.generator_id}</p>
+      <p className="mt-4 h-mid-gray-s">Generator: {formData.generator_name}</p>
       <div className="divider-full"></div>
-      <p className="mt-4 h-mid-gray-s">Tank:</p>
+      <p className="mt-4 h-mid-gray-s">Tank: {formData.tank_name}</p>
       <div className="divider-full"></div>
       <p className="mt-4 h-mid-gray-s">Image</p>
 

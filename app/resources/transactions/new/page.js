@@ -24,6 +24,7 @@ export default function NewTransaction() {
     type: 'delivery',
     //project_id: '',
     generator_id: '',
+    generator_name: '',
     tank_id: '',
     technician_id: '',
     completed_at: '',
@@ -31,24 +32,21 @@ export default function NewTransaction() {
     before_photo_url: '',
   });
   async function handleSubmit(e) {
-    
     setSubmitting(true);
     console.log('Submitting formData:', formData);
-    
 
     const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      
-      console.log(user.id);
-  
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log(user.id);
 
     const { data, error } = await supabase
       .from('fuel_transactions')
       .insert([
         {
           type: formData.type,
-         // project_id: formData.project_id || null,
+          // project_id: formData.project_id || null,
           generator_id: formData.generator_id || null,
           tank_id: formData.tank_id || null,
           technician_id: user?.id || null,
@@ -65,6 +63,7 @@ export default function NewTransaction() {
       console.error(error.message);
       return;
     }
+
     console.log('Inserted data:', data);
   }
 
@@ -86,7 +85,7 @@ export default function NewTransaction() {
       <div className="form-header mt-4">
         <h1 className="ml-2">Add fuel transaction </h1>
       </div>
-      <form className="form-transaction" >
+      <form className="form-transaction">
         {steps[currentStep]}
 
         <StepNavigation

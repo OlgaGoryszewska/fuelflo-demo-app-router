@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabaseClient';
 
 export default function TankDropdown({ value, onChange }) {
   const [tank, setTank] = useState([]);
+
   useEffect(() => {
     async function fetchTank() {
       const { data, error } = await supabase.from('tanks').select('id, name');
@@ -22,11 +23,17 @@ export default function TankDropdown({ value, onChange }) {
       <label className="flex flex-col w-full">
         <select
           className="pr-4 mr-4 w-full b-white"
-          value={value }
+          value={value}
           onChange={(e) => {
             const selectedId = e.target.value;
+            const selectedTank = tank.find (
+              (g) => g.id.toString () === selectedId
+            );
 
-            onChange(selectedId);
+            onChange({
+              id: selectedTank?.id,
+              name: selectedTank?.name,
+            });
             console.log('tank:', selectedId);
           }}
         >

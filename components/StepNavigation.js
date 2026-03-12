@@ -3,7 +3,7 @@ export default function StepNavigation({
   setCurrentStep,
   totalSteps,
   submitting,
-  onSubmit
+  onSubmit,
 }) {
   const isLastStep = currentStep === totalSteps - 1;
   const isFirstStep = currentStep === 0;
@@ -33,7 +33,7 @@ export default function StepNavigation({
           Next
         </button>
       ) : (
-        <button type="button" disabled={submitting} onClick={onSubmit} >
+        <button type="button" disabled={submitting} onClick={onSubmit}>
           {submitting ? 'Submitting...' : 'Submit'}
         </button>
       )}
