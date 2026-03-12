@@ -31,7 +31,7 @@ export default function NewTransaction() {
     before_photo_url: '',
   });
   async function handleSubmit(e) {
-    e.preventDefault();
+    
     setSubmitting(true);
     console.log('Submitting formData:', formData);
     
@@ -86,7 +86,7 @@ export default function NewTransaction() {
       <div className="form-header mt-4">
         <h1 className="ml-2">Add fuel transaction </h1>
       </div>
-      <form className="form-transaction" onSubmit={handleSubmit}>
+      <form className="form-transaction" >
         {steps[currentStep]}
 
         <StepNavigation
@@ -94,6 +94,7 @@ export default function NewTransaction() {
           setCurrentStep={setCurrentStep}
           totalSteps={totalSteps}
           submitting={submitting}
+          onSubmit={handleSubmit}
         />
       </form>
     </div>
