@@ -33,7 +33,7 @@ export default function StepNavigation({
         </button>
       ) : (
         <button type="submit" disabled={submitting}>
-          Submit
+          {submitting ? 'Submitting...' : 'Submit'}
         </button>
       )}
     </div>

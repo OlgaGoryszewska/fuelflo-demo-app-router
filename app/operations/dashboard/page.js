@@ -178,11 +178,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        <Link href="/add_new_user" className="form-button mt-4">
-          <AddOutlinedIcon />
-          Register a new User
-        </Link>
-        <Link href="/create-qr-code" className="form-button">
+        <Link href="/operations/create-qr-code" className="form-button mt-4">
           <QrCodeOutlinedIcon />
           Create a new QR Code
         </Link>

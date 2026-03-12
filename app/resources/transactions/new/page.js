@@ -20,10 +20,9 @@ export default function NewTransaction() {
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    id: '',
     created_at: '',
     type: 'delivery',
-    project_id: '',
+    //project_id: '',
     generator_id: '',
     tank_id: '',
     technician_id: '',
@@ -35,20 +34,27 @@ export default function NewTransaction() {
     e.preventDefault();
     setSubmitting(true);
     console.log('Submitting formData:', formData);
+    
+
+    const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      
+      console.log(user.id);
+  
 
     const { data, error } = await supabase
       .from('fuel_transactions')
       .insert([
         {
           type: formData.type,
-          project_id: formData.project_id || null,
+         // project_id: formData.project_id || null,
           generator_id: formData.generator_id || null,
           tank_id: formData.tank_id || null,
-          technician_id: formData.technician_id || null,
-          completed_at: formData.completed_at || null,
+          technician_id: user?.id || null,
+          completed_at: new Date().toISOString(),
           before_fuel_level: formData.before_fuel_level || null,
           before_photo_url: formData.before_photo_url || null,
-          before_meter_reading: formData.before_meter_reading || null,
         },
       ])
       .select();
