@@ -26,8 +26,8 @@ export default function TankDropdown({ value, onChange }) {
           value={value}
           onChange={(e) => {
             const selectedId = e.target.value;
-            const selectedTank = tank.find (
-              (g) => g.id.toString () === selectedId
+            const selectedTank = tank.find(
+              (g) => g.id.toString() === selectedId
             );
 
             onChange({

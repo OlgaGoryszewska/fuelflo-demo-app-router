@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import StepNavigation from '@/components/StepNavigation';
 import { supabase } from '@/lib/supabaseClient';
+import { useParams } from 'next/navigation';
 //steps
 import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
@@ -17,10 +18,12 @@ import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-del
 //import OperationAfter from '@/components/fuel-transaction/operation-after';
 
 export default function NewTransaction() {
+    const params = useParams();
+    const projectId = params.projectId;
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    created_at: '',
+
     type: 'delivery',
     //project_id: '',
     generator_id: '',
@@ -30,8 +33,10 @@ export default function NewTransaction() {
     completed_at: '',
     before_fuel_level: '',
     before_photo_url: '',
+    before_photo_file: null,
+  before_photo_preview: "",
   });
-  async function handleSubmit(e) {
+  async function handleSubmit() {
     setSubmitting(true);
     console.log('Submitting formData:', formData);
 
@@ -46,13 +51,14 @@ export default function NewTransaction() {
       .insert([
         {
           type: formData.type,
-          // project_id: formData.project_id || null,
+          project_id: projectId || null,
           generator_id: formData.generator_id || null,
           tank_id: formData.tank_id || null,
           technician_id: user?.id || null,
           completed_at: new Date().toISOString(),
           before_fuel_level: formData.before_fuel_level || null,
           before_photo_url: formData.before_photo_url || null,
+     
         },
       ])
       .select();

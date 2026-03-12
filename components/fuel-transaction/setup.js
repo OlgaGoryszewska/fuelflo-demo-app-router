@@ -47,10 +47,11 @@ export default function Setup({ formData, setFormData }) {
       <TankDropdown
         value={formData.tank_id}
         onChange={(tank) =>
-          setFormData((prev) => ({ 
-            ...prev, 
+          setFormData((prev) => ({
+            ...prev,
             tank_id: tank.id,
-          tank_name:tank.name }))
+            tank_name: tank.name,
+          }))
         }
       />
     </div>

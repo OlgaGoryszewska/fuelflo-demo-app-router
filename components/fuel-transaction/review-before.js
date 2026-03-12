@@ -1,4 +1,5 @@
 'use client';
+import Image from "next/image";
 
 export default function ReviewBefore({ formData }) {
   return (
@@ -11,12 +12,17 @@ export default function ReviewBefore({ formData }) {
       <div className="divider-full"></div>
       <p className="mt-4 h-mid-gray-s">Tank: {formData.tank_name}</p>
       <div className="divider-full"></div>
-      <p className="mt-4 h-mid-gray-s">Image</p>
+      <p className="mt-4 h-mid-gray-s">
+        {' '}
+        Meter Reading: {formData.before_fuel_level}{' '}
+      </p>
+      <div className="divider-full"></div>
+    
 
       <div className="window"></div>
-
-      <p className="mt-4 h-mid-gray-s"> Meter Reading </p>
-      <input className="mb-4"></input>
+      {formData.before_photo_preview && (
+  <img src={formData.before_photo_preview} alt="preview" />
+)}
     </div>
   );
 }
