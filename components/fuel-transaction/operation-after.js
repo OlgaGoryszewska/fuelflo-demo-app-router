@@ -32,7 +32,7 @@ export default function OperationAfter({ formData, setFormData }) {
         <p className="steps-text pr-2">Step 4 of 5</p>
       </div>
 
-      <h2 className="mt-4">Collect after before fuel delivery</h2>
+      <h2 className="mt-4">Collect data after fuel delivery</h2>
 
       <p className="mt-4 h-mid-gray-s">Take a Photo</p>
       <p className="steps-text">

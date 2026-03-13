@@ -11,8 +11,8 @@ import ReviewBefore from '@/components/fuel-transaction/review-before';
 import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert';
 
 export default function NewTransaction() {
-  const params = useParams();
-  const projectId = params.projectId;
+  
+  const { id: projectId } = useParams();
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,7 +20,7 @@ export default function NewTransaction() {
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     type: 'delivery',
-    //project_id: '',
+    project_id: '',
     generator_id: '',
     generator_name: '',
     tank_id: '',
@@ -74,6 +74,7 @@ export default function NewTransaction() {
       setSubmitting(false);
 
       console.log('Inserted data:', data);
+      console.log('project id' , projectId)
       setSuccess(true);
 
       setSuccess(true);
@@ -101,7 +102,7 @@ export default function NewTransaction() {
       </div>
 
       {success ? (
-        <BeforeDeliverySuccessAlert params={projectId} />
+        <BeforeDeliverySuccessAlert projectId={projectId} />
       ) : (
         <form className="form-transaction">
           {steps[currentStep]}

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import camera from '@/public/camera.png';
 
-export default function OperationBefore({ formData, setFormData }) {
+export default function OperationBefore({ formData, setFormData}) {
   function handleFuelLevelChange(e) {
     setFormData((prev) => ({
       ...prev,

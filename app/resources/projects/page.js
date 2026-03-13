@@ -4,10 +4,17 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 
+
+
+
 export default function OngoingProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  
+
+
 
   useEffect(() => {
     async function load() {
@@ -27,13 +34,13 @@ export default function OngoingProjectsPage() {
     <div className="main-container">
       <div>
         <div className="form-header mb-4">
-          <h1 className="ml-2">Ongoing Projects</h1>
+          <h1 className="ml-2">Projects</h1>
         </div>
         <ul className="flex flex-col gap-2">
           {projects.map((p) => (
             <li className="card-button" key={p.id}>
               {' '}
-              <Link href={`/resources/ongoing-projects-page/${p.id}`}>
+              <Link href={`/resources/projects/${p.id}`}>
                 {p.name}
               </Link>
             </li>

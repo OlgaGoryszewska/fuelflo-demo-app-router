@@ -18,7 +18,7 @@ import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 export default function ProjectDetailPage() {
-  const { id } = useParams();
+  const { id: projectId } = useParams();
   const [openCard, setOpenCard] = useState(null);
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export default function ProjectDetailPage() {
   };
 
   useEffect(() => {
-    if (!id) return;
+    if (!projectId) return;
 
     async function load() {
       setError(null);
@@ -55,7 +55,7 @@ export default function ProjectDetailPage() {
         'company_name',
       ].join(',');
 
-      const idValue = isNaN(Number(id)) ? id : Number(id);
+      const idValue = isNaN(Number(projectId)) ? projectId : Number(projectId);
 
       const { data, error } = await supabase
         .from('projects')
@@ -73,7 +73,7 @@ export default function ProjectDetailPage() {
     }
 
     load();
-  }, [id]);
+  }, [projectId]);
 
   if (loading)
     return (
@@ -313,7 +313,7 @@ export default function ProjectDetailPage() {
       </div>
       <Link
         className="form-button-orange"
-        href={`/resources/transactions/new/`}
+        href={`/resources/projects/${projectId}/new/`}
       >
         <AddOutlinedIcon />
         Add Fuel Transaction
