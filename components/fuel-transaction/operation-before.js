@@ -14,16 +14,16 @@ export default function OperationBefore({ formData, setFormData }) {
   function handlePhotoChange(e) {
     const file = e.target.files?.[0];
     if (!file) return;
-  
+
     const previewUrl = URL.createObjectURL(file);
-  
+
     setFormData((prev) => ({
       ...prev,
       before_photo_file: file,
       before_photo_preview: previewUrl,
     }));
-  
-    console.log("photo selected:", file);
+
+    console.log('photo selected:', file);
   }
 
   return (
