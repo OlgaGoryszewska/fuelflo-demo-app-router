@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export default function AfterDeliverySuccessAlert() {
   return (
+    <div className="background-container-white">
     <div className="mt-4 m-auto flex flex-col justyfy-center">
       <div className="grid grid-flow-row justify-items-center ">
         <h2 className="">Congratulations!</h2>
@@ -21,6 +22,7 @@ export default function AfterDeliverySuccessAlert() {
           transactions section
         </Link>
       </div>
+    </div>
     </div>
   );
 }

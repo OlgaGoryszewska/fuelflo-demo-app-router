@@ -79,6 +79,7 @@ const transactionId = params.transactionId;
   const totalSteps = steps.length;
 
   return (
+    
     <div className="main-container">
       <div className="form-header mt-4">
         <h1 className="ml-2">Add fuel transaction</h1>
