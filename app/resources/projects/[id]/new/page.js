@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import StepNavigation from '@/components/StepNavigation';
 import { supabase } from '@/lib/supabaseClient';
-import { useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import IntroForm from '@/components/fuel-transaction/Intro';
 import Setup from '@/components/fuel-transaction/setup';
 import OperationBefore from '@/components/fuel-transaction/operation-before';
@@ -12,9 +12,11 @@ import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-del
 
 export default function NewTransaction() {
   
+  const router = useRouter();
   const { id: projectId } = useParams();
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [transactionId, setTransactionId] = useState(null);
 
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -35,7 +37,11 @@ export default function NewTransaction() {
     setSubmitting(true);
     setErrorMessage('');
     try {
+    const transactionId = crypto.randomUUID();
+
       console.log('Submitting formData:', formData);
+
+
 
       const {
         data: { user },
@@ -47,12 +53,13 @@ export default function NewTransaction() {
         return;
       }
 
-      console.log(user.id);
+      console.log('userid', user.id);
 
       const { data, error } = await supabase
         .from('fuel_transactions')
         .insert([
           {
+            id: transactionId,
             type: formData.type,
             project_id: projectId || null,
             generator_id: formData.generator_id || null,
@@ -63,7 +70,8 @@ export default function NewTransaction() {
             before_photo_url: formData.before_photo_url || null,
           },
         ])
-        .select();
+        .select()
+        .single();
 
       if (error) {
         console.error(error.message);
@@ -76,6 +84,7 @@ export default function NewTransaction() {
       console.log('Inserted data:', data);
       console.log('project id' , projectId)
       setSuccess(true);
+      setTransactionId(data.id);
 
       setSuccess(true);
     } catch (err) {
@@ -102,7 +111,7 @@ export default function NewTransaction() {
       </div>
 
       {success ? (
-        <BeforeDeliverySuccessAlert projectId={projectId} />
+        <BeforeDeliverySuccessAlert projectId={projectId}   transactionId={transactionId} />
       ) : (
         <form className="form-transaction">
           {steps[currentStep]}
