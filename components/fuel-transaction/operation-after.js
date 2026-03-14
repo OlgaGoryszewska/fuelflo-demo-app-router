@@ -4,6 +4,8 @@ import Image from 'next/image';
 import camera from '@/public/camera.png';
 
 export default function OperationAfter({ formData, setFormData }) {
+
+  
   function handleFuelLevelChange(e) {
     setFormData((prev) => ({
       ...prev,
@@ -53,6 +55,7 @@ export default function OperationAfter({ formData, setFormData }) {
         accept="image/*"
         capture="environment"
         onChange={handlePhotoChange}
+        value={formData.after_photo_url}
       />
 
       <p className="mt-4 h-mid-gray-s">After Fuel Level</p>
