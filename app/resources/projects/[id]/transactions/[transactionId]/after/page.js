@@ -11,7 +11,8 @@ import OperationAfter from '@/components/fuel-transaction/operation-after';
 
 export default function TransactionAfter() {
   const params = useParams();
-  const projectId = params.projectId;
+  const projectId = params.id;
+const transactionId = params.transactionId;
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
@@ -27,30 +28,27 @@ export default function TransactionAfter() {
     setSubmitting(true);
     setErrorMessage('');
     try {
+      console.log('params:', params);
+      console.log('projectId:', projectId);
+      console.log('transactionId:', transactionId);
       console.log('Submitting formData:', formData);
 
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) {
-        setErrorMessage('Could not identify technician.');
+      if (!transactionId) {
+        setErrorMessage('Transaction ID is missing.');
         return;
       }
 
-      console.log(user.id);
-
       const { data, error } = await supabase
         .from('fuel_transactions')
-        .insert([
+        .update(
           {
-    
             after_fuel_level: formData.after_fuel_level || null,
             after_photo_url: formData.after_photo_url || null,
           },
-        ])
-        .select();
+        )
+        .eq('id', transactionId)
+        .select()
+
 
       if (error) {
         console.error(error.message);
@@ -76,7 +74,7 @@ export default function TransactionAfter() {
   const steps = [
     <OperationAfter key={0} formData={formData} setFormData={setFormData}/>,
     <ReviewAfter key={1} formData={formData} setFormData={setFormData}/>,
-    <AfterDeliverySuccessAlert key={2} formData={formData} setFormData={setFormData}/>,
+
   ];
   const totalSteps = steps.length;
 
@@ -87,7 +85,8 @@ export default function TransactionAfter() {
       </div>
 
       {success ? (
-        <AfterDeliverySuccessAlert params={projectId} />
+        <AfterDeliverySuccessAlert   projectId={projectId}
+        transactionId={transactionId}/>
       ) : (
         <form className="form-transaction">
           {steps[currentStep]}
