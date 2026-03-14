@@ -3,8 +3,13 @@
 import Image from 'next/image';
 import success from '@/public/success.png';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 
 export default function AfterDeliverySuccessAlert() {
+   const params = useParams();
+    const projectId = params.id;
+    const transactionId = params.transactionId;
   return (
     <div className="background-container-white">
     <div className="mt-4 m-auto flex flex-col justyfy-center">
@@ -18,9 +23,10 @@ export default function AfterDeliverySuccessAlert() {
         />
         <div className="divider-full "></div>
         <p className="h-mid-gray-s my-4 ">Click to see transaction in </p>
-        <Link className="h-mid-gray-s underline" href="/resources/transactions">
-          transactions section
-        </Link>
+        <Link href={`/resources/projects/${projectId}/transactions/${transactionId}/`}>
+  Go to after page
+</Link>
+        
       </div>
     </div>
     </div>

@@ -12,7 +12,7 @@ import OperationAfter from '@/components/fuel-transaction/operation-after';
 export default function TransactionAfter() {
   const params = useParams();
   const projectId = params.id;
-const transactionId = params.transactionId;
+  const transactionId = params.transactionId;
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
@@ -69,7 +69,6 @@ const transactionId = params.transactionId;
       setSubmitting(false);
     }
   }
-
 
   const steps = [
     <OperationAfter key={0} formData={formData} setFormData={setFormData}/>,
