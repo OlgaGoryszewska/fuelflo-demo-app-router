@@ -45,10 +45,7 @@ export default function Dashboard() {
         </div>
         {openCard === 'projects' && (
           <div className="open-card ">
-            <Link
-              href="/resources/projects"
-              className="card-button"
-            >
+            <Link href="/resources/projects" className="card-button">
               <RouteOutlinedIcon />
               Ongoing Projects
             </Link>
@@ -186,7 +183,6 @@ export default function Dashboard() {
           <AssessmentOutlinedIcon />
           Reports
         </Link>
-     
       </div>
     </div>
   );

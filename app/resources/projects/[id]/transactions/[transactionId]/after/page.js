@@ -40,15 +40,12 @@ export default function TransactionAfter() {
 
       const { data, error } = await supabase
         .from('fuel_transactions')
-        .update(
-          {
-            after_fuel_level: formData.after_fuel_level || null,
-            after_photo_url: formData.after_photo_url || null,
-          },
-        )
+        .update({
+          after_fuel_level: formData.after_fuel_level || null,
+          after_photo_url: formData.after_photo_url || null,
+        })
         .eq('id', transactionId)
-        .select()
-
+        .select();
 
       if (error) {
         console.error(error.message);
@@ -71,22 +68,22 @@ export default function TransactionAfter() {
   }
 
   const steps = [
-    <OperationAfter key={0} formData={formData} setFormData={setFormData}/>,
-    <ReviewAfter key={1} formData={formData} setFormData={setFormData}/>,
-
+    <OperationAfter key={0} formData={formData} setFormData={setFormData} />,
+    <ReviewAfter key={1} formData={formData} setFormData={setFormData} />,
   ];
   const totalSteps = steps.length;
 
   return (
-    
     <div className="main-container">
       <div className="form-header mt-4">
         <h1 className="ml-2">Add fuel transaction</h1>
       </div>
 
       {success ? (
-        <AfterDeliverySuccessAlert   projectId={projectId}
-        transactionId={transactionId}/>
+        <AfterDeliverySuccessAlert
+          projectId={projectId}
+          transactionId={transactionId}
+        />
       ) : (
         <form className="form-transaction">
           {steps[currentStep]}

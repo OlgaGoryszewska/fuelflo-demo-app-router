@@ -3,7 +3,10 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import refil from '@/public/refil.png';
 
-export default function BeforeDeliverySuccessAlert({ projectId, transactionId }) {
+export default function BeforeDeliverySuccessAlert({
+  projectId,
+  transactionId,
+}) {
   const router = useRouter();
   return (
     <div className="background-container-white">
@@ -25,8 +28,9 @@ export default function BeforeDeliverySuccessAlert({ projectId, transactionId })
       <button
         className="button-big"
         onClick={() =>
-          router.push(`/resources/projects/${projectId}/transactions/${transactionId}/after/`)
-          
+          router.push(
+            `/resources/projects/${projectId}/transactions/${transactionId}/after/`
+          )
         }
       >
         Collect data after delivery

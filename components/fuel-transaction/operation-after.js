@@ -4,8 +4,6 @@ import Image from 'next/image';
 import camera from '@/public/camera.png';
 
 export default function OperationAfter({ formData, setFormData }) {
-
-  
   function handleFuelLevelChange(e) {
     setFormData((prev) => ({
       ...prev,

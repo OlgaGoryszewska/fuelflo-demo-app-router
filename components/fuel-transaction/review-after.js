@@ -1,6 +1,5 @@
 'use client';
 
-
 export default function ReviewAfter({ formData }) {
   return (
     <div>
