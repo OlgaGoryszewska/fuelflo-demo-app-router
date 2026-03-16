@@ -64,12 +64,12 @@ export default function TransactionDetailPage() {
     <div className="main-container">
       <div className="form-header mb-4">
         <h1 className="ml-2">Transaction Details</h1>
-        <p>Project ID from route: {id}</p>
-        <p>Transaction ID from route: {transactionId}</p>
       </div>
 
       {transaction && (
-        <div className="transaction-card">
+        <div className="background-container">
+              <p>Project ID from route: {id}</p>
+              <p>Transaction ID from route: {transactionId}</p>
           <p><strong>ID:</strong> {transaction.id}</p>
           <p><strong>Created at:</strong> {transaction.created_at}</p>
           <p><strong>Type:</strong> {transaction.type}</p>
