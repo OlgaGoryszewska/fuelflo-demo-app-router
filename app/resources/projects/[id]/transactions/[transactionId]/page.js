@@ -75,10 +75,30 @@ export default function TransactionDetailPage() {
       </div>
 
       <div className="background-container">
-        <p><strong>Project ID:</strong> {id}</p>
-        <p><strong>Transaction ID:</strong> {transactionId}</p>
-        <p>
-          <strong>Created at:</strong>{' '}
+     
+        <div className='window flex-col' >
+        <p className='pt-2 pl-2'>Delivered fuel </p>
+        <div className='divider-full'></div>
+        <p className='text-4xl m-auto'> + {deliveredFuel.toFixed(2)} L</p></div>
+      
+      <p className='h-mid-gray-s'>Starting fuel level</p>
+              <div className="fuel-bar"></div>
+              <p className="generator-localisation text-right"> {beforeFuel} L</p>
+              <div className='divider-full'></div>
+              <p className='h-mid-gray-s'>Ending fuel level</p>
+              <div className="fuel-bar"></div>
+              <p className="generator-localisation text-right"> {afterFuel} L</p>
+              <div className='divider-full'></div>
+        <div className='grid grid-cols-2'>
+        <p className='h-mid-gray-s'>
+          Created {' '}
+        </p>
+        <p className='h-mid-gray-s'>
+          Completed {' '}
+        </p>
+        
+        <p className='steps-text'>
+          
           {transaction.created_at
             ? new Date(transaction.created_at).toLocaleString('en-GB', {
                 year: 'numeric',
@@ -89,13 +109,9 @@ export default function TransactionDetailPage() {
               })
             : '-'}
         </p>
-        <p><strong>Type:</strong> {transaction.type}</p>
-        <p><strong>Status:</strong> {transaction.status}</p>
-        <p><strong>Generator ID:</strong> {transaction.generator_id}</p>
-        <p><strong>Tank ID:</strong> {transaction.tank_id}</p>
-        <p><strong>Technician ID:</strong> {transaction.technician_id}</p>
-        <p>
-          <strong>Completed at:</strong>{' '}
+        
+       
+        <p className='steps-text'>
           {transaction.completed_at
             ? new Date(transaction.completed_at).toLocaleString('en-GB', {
                 year: 'numeric',
@@ -106,9 +122,19 @@ export default function TransactionDetailPage() {
               })
             : '-'}
         </p>
-        <p><strong>Before fuel level:</strong> {beforeFuel} L</p>
-        <p><strong>After fuel level:</strong> {afterFuel} L</p>
-        <p><strong>Delivered fuel:</strong> {deliveredFuel.toFixed(2)} L</p>
+        </div>
+        <div className='divider-full'></div>
+        <p><strong>Type:</strong> {transaction.type}</p>
+        <p><strong>Status:</strong> {transaction.status}</p>
+        <p><strong>Project ID:</strong> {id}</p>
+        <p><strong>Transaction ID:</strong> {transactionId}</p>
+        <p><strong>Generator ID:</strong> {transaction.generator_id}</p>
+        <p><strong>Tank ID:</strong> {transaction.tank_id}</p>
+        <p><strong>Technician ID:</strong> {transaction.technician_id}</p>
+   
+        
+        
+       
 
         {transaction.before_photo_url && (
           <img
