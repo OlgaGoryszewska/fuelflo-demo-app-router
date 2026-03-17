@@ -75,7 +75,7 @@ export default function TransactionDetailPage() {
       </div>
 
       <div className="background-container">
-     
+      <h2>Fuel  {' '}{transaction.type}</h2>
         <div className='window flex-col' >
         <p className='pt-2 pl-2'>Delivered fuel </p>
         <div className='divider-full'></div>
@@ -124,8 +124,7 @@ export default function TransactionDetailPage() {
         </p>
         </div>
         <div className='divider-full'></div>
-        <p><strong>Type:</strong> {transaction.type}</p>
-        <p><strong>Status:</strong> {transaction.status}</p>
+        
         <p><strong>Project ID:</strong> {id}</p>
         <p><strong>Transaction ID:</strong> {transactionId}</p>
         <p><strong>Generator ID:</strong> {transaction.generator_id}</p>
