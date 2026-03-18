@@ -114,7 +114,10 @@ form,
 }
 .underline-link{
   text-decoration: underline;
-  font-family: rob;
+  font-family: var(--font-roboto-flex);
+  font-weight: 400;
+  color: var(--primary-black);
+  letter-spacing: 1px;
 }
 
 form {

@@ -92,6 +92,16 @@ export default function TransactionDetailPage() {
 
       <div className="background-container">
         <h2>Fuel {transaction.type}</h2>
+        <div className='flex flex-row justify-between align-middle'><p className="h-mid-gray-s">Transaction </p> <button
+            onClick={() => copyToClipboard(id)}
+            className="circle-btn"
+            title="Copy ID"
+          >
+            <ContentCopyIcon fontSize="small" className="text-slate-600" />
+          </button></div>
+          
+          <p className="steps-text mb-2"> {shortId(transactionId)}</p>
+          <div className="divider-full mb-2"></div>
 
         <h4>Starting fuel level</h4>
         <div className="fuel-bar-before"></div>
@@ -156,19 +166,10 @@ export default function TransactionDetailPage() {
       
 
           <p className="steps-text mb-2">{shortId(id)}</p>
-          <Link  className='' href={`/resources/projects/${id}`}>Open </Link>
+          <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
          
           <div className="divider-full mb-2"></div>
-          <div className='flex flex-row justify-between align-middle'><p className="h-mid-gray-s">Transaction </p> <button
-            onClick={() => copyToClipboard(id)}
-            className="circle-btn"
-            title="Copy ID"
-          >
-            <ContentCopyIcon fontSize="small" className="text-slate-600" />
-          </button></div>
           
-          <p className="steps-text mb-2"> {shortId(transactionId)}</p>
-          <div className="divider-full mb-2"></div>
           <div className='flex flex-row justify-between align-middle'>
           <p className="h-mid-gray-s">Generator</p>
           <button
@@ -180,6 +181,7 @@ export default function TransactionDetailPage() {
           </button>
           </div>
           <p className="steps-text mb-2">{shortId(transaction.generator_id)}</p>
+          <Link  className='underline-link' href={`/resources/generators/`}>Open </Link>
           <div className="divider-full mb-2"></div>
           <div className='flex flex-row justify-between align-middle'>
           <p className="h-mid-gray-s">Tank</p>
