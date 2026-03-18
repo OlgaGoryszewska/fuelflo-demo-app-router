@@ -47,7 +47,7 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link onClick={handleLinkClick} href={`/resources/transactions/new/`}>
+          <Link onClick={handleLinkClick} href={`/resources/projects/`}>
             Add fuel transaction
           </Link>
         </li>

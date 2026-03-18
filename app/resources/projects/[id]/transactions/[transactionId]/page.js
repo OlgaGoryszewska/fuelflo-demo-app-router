@@ -23,6 +23,7 @@ export default function TransactionDetailPage() {
         .select(`
           id,
           created_at,
+          
           type,
           status,
           project_id,
@@ -67,6 +68,12 @@ export default function TransactionDetailPage() {
   const beforeFuel = Number(transaction.before_fuel_level) || 0;
   const afterFuel = Number(transaction.after_fuel_level) || 0;
   const deliveredFuel = afterFuel - beforeFuel;
+  const sign = transaction.type === 'delivery' ? '+' : '-';
+
+
+  const shortId = (id) =>
+    id ? `${id.slice(0, 8)}...${id.slice(-4)}` : 'N/A';
+
 
   return (
     <div className="main-container">
@@ -76,25 +83,25 @@ export default function TransactionDetailPage() {
 
       <div className="background-container">
       <h2>Fuel  {' '}{transaction.type}</h2>
-        <div className='window flex-col' >
-        <p className='pt-2 pl-2'>Delivered fuel </p>
-        <div className='divider-full'></div>
-        <p className='text-4xl m-auto'> + {deliveredFuel.toFixed(2)} L</p></div>
+
+        <div className='nr-container mb-2' >
+        <h4 className='pt-2 pl-2'>Delivered fuel </h4>
+        <p className='nr-big'> {sign}{' '}{deliveredFuel.toFixed(2)} L</p></div>
       
-      <p className='h-mid-gray-s'>Starting fuel level</p>
-              <div className="fuel-bar"></div>
-              <p className="generator-localisation text-right"> {beforeFuel} L</p>
+      <h4>Starting fuel level</h4>
+              <div className="fuel-bar-before"></div>
+              <p className=" nr-middle text-right"> {beforeFuel} L</p>
               <div className='divider-full'></div>
-              <p className='h-mid-gray-s'>Ending fuel level</p>
+              <h4>Ending fuel level</h4>
               <div className="fuel-bar"></div>
-              <p className="generator-localisation text-right"> {afterFuel} L</p>
+              <p className="nr-middle text-right"> {afterFuel} L</p>
               <div className='divider-full'></div>
-        <div className='grid grid-cols-2'>
+        <div className='container-flex grid grid-cols-2'>
         <p className='h-mid-gray-s'>
-          Created {' '}
+          Created 
         </p>
         <p className='h-mid-gray-s'>
-          Completed {' '}
+          Completed
         </p>
         
         <p className='steps-text'>
@@ -123,14 +130,27 @@ export default function TransactionDetailPage() {
             : '-'}
         </p>
         </div>
-        <div className='divider-full'></div>
-        
-        <p><strong>Project ID:</strong> {id}</p>
-        <p><strong>Transaction ID:</strong> {transactionId}</p>
-        <p><strong>Generator ID:</strong> {transaction.generator_id}</p>
-        <p><strong>Tank ID:</strong> {transaction.tank_id}</p>
-        <p><strong>Technician ID:</strong> {transaction.technician_id}</p>
-   
+
+        <div className='container-flex'>
+        <p className='h-mid-gray-s'>Project</p>
+        <p className='steps-text mb-2'>{shortId(id)}</p>
+        <div className='divider-full mb-2'></div>
+        <p className='h-mid-gray-s'>Transaction </p>
+        <p className='steps-text mb-2'> {shortId(transactionId)}</p>
+        <div className='divider-full mb-2'></div>
+        <p className='h-mid-gray-s'>Generator</p>
+        <p className='steps-text mb-2'>{shortId(transaction.generator_id)}</p>
+        <div className='divider-full mb-2'></div>
+        <p className='h-mid-gray-s'>Tank</p>
+        <p className='steps-text mb-2'>{shortId(transaction.tank_id)}</p>
+        <div className='divider-full mb-2'></div>
+        <p className='h-mid-gray-s'>Technician </p> 
+        <p className='steps-text mb-2'>{shortId(transaction.technician_id)}</p>
+        <div className='divider-full mb-2'></div>
+        </div>
+
+        <button className='button-big'> Generate report</button>
+        <button className='button-big'> Generate factura</button>
         
         
        

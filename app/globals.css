@@ -3,9 +3,9 @@
 :root {
   --primary-orange: #f25822;
   --primary-orange-light: #febd20;
-  --primary-black: #312f2e;
-  --button-black: #272934;
-  --primary-mid-black: #484a47;
+  --primary-black: #0f1726;
+  --button-black: #0f1726;
+  --primary-mid-black: #47484a;
   --primary-gray-light: #e5e7eb;
   --primary-beige-light: #f5f0e8;
   --primary-mid-gray: #717887;
@@ -13,6 +13,9 @@
   --dark-blue: #7291a4;
   --light-blue: hsl(200, 49%, 92%);
   --white: #fff;
+  --slate-light: #cbdae3;
+  --slate-line: #e2e8f0;
+  --slate-dark: #62748e;
 }
 h1 {
   font-size: 16px;
@@ -34,6 +37,24 @@ label {
   font-size: 16px;
   color: var(--primary-black);
   margin-bottom: 0.4rem;
+}
+h4{
+
+  font-size: 14px;
+  font-weight: 500;
+  color:var(--slate-dark);
+
+}
+.nr-big{
+  font-size: 38px;
+  margin: auto;
+  letter-spacing: 3px;
+
+}
+.nr-middle{
+  font-size: 22px;
+  letter-spacing: 2px;
+
 }
 
 .body-text {
@@ -160,15 +181,27 @@ option {
   letter-spacing: 5%;
   border: 2px solid var(--primary-orange-light);
 }
-
+.nr-container,
 .window {
+  
   display: flex;
   height: 150px;
   width: 100%;
-  border: 1px solid var(--primary-gray-light);
+  border: 1px solid var(--slate-line);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
  
+}
+.nr-container{
+  height: 100px;
+  flex-direction: row;
+}
+.container-flex{
+  border: 1px solid var(--slate-line);
+  background-color: white;
+  padding:2rem;
+  border-radius: 15px;
+
 }
 
 button-navigator,
@@ -543,12 +576,19 @@ li a:hover {
   width: 100%;
   padding: 0.6rem;
 }
-
-.fuel-bar {
-  width: 100%;
-  height: 20px;
+.fuel-bar-before {
+  width: 80%;
+  height: 18px;
   background: linear-gradient(to right, #febd20, #f25822);
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.fuel-bar {
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(to right, #febd20, #f25822);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .project-inf-box,
 .generator-inf-box {
