@@ -19,13 +19,9 @@ export default function AuthForm() {
   };
 
   return (
-    <div>
-      <img src="/login.png" alt="welcome img" className="w-1/2 mx-auto" />
-      <h2>Log in to Fuelflo</h2>
-      <p className="body-text">
-        Access your dashboard and manage your fuel operations with confidence.
-        We are here to support your success—every step of the way.
-      </p>
+    <div className='flex flex-col'>
+      <img src="/login.png" alt="welcome img" className="w-32 mx-auto" />
+      <h2 className='mx-auto'>Sign in to Fuelflo</h2>
       <label>
         Email:
         <input
@@ -38,13 +34,14 @@ export default function AuthForm() {
       <label>
         Password:
         <input
-          className="mb-8"
+          className="mb-4"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
+      <div className='divider-full mb-4'></div>
       <button className="button-big " onClick={handleSignIn}>
         Sign In
       </button>
