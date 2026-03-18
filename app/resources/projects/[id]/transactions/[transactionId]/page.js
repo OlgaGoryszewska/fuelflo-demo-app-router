@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Link from 'next/link';
+import Image from 'next/image'
+import avatar from '@/public/avatar.png'
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -152,6 +154,26 @@ export default function TransactionDetailPage() {
             </p>
           </div>
         </div>
+        <div className="container-flex">
+        <div className='flex flex-row justify-between align-middle'>
+            <Image src={avatar} alt='avatar' className='avatar' />
+           
+          
+          <button
+            onClick={() => copyToClipboard(id)}
+            className="circle-btn"
+            title="Copy ID"
+          >
+            <ContentCopyIcon fontSize="small" className="text-slate-600" />
+          </button>
+          </div>
+          <p className="h-mid-gray-s">Technician Name here </p>
+          <p className="steps-text mb-2">
+            {shortId(transaction.technician_id)}
+          </p>
+          <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
+        </div>
+       
 
         <div className="container-flex">
             <div className='flex flex-row justify-between align-middle'>
@@ -196,22 +218,7 @@ export default function TransactionDetailPage() {
           <p className="steps-text mb-2">{shortId(transaction.tank_id)}</p>
           <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
           <div className="divider-full mb-2"></div>
-          <div className='flex flex-row justify-between align-middle'>
-          <p className="h-mid-gray-s">Technician </p>
-          <button
-            onClick={() => copyToClipboard(id)}
-            className="circle-btn"
-            title="Copy ID"
-          >
-            <ContentCopyIcon fontSize="small" className="text-slate-600" />
-          </button>
-          </div>
-          <p className="steps-text mb-2">
-            {shortId(transaction.technician_id)}
-          </p>
-          <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
-          <div className="divider-full mb-2"></div>
-        </div>
+          
 
         <button className="button-big"> Generate report</button>
         <button className="button-big"> Generate factura</button>
@@ -228,6 +235,7 @@ export default function TransactionDetailPage() {
           <img src={transaction.after_photo_url} alt="After fuel" width="250" />
         )}
       </div>
+    </div>
     </div>
   );
 }
