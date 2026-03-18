@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import login from '@/public/login.png'
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -15,12 +17,12 @@ export default function AuthForm() {
       password,
     });
     if (error) alert(error.message);
-    else router.push('/dashboard');
+    else router.push('/operations/dashboard');
   };
 
   return (
     <div className='flex flex-col'>
-      <img src="/login.png" alt="welcome img" className="w-32 mx-auto" />
+      <Image src={login} alt="welcome img" className="w-32 mx-auto" />
       <h2 className='mx-auto'>Sign in to Fuelflo</h2>
       <label>
         Email:

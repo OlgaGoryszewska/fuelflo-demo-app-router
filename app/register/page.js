@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
+import Image from 'next/image';
+import register from '@/public/register.png'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -82,10 +84,9 @@ export default function RegisterPage() {
   return (
    
     <div className="main-container ">
-      <div className="background-container">
-
-
-        <h2 >Create account</h2>
+      <div className="background-container flex flex-col ">
+        <Image src={register} alt='register' className="w-32 mx-auto mt-2" />
+        <h2 className='mx-auto'>Create account</h2>
         <p className="steps-text">
           Register a new user to access the app.
         </p>
