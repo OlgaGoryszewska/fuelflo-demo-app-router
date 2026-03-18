@@ -38,23 +38,21 @@ label {
   color: var(--primary-black);
   margin-bottom: 0.4rem;
 }
-h4{
-
+h4 {
   font-size: 14px;
   font-weight: 500;
-  color:var(--slate-dark);
-
+  color: var(--slate-dark);
 }
-.nr-big{
+.nr-big {
   font-size: 38px;
   margin: auto;
-  letter-spacing: 3px;
-
+  letter-spacing: 2.5px;
+  font-weight: 500;
 }
-.nr-middle{
+.nr-middle {
   font-size: 22px;
   letter-spacing: 2px;
-
+  font-weight: 500;
 }
 
 .body-text {
@@ -113,6 +111,10 @@ form,
   gap: 0.4rem;
   border: 1px solid var(--primary-gray-light);
   background: linear-gradient(to top, #f0f9fe, #fff 70%);
+}
+.underline-link{
+  text-decoration: underline;
+  font-family: rob;
 }
 
 form {
@@ -183,25 +185,39 @@ option {
 }
 .nr-container,
 .window {
-  
   display: flex;
   height: 150px;
   width: 100%;
   border: 1px solid var(--slate-line);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- 
 }
-.nr-container{
+.nr-container {
   height: 100px;
   flex-direction: row;
 }
-.container-flex{
+.container-flex {
   border: 1px solid var(--slate-line);
   background-color: white;
-  padding:2rem;
+  padding: 0.6rem;
   border-radius: 15px;
-
+}
+/* Reset + circle button base */
+.circle-btn {
+  width: 30px; /* same as w-10 */
+  height: 30px;
+  padding: 0; /* remove default padding */
+  margin: 0;
+  border-radius: 9999px; /* full circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1; /* prevent vertical stretch */
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #e2e8f0; /* slate-200 */
+  transition: all 0.2s ease;
 }
 
 button-navigator,

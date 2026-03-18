@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react'
+import { useRef } from 'react';
 import Image from 'next/image';
 import camera from '@/public/camera.png';
 
@@ -10,15 +10,14 @@ export default function OperationAfter({ formData, setFormData }) {
       ...prev,
       after_fuel_level: e.target.value,
     }));
+  }
+
+  const inputRef = useRef(null);
+  inputRef.current === null;
+
+  const openCamera = () => {
+    inputRef.current?.click();
   };
-
- const inputRef = useRef(null);
- inputRef.current === null;
- 
- const openCamera = () => {
-  inputRef.current?.click()
-}
-
 
   function handlePhotoChange(e) {
     const file = e.target.files?.[0];
@@ -33,7 +32,6 @@ export default function OperationAfter({ formData, setFormData }) {
     }));
 
     console.log('photo selected:', file);
-    
   }
 
   return (
@@ -49,11 +47,11 @@ export default function OperationAfter({ formData, setFormData }) {
         Take a clear picture showing the full meter display
       </p>
 
-      <button 
-      type="button" 
-      className="qr-code-scanning-button my-2"
-      onClick={openCamera}>
-
+      <button
+        type="button"
+        className="qr-code-scanning-button my-2"
+        onClick={openCamera}
+      >
         <Image
           className="w-26 brightness-100"
           alt="icon of camera"
@@ -64,13 +62,13 @@ export default function OperationAfter({ formData, setFormData }) {
       </button>
 
       <input
-      ref={inputRef}
+        ref={inputRef}
         type="file"
         accept="image/*"
         capture="environment"
         onChange={handlePhotoChange}
         value={formData.after_photo_url}
-         className="hidden"
+        className="hidden"
       />
 
       <p className="mt-4 h-mid-gray-s">After Fuel Level</p>
