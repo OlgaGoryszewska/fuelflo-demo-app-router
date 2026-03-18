@@ -194,6 +194,7 @@ export default function TransactionDetailPage() {
           </button>
           </div>
           <p className="steps-text mb-2">{shortId(transaction.tank_id)}</p>
+          <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
           <div className="divider-full mb-2"></div>
           <div className='flex flex-row justify-between align-middle'>
           <p className="h-mid-gray-s">Technician </p>
@@ -208,6 +209,7 @@ export default function TransactionDetailPage() {
           <p className="steps-text mb-2">
             {shortId(transaction.technician_id)}
           </p>
+          <Link  className='underline-link' href={`/resources/projects/${id}`}>Open </Link>
           <div className="divider-full mb-2"></div>
         </div>
 
