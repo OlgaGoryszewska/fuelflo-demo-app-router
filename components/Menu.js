@@ -76,19 +76,24 @@ export default function Menu() {
 
         {/* 🧠 ONLY show dashboard if logged in */}
         {user && (
+          <>
           <li>
             <Link onClick={handleLinkClick} href="/operations/dashboard">
               Dashboard
             </Link>
           </li>
-        )}
-
-        {user && (
           <li>
             <Link onClick={handleLinkClick} href="/resources/projects/">
               Add fuel transaction
             </Link>
           </li>
+          <li>
+            <Link onClick={handleLinkClick} href="/resources/profile/">
+              Profile
+            </Link>
+          </li>
+          </>
+          
         )}
 
         {/* 🔐 If NOT logged in */}
@@ -110,7 +115,7 @@ export default function Menu() {
         {/* 🚪 If logged in → show logout */}
         {user && (
           <li className="last-li">
-            <button onClick={handleLogout} className="w-full text-left">
+            <button onClick={handleLogout} className="ml-2">
               Logout
             </button>
           </li>
