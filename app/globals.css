@@ -85,6 +85,19 @@ span {
   display: flex;
   flex-direction: column;
   padding: 0.6rem;
+  
+}
+.main-content {
+  flex: 1;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 body {
   margin: 0;
@@ -225,7 +238,17 @@ option {
   transition: all 0.2s ease;
 }
 
-button-navigator,
+.footer {
+
+  display: grid;   
+  grid-row: 1f 1f 1f;
+  background-color: var(--slate-line);
+  height: 50px;
+  position: sticky;
+  margin-bottom: 0rem;
+  justify-content: center;    /* horizontal center */
+  align-items: center;    
+}
 button {
   padding: 0.4rem;
   background-color: var(--white);

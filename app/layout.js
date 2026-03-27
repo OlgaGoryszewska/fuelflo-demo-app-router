@@ -2,6 +2,7 @@ import './globals.css';
 import { Poppins } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
 import Menu from '@/components/Menu';
+import Footer from '@/components/Footer'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -21,7 +22,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
         <Menu />
-        <main>{children}</main>
+        <main className="main-content">{children}</main>
+        <Footer/>
       </body>
     </html>
   );
