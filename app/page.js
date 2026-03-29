@@ -24,7 +24,7 @@ export default function Home() {
         >
           Technician
         </button>
-        <h4>You don't have account yet please contact Hire Desk</h4>
+        <h4>Don’t have an account? Contact Hire Desk.</h4>
       </div>
 
       
