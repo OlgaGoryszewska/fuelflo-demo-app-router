@@ -16,6 +16,7 @@
   --slate-light: #cbdae3;
   --slate-line: #e2e8f0;
   --slate-dark: #62748e;
+
 }
 h1 {
   font-size: 16px;
@@ -80,12 +81,13 @@ span {
   color: var(--primary-black);
   font-weight: 500;
 }
-
 .main-container {
   display: flex;
   flex-direction: column;
   padding: 0.6rem;
+
 }
+
 .main-content {
   flex: 1;
 }

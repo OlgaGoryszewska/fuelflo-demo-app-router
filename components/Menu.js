@@ -100,7 +100,7 @@ export default function Menu() {
           <>
             <li>
               <Link onClick={handleLinkClick} href="/signIn">
-                Sign in
+               Login
               </Link>
             </li>
             <li className="last-li">
