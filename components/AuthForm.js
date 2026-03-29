@@ -43,7 +43,9 @@ export default function AuthForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <div className="divider-full mb-4"></div>
+      <h4>Don’t have an account? Contact Hire Desk</h4>
+
+      <div className="divider-full my-4"></div>
       <button className="button-big " onClick={handleSignIn}>
         Sign In
       </button>

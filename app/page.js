@@ -1,33 +1,12 @@
-import Image from 'next/image';
-import login from '@/public/login.png';
-export default function Home() {
+export const dynamic = 'force-dynamic';
+import AuthForm from '@/components/AuthForm';
+
+export default function SignInPage() {
   return (
     <div className="main-container">
-      <div className="background-container-white ">
-        <Image src={login} alt="welcome img" className="w-32 mx-auto" />
-        <h2 className="mx-auto">Login to Fuelflo as a</h2>
-        <button
-          className="button-big my-4
-      "
-        >
-          Manager
-        </button>
-        <button
-          className="button-big my-4
-      "
-        >
-        Hire Desk
-        </button>
-        <button
-          className="button-big my-4
-      "
-        >
-          Technician
-        </button>
-        <h4>Don’t have an account? Contact Hire Desk.</h4>
+      <div className="background-container">
+        <AuthForm />
       </div>
-
-      
     </div>
   );
 }
