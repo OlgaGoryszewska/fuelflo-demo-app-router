@@ -77,23 +77,22 @@ export default function Menu() {
         {/* 🧠 ONLY show dashboard if logged in */}
         {user && (
           <>
-          <li>
-            <Link onClick={handleLinkClick} href="/operations/dashboard">
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleLinkClick} href="/resources/projects/">
-              Add fuel transaction
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleLinkClick} href="/resources/profile/">
-              Profile
-            </Link>
-          </li>
+            <li>
+              <Link onClick={handleLinkClick} href="/operations/dashboard">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link onClick={handleLinkClick} href="/resources/projects/">
+                Add fuel transaction
+              </Link>
+            </li>
+            <li>
+              <Link onClick={handleLinkClick} href="/resources/profile/">
+                Profile
+              </Link>
+            </li>
           </>
-          
         )}
 
         {/* 🔐 If NOT logged in */}

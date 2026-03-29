@@ -1,21 +1,32 @@
-const roleBlocks = [
-  {
-    title: 'For Managers & Hire Desk',
-  },
-  {
-    title: 'For Technicians',
-  },
-  {
-    title: 'For Fuel Suppliers',
-  },
-  {
-    title: 'For Event Organisers',
-  },
-];
-
+import Image from 'next/image';
+import login from '@/public/login.png';
 export default function Home() {
   return (
-    <div>
+    <div className="main-container ">
+      <div className="background-container-white ">
+        <Image src={login} alt="welcome img" className="w-32 mx-auto" />
+        <h2 className="mx-auto">Login to Fuelflo as a</h2>
+        <button
+          className="button-big my-4
+      "
+        >
+          Manager
+        </button>
+        <button
+          className="button-big my-4
+      "
+        >
+        Hire Desk
+        </button>
+        <button
+          className="button-big my-4
+      "
+        >
+          Technician
+        </button>
+        <h4>You don't have account yet please contact Hire Desk</h4>
+      </div>
+
       <div className="m-4 flex flex-col justify-center items-center ">
         <h2 className="mt-4 text-center">
           Fuel, Delivered Right — Evidence, Insight, Control
@@ -46,7 +57,7 @@ export default function Home() {
       <div className="form-button mx-4">For Managers & Hire Desk</div>
       <div className="form-button mx-4">For Technicians</div>
       <div className="form-button mx-4">For Fuel Suppliers</div>
-      <div className="form-button mx-4 ">For Event Organisers</div>
+      <div className="form-button mx-4 ">For Event Organizers</div>
     </div>
   );
 }

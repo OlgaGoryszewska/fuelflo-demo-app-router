@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 :root {
-  --primary-orange: #FF8A00;
+  --primary-orange: #ff8a00;
   --primary-orange-light: #febd20;
   --primary-black: #0f1726;
   --button-black: #0f1726;
@@ -85,12 +85,12 @@ span {
   display: flex;
   flex-direction: column;
   padding: 0.6rem;
-  
 }
 .main-content {
   flex: 1;
 }
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -125,7 +125,7 @@ form,
   border: 1px solid var(--primary-gray-light);
   background: linear-gradient(to top, #f0f9fe, #fff 70%);
 }
-.underline-link{
+.underline-link {
   text-decoration: underline;
   font-family: var(--font-roboto-flex);
   font-weight: 400;
@@ -239,15 +239,14 @@ option {
 }
 
 .footer {
-
-  display: grid;   
+  display: grid;
   grid-row: 1f 1f 1f;
   background-color: var(--slate-line);
   height: 50px;
   position: sticky;
   margin-bottom: 0rem;
-  justify-content: center;    /* horizontal center */
-  align-items: center;    
+  justify-content: center; /* horizontal center */
+  align-items: center;
 }
 button {
   padding: 0.4rem;
@@ -359,10 +358,9 @@ button:active,
   width: 100%;
   margin: 0rem;
   margin-bottom: 0.6rem;
-  background: linear-gradient(90deg, #FF7A00 0%, #FF8A00 50%, #FFB347 100%);
+  background: linear-gradient(90deg, #ff7a00 0%, #ff8a00 50%, #ffb347 100%);
   color: var(--white);
   border: 1px solid var(--primary-gray-light);
-  
 }
 .button-big-border-orange {
   border: 2px solid var(--primary-orange-light);

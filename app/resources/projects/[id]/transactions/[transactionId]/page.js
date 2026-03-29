@@ -25,7 +25,8 @@ export default function TransactionDetailPage() {
 
       const { data, error } = await supabase
         .from('fuel_transactions')
-        .select(`
+        .select(
+          `
           id,
           created_at,
           type,
@@ -49,7 +50,8 @@ export default function TransactionDetailPage() {
             projects (
             id,
             name)
-        `)
+        `
+        )
         .eq('id', transactionId)
         .single();
 
@@ -174,7 +176,9 @@ export default function TransactionDetailPage() {
           </div>
 
           <p className="h-mid-gray-s">Technician</p>
-          <p className="steps-text mb-2">{shortId(transaction.technician_id)}</p>
+          <p className="steps-text mb-2">
+            {shortId(transaction.technician_id)}
+          </p>
           <Link
             className="underline-link"
             href={`/resources/technicians/${transaction.technician_id}`}
@@ -196,7 +200,9 @@ export default function TransactionDetailPage() {
             </button>
           </div>
 
-          <p className="steps-text mb-2">{transaction.projects?.name || shortId(transaction.project_id)}</p>
+          <p className="steps-text mb-2">
+            {transaction.projects?.name || shortId(transaction.project_id)}
+          </p>
           <Link
             className="underline-link"
             href={`/resources/projects/${transaction.project_id}`}
@@ -242,7 +248,9 @@ export default function TransactionDetailPage() {
             </button>
           </div>
 
-          <p className="steps-text mb-2">{transaction.tanks?.name || shortId(transaction.tank_id)}</p>
+          <p className="steps-text mb-2">
+            {transaction.tanks?.name || shortId(transaction.tank_id)}
+          </p>
           <Link
             className="underline-link"
             href={`/resources/tanks/${transaction.tank_id}`}
@@ -267,11 +275,7 @@ export default function TransactionDetailPage() {
         )}
 
         {transaction.after_photo_url && (
-          <img
-            src={transaction.after_photo_url}
-            alt="After fuel"
-            width="250"
-          />
+          <img src={transaction.after_photo_url} alt="After fuel" width="250" />
         )}
       </div>
     </div>

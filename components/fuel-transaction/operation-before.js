@@ -12,12 +12,12 @@ export default function OperationBefore({ formData, setFormData }) {
     }));
   }
 
-    const inputRef = useRef(null);
-    inputRef.current === null;
-  
-    const openCamera = () => {
-      inputRef.current?.click();
-    };
+  const inputRef = useRef(null);
+  inputRef.current === null;
+
+  const openCamera = () => {
+    inputRef.current?.click();
+  };
 
   function handlePhotoChange(e) {
     const file = e.target.files?.[0];
@@ -47,11 +47,11 @@ export default function OperationBefore({ formData, setFormData }) {
         Take a clear picture showing the full meter display
       </p>
 
-      <button 
-      type="button" 
-      className="qr-code-scanning-button my-2"
-      onClick={openCamera}>
-         
+      <button
+        type="button"
+        className="qr-code-scanning-button my-2"
+        onClick={openCamera}
+      >
         <Image
           className="w-26 brightness-100"
           alt="icon of camera"
@@ -61,7 +61,7 @@ export default function OperationBefore({ formData, setFormData }) {
       </button>
 
       <input
-      ref={inputRef}
+        ref={inputRef}
         type="file"
         accept="image/*"
         capture="environment"
