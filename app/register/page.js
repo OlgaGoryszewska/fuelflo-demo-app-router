@@ -10,9 +10,13 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
+    displayName: '',
     email: '',
     password: '',
     confirmPassword: '',
+    role: 'technician',
+    address: '',
+    phone:''
   });
 
   const [loading, setLoading] = useState(false);
@@ -54,22 +58,46 @@ export default function RegisterPage() {
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        displayName: formData.displayName,
       });
 
       if (error) {
         setErrorMessage(error.message);
         return;
       }
+      const user = data.user;
+      if (!user){
+        throw new Error ('User was not created.');
+      }
 
+     
+      const {error: profileError} = await supabase
+      .from ('profiles')
+      .insert({
+        id: user.id,
+        role: formData.role,
+        address: formData.role,
+        phone: formData.phone
+
+      })
+
+      if (profileError){
+        throw profileError;
+      }
       if (data.user) {
         setSuccessMessage(
           'Account created. Please check your email for confirmation.'
         );
 
+
         setFormData({
           email: '',
           password: '',
           confirmPassword: '',
+          id: '',
+          role: '',
+          address: '',
+          phone: ''
         });
 
         setTimeout(() => {
@@ -92,6 +120,30 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="form-no-style ">
           <div>
+          <label htmlFor="phone">Full name</label>
+          <input
+            type="text"
+            name="providerName"
+            placeholder="Full Name"
+            value={formData.providerName}
+            onChange={handleChange}
+          />
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+             <label htmlFor="email">Address</label>
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            value={formData.address}
+            onChange={handleChange}
+          />
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -102,6 +154,7 @@ export default function RegisterPage() {
               placeholder="Enter your email"
             />
           </div>
+       
 
           <div>
             <label htmlFor="password">Password</label>
@@ -126,6 +179,19 @@ export default function RegisterPage() {
               placeholder="Repeat your password"
               className="mb-2"
             />
+             <label htmlFor="confirmPassword">Select role</label>
+            <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+          >
+            <option value="technician">Technician</option>
+            <option value="manager">Manager</option>
+            <option value="hire_desk">Hire Desk</option>
+            <option value="supplier">Supplier</option>
+          </select>
+
+       
             <div className="divider-full my-2"></div>
           </div>
 

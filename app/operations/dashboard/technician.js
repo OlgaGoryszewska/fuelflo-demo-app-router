@@ -53,10 +53,7 @@ export default function Dashboard() {
               <ArchiveOutlinedIcon />
               Archive
             </Link>
-            <Link href="/add-forms/add-new-project" className="card-button">
-              <AddOutlinedIcon />
-              Add new Project
-            </Link>
+       
           </div>
         )}
 
@@ -116,7 +113,7 @@ export default function Dashboard() {
               <ManageAccountsOutlinedIcon />
               Hire Desk Coordinator
             </Link>
-            <Link href="/register" className="card-button">
+            <Link href="/add-forms/add-generator" className="card-button">
               <AddOutlinedIcon />
               Add Personel
             </Link>
@@ -132,22 +129,7 @@ export default function Dashboard() {
             className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
           />
         </div>
-        {openCard === 'external partners' && (
-          <div className="open-card ">
-            <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon />
-              Event Organizers
-            </Link>
-            <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon />
-              Fuel Suppliers
-            </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon />
-              Add Partner
-            </Link>
-          </div>
-        )}
+       
         <div
           onClick={() => toggleCard('equipment')}
           className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
@@ -168,21 +150,10 @@ export default function Dashboard() {
               <PropaneTankOutlinedIcon />
               External Tanks
             </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon />
-              Add new Equipment
-            </Link>
           </div>
         )}
 
-        <Link href="/operations/create-qr-code" className="form-button mt-4">
-          <QrCodeOutlinedIcon />
-          Create a new QR Code
-        </Link>
-        <Link href="/not-found" className="form-button">
-          <AssessmentOutlinedIcon />
-          Reports
-        </Link>
+      
       </div>
     </div>
   );
