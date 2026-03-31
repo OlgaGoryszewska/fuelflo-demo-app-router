@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    displayName: '',
+    full_name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -58,7 +58,7 @@ export default function RegisterPage() {
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
-        displayName: formData.displayName,
+        
       });
 
       if (error) {
@@ -69,17 +69,17 @@ export default function RegisterPage() {
       if (!user){
         throw new Error ('User was not created.');
       }
-
-     
-      const {error: profileError} = await supabase
-      .from ('profiles')
+      const { error: profileError } = await supabase
+      .from('profiles')
       .insert({
         id: user.id,
+        full_name: formData.full_name,
+        phone: formData.phone,
         role: formData.role,
-        address: formData.role,
-        phone: formData.phone
-
-      })
+        address: formData.address,
+      });
+    
+     
 
       if (profileError){
         throw profileError;
@@ -91,9 +91,7 @@ export default function RegisterPage() {
 
 
         setFormData({
-          email: '',
-          password: '',
-          confirmPassword: '',
+          full_name:'',
           id: '',
           role: '',
           address: '',
@@ -123,9 +121,9 @@ export default function RegisterPage() {
           <label htmlFor="phone">Full name</label>
           <input
             type="text"
-            name="providerName"
+            name="full_name"
             placeholder="Full Name"
-            value={formData.providerName}
+            value={formData.full_name}
             onChange={handleChange}
           />
           <label htmlFor="phone">Phone</label>
