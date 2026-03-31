@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import register from '@/public/register.png';
 
-export default function RegisterPage() {
+export default function CreateUserPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -16,7 +15,7 @@ export default function RegisterPage() {
     confirmPassword: '',
     role: 'technician',
     address: '',
-    phone:''
+    phone: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,8 +36,8 @@ export default function RegisterPage() {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (!formData.email || !formData.password || !formData.confirmPassword) {
-      setErrorMessage('Please fill in all fields.');
+    if (!formData.full_name || !formData.email || !formData.password || !formData.confirmPassword) {
+      setErrorMessage('Please fill in all required fields.');
       return;
     }
 
@@ -55,93 +54,89 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        
+      const response = await fetch('/api/create-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: formData.full_name,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+          address: formData.address,
+          phone: formData.phone,
+        }),
       });
 
-      if (error) {
-        setErrorMessage(error.message);
-        return;
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Could not create user.');
       }
-      const user = data.user;
-      if (!user){
-        throw new Error ('User was not created.');
-      }
-      const { error: profileError } = await supabase
-      .from('profiles')
-      .insert({
-        id: user.id,
-        full_name: formData.full_name,
-        phone: formData.phone,
-        role: formData.role,
-        address: formData.address,
+
+      setSuccessMessage('User and profile created successfully.');
+
+      setFormData({
+        full_name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        role: 'technician',
+        address: '',
+        phone: '',
       });
-    
-     
 
-      if (profileError){
-        throw profileError;
-      }
-      if (data.user) {
-        setSuccessMessage(
-          'Account created. Please check your email for confirmation.'
-        );
-
-
-        setFormData({
-          full_name:'',
-          id: '',
-          role: '',
-          address: '',
-          phone: ''
-        });
-
-        setTimeout(() => {
-          router.push('/signIn');
-        }, 1500);
-      }
+      setTimeout(() => {
+        router.push('/signIn');
+      }, 1500);
     } catch (error) {
-      setErrorMessage('Something went wrong. Please try again.');
+      setErrorMessage(error.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="main-container ">
-      <div className="background-container flex flex-col ">
+    <div className="main-container">
+      <div className="background-container flex flex-col">
         <Image src={register} alt="register" className="w-32 mx-auto mt-2" />
         <h2 className="mx-auto">Create account</h2>
-        <p className="steps-text">Register a new user to access the app.</p>
+        <p className="steps-text">Create a new user to access the app.</p>
 
-        <form onSubmit={handleSubmit} className="form-no-style ">
+        <form onSubmit={handleSubmit} className="form-no-style">
           <div>
-          <label htmlFor="phone">Full name</label>
-          <input
-            type="text"
-            name="full_name"
-            placeholder="Full Name"
-            value={formData.full_name}
-            onChange={handleChange}
-          />
-          <label htmlFor="phone">Phone</label>
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-             <label htmlFor="email">Address</label>
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-          />
+            <label htmlFor="full_name">Full name</label>
+            <input
+              id="full_name"
+              type="text"
+              name="full_name"
+              placeholder="Full Name"
+              value={formData.full_name}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+
+            <label htmlFor="address">Address</label>
+            <input
+              id="address"
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -149,20 +144,21 @@ export default function RegisterPage() {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter email"
+              required
             />
           </div>
-       
 
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Temporary password</label>
             <input
               id="password"
               name="password"
               type="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder="Enter password"
+              required
             />
           </div>
 
@@ -174,32 +170,29 @@ export default function RegisterPage() {
               type="password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              placeholder="Repeat your password"
+              placeholder="Repeat password"
               className="mb-2"
+              required
             />
-             <label htmlFor="confirmPassword">Select role</label>
-            <select
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-          >
-            <option value="technician">Technician</option>
-            <option value="manager">Manager</option>
-            <option value="hire_desk">Hire Desk</option>
-            <option value="supplier">Supplier</option>
-          </select>
 
-       
+            <label htmlFor="role">Select role</label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="technician">Technician</option>
+              <option value="manager">Manager</option>
+              <option value="hire_desk">Hire Desk</option>
+              <option value="supplier">Supplier</option>
+            </select>
+
             <div className="divider-full my-2"></div>
           </div>
 
-          {errorMessage && (
-            <p className="text-sm text-red-600">{errorMessage}</p>
-          )}
-
-          {successMessage && (
-            <p className="text-sm text-green-600">{successMessage}</p>
-          )}
+          {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
+          {successMessage && <p className="text-sm text-green-600">{successMessage}</p>}
 
           <button type="submit" disabled={loading} className="button-big">
             {loading ? 'Creating account...' : 'Register'}
