@@ -23,7 +23,7 @@ export default function AuthForm() {
   return (
     <div className="flex flex-col">
       <Image src={login} alt="welcome img" className="w-32 mx-auto" />
-      <h2 className="mx-auto">Sign in to Fuelflo</h2>
+      <h2 className="mx-auto">Sign in to FuelFlo</h2>
       <label>
         Email:
         <input
