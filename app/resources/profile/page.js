@@ -19,6 +19,8 @@ export default function ProfilePage() {
           error: userError,
         } = await supabase.auth.getUser();
 
+        console.log('user:', user);
+
         if (userError || !user) {
           router.push('/signIn');
           return;
@@ -28,10 +30,17 @@ export default function ProfilePage() {
           .from('profiles')
           .select('id, full_name, phone, role, address')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
+
+        console.log('profile:', data);
 
         if (error) {
           throw error;
+        }
+
+        if (!data) {
+          setErrorMessage('No profile found for this user.');
+          return;
         }
 
         setProfile(data);
