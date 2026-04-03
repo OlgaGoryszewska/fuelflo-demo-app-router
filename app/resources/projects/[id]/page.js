@@ -96,7 +96,7 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="main-container">
-      <div className="form-header mb-4">
+      <div className="form-header ">
         <h1 className="ml-2">{project.name}</h1>
       </div>
       <div className="background-container mb-4">
@@ -111,10 +111,9 @@ export default function ProjectDetailPage() {
               title="Project location map"
               className="w-full h-full rounded-lg border-0"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=${
-                process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-              }&q=${encodeURIComponent(project.location)}`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(
+                project.location
+              )}&output=embed`}
               allowFullScreen
             />
           </div>
@@ -130,7 +129,7 @@ export default function ProjectDetailPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="generator-localisation underline text-blue-600"
+              className="generator-localisation underline ml-2 text-blue-600"
             >
               {project.location}
             </Link>
@@ -140,7 +139,7 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-            <InsertInvitationOutlinedIcon />
+            <InsertInvitationOutlinedIcon className='mr-2'/>
             <p>Starting date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -149,7 +148,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-            <InsertInvitationOutlinedIcon />
+            <InsertInvitationOutlinedIcon className='mr-2'/>
             <p>End date</p>
             <div className="date-box">
               <p className="generator-localisation">
@@ -239,6 +238,7 @@ export default function ProjectDetailPage() {
           <BoltOutlinedIcon />
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
         </div>
+        <div className='divider-full '></div>
 
         <div className="flex flex-col items-center align-center">
           <div className="background-header p-0">
@@ -256,68 +256,72 @@ export default function ProjectDetailPage() {
         </div>
       </div>
       <div className="background-container mb-4">
-        <div className="form-header mb-4">
-          <Person4OutlinedIcon />
+        <div className="form-header ">
+          <Person4OutlinedIcon className='mr-2'/>
           <h3 className="ml-2 uppercase">event organizer</h3>
+       
         </div>
+        <div className='divider-full '></div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex gap-2align-center mb-2">
-          <ApartmentOutlinedIcon />
+          <ApartmentOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <LocationOnOutlinedIcon />
+          <LocationOnOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <AlternateEmailOutlinedIcon />
+          <AlternateEmailOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <CallOutlinedIcon />
+          <CallOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
       <div className="background-container mb-4">
-        <div className="form-header mb-4">
-          <Person4OutlinedIcon />
+        <div className="form-header">
+          <Person4OutlinedIcon className='mr-2'/>
           <h3 className="ml-2 uppercase">fuel suppliers</h3>
         </div>
+        <div className='divider-full '></div>
 
         <h2>{project.contractor_name ?? '-'}</h2>
         <div className="flex align-center mb-2">
-          <ApartmentOutlinedIcon />
+          <ApartmentOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <LocationOnOutlinedIcon />
+          <LocationOnOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <AlternateEmailOutlinedIcon />
+          <AlternateEmailOutlinedIcon className='mr-2' />
           <p className="generator-localisation">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <CallOutlinedIcon />
+          <CallOutlinedIcon className='mr-2'/>
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
-      <Link
-        className="form-button-orange"
+      <button  className="button-big ">  <Link
+       
         href={`/resources/projects/${projectId}/new/`}
       >
         <AddOutlinedIcon />
         Add Fuel Transaction
-      </Link>
+      </Link></button>
+    
     </div>
   );
 }

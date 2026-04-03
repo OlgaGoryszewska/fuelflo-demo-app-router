@@ -76,32 +76,21 @@ export default function ProfilePage() {
           <Image src={banner} alt="banner" fill className="banner" />
           <Image className="avatar-big" src={avatar} alt="avatar img" />
         </div>
-        
-        <div className='main-container'>
-        <h2 className='m-auto mt-10'>{profile?.full_name}</h2>
-        <div className='background-container mt-2'>
-        
-        <p className='h-mid-gray-s'> Contact
-        
-        </p>
-        <p className='steps-text'> {profile?.phone}</p>
-        <p className='steps-text'> {profile?.email}</p>
-       <div className='divider-full'></div>
-        <p className='h-mid-gray-s'>Rolle
-        
-        </p>
-        <p className='steps-text'>  {profile?.role}</p>
-        <div className='divider-full'></div>
-        <p className='h-mid-gray-s'>Address
-          
-        </p>
-        <p className='steps-text'>{profile?.address}</p>
 
+        <div className="main-container">
+          <h2 className="m-auto mt-10">{profile?.full_name}</h2>
+          <div className="background-container mt-2">
+            <p className="h-mid-gray-s"> Contact</p>
+            <p className="steps-text"> {profile?.phone}</p>
+            <p className="steps-text"> {profile?.email}</p>
+            <div className="divider-full"></div>
+            <p className="h-mid-gray-s">Rolle</p>
+            <p className="steps-text"> {profile?.role}</p>
+            <div className="divider-full"></div>
+            <p className="h-mid-gray-s">Address</p>
+            <p className="steps-text">{profile?.address}</p>
+          </div>
         </div>
-        </div>
-     
-
-        
       </div>
     </div>
   );

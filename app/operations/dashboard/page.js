@@ -71,17 +71,11 @@ export default function Dashboard() {
         </div>
         {openCard === 'transactions' && (
           <div className="open-card ">
-            <Link
-              href="/resources/fuel-transactions/"
-              className="card-button"
-            >
+            <Link href="/resources/fuel-transactions/" className="card-button">
               <ElectricRickshawOutlinedIcon />
               Deliveries
             </Link>
-            <Link
-              href="/resources/fuel-transactions/"
-              className="card-button"
-            >
+            <Link href="/resources/fuel-transactions/" className="card-button">
               <UndoOutlinedIcon />
               Returns
             </Link>
