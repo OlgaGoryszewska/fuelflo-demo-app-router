@@ -25,19 +25,13 @@ export async function POST(request) {
       });
 
     if (authError) {
-      return Response.json(
-        { error: authError.message },
-        { status: 400 }
-      );
+      return Response.json({ error: authError.message }, { status: 400 });
     }
 
     const user = authData.user;
 
     if (!user) {
-      return Response.json(
-        { error: 'User was not created.' },
-        { status: 400 }
-      );
+      return Response.json({ error: 'User was not created.' }, { status: 400 });
     }
 
     const { error: profileError } = await supabaseAdmin
@@ -52,10 +46,7 @@ export async function POST(request) {
       });
 
     if (profileError) {
-      return Response.json(
-        { error: profileError.message },
-        { status: 400 }
-      );
+      return Response.json({ error: profileError.message }, { status: 400 });
     }
 
     return Response.json({

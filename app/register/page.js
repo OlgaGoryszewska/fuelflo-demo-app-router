@@ -36,7 +36,12 @@ export default function CreateUserPage() {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (!formData.full_name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (
+      !formData.full_name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
       setErrorMessage('Please fill in all required fields.');
       return;
     }
@@ -91,7 +96,9 @@ export default function CreateUserPage() {
         router.push('/signIn');
       }, 1500);
     } catch (error) {
-      setErrorMessage(error.message || 'Something went wrong. Please try again.');
+      setErrorMessage(
+        error.message || 'Something went wrong. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
@@ -191,8 +198,12 @@ export default function CreateUserPage() {
             <div className="divider-full my-2"></div>
           </div>
 
-          {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
-          {successMessage && <p className="text-sm text-green-600">{successMessage}</p>}
+          {errorMessage && (
+            <p className="text-sm text-red-600">{errorMessage}</p>
+          )}
+          {successMessage && (
+            <p className="text-sm text-green-600">{successMessage}</p>
+          )}
 
           <button type="submit" disabled={loading} className="button-big">
             {loading ? 'Creating account...' : 'Register'}

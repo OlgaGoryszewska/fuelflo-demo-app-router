@@ -3,6 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import Link from 'next/link';
+import Image from 'next/image';
+import avatar from '@/public/avatar.png';
+import banner from '@/public/banner.jpg';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -28,7 +32,7 @@ export default function ProfilePage() {
 
         const { data, error } = await supabase
           .from('profiles')
-          .select('id, full_name, phone, role, address')
+          .select('id, email, full_name, phone, role, address')
           .eq('id', user.id)
           .maybeSingle();
 
@@ -63,14 +67,41 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="main-container">
-      <div className="register-card">
-        <h1>My Profile</h1>
+    <div className="">
+      <div className="form-header ">
+        <h1 className="ml-2">My Profile</h1>
+      </div>
+      <div className="">
+        <div className="banner">
+          <Image src={banner} alt="banner" fill className="banner" />
+          <Image className="avatar-big" src={avatar} alt="avatar img" />
+        </div>
+        
+        <div className='main-container'>
+        <h2 className='m-auto mt-10'>{profile?.full_name}</h2>
+        <div className='background-container mt-2'>
+        
+        <p className='h-mid-gray-s'> Contact
+        
+        </p>
+        <p className='steps-text'> {profile?.phone}</p>
+        <p className='steps-text'> {profile?.email}</p>
+       <div className='divider-full'></div>
+        <p className='h-mid-gray-s'>Rolle
+        
+        </p>
+        <p className='steps-text'>  {profile?.role}</p>
+        <div className='divider-full'></div>
+        <p className='h-mid-gray-s'>Address
+          
+        </p>
+        <p className='steps-text'>{profile?.address}</p>
 
-        <p><strong>Full name:</strong> {profile?.full_name}</p>
-        <p><strong>Phone:</strong> {profile?.phone}</p>
-        <p><strong>Role:</strong> {profile?.role}</p>
-        <p><strong>Address:</strong> {profile?.address}</p>
+        </div>
+        </div>
+     
+
+        
       </div>
     </div>
   );

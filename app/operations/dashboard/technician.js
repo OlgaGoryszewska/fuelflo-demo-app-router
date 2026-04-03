@@ -53,7 +53,6 @@ export default function Dashboard() {
               <ArchiveOutlinedIcon />
               Archive
             </Link>
-       
           </div>
         )}
 
@@ -129,7 +128,7 @@ export default function Dashboard() {
             className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
           />
         </div>
-       
+
         <div
           onClick={() => toggleCard('equipment')}
           className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
@@ -152,8 +151,6 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
-
-      
       </div>
     </div>
   );

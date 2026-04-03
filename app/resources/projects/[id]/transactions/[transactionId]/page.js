@@ -111,7 +111,7 @@ export default function TransactionDetailPage() {
 
   return (
     <div className="main-container">
-      <div className="form-header mb-4">
+      <div className="form-header">
         <h1 className="ml-2">Transaction Details</h1>
       </div>
 
