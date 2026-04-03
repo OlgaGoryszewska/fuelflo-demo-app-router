@@ -21,11 +21,11 @@ export default function AfterDeliverySuccessAlert() {
             alt="fuer feril icon"
           />
           <div className="divider-full "></div>
-          <p className="h-mid-gray-s my-4 ">Click to see transaction in </p>
+         
           <Link
             href={`/resources/projects/${projectId}/transactions/${transactionId}/`}
           >
-            Go to after page
+             <p className="h-mid-gray-s my-4 underline ">Click to see transaction details </p>
           </Link>
         </div>
       </div>
