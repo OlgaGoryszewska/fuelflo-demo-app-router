@@ -35,8 +35,8 @@ h2 {
 h3,
 label {
   font-size: 16px;
-  color: var(--primary-black);
-  margin-bottom: 0.4rem;
+  color: var(--primary-mid-gray);
+ 
 }
 h4 {
   font-size: 14px;
@@ -391,6 +391,9 @@ button:active,
   margin-bottom: 0.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--primary-gray-light);
+  font-size: 14px;
+  color: var(--primary-mid-gray);
+  font-weight: 100;
  
 }
 
@@ -479,6 +482,9 @@ li a:hover {
 
   border: 2px solid white; /* optional, looks clean */
 }
+.gray-icon{
+  color: #717887;
+}
 .button-icon,
 .icon {
   width: 25px;
@@ -550,7 +556,7 @@ li a:hover {
   align-content: center;
   flex-direction: row;
   padding-bottom: 0.2rem;
-  margin-top: 1rem;
+  
 }
 .form-header-steps {
   border-bottom: 1px solid var(--primary-gray-light);
