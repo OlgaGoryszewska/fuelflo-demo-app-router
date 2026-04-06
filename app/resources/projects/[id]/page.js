@@ -8,7 +8,6 @@ import { ChevronDown } from 'lucide-react';
 // icons
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import InsertInvitationOutlinedIcon from '@mui/icons-material/InsertInvitationOutlined';
-import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
@@ -98,17 +97,12 @@ export default function ProjectDetailPage() {
     <div className="main-container">
     
       <div className="background-container mb-4">
-      <div className="form-header ">
-        <h1 className="mt-2">{project.name}</h1>
-        <div className=" small-button-green ml-auto ">
-          <div>Active</div>
-        </div>
-      </div>
-    
-        <div className="divider-full mb-2"></div>
+      
+        <h2 className="mt-2">Project Details</h2>
+        <h4 className='steps-text'>{project.name}</h4>
  
         {project.location && (
-          <div className="w-full h-54 mb-4">
+          <div className="w-full h-54 ">
             <iframe
               title="Project location map"
               className="w-full h-full rounded-lg border-0"
@@ -122,18 +116,9 @@ export default function ProjectDetailPage() {
         )}
 
         <div />
-        <button  className="button-big">  <Link
-       
-       href={`/resources/projects/${projectId}/new/`}
-     >
-       
-       Add Fuel Transaction
-     </Link></button>
-     <div className="divider-full mb-2 mt-3"></div>
-   
-
         <div className="flex items-start">
           <LocationOnOutlinedIcon className='gray-icon' />
+          <h4 className="ml-2">Address:</h4>
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -152,7 +137,7 @@ export default function ProjectDetailPage() {
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
             <InsertInvitationOutlinedIcon className='mr-2 gray-icon'/>
-            <p className="steps-text">Starting date</p>
+            <h4 className="">Starting date:</h4>
             <div className="date-box">
               <p className="steps-text">
                 {project.start_date ?? 'Lack of information'}
@@ -161,7 +146,7 @@ export default function ProjectDetailPage() {
           </div>
           <div className="flex flex-row justyfy-center items-center">
             <InsertInvitationOutlinedIcon className='mr-2 gray-icon'/>
-            <p className='steps-text'>End date</p>
+            <h4 className=''>End date:</h4>
             <div className="date-box">
               <p className="steps-text">
                 {project.end_date ?? 'Lack of information'}
@@ -169,11 +154,14 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </div>
+        <div className="divider-full mb-2"></div>
+        <p className='steps-text'>Assigned to the project</p>
+    
         <div
           onClick={() => toggleCard('generators')}
           className="flex flex-row mt-2 pb-2 border-b border-b-gray-200 align-middle"
         >
-          <p className="">Generators</p>
+          <p className="h-mid-gray-s">Generators</p>
           <ChevronDown
             className={`ml-auto transition-transform text-gray-400 ${openCard === 'generators' ? 'rotate-180' : ''}`}
           />
@@ -193,7 +181,7 @@ export default function ProjectDetailPage() {
           onClick={() => toggleCard('tanks')}
           className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
         >
-          <p className="pt-3">External tanks</p>
+          <p className="h-mid-gray-s">External tanks</p>
           <ChevronDown
             className={`ml-auto transition-transform text-gray-400 ${openCard === 'tanks' ? 'rotate-180' : ''}`}
           />
@@ -212,7 +200,7 @@ export default function ProjectDetailPage() {
           onClick={() => toggleCard('technicians')}
           className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
         >
-          <p className="pt-3">Technicians</p>
+          <p className="h-mid-gray-s">Technicians</p>
           <ChevronDown
             className={`ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
           />
@@ -231,42 +219,28 @@ export default function ProjectDetailPage() {
 
         <div className="gen-grid pb-4">
           <div className="project-inf-box">
-            <p className="box-text">Fuel Purchase Price</p>
+            <h4 className="box-text">Fuel Purchase Price</h4>
             <p className="box-insert">{project.amount}</p>
           </div>
           <div className="project-inf-box">
-            <p className="box-text">Fuel Selling Price</p>
+            <h4 className="box-text">Fuel Selling Price</h4>
             <p className="box-insert">{project.selling_price}</p>
           </div>
           <div className="project-inf-box">
-            <p className="box-text">Estimated Earnings</p>
+            <h4 className="box-text">Estimated Earnings</h4>
             <p className="box-insert">{project.selling_price}</p>
           </div>
         </div>
       </div>
+      <button  className="button-big">  <Link
+       
+       href={`/resources/projects/${projectId}/new/`}
+     >
+       
+       Add Fuel Transaction
+     </Link></button>
 
-      <div className="generator-container mb-4">
-        <div className="form-header-with-button ">
-          <BoltOutlinedIcon  className='gray-icon' />
-          <h3 className="ml-2 uppercase">Fuel Transactions</h3>
-        </div>
-        <div className='divider-full '></div>
-
-        <div className="flex flex-col items-center align-center">
-          <div className="background-header p-0">
-            <p>Date</p>
-            <p>Vol</p>
-          </div>
-          <div className="file-row">
-            <p>09.09/25</p>
-            <p>- 5000 L</p>
-          </div>
-          <div className="file-row">
-            <p>09.09/25</p>
-            <p> + 5000 L</p>
-          </div>
-        </div>
-      </div>
+      
       <div className="background-container mb-4">
         <div className="form-header ">
          
