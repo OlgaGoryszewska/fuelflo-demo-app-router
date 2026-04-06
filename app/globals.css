@@ -70,6 +70,7 @@ h4 {
   font-weight: 600;
   font-size: 18px;
 }
+.box-insert,
 .h-mid-gray-s {
   font-size: 16px;
   color: var(--primary-black);
@@ -633,6 +634,7 @@ li a:hover {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.project-inf-box-green,
 .project-inf-box,
 .generator-inf-box {
   display: flex;
@@ -644,19 +646,17 @@ li a:hover {
   margin-top: 1rem;
   border: 1px solid var(--primary-gray-light);
 }
-.project-inf-box {
-  background: #fff;
+.project-inf-box-green{
+  background: linear-gradient(to top, #fff, #e4f7c1);
 }
 .box-text {
   padding: 0.6rem;
- 
+  padding-bottom: 0rem;
 }
-
 .box-insert {
   padding: 0.6rem;
   padding-top: 0px;
-  font-size: 16px;
-  color: var(--primary-black);
+
 }
 .gen-grid {
   display: grid;

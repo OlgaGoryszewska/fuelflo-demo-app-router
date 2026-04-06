@@ -14,7 +14,7 @@ import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+
 
 export default function ProjectDetailPage() {
   const { id: projectId } = useParams();
@@ -96,7 +96,7 @@ export default function ProjectDetailPage() {
   return (
     <div className="main-container">
     
-      <div className="background-container mb-4">
+      <div className="background-container-white mb-4">
       
         <h2 className="mt-2">Project Details</h2>
         <h4 className='steps-text'>{project.name}</h4>
@@ -154,7 +154,9 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </div>
-        <div className="divider-full mb-2"></div>
+        </div>
+        <div className="background-container mb-4">
+        
         <p className='steps-text'>Assigned to the project</p>
     
         <div
@@ -216,19 +218,24 @@ export default function ProjectDetailPage() {
             </p>
           </div>
         )}
-
+        </div>
+        <div className="background-container mb-4">
+          <h2>Fuel Financials</h2>
+<p className='steps-text'>Live pricing & margin intelligence</p>
         <div className="gen-grid pb-4">
+          
           <div className="project-inf-box">
-            <h4 className="box-text">Fuel Purchase Price</h4>
-            <p className="box-insert">{project.amount}</p>
+            <h4 className="box-text">Purchase Price</h4>
+            <p className="box-insert">{project.amount} SAR/L</p>
+           
           </div>
           <div className="project-inf-box">
-            <h4 className="box-text">Fuel Selling Price</h4>
-            <p className="box-insert">{project.selling_price}</p>
+            <h4 className="box-text">Selling Price</h4>
+            <p className="box-insert">{project.selling_price} SAR/L</p>
           </div>
-          <div className="project-inf-box">
-            <h4 className="box-text">Estimated Earnings</h4>
-            <p className="box-insert">{project.selling_price}</p>
+          <div className="project-inf-box-green">
+            <h4 className="box-text">Profit</h4>
+            <p className="box-insert">{project.selling_price} SAR/L</p>
           </div>
         </div>
       </div>
