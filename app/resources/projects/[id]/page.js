@@ -122,14 +122,14 @@ export default function ProjectDetailPage() {
         )}
 
         <div />
-        <button  className="button-big mb-4">  <Link
+        <button  className="button-big">  <Link
        
        href={`/resources/projects/${projectId}/new/`}
      >
        
        Add Fuel Transaction
      </Link></button>
-     <div className="divider-full mb-4"></div>
+     <div className="divider-full mb-2 mt-3"></div>
    
 
         <div className="flex items-start">
@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
         </div>
         <div
           onClick={() => toggleCard('generators')}
-          className="flex flex-row mt-4 pb-2 border-b border-b-gray-200 align-middle"
+          className="flex flex-row mt-2 pb-2 border-b border-b-gray-200 align-middle"
         >
           <p className="">Generators</p>
           <ChevronDown

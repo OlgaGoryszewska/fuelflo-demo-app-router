@@ -183,8 +183,18 @@ export default function Dashboard() {
           <PersonIcon />
           Profile
         </Link>
+        <div className='divider-full mt-2 mb-2'></div>
+        <button  className="button-big">  <Link
+       
+       href={`/resources/projects/`}
+     >
+       
+       Add Fuel Transaction
+     </Link></button>
+    
       </div>
-      <div className='divider-full mt-2'></div>
+     
+      
     </div>
   );
 }

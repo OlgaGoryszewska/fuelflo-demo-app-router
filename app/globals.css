@@ -645,7 +645,7 @@ li a:hover {
   border: 1px solid var(--primary-gray-light);
 }
 .project-inf-box {
-  background: linear-gradient(to top, #fff 70%, #fff7e4);
+  background: #fff;
 }
 .box-text {
   padding: 0.6rem;
