@@ -68,9 +68,9 @@ export default function ProfilePage() {
 
   return (
     <div className="">
-      <div className="form-header ">
-        <h1 className="ml-2">My Profile</h1>
-      </div>
+
+        <h1 className="ml-2 mt-2 hidden ">My Profile</h1>
+
       <div className="">
         <div className="banner">
           <Image src={banner} alt="banner" fill className="banner" />

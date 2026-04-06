@@ -19,6 +19,7 @@ import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import CachedIcon from '@mui/icons-material/Cached';
 import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
 import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -30,7 +31,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="m-2.5">
-        <div className="form-header mb-4">
+        <div className="form-header ">
           <h1 className="ml-2">dashboard</h1>
         </div>
         <div
@@ -79,7 +80,7 @@ export default function Dashboard() {
               <UndoOutlinedIcon />
               Returns
             </Link>
-            <Link href="/resources/transactions/new" className="card-button">
+            <Link href="/resources/projects/" className="card-button">
               <AddOutlinedIcon />
               Add New Transaction
             </Link>
@@ -168,8 +169,9 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
+        <div className='divider-full mt-2'></div>
 
-        <Link href="/operations/create-qr-code" className="form-button mt-4">
+        <Link href="/operations/create-qr-code" className="form-button mt-2">
           <QrCodeOutlinedIcon />
           Create a new QR Code
         </Link>
@@ -177,7 +179,12 @@ export default function Dashboard() {
           <AssessmentOutlinedIcon />
           Reports
         </Link>
+        <Link href="/resources/profile" className="form-button">
+          <PersonIcon />
+          Profile
+        </Link>
       </div>
+      <div className='divider-full mt-2'></div>
     </div>
   );
 }

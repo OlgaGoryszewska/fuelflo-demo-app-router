@@ -20,8 +20,10 @@ export default function TransactionDetailPage() {
     async function fetchTransaction() {
       if (!transactionId) return;
 
+
       setLoading(true);
       setErrorMessage('');
+      console.log(id);
 
       const { data, error } = await supabase
         .from('fuel_transactions')

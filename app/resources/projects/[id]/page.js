@@ -104,6 +104,14 @@ export default function ProjectDetailPage() {
           <div>Active</div>
         </div>
         <div className="divider-full"></div>
+        <button  className="button-big ">  <Link
+       
+       href={`/resources/projects/${projectId}/new/`}
+     >
+       
+       Add Fuel Transaction
+     </Link></button>
+   
 
         {project.location && (
           <div className="w-full h-64">
@@ -314,14 +322,7 @@ export default function ProjectDetailPage() {
           <p className="generator-localisation">{project.mobile ?? '-'}</p>
         </div>
       </div>
-      <button  className="button-big ">  <Link
-       
-        href={`/resources/projects/${projectId}/new/`}
-      >
-        <AddOutlinedIcon />
-        Add Fuel Transaction
-      </Link></button>
-    
+     
     </div>
   );
 }
