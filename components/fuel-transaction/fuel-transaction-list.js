@@ -39,7 +39,7 @@ export default function FuelTransactionsList({ transactions = [] }) {
   return (
     <div className="generator-container mb-4">
       <div className="form-header-with-button">
-        <BoltOutlinedIcon />
+        <BoltOutlinedIcon className='gray-icon' />
         <h3 className="ml-2 uppercase">Fuel Transactions</h3>
       </div>
 

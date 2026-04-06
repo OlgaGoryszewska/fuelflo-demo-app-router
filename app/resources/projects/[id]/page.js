@@ -96,25 +96,19 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="main-container">
-      <div className="form-header ">
-        <h1 className="ml-2">{project.name}</h1>
-      </div>
+    
       <div className="background-container mb-4">
+      <div className="form-header ">
+        <h1 className="mt-2">{project.name}</h1>
         <div className=" small-button-green ml-auto ">
           <div>Active</div>
         </div>
-        <div className="divider-full"></div>
-        <button  className="button-big ">  <Link
-       
-       href={`/resources/projects/${projectId}/new/`}
-     >
-       
-       Add Fuel Transaction
-     </Link></button>
-   
-
+      </div>
+    
+        <div className="divider-full mb-2"></div>
+ 
         {project.location && (
-          <div className="w-full h-64">
+          <div className="w-full h-54 mb-4">
             <iframe
               title="Project location map"
               className="w-full h-full rounded-lg border-0"
@@ -128,8 +122,18 @@ export default function ProjectDetailPage() {
         )}
 
         <div />
+        <button  className="button-big mb-4">  <Link
+       
+       href={`/resources/projects/${projectId}/new/`}
+     >
+       
+       Add Fuel Transaction
+     </Link></button>
+     <div className="divider-full mb-4"></div>
+   
+
         <div className="flex items-start">
-          <LocationOnOutlinedIcon />
+          <LocationOnOutlinedIcon className='gray-icon' />
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -137,29 +141,29 @@ export default function ProjectDetailPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="generator-localisation underline ml-2 text-blue-600"
+              className="underline ml-2 steps-text"
             >
               {project.location}
             </Link>
           ) : (
-            <p className="generator-localisation">Lack of information</p>
+            <p className="steps-text">Lack of information</p>
           )}
         </div>
         <div className="flex flex-col justify-between ">
           <div className="flex flex-row justyfy-center items-center">
-            <InsertInvitationOutlinedIcon className='mr-2'/>
-            <p>Starting date</p>
+            <InsertInvitationOutlinedIcon className='mr-2 gray-icon'/>
+            <p className="steps-text">Starting date</p>
             <div className="date-box">
-              <p className="generator-localisation">
+              <p className="steps-text">
                 {project.start_date ?? 'Lack of information'}
               </p>
             </div>
           </div>
           <div className="flex flex-row justyfy-center items-center">
-            <InsertInvitationOutlinedIcon className='mr-2'/>
-            <p>End date</p>
+            <InsertInvitationOutlinedIcon className='mr-2 gray-icon'/>
+            <p className='steps-text'>End date</p>
             <div className="date-box">
-              <p className="generator-localisation">
+              <p className="steps-text">
                 {project.end_date ?? 'Lack of information'}
               </p>
             </div>
@@ -176,7 +180,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'generators' && (
           <div className="card-button">
-            <BoltOutlinedIcon />
+            <BoltOutlinedIcon  />
 
             <p>
               {project.generator_id
@@ -196,7 +200,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'tanks' && (
           <div className="card-button">
-            <OilBarrelOutlinedIcon />
+            <OilBarrelOutlinedIcon  />
 
             <p>
               {project.tank ? project.tank : 'No external tanks connected.'}
@@ -215,7 +219,7 @@ export default function ProjectDetailPage() {
         </div>
         {openCard === 'technicians' && (
           <div className="card-button">
-            <EngineeringOutlinedIcon />
+            <EngineeringOutlinedIcon  className='gray-icon' />
 
             <p>
               {project.technician
@@ -243,7 +247,7 @@ export default function ProjectDetailPage() {
 
       <div className="generator-container mb-4">
         <div className="form-header-with-button ">
-          <BoltOutlinedIcon />
+          <BoltOutlinedIcon  className='gray-icon' />
           <h3 className="ml-2 uppercase">Fuel Transactions</h3>
         </div>
         <div className='divider-full '></div>
@@ -265,8 +269,8 @@ export default function ProjectDetailPage() {
       </div>
       <div className="background-container mb-4">
         <div className="form-header ">
-          <Person4OutlinedIcon className='mr-2'/>
-          <h3 className="ml-2 uppercase">event organizer</h3>
+         
+          <h3 className=" uppercase">event organizers</h3>
        
         </div>
         <div className='divider-full '></div>
@@ -279,7 +283,7 @@ export default function ProjectDetailPage() {
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <LocationOnOutlinedIcon className='mr-2'/>
+          <LocationOnOutlinedIcon className=' mr-2'/>
           <p className="generator-localisation">
             {project.contractor_address ?? '-'}
           </p>
@@ -295,8 +299,8 @@ export default function ProjectDetailPage() {
       </div>
       <div className="background-container mb-4">
         <div className="form-header">
-          <Person4OutlinedIcon className='mr-2'/>
-          <h3 className="ml-2 uppercase">fuel suppliers</h3>
+          
+          <h3 className=" uppercase">fuel suppliers</h3>
         </div>
         <div className='divider-full '></div>
 
