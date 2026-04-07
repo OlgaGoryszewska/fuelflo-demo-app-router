@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 
 function formatDate(dateValue) {
   if (!dateValue) return '-';
@@ -31,9 +30,9 @@ function FuelTransactionRow({ transaction }) {
         {formatDate(transaction.created_at)}
       </Link>
 
-      <span>
+      
         {sign} {difference.toFixed(2)} L
-      </span>
+      
     </li>
   );
 }
@@ -41,17 +40,13 @@ function FuelTransactionRow({ transaction }) {
 export default function FuelTransactionsList({ transactions = [] }) {
   return (
     <div className="generator-container mb-4">
-      <div className="form-header-with-button">
-        <BoltOutlinedIcon className="gray-icon" />
-        <h3 className="ml-2 uppercase">Fuel Transactions</h3>
-      </div>
 
-      <div className="divider-full"></div>
-
+        <h2 className=" ">Fuel Transactions</h2>
       <div className="flex flex-col w-full">
-        <div className="background-header p-0 w-full flex justify-between">
-          <p>Date</p>
-          <p>Vol</p>
+        <div className="pr-2 w-full flex justify-between">
+
+        <h4 >Date</h4>
+        <h4 >Vol</h4>
         </div>
 
         <ul className="flex flex-col w-full">

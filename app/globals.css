@@ -109,7 +109,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Poppins, sans-serif;
-  background: linear-gradient( #fcfeff , #c5d6e1);
+
+  background: #e2ecfc;
   color: var(--primary-black);
   font-size: 16px;
 }
@@ -117,6 +118,7 @@ body {
 .open-card,
 form,
 .generator-container,
+
 .background-container,
 .background-container-white {
   display: flex;
@@ -390,13 +392,12 @@ button:active,
   justify-content: space-between;
   width: 100%;
   padding: 0.6rem;
-  color: var(--primary-mid-gray);
   background-color: white;
-  border-radius: 25px;
+  border-radius: 5px;
   margin-bottom: 0.2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(65, 70, 74, 0.1);
   border: 1px solid var(--primary-gray-light);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
@@ -479,11 +480,9 @@ li a:hover {
   width: 100px;
   height: 100px;
   position: absolute;
-
   bottom: -60px; /* pushes it halfway outside */
   left: 50%;
   transform: translateX(-50%);
-
   border: 2px solid white; /* optional, looks clean */
 }
 .gray-icon {

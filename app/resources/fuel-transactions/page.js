@@ -48,6 +48,7 @@ export default function FuelTransactionsPage() {
       {!loading && !error && transactions.length > 0 && (
         <FuelTransactionsList transactions={transactions} />
       )}
+      
     </div>
   );
 }

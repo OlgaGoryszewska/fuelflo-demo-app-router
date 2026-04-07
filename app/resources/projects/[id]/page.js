@@ -7,15 +7,16 @@ import { ChevronDown } from 'lucide-react';
 
 import Link from 'next/link';
 import formatDate from '@/components/FormatDate';
+import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
 // icons
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import InsertInvitationOutlinedIcon from '@mui/icons-material/InsertInvitationOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
+
 
 export default function ProjectDetailPage() {
   const { id: projectId } = useParams();
@@ -96,6 +97,7 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="main-container">
+      
       <div className="background-container-white mb-4">
         <h2 className="mt-2">Project Details</h2>
         <h4 className="h-mid-gray-s">{project.name}</h4>
@@ -137,7 +139,7 @@ export default function ProjectDetailPage() {
         
         <div className="grid grid-cols-2 gap-2">
         <div className="container-flex ">
-          <h4 className="">Starting date</h4>
+          <h4 >Starting date</h4>
           <p className="steps-text">
             {formatDate(project.start_date ?? 'Lack of information')}
           </p>
@@ -153,6 +155,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
+   
       <div className="background-container mb-4">
         <p className="steps-text">Assigned to the project</p>
 
@@ -216,6 +219,13 @@ export default function ProjectDetailPage() {
           </div>
         )}
       </div>
+      <FuelTransactionsList/>
+      <button className="button-big">
+        {' '}
+        <Link href={`/resources/projects/${projectId}/new/`}>
+          Add Fuel Transaction
+        </Link>
+      </button>
       <div className="background-container mb-4">
         <h2>Fuel Financials</h2>
         <p className="steps-text">Live pricing & margin intelligence</p>
@@ -234,12 +244,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
-      <button className="button-big">
-        {' '}
-        <Link href={`/resources/projects/${projectId}/new/`}>
-          Add Fuel Transaction
-        </Link>
-      </button>
+     
 
       <div className="background-container mb-4">
         <div className="form-header ">
