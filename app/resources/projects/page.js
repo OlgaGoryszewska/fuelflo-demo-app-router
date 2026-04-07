@@ -32,7 +32,7 @@ export default function OngoingProjectsPage() {
         <p className="steps-text ml-2 mb-2">Choose a project </p>
         <ul className="flex flex-col gap-1 ">
           {projects.map((p) => (
-            <li className="card-button" key={p.id}>
+            <li className="file-row" key={p.id}>
               {' '}
               <Link href={`/resources/projects/${p.id}`}>{p.name}</Link>
             </li>

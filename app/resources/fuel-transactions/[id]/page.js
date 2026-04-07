@@ -10,7 +10,7 @@ import avatar from '@/public/avatar.png';
 
 export default function TransactionDetailPage() {
   const params = useParams();
-  const { id, transactionId } = params;
+  const { id} = params;
 
   const [transaction, setTransaction] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,9 +18,10 @@ export default function TransactionDetailPage() {
 
   useEffect(() => {
     async function fetchTransaction() {
-      if (!transactionId) return;
+      if (!id)
+      return;
 
-      setLoading(true);
+
       setErrorMessage('');
       console.log(id);
 
@@ -53,7 +54,7 @@ export default function TransactionDetailPage() {
             name)
         `
         )
-        .eq('id', transactionId)
+        .eq('id', id)
         .single();
 
       if (error) {
@@ -67,7 +68,7 @@ export default function TransactionDetailPage() {
     }
 
     fetchTransaction();
-  }, [transactionId]);
+  }, [id]);
 
   async function copyToClipboard(value) {
     try {

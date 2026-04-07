@@ -457,9 +457,10 @@ li a:hover {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  background: linear-gradient(to right, #fff 50%, #fee39f);
   height: 50px;
   border-bottom: 1px solid var(--primary-gray-light);
+  /*background: linear-gradient(to right, #fff 50%, #fee39f);*/
+
 }
 .avatar-big,
 .avatar {

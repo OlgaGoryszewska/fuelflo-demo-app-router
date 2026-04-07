@@ -7,7 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 import Link from 'next/link';
 import formatDate from '@/components/FormatDate';
-import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
+import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList.js'
 // icons
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
@@ -54,6 +54,7 @@ export default function ProjectDetailPage() {
         'specification',
         'additional',
         'company_name',
+        
       ].join(',');
 
       const idValue = isNaN(Number(projectId)) ? projectId : Number(projectId);
@@ -154,10 +155,8 @@ export default function ProjectDetailPage() {
           </p>
           </div>
         </div>
-      </div>
-   
-      <div className="background-container mb-4">
-        <p className="steps-text">Assigned to the project</p>
+      
+        <p className="steps-text mt-4">Assigned to the project</p>
 
         <div
           onClick={() => toggleCard('generators')}
@@ -219,13 +218,8 @@ export default function ProjectDetailPage() {
           </div>
         )}
       </div>
-      <FuelTransactionsList/>
-      <button className="button-big">
-        {' '}
-        <Link href={`/resources/projects/${projectId}/new/`}>
-          Add Fuel Transaction
-        </Link>
-      </button>
+      <ProjectFuelTransactionList projectId={projectId} />
+      
       <div className="background-container mb-4">
         <h2>Fuel Financials</h2>
         <p className="steps-text">Live pricing & margin intelligence</p>
