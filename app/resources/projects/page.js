@@ -29,12 +29,12 @@ export default function OngoingProjectsPage() {
         <div className="form-header ">
           <h1 className="ml-2">Projects</h1>
         </div>
-        <p className='steps-text ml-2 mb-2'>Choose a project </p>
+        <p className="steps-text ml-2 mb-2">Choose a project </p>
         <ul className="flex flex-col gap-1 ">
           {projects.map((p) => (
             <li className="card-button" key={p.id}>
               {' '}
-              <Link  href={`/resources/projects/${p.id}`}>{p.name}</Link>
+              <Link href={`/resources/projects/${p.id}`}>{p.name}</Link>
             </li>
           ))}
         </ul>

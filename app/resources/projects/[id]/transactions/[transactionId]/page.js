@@ -7,6 +7,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
+import formatDate from '@/components/FormatDate';
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -78,18 +79,6 @@ export default function TransactionDetailPage() {
 
   function shortId(value) {
     return value ? `${value.slice(0, 8)}...` : 'N/A';
-  }
-
-  function formatDate(dateValue) {
-    if (!dateValue) return '-';
-
-    return new Date(dateValue).toLocaleString('en-GB', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
   }
 
   if (loading) {

@@ -20,7 +20,10 @@ function FuelTransactionRow({ transaction }) {
   const sign = transaction.type === 'delivery' ? '+' : '-';
 
   return (
-    <li className="file-row w-full flex items-center justify-between" key={transaction.id}>
+    <li
+      className="file-row w-full flex items-center justify-between"
+      key={transaction.id}
+    >
       <Link
         className="steps-text"
         href={`/resources/fuel-transactions/${transaction.id}`}
@@ -39,7 +42,7 @@ export default function FuelTransactionsList({ transactions = [] }) {
   return (
     <div className="generator-container mb-4">
       <div className="form-header-with-button">
-        <BoltOutlinedIcon className='gray-icon' />
+        <BoltOutlinedIcon className="gray-icon" />
         <h3 className="ml-2 uppercase">Fuel Transactions</h3>
       </div>
 

@@ -68,8 +68,7 @@ export default function ProfilePage() {
 
   return (
     <div className="">
-
-        <h1 className="ml-2 mt-2 hidden ">My Profile</h1>
+      <h1 className="ml-2 mt-2 hidden ">My Profile</h1>
 
       <div className="">
         <div className="banner">

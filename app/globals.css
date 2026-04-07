@@ -3,7 +3,7 @@
 :root {
   --primary-orange: #ff8a00;
   --primary-orange-light: #febd20;
-  --primary-black: #0f1726;
+  --primary-black: #171e2c;
   --button-black: #0f1726;
   --primary-mid-black: #47484a;
   --primary-gray-light: #e5e7eb;
@@ -36,12 +36,17 @@ h3,
 label {
   font-size: 16px;
   color: var(--primary-mid-gray);
- 
 }
+.s-bold-text,
 h4 {
   font-size: 14px;
   font-weight: 500;
   color: var(--slate-dark);
+}
+.s-bold-text{
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 0.6rem;
 }
 .nr-big {
   font-size: 38px;
@@ -104,9 +109,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Poppins, sans-serif;
-  background: linear-gradient(to bottom right, #fcfeff 0%, #c5d6e1 100%);
+  background: linear-gradient( #fcfeff , #c5d6e1);
   color: var(--primary-black);
-  min-height: 100vh;
   font-size: 16px;
 }
 
@@ -395,7 +399,6 @@ button:active,
   font-size: 14px;
   color: var(--primary-mid-gray);
   font-weight: 100;
- 
 }
 
 li {
@@ -483,7 +486,7 @@ li a:hover {
 
   border: 2px solid white; /* optional, looks clean */
 }
-.gray-icon{
+.gray-icon {
   color: var(--slate-dark);
 }
 .button-icon,
@@ -557,7 +560,6 @@ li a:hover {
   align-content: center;
   flex-direction: row;
   padding-bottom: 0.2rem;
-  
 }
 .form-header-steps {
   border-bottom: 1px solid var(--primary-gray-light);
@@ -646,7 +648,7 @@ li a:hover {
   margin-top: 1rem;
   border: 1px solid var(--primary-gray-light);
 }
-.project-inf-box-green{
+.project-inf-box-green {
   background: linear-gradient(to top, #fff, #e4f7c1);
 }
 .box-text {
@@ -656,7 +658,6 @@ li a:hover {
 .box-insert {
   padding: 0.6rem;
   padding-top: 0px;
-
 }
 .gen-grid {
   display: grid;
