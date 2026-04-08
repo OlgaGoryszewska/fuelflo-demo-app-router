@@ -462,6 +462,7 @@ li a:hover {
   /*background: linear-gradient(to right, #fff 50%, #fee39f);*/
 
 }
+
 .avatar-big,
 .avatar {
   margin-bottom: 1rem;
@@ -473,8 +474,13 @@ li a:hover {
 .banner {
   width: 100%;
   height: 100px;
-
   position: relative;
+}
+.banner-tin {
+  width: 100%;
+  height: 50px;
+  
+
 }
 
 .avatar-big {
@@ -485,7 +491,10 @@ li a:hover {
   left: 50%;
   transform: translateX(-50%);
   border: 2px solid white; /* optional, looks clean */
+
 }
+
+
 .gray-icon {
   color: var(--slate-dark);
 }

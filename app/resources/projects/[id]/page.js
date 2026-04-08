@@ -5,6 +5,9 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import { ChevronDown } from 'lucide-react';
 
+
+import Image from 'next/image';
+import banner from '@/public/banner.jpg';
 import Link from 'next/link';
 import formatDate from '@/components/FormatDate';
 import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList.js'
@@ -241,60 +244,62 @@ export default function ProjectDetailPage() {
      
 
       <div className="background-container mb-4">
-        <div className="form-header ">
-          <h3 className=" uppercase">event organizers</h3>
-        </div>
-        <div className="divider-full "></div>
-
-        <h2>{project.contractor_name ?? '-'}</h2>
-        <div className="flex gap-2align-center mb-2">
-          <ApartmentOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">
+        <h2>Contact to Partners</h2>
+          <div className='flex flex-col justify-center items-center'>
+          <Image src={banner} alt="banner" className="banner-tin" />
+          <h2 className='h-mid-gray-s'>{project.contractor_name ?? '-'}</h2>
+          <h4 >Event organizer</h4>
+          </div>
+        <div className="flex  align-center mb-2">
+          <ApartmentOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <LocationOnOutlinedIcon className=" mr-2" />
-          <p className="generator-localisation">
+          <LocationOnOutlinedIcon className="  gray-icon mr-2" />
+          <p className="steps-text">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <AlternateEmailOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">{project.email ?? '-'}</p>
+          <AlternateEmailOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <CallOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">{project.mobile ?? '-'}</p>
+          <CallOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text
+          ">{project.mobile ?? '-'}</p>
+          
         </div>
-      </div>
-      <div className="background-container mb-4">
-        <div className="form-header">
-          <h3 className=" uppercase">fuel suppliers</h3>
-        </div>
-        <div className="divider-full "></div>
-
-        <h2>{project.contractor_name ?? '-'}</h2>
-        <div className="flex align-center mb-2">
-          <ApartmentOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">
+        <div className='flex flex-col justify-center items-center'>
+          <div className='divider-full'></div>
+          <h2 className='h-mid-gray-s'>{project.contractor_name ?? '-'}</h2>
+          <h4 >Fuel Supplier</h4>
+          </div>
+        <div className="flex  align-center mb-2">
+          <ApartmentOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text">
             {project.company_name ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <LocationOnOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">
+          <LocationOnOutlinedIcon className="  gray-icon mr-2" />
+          <p className="steps-text">
             {project.contractor_address ?? '-'}
           </p>
         </div>
         <div className="flex align-center mb-2">
-          <AlternateEmailOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">{project.email ?? '-'}</p>
+          <AlternateEmailOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text">{project.email ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
-          <CallOutlinedIcon className="mr-2" />
-          <p className="generator-localisation">{project.mobile ?? '-'}</p>
+          <CallOutlinedIcon className=" gray-icon mr-2" />
+          <p className="steps-text
+          ">{project.mobile ?? '-'}</p>
+          
         </div>
+        
       </div>
     </div>
   );

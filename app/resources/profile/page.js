@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
       <div className="">
         <div className="banner">
-          <Image src={banner} alt="banner" fill className="banner" />
+          <Image src={banner} alt="banner" className="banner" />
           <Image className="avatar-big" src={avatar} alt="avatar img" />
         </div>
 

@@ -29,7 +29,9 @@ export default function OngoingProjectsPage() {
         <div className="form-header ">
           <h1 className="ml-2">Projects</h1>
         </div>
-        <p className="steps-text ml-2 mb-2">Choose a project </p>
+        <div className='background-container'>
+           <h2>Choose a project</h2>
+        <p className="steps-text mb-2">Before adding fuel transaction </p>
         <ul className="flex flex-col gap-1 ">
           {projects.map((p) => (
             <li className="file-row" key={p.id}>
@@ -38,6 +40,7 @@ export default function OngoingProjectsPage() {
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </div>
   );
