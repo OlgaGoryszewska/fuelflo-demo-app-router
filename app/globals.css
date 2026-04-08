@@ -18,7 +18,7 @@
   --slate-dark: #62748e;
 }
 h1 {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--primary-mid-gray);
   padding-right: 1rem;
   text-transform: uppercase;
@@ -411,7 +411,6 @@ li a {
   text-decoration: none;
   color: var(--primary-black);
   font-size: 20px;
-  padding-left: 0.6rem;
 }
 
 li a:hover {
@@ -444,7 +443,7 @@ li a:hover {
   padding-right: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   right: 0;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 .hamburger {
   width: 40px;
@@ -479,7 +478,7 @@ li a:hover {
 .banner-tin {
   width: 100%;
   height: 50px;
-  
+
 
 }
 

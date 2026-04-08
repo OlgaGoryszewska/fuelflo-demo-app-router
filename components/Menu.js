@@ -68,7 +68,7 @@ export default function Menu() {
       </nav>
 
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
-        <li>
+        <li className="pl-2">
           <Link onClick={handleLinkClick} href="/">
             Home
           </Link>
@@ -77,17 +77,17 @@ export default function Menu() {
         {/* 🧠 ONLY show dashboard if logged in */}
         {user && (
           <>
-            <li>
+            <li className="pl-2">
               <Link onClick={handleLinkClick} href="/operations/dashboard">
                 Dashboard
               </Link>
             </li>
-            <li>
+            <li className="pl-2">
               <Link onClick={handleLinkClick} href="/resources/projects/">
                 Add fuel transaction
               </Link>
             </li>
-            <li>
+            <li className="pl-2">
               <Link onClick={handleLinkClick} href="/resources/profile/">
                 Profile
               </Link>
@@ -98,7 +98,7 @@ export default function Menu() {
         {/* 🔐 If NOT logged in */}
         {!user && (
           <>
-            <li>
+            <li className="pl-2">
               <Link onClick={handleLinkClick} href="/signIn">
                 Login
               </Link>
