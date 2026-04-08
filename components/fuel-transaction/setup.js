@@ -82,8 +82,8 @@ export default function Setup({ formData, setFormData }) {
       {scanError && <p className="mt-2 text-sm text-red-600">{scanError}</p>}
 
       {formData.generator_name && (
-        <p className="mt-2 text-sm text-green-700">
-          Selected generator: <span className="font-medium">{formData.generator_name}</span>
+        <p className="mt-2 mb-2 steps-text text-green-700">
+          Selected generator: <span className="steps-test">{formData.generator_name}</span>
         </p>
       )}
 
