@@ -103,7 +103,7 @@ export default function Dashboard() {
               <EngineeringOutlinedIcon />
               Managers
             </Link>
-            <Link href="/ongoing-technicians-page" className="card-button">
+            <Link href="/resources/technicians/" className="card-button">
               <EngineeringOutlinedIcon />
               Technicians
             </Link>
