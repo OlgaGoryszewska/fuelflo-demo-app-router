@@ -19,8 +19,7 @@ export default function FetchGeneratorsByName() {
       setQrError(null);
       setSelected(generator);
 
-      // Put inside QR whatever you want to scan later:
-      // Recommended: JSON (easy to extend later)
+      
       const payload = JSON.stringify({ generatorId: generator.id });
 
       const svgString = await QRCode.toString(payload, {
@@ -84,11 +83,14 @@ export default function FetchGeneratorsByName() {
 
   return (
     <div className="main-container">
-      <div className="form-header mb-4">
+      <div className="form-header ">
         <h1 className="ml-2">Create QR Code</h1>
       </div>
+      
+
 
       <form className="p-4" onSubmit={(e) => e.preventDefault()}>
+      <h2> QR code generator for generators</h2>
         <p>Search for generator by name</p>
 
         <input
