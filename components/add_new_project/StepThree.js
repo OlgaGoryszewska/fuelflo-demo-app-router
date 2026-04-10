@@ -1,8 +1,12 @@
+'use client';
+
 import GeneratorDropdown from './GeneratorDropdown';
+import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 
 export default function StepThree({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -10,31 +14,105 @@ export default function StepThree({ formData, setFormData }) {
   };
 
   const handleGeneratorChange = (id) => {
-    console.log('Selected generator:', id); // TEMP
     setFormData((prevData) => ({
       ...prevData,
       generator_id: id,
     }));
   };
 
+  const handleTechnicianSelect = (technician) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      selectedTechnician: technician || null,
+    }));
+  };
+
+  const handleAddTechnician = () => {
+    const selected = formData.selectedTechnician;
+
+    if (!selected || !selected.id) return;
+
+    const alreadyExists = formData.technicians.some(
+      (tech) => String(tech.id) === String(selected.id)
+    );
+
+    if (alreadyExists) return;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      technicians: [...prevData.technicians, selected],
+      technician_ids: [...prevData.technician_ids, selected.id],
+      selectedTechnician: null,
+    }));
+  };
+
+  const handleRemoveTechnician = (technicianId) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      technicians: prevData.technicians.filter(
+        (tech) => String(tech.id) !== String(technicianId)
+      ),
+      technician_ids: prevData.technician_ids.filter(
+        (id) => String(id) !== String(technicianId)
+      ),
+    }));
+  };
+
   return (
     <div className="m-4">
       <h2>Setup</h2>
-      <label>
-        Add Technician:
-        <input
-          name="technician"
-          type="text"
-          value={formData.technician}
-          onChange={handleChange}
+
+      <label className="block mb-2">Add Technician:</label>
+
+      <div className="flex gap-2 items-center mb-4">
+        <TechniciansDropdown
+          value={formData.selectedTechnician?.id || ''}
+          onChange={handleTechnicianSelect}
         />
-      </label>
+
+        <button
+          type="button"
+          onClick={handleAddTechnician}
+          className="button-secondary"
+        >
+          Add
+        </button>
+      </div>
+
+      <div className="mb-6">
+        {formData.technicians.length === 0 ? (
+          <p>No technicians assigned yet.</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {formData.technicians.map((tech) => (
+              <div
+                key={tech.id}
+                className="file-row w-full flex items-center justify-between"
+              >
+                <span>{tech.name}</span>
+
+                <button
+                  type="button"
+                  onClick={() => handleRemoveTechnician(tech.id)}
+                  className="text-red-500"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <h2 className="mt-4">Add Fleet</h2>
+
+      <label className="block mb-2">Add Generator:</label>
       <GeneratorDropdown
         value={formData.generator_id}
         onChange={handleGeneratorChange}
       />
-      <label>
+
+      <label className="block mt-4">
         Add Fuel Tank:
         <input
           name="tank"

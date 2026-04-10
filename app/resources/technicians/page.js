@@ -46,7 +46,7 @@ export default function OngoingProjectsPage() {
         <ul className="flex flex-col gap-1 ">
           {profile.map((p) => (
             <li className="file-row " key={p.id}>
-              <Link className='steps-text' href={`/resources/projects/${p.id}`}>{p.full_name}</Link>
+              <Link className='steps-text' href={`/resources/technicians/${p.id}`}>{p.full_name}</Link>
               <p className='steps-text '> {formatDateShort(p.start_date)}</p>
             </li>
           ))}

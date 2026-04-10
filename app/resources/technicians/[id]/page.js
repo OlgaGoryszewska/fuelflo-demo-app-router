@@ -1,74 +1,67 @@
-/*'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 import banner from '@/public/banner.jpg';
 
-export default function ProfilePage() {
-  const router = useRouter();
+export default function TechnicianDetailPage() {
+  const { id } = useParams();
 
-  const [profile, setProfile] = useState(null);
+  const [technician, setTechnician] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchProfile() {
-      try {
-        const {
-          data: { user },
-          error: userError,
-        } = await supabase.auth.getUser();
+    if (!id) return;
 
-        console.log('user:', user);
+    async function load() {
+      setError(null);
+      setLoading(true);
 
-        if (userError || !user) {
-          router.push('/signIn');
-          return;
-        }
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, email, full_name, phone, role, address')
+        .eq('id', id)
+        .maybeSingle();
 
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('id, email, full_name, phone, role, address')
-          .eq('id', user.id)
-          .maybeSingle();
-
-        console.log('profile:', data);
-
-        if (error) {
-          throw error;
-        }
-
-        if (!data) {
-          setErrorMessage('No profile found for this user.');
-          return;
-        }
-
-        setProfile(data);
-      } catch (error) {
-        setErrorMessage(error.message || 'Could not load profile.');
-      } finally {
-        setLoading(false);
+      if (error) {
+        setError(error.message);
+        setTechnician(null);
+      } else {
+        setTechnician(data);
       }
+      setLoading(false);
     }
 
-    fetchProfile();
-  }, [router]);
+    load();
+  }, [id]);
 
-  if (loading) {
-    return <p>Loading profile...</p>;
-  }
-
-  if (errorMessage) {
-    return <p>{errorMessage}</p>;
-  }
+  if (loading)
+    return (
+      <div className="main-container">
+        <div className="background-container">Loading…</div>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="main-container">
+        <div className="background-container">Error: {error}</div>
+      </div>
+    );
+  if (!technician)
+    return (
+      <div className="main-container">
+        <div className="background-container">Technician not found.</div>
+      </div>
+    );
 
   return (
     <div className="">
-      <h1 className="ml-2 mt-2 hidden ">My Profile</h1>
+      <h1 className="ml-2 mt-2 hidden ">Technician page</h1>
 
       <div className="">
         <div className="banner">
@@ -77,20 +70,20 @@ export default function ProfilePage() {
         </div>
 
         <div className="main-container">
-          <h2 className="m-auto mt-10">{profile?.full_name}</h2>
+          <h2 className="m-auto mt-10">{technician?.full_name}</h2>
           <div className="background-container mt-2">
             <p className="h-mid-gray-s"> Contact</p>
-            <p className="steps-text"> {profile?.phone}</p>
-            <p className="steps-text"> {profile?.email}</p>
+            <p className="steps-text"> {technician?.phone}</p>
+            <p className="steps-text"> {technician?.email}</p>
             <div className="divider-full"></div>
             <p className="h-mid-gray-s">Rolle</p>
-            <p className="steps-text"> {profile?.role}</p>
+            <p className="steps-text"> {technician?.role}</p>
             <div className="divider-full"></div>
             <p className="h-mid-gray-s">Address</p>
-            <p className="steps-text">{profile?.address}</p>
+            <p className="steps-text">{technician?.address}</p>
           </div>
         </div>
       </div>
     </div>
   );
-}*/
+}

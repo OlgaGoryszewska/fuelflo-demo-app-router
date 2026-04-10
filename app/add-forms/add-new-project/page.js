@@ -26,7 +26,9 @@ export default function AddProjectPage() {
     contractor_address: '',
     email: '',
     mobile: '',
-    technician: '',
+    selectedTechnician: null,
+    technicians: [],
+    technician_ids: [],
     generator_id: '',
     tank: '',
     amount: '',
@@ -71,18 +73,33 @@ export default function AddProjectPage() {
         contractor_address: '',
         email: '',
         mobile: '',
-        technician: '',
+        selectedTechnician: null,
+        technicians: [],
+        technician_ids: [],
         generator_id: '',
         tank: '',
         amount: '',
         selling_price: '',
         specification: '',
         additional: '',
+
       });
       setCurrentStep(0);
     } catch (err) {
       console.error('Error inserting project:', err.message);
       alert('Failed to add project');
+    }
+    if (formData.technician_ids.length > 0) {
+      const technicianRelations = formData.technician_ids.map((technicianId) => ({
+        projects_id: projectData.id,
+        profiles_id: technicianId,
+      }));
+    
+      const { error: relationError } = await supabase
+        .from('profiles_projects')
+        .insert(technicianRelations);
+    
+      if (relationError) throw relationError;
     }
   };
 

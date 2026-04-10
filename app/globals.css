@@ -586,9 +586,10 @@ li a:hover {
 .form-footer {
   display: flex;
   flex-direction: row;
+  padding: 1rem;
   gap: 1rem;
   justify-content: space-between;
-  padding-top: 1rem;
+
   border-top: 1px solid var(--primary-gray-light);
 }
 .progresion-number {
