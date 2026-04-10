@@ -73,7 +73,7 @@ export default function StepThree({ formData, setFormData }) {
         <button
           type="button"
           onClick={handleAddTechnician}
-          className="button-secondary"
+          className="underline-link"
         >
           Add
         </button>
@@ -94,7 +94,7 @@ export default function StepThree({ formData, setFormData }) {
                 <button
                   type="button"
                   onClick={() => handleRemoveTechnician(tech.id)}
-                  className="text-red-500"
+                  className="underline-link"
                 >
                   Remove
                 </button>
