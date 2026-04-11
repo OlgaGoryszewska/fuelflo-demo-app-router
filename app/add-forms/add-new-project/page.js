@@ -102,7 +102,7 @@ export default function AddProjectPage() {
       }
 
       alert('Project added successfully!');
-      router.push(`/resources/ongoing-projects-page/${projectData.id}`);
+      router.push(`/resources/projects/${projectData.id}`);
 
       setFormData({
         name: '',

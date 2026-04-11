@@ -1,90 +1,94 @@
 'use client';
 
+
+
 export default function StepFive({ formData }) {
   return (
     <div className="mx-4 ">
-      <h3 className="text-primary-gray-light">Review Before Submitting</h3>
+      <h2 className="">Review Before Submitting</h2>
 
-      <h3 className="form-header-gray">Project Specification</h3>
+      <h2 className="">Project Specification</h2>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined ">brick</span>
-        <h3>Name of the Project </h3>
+     
+       
+        <h4>Name of the Project </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.name}</p>
+      <p className="steps-text">{formData.name}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">location_on</span>
-        <h3 className="">Localisation of the Project </h3>
+        
+        <h4 >Localisation of the Project </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.location}</p>
+      <p className="steps-text">{formData.location}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">today</span>
-        <h3>Release Date </h3>
+        
+        <h4>Release Date </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.start_date}</p>
+      <p className="steps-text">{formData.start_date}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">today</span>
-        <h3>End Date </h3>
+        
+        <h4>End Date </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.end_date}</p>
-      <h3 className="form-header-gray">Contact to Contractor</h3>
+      <p className="steps-text">{formData.end_date}</p>
+      <h2 >Contact to Contractor</h2>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">contacts_product</span>
-        <h3>Name of the Contractor</h3>
+       
+        <h4>Name of the Contractor</h4>
       </div>
-      <p className="form-data-to-read-only">{formData.contractor_name}</p>
+      <p className="steps-text">{formData.contractor_name}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">location_on</span>
-        <h3> Address of the Contractor</h3>
+        
+        <h4> Address of the Contractor</h4>
       </div>
-      <p className="form-data-to-read-only">{formData.contractor_address}</p>
+      <p className="steps-text">{formData.contractor_address}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">mail</span>
-        <h3>Email</h3>
+       
+        <h4>Email</h4>
       </div>
-      <p className="form-data-to-read-only">{formData.email}</p>
+      <p className="steps-text">{formData.email}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">mobile</span>
+       
         <h3>Mobile </h3>
       </div>
-      <p className="form-data-to-read-only">{formData.mobile}</p>
-      <h3 className="form-header-gray">Setup</h3>
+      <p className="steps-text">{formData.mobile}</p>
+      <h2 >Setup</h2>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined ">person_apron</span>
-        <h3>Add Technician </h3>
+       
+        <h4>Technicians: </h4>
       </div>
-      <p className="form-data-to-read-only">
+      <p className="steps-text">
   {formData.technicians.map((tech) => tech.name).join(', ')}
 </p>
+<h4>Generators:</h4>
 
-      <p className="form-data-to-read-only">{formData.generator_name}</p>
-
-      <p className="form-data-to-read-only">
+      <p className="steps-text">{formData.generator_name}</p>
+      <h4>Tanks:</h4>
+      <p className="steps-text">
         {typeof formData.tank === 'object'
           ? formData.tank?.name
           : formData.tank}
       </p>
-      <h3 className="form-header-gray">Fuel Pricing Details</h3>
+      <h2>Fuel Pricing Details</h2>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">attach_money</span>
-        <h3>Purchase Price </h3>
+      
+        <h4>Purchase Price </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.amount}</p>
+      <p className="steps-text">{formData.amount}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">attach_money</span>
-        <h3>Selling Price </h3>
+      
+        <h4>Selling Price </h4>
       </div>
-      <p className="form-data-to-read-only">{formData.selling_price}</p>
-      <h3 className="form-header-gray">Notes</h3>
+      <p className="steps-text">{formData.selling_price}</p>
+      <h2>Notes</h2>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">sticky_note_2</span>
-        <h3>Specification of the project</h3>
+        
+        <h4>Specification of the project</h4>
       </div>
-      <p className="form-data-to-read-only">{formData.specification}</p>
+      <p className="steps-text">{formData.specification}</p>
       <div className=" flex flex-row">
-        <span className="material-symbols-outlined">note_stack_add</span>
-        <h3>Additional Note</h3>
+      
+        <h4>Additional Note</h4>
       </div>
-      <p className="form-data-to-read-only">{formData.additional}</p>
+      <p className="steps-text">{formData.additional}</p>
     </div>
   );
 }
