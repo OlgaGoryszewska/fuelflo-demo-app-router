@@ -52,18 +52,17 @@ export default function StepFive({ formData }) {
         <span className="material-symbols-outlined ">person_apron</span>
         <h3>Add Technician </h3>
       </div>
-      <p className="form-data-to-read-only">{formData.technician}</p>
-      <h3 className="form-header-gray">Add Fleet</h3>
-      <div className=" flex flex-row">
-        <span className="material-symbols-outlined">battery_charging_50</span>
-        <h3>Add Generator</h3>
-      </div>
-      <p className="form-data-to-read-only">{formData.generator_id}</p>
-      <div className=" flex flex-row">
-        <span className="material-symbols-outlined">oil_barrel</span>
-        <h3>Add Fuel Tank</h3>
-      </div>
-      <p className="form-data-to-read-only">{formData.tank}</p>
+      <p className="form-data-to-read-only">
+  {formData.technicians.map((tech) => tech.name).join(', ')}
+</p>
+
+      <p className="form-data-to-read-only">{formData.generator_name}</p>
+
+      <p className="form-data-to-read-only">
+        {typeof formData.tank === 'object'
+          ? formData.tank?.name
+          : formData.tank}
+      </p>
       <h3 className="form-header-gray">Fuel Pricing Details</h3>
       <div className=" flex flex-row">
         <span className="material-symbols-outlined">attach_money</span>

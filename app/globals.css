@@ -43,7 +43,7 @@ h4 {
   font-weight: 500;
   color: var(--slate-dark);
 }
-.s-bold-text{
+.s-bold-text {
   font-size: 18px;
   font-weight: 400;
   margin-left: 0.6rem;
@@ -118,7 +118,6 @@ body {
 .open-card,
 form,
 .generator-container,
-
 .background-container,
 .background-container-white {
   display: flex;
@@ -462,7 +461,6 @@ li a:hover {
   height: 50px;
   border-bottom: 1px solid var(--primary-gray-light);
   /*background: linear-gradient(to right, #fff 50%, #fee39f);*/
-
 }
 
 .avatar-big,
@@ -481,8 +479,6 @@ li a:hover {
 .banner-tin {
   width: 100%;
   height: 50px;
-
-
 }
 
 .avatar-big {
@@ -493,9 +489,7 @@ li a:hover {
   left: 50%;
   transform: translateX(-50%);
   border: 2px solid white; /* optional, looks clean */
-
 }
-
 
 .gray-icon {
   color: var(--slate-dark);

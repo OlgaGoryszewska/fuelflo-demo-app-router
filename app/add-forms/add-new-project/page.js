@@ -17,6 +17,7 @@ export default function AddProjectPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: '',
     location: '',
@@ -30,40 +31,79 @@ export default function AddProjectPage() {
     technicians: [],
     technician_ids: [],
     generator_id: '',
+    generator_name: '',
     tank: '',
     amount: '',
     selling_price: '',
     specification: '',
     additional: '',
+    event_organizer_id: '',
+    fuel_suppliers_id: '',
+    active: true,
+    company_name: '',
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Only allow submit on the last step
-    if (currentStep !== steps.length - 1) {
-      return;
-    }
+
+    if (currentStep !== steps.length - 1) return;
 
     setSubmitting(true);
 
     try {
-      const payload = {
-        ...formData,
-        generator_id: formData.generator_id || null,
+      const projectPayload = {
+        name: formData.name || null,
+        location: formData.location || null,
+        start_date: formData.start_date || null,
+        end_date: formData.end_date || null,
+        contractor_name: formData.contractor_name || null,
+        contractor_address: formData.contractor_address || null,
+        email: formData.email || null,
+        mobile: formData.mobile || null,
+        amount: formData.amount || null,
+        selling_price: formData.selling_price || null,
+        specification: formData.specification || null,
+        tank:
+          typeof formData.tank === 'object'
+            ? formData.tank?.name || null
+            : formData.tank || null,
+        additional: formData.additional || null,
+        active: formData.active ?? true,
+        company_name: formData.company_name || null,
+        generator_id:
+          typeof formData.generator_id === 'object'
+            ? formData.generator_id?.id || null
+            : formData.generator_id || null,
+        event_organizer_id: formData.event_organizer_id || null,
+        fuel_suppliers_id: formData.fuel_suppliers_id || null,
       };
 
-      const { data, error } = await supabase
+      const { data: projectData, error: projectError } = await supabase
         .from('projects')
-        .insert([payload])
+        .insert([projectPayload])
         .select('id')
         .single();
 
-      if (error) throw error;
-      console.log('NEW ID:', data?.id);
-      router.push(`/resources/ongoing-projects-page/${data.id}`);
-      setSubmitting(false);
-      alert('Project added successfully!');
+      if (projectError) throw projectError;
 
-      // optionally reset form
+      if (formData.technician_ids.length > 0) {
+        const technicianRelations = formData.technician_ids.map(
+          (technicianId) => ({
+            projects_id: projectData.id,
+            profiles_id: technicianId,
+          })
+        );
+
+        const { error: relationError } = await supabase
+          .from('profiles_projects')
+          .insert(technicianRelations);
+
+        if (relationError) throw relationError;
+      }
+
+      alert('Project added successfully!');
+      router.push(`/resources/ongoing-projects-page/${projectData.id}`);
+
       setFormData({
         name: '',
         location: '',
@@ -77,29 +117,24 @@ export default function AddProjectPage() {
         technicians: [],
         technician_ids: [],
         generator_id: '',
+        generator_name: '',
         tank: '',
         amount: '',
         selling_price: '',
         specification: '',
         additional: '',
-
+        event_organizer_id: '',
+        fuel_suppliers_id: '',
+        active: true,
+        company_name: '',
       });
+
       setCurrentStep(0);
     } catch (err) {
-      console.error('Error inserting project:', err.message);
-      alert('Failed to add project');
-    }
-    if (formData.technician_ids.length > 0) {
-      const technicianRelations = formData.technician_ids.map((technicianId) => ({
-        projects_id: projectData.id,
-        profiles_id: technicianId,
-      }));
-    
-      const { error: relationError } = await supabase
-        .from('profiles_projects')
-        .insert(technicianRelations);
-    
-      if (relationError) throw relationError;
+      console.error('Error inserting project:', err);
+      alert(err.message || 'Failed to add project');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -108,18 +143,20 @@ export default function AddProjectPage() {
     <StepTwo key="step-2" formData={formData} setFormData={setFormData} />,
     <StepThree key="step-3" formData={formData} setFormData={setFormData} />,
     <StepFour key="step-4" formData={formData} setFormData={setFormData} />,
-    <StepFive key="step-5" formData={formData} setFormData={setFormData} />,
+    <StepFive key="step-5" formData={formData} />,
   ];
 
   return (
     <div>
       <div className="main-container">
         <div className="form-header mb-4">
-          <h1 className="">Add new Project</h1>
+          <h1>Add new Project</h1>
         </div>
-        <form>
+
+        <form onSubmit={handleSubmit}>
           <ProgresionBar currentStep={currentStep} />
           {steps[currentStep]}
+
           <StepNavigation
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}

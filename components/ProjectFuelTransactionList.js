@@ -97,13 +97,13 @@ export default function ProjectFuelTransactionsList({ projectId }) {
             ))}
           </ul>
         )}
-        <div className='divider-full my-4'></div>
+        <div className="divider-full my-4"></div>
         <button className="button-big ">
-        {' '}
-        <Link href={`/resources/projects/${projectId}/new/`}>
-          Add Fuel Transaction
-        </Link>
-      </button>
+          {' '}
+          <Link href={`/resources/projects/${projectId}/new/`}>
+            Add Fuel Transaction
+          </Link>
+        </button>
       </div>
     </div>
   );

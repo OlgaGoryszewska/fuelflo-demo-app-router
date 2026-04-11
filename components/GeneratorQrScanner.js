@@ -26,7 +26,7 @@ export default function GeneratorQrScanner({
         }
 
         await html5QrCode.start(
-            { facingMode: 'environment' },
+          { facingMode: 'environment' },
           {
             fps: 10,
             qrbox: { width: 220, height: 220 },

@@ -5,12 +5,11 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import { ChevronDown } from 'lucide-react';
 
-
 import Image from 'next/image';
 import banner from '@/public/banner.jpg';
 import Link from 'next/link';
 import formatDate from '@/components/FormatDate';
-import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList.js'
+import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList.js';
 // icons
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
@@ -19,7 +18,6 @@ import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-
 
 export default function ProjectDetailPage() {
   const { id: projectId } = useParams();
@@ -57,7 +55,6 @@ export default function ProjectDetailPage() {
         'specification',
         'additional',
         'company_name',
-        
       ].join(',');
 
       const idValue = isNaN(Number(projectId)) ? projectId : Number(projectId);
@@ -101,7 +98,6 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="main-container">
-      
       <div className="background-container-white mb-4">
         <h2 className="mt-2">Project Details</h2>
         <h4 className="h-mid-gray-s">{project.name}</h4>
@@ -123,7 +119,7 @@ export default function ProjectDetailPage() {
         <div />
         <div className="flex items-start">
           <LocationOnOutlinedIcon className="gray-icon" />
-          
+
           {project.location ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -135,30 +131,29 @@ export default function ProjectDetailPage() {
             >
               {project.location}
             </Link>
-          
           ) : (
             <p className="steps-text">Lack of information</p>
-          )} 
+          )}
         </div>
-        
-        <div className="grid grid-cols-2 gap-2">
-        <div className="container-flex ">
-          <h4 >Starting date</h4>
-          <p className="steps-text">
-            {formatDate(project.start_date ?? 'Lack of information')}
-          </p>
-        </div>
-        <div className="container-flex">
-          <div className="flex flex-row">
-            <h4 className="">End date</h4>
-          </div>
 
-          <p className="steps-text">
-            {formatDate(project.end_date ?? 'Lack of information')}
-          </p>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="container-flex ">
+            <h4>Starting date</h4>
+            <p className="steps-text">
+              {formatDate(project.start_date ?? 'Lack of information')}
+            </p>
+          </div>
+          <div className="container-flex">
+            <div className="flex flex-row">
+              <h4 className="">End date</h4>
+            </div>
+
+            <p className="steps-text">
+              {formatDate(project.end_date ?? 'Lack of information')}
+            </p>
           </div>
         </div>
-      
+
         <p className="steps-text mt-4">Assigned to the project</p>
 
         <div
@@ -222,7 +217,7 @@ export default function ProjectDetailPage() {
         )}
       </div>
       <ProjectFuelTransactionList projectId={projectId} />
-      
+
       <div className="background-container mb-4">
         <h2>Fuel Financials</h2>
         <p className="steps-text">Live pricing & margin intelligence</p>
@@ -241,26 +236,21 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
-     
 
       <div className="background-container mb-4">
         <h2>Contact to Partners</h2>
-          <div className='flex flex-col justify-center items-center'>
+        <div className="flex flex-col justify-center items-center">
           <Image src={banner} alt="banner" className="banner-tin" />
-          <h2 className='h-mid-gray-s'>{project.contractor_name ?? '-'}</h2>
-          <h4 >Event organizer</h4>
-          </div>
+          <h2 className="h-mid-gray-s">{project.contractor_name ?? '-'}</h2>
+          <h4>Event organizer</h4>
+        </div>
         <div className="flex  align-center mb-2">
           <ApartmentOutlinedIcon className=" gray-icon mr-2" />
-          <p className="steps-text">
-            {project.company_name ?? '-'}
-          </p>
+          <p className="steps-text">{project.company_name ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
           <LocationOnOutlinedIcon className="  gray-icon mr-2" />
-          <p className="steps-text">
-            {project.contractor_address ?? '-'}
-          </p>
+          <p className="steps-text">{project.contractor_address ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
           <AlternateEmailOutlinedIcon className=" gray-icon mr-2" />
@@ -268,26 +258,25 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex align-center mb-2">
           <CallOutlinedIcon className=" gray-icon mr-2" />
-          <p className="steps-text
-          ">{project.mobile ?? '-'}</p>
-          
+          <p
+            className="steps-text
+          "
+          >
+            {project.mobile ?? '-'}
+          </p>
         </div>
-        <div className='flex flex-col justify-center items-center'>
-          <div className='divider-full'></div>
-          <h2 className='h-mid-gray-s'>{project.contractor_name ?? '-'}</h2>
-          <h4 >Fuel Supplier</h4>
-          </div>
+        <div className="flex flex-col justify-center items-center">
+          <div className="divider-full"></div>
+          <h2 className="h-mid-gray-s">{project.contractor_name ?? '-'}</h2>
+          <h4>Fuel Supplier</h4>
+        </div>
         <div className="flex  align-center mb-2">
           <ApartmentOutlinedIcon className=" gray-icon mr-2" />
-          <p className="steps-text">
-            {project.company_name ?? '-'}
-          </p>
+          <p className="steps-text">{project.company_name ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
           <LocationOnOutlinedIcon className="  gray-icon mr-2" />
-          <p className="steps-text">
-            {project.contractor_address ?? '-'}
-          </p>
+          <p className="steps-text">{project.contractor_address ?? '-'}</p>
         </div>
         <div className="flex align-center mb-2">
           <AlternateEmailOutlinedIcon className=" gray-icon mr-2" />
@@ -295,11 +284,13 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex align-center mb-2">
           <CallOutlinedIcon className=" gray-icon mr-2" />
-          <p className="steps-text
-          ">{project.mobile ?? '-'}</p>
-          
+          <p
+            className="steps-text
+          "
+          >
+            {project.mobile ?? '-'}
+          </p>
         </div>
-        
       </div>
     </div>
   );

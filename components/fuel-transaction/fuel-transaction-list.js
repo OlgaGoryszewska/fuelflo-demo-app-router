@@ -29,10 +29,7 @@ function FuelTransactionRow({ transaction }) {
       >
         {formatDate(transaction.created_at)}
       </Link>
-
-      
-        {sign} {difference.toFixed(2)} L
-      
+      {sign} {difference.toFixed(2)} L
     </li>
   );
 }
@@ -40,13 +37,11 @@ function FuelTransactionRow({ transaction }) {
 export default function FuelTransactionsList({ transactions = [] }) {
   return (
     <div className="generator-container mb-4">
-
-        <h2 className=" ">Fuel Transactions</h2>
+      <h2 className=" ">Fuel Transactions</h2>
       <div className="flex flex-col w-full">
         <div className="pr-2 w-full flex justify-between">
-
-        <h4 >Date</h4>
-        <h4 >Vol</h4>
+          <h4>Date</h4>
+          <h4>Vol</h4>
         </div>
 
         <ul className="flex flex-col w-full">

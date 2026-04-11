@@ -11,8 +11,7 @@ export default function TechniciansDropdown({ value, onChange }) {
       const { data, error } = await supabase
         .from('profiles')
         .select('id, full_name, role')
-        .eq('role', 'technician')
-        
+        .eq('role', 'technician');
 
       if (error) {
         console.error('Error fetching technicians:', error.message);
@@ -44,8 +43,7 @@ export default function TechniciansDropdown({ value, onChange }) {
 
             onChange({
               id: selectedTechnician?.id,
-              name:
-                selectedTechnician?.full_name
+              name: selectedTechnician?.full_name,
             });
           }}
         >
@@ -53,7 +51,7 @@ export default function TechniciansDropdown({ value, onChange }) {
 
           {technicians.map((t) => (
             <option key={t.id} value={t.id}>
-              {t.full_name }
+              {t.full_name}
             </option>
           ))}
         </select>

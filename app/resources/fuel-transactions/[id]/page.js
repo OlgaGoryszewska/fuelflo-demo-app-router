@@ -10,7 +10,7 @@ import avatar from '@/public/avatar.png';
 
 export default function TransactionDetailPage() {
   const params = useParams();
-  const { id} = params;
+  const { id } = params;
 
   const [transaction, setTransaction] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,9 +18,7 @@ export default function TransactionDetailPage() {
 
   useEffect(() => {
     async function fetchTransaction() {
-      if (!id)
-      return;
-
+      if (!id) return;
 
       setErrorMessage('');
       console.log(id);

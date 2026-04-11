@@ -19,7 +19,6 @@ export default function FetchGeneratorsByName() {
       setQrError(null);
       setSelected(generator);
 
-      
       const payload = JSON.stringify({ generatorId: generator.id });
 
       const svgString = await QRCode.toString(payload, {
@@ -86,11 +85,9 @@ export default function FetchGeneratorsByName() {
       <div className="form-header ">
         <h1 className="ml-2">Create QR Code</h1>
       </div>
-      
-
 
       <form className="p-4" onSubmit={(e) => e.preventDefault()}>
-      <h2> QR code generator for generators</h2>
+        <h2> QR code generator for generators</h2>
         <p>Search for generator by name</p>
 
         <input

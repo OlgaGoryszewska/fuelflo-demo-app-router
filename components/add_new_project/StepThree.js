@@ -13,10 +13,13 @@ export default function StepThree({ formData, setFormData }) {
     }));
   };
 
-  const handleGeneratorChange = (id) => {
+  const handleGeneratorChange = (generator) => {
     setFormData((prevData) => ({
       ...prevData,
-      generator_id: id,
+      generator_id:
+        typeof generator === 'object' ? generator?.id || '' : generator || '',
+      generator_name:
+        typeof generator === 'object' ? generator?.name || '' : '',
     }));
   };
 
@@ -62,9 +65,9 @@ export default function StepThree({ formData, setFormData }) {
     <div className="m-4">
       <h2>Setup</h2>
 
-      <label className="block mb-2">Add Technician:</label>
+      <label className="mb-2 block">Add Technician:</label>
 
-      <div className="flex gap-2 items-center mb-4">
+      <div className="mb-4 flex items-center gap-2">
         <TechniciansDropdown
           value={formData.selectedTechnician?.id || ''}
           onChange={handleTechnicianSelect}
@@ -87,9 +90,9 @@ export default function StepThree({ formData, setFormData }) {
             {formData.technicians.map((tech) => (
               <div
                 key={tech.id}
-                className=" w-full flex items-center justify-between"
+                className="flex w-full items-center justify-between"
               >
-                {tech.name}
+                <span>{tech.name}</span>
 
                 <button
                   type="button"
@@ -103,22 +106,29 @@ export default function StepThree({ formData, setFormData }) {
           </div>
         )}
       </div>
-      <div className='divider-full'></div>
+
+      <div className="divider-full"></div>
 
       <h2 className="mt-4">Add Fleet</h2>
 
-      <label className="block mb-2">Add Generator:</label>
+      <label className="mb-2 block">Add Generator:</label>
       <GeneratorDropdown
         value={formData.generator_id}
         onChange={handleGeneratorChange}
       />
 
-      <label className="block mt-4">
+      {formData.generator_name && (
+        <p className="mt-2 text-sm text-gray-600">
+          Selected generator: {formData.generator_name}
+        </p>
+      )}
+
+      <label className="mt-4 block">
         Add Fuel Tank:
         <input
           name="tank"
           type="text"
-          value={formData.tank}
+          value={formData.tank || ''}
           onChange={handleChange}
         />
       </label>
