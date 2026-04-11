@@ -5,15 +5,14 @@ import Image from 'next/image';
 import camera from '@/public/camera.png';
 
 export default function OperationBefore({ formData, setFormData }) {
+  const inputRef = useRef(null);
+
   function handleFuelLevelChange(e) {
     setFormData((prev) => ({
       ...prev,
       before_fuel_level: e.target.value,
     }));
   }
-
-  const inputRef = useRef(null);
-  inputRef.current === null;
 
   const openCamera = () => {
     inputRef.current?.click();
@@ -30,8 +29,6 @@ export default function OperationBefore({ formData, setFormData }) {
       before_photo_file: file,
       before_photo_preview: previewUrl,
     }));
-
-    console.log('photo selected:', file);
   }
 
   return (
@@ -66,9 +63,18 @@ export default function OperationBefore({ formData, setFormData }) {
         accept="image/*"
         capture="environment"
         onChange={handlePhotoChange}
-        value={formData.after_photo_url}
         className="hidden"
       />
+
+      {formData.before_photo_preview && (
+        <div className="mt-4">
+          <img
+            src={formData.before_photo_preview}
+            alt="Before photo preview"
+            className="w-full rounded-lg object-cover"
+          />
+        </div>
+      )}
 
       <p className="mt-4 h-mid-gray-s">Before Fuel Level</p>
       <input
