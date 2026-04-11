@@ -87,9 +87,9 @@ export default function StepThree({ formData, setFormData }) {
             {formData.technicians.map((tech) => (
               <div
                 key={tech.id}
-                className="file-row w-full flex items-center justify-between"
+                className=" w-full flex items-center justify-between"
               >
-                <span>{tech.name}</span>
+                {tech.name}
 
                 <button
                   type="button"
@@ -103,6 +103,7 @@ export default function StepThree({ formData, setFormData }) {
           </div>
         )}
       </div>
+      <div className='divider-full'></div>
 
       <h2 className="mt-4">Add Fleet</h2>
 

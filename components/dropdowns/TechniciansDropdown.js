@@ -43,10 +43,9 @@ export default function TechniciansDropdown({ value, onChange }) {
             );
 
             onChange({
-              id: selectedTechnician?.id || '',
+              id: selectedTechnician?.id,
               name:
-                selectedTechnician?.full_name ||
-                '',
+                selectedTechnician?.full_name
             });
           }}
         >
