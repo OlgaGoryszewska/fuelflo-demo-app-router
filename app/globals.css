@@ -214,11 +214,12 @@ option {
 .nr-container,
 .window {
   display: flex;
-  height: 150px;
+  height: 200px;
   width: 100%;
   border: 1px solid var(--slate-line);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 .nr-container {
   height: 100px;

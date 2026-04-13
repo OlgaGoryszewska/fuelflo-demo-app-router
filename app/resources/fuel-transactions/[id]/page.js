@@ -7,6 +7,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
+import TransactionReportPreview from '@/components/reports/TransactionReportPreview';
+
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -258,25 +260,38 @@ export default function TransactionDetailPage() {
             Open
           </Link>
         </div>
-
-        <button className="button-big" type="button">
-          Generate report
-        </button>
-        <button className="button-big" type="button">
-          Generate factura
-        </button>
-
+        <div className='container-flex'>
+        <h4 className='mb-2'>Transaction files</h4>
+        
         {transaction.before_photo_url && (
           <img
             src={transaction.before_photo_url}
             alt="Before fuel"
             width="250"
+            className='window'
           />
         )}
+        <p className='steps-text mb-2'>Image taken before transaction</p>
 
         {transaction.after_photo_url && (
-          <img src={transaction.after_photo_url} alt="After fuel" width="250" />
+          <img src={transaction.after_photo_url} alt="After fuel" width="250" className='window' />
         )}
+        <p className='steps-text mb-2'>Image taken after transaction</p>
+        </div>
+        <div className="container-flex">
+  
+</div>
+<Link
+  href={`/resources/fuel-transactions/${transaction.id}/report`}
+  className="button-big"
+>
+  Create PDF
+</Link>
+        <button className="button-big" type="button">
+          Generate factura
+        </button>
+
+      
       </div>
     </div>
   );
