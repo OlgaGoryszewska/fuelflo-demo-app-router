@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 import formatDate from '@/components/FormatDate';
-import TransactionReportPreview from '@/components/reports/TransactionReportPreview';
+
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -270,13 +270,7 @@ export default function TransactionDetailPage() {
   
 </div>
 
-        <button className="button-big" type="button">
-          Generate report
-        </button>
-        <button className="button-big" type="button">
-          Generate factura
-        </button>
-
+       
       </div>
     </div>
   );

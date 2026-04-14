@@ -17,9 +17,9 @@ export default function ReviewBefore({ formData }) {
       </p>
       <div className="divider-full"></div>
 
-      <div className="window">
+      <div className="window mt-2 mb-2">
         {formData.before_photo_preview && (
-          <img src={formData.before_photo_preview} alt="preview" />
+          <img src={formData.before_photo_preview} alt="preview"  className="window"/>
         )}
       </div>
     </div>

@@ -70,6 +70,15 @@ export default function OperationAfter({ formData, setFormData }) {
         value={formData.after_photo_url}
         className="hidden"
       />
+        {formData.after_photo_preview && (
+        <div className="mt-4">
+          <img
+            src={formData.after_photo_preview}
+            alt="Before photo preview"
+            className="window mt-2 mb-2"
+          />
+        </div>
+      )}
 
       <p className="mt-4 h-mid-gray-s">After Fuel Level</p>
       <input

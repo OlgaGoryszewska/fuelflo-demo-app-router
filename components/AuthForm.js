@@ -12,12 +12,47 @@ export default function AuthForm() {
   const router = useRouter();
 
   const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) alert(error.message);
-    else router.push('/operations/dashboard');
+  
+    if (error) {
+      alert(error.message);
+      return;
+    }
+  
+    const user = data.user;
+  
+    // Fetch user role from profiles table
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+  
+    if (profileError) {
+      alert('Error fetching user role');
+      return;
+    }
+  
+    // 🎯 Role-based routing
+    switch (profile.role) {
+      case 'technician':
+        router.push('/operations/dashboard/technician');
+        break;
+      case 'manager':
+        router.push('/operations/dashboard/technician/manager');
+        break;
+      case 'hire_desk':
+        router.push('/operations/dashboard/hire-desk');
+        break;
+      case 'fuel_supplier':
+        router.push('/operations/dashboard/fuel-supplier');
+        break;
+      default:
+        router.push('/operations/dashboard'); // fallback
+    }
   };
 
   return (

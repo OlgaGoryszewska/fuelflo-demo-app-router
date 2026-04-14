@@ -7,7 +7,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
-import TransactionReportPreview from '@/components/reports/TransactionReportPreview';
+
 
 
 export default function TransactionDetailPage() {
@@ -278,19 +278,7 @@ export default function TransactionDetailPage() {
         )}
         <p className='steps-text mb-2'>Image taken after transaction</p>
         </div>
-        <div className="container-flex">
-  
-</div>
-<Link
-  href={`/resources/fuel-transactions/${transaction.id}/report`}
-  className="button-big"
->
-  Create PDF
-</Link>
-        <button className="button-big" type="button">
-          Generate factura
-        </button>
-
+       
       
       </div>
     </div>

@@ -19,7 +19,6 @@ import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import CachedIcon from '@mui/icons-material/Cached';
 import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
 import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
-import PersonIcon from '@mui/icons-material/Person';
 
 export default function Dashboard() {
   const [openCard, setOpenCard] = useState(null);
@@ -31,8 +30,8 @@ export default function Dashboard() {
   return (
     <div>
       <div className="m-2.5">
-        <div className="form-header ">
-          <h1 className="ml-2">dashboard</h1>
+        <div className="form-header">
+          <h1 className="ml-2">technician dashboard</h1>
         </div>
         <div
           onClick={() => toggleCard('projects')}
@@ -54,10 +53,6 @@ export default function Dashboard() {
               <ArchiveOutlinedIcon />
               Archive
             </Link>
-            <Link href="/add-forms/add-new-project" className="card-button">
-              <AddOutlinedIcon />
-              Add new Project
-            </Link>
           </div>
         )}
 
@@ -72,15 +67,21 @@ export default function Dashboard() {
         </div>
         {openCard === 'transactions' && (
           <div className="open-card ">
-            <Link href="/resources/fuel-transactions/" className="card-button">
+            <Link
+              href="/resources/transactions/deliveries"
+              className="card-button"
+            >
               <ElectricRickshawOutlinedIcon />
               Deliveries
             </Link>
-            <Link href="/resources/fuel-transactions/" className="card-button">
+            <Link
+              href="/resources/transactions/returns"
+              className="card-button"
+            >
               <UndoOutlinedIcon />
               Returns
             </Link>
-            <Link href="/resources/projects/" className="card-button">
+            <Link href="/resources/transactions/new" className="card-button">
               <AddOutlinedIcon />
               Add New Transaction
             </Link>
@@ -103,7 +104,7 @@ export default function Dashboard() {
               <EngineeringOutlinedIcon />
               Managers
             </Link>
-            <Link href="/resources/technicians/" className="card-button">
+            <Link href="/ongoing-technicians-page" className="card-button">
               <EngineeringOutlinedIcon />
               Technicians
             </Link>
@@ -111,38 +112,11 @@ export default function Dashboard() {
               <ManageAccountsOutlinedIcon />
               Hire Desk Coordinator
             </Link>
-            <Link href="/register" className="card-button">
-              <AddOutlinedIcon />
-              Add Personel
-            </Link>
+          
           </div>
         )}
-        <div
-          onClick={() => toggleCard('external partners')}
-          className={`form-button  ${openCard === 'external partners' ? 'border-active' : ''}`}
-        >
-          <GroupsOutlinedIcon />
-          External Partners
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'external partners' && (
-          <div className="open-card ">
-            <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon />
-              Event Organizers
-            </Link>
-            <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon />
-              Fuel Suppliers
-            </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon />
-              Add Partner
-            </Link>
-          </div>
-        )}
+     
+
         <div
           onClick={() => toggleCard('equipment')}
           className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
@@ -163,31 +137,8 @@ export default function Dashboard() {
               <PropaneTankOutlinedIcon />
               External Tanks
             </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon />
-              Add new Equipment
-            </Link>
           </div>
         )}
-        <div className="divider-full mt-2"></div>
-
-        <Link href="/operations/create-qr-code" className="form-button mt-2">
-          <QrCodeOutlinedIcon />
-          Create a new QR Code
-        </Link>
-        <Link href="/not-found" className="form-button">
-          <AssessmentOutlinedIcon />
-          Reports
-        </Link>
-        <Link href="/resources/profile" className="form-button">
-          <PersonIcon />
-          Profile
-        </Link>
-        <div className="divider-full mt-2 mb-2"></div>
-        <button className="button-big">
-          {' '}
-          <Link href={`/resources/projects/`}>Add Fuel Transaction</Link>
-        </button>
       </div>
     </div>
   );

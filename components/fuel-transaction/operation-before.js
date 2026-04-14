@@ -71,7 +71,7 @@ export default function OperationBefore({ formData, setFormData }) {
           <img
             src={formData.before_photo_preview}
             alt="Before photo preview"
-            className="w-full rounded-lg object-cover"
+            className="window mt-2 mb-2"
           />
         </div>
       )}

@@ -7,26 +7,89 @@ import Image from 'next/image';
 import logo from '@/public/flo-logo.png';
 import { supabase } from '@/lib/supabaseClient';
 
+const roleMenus = {
+  technician: [
+    { href: '/operations/dashboard/technician/', label: 'Dashboard' },
+    { href: '/resources/fuel-transactions/', label: 'Fuel transactions' },
+    { href: '/resources/projects/', label: 'Projects' },
+    { href: '/resources/profile', label: 'Profile' },
+  ],
+  manager: [
+    { href: '/operations/dashboard/manager', label: 'Dashboard' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/users', label: 'Team' },
+    { href: '/profile', label: 'Profile' },
+  ],
+  hire_desk: [
+    { href: 'operations/dashboard/hire-desk', label: 'Dashboard' },
+    { href: 'resources/projects/new', label: 'New project' },
+    { href: '/users/register', label: 'Register user' },
+    { href: '/profile', label: 'Profile' },
+  ],
+  fuel_supplier: [
+    { href: '/dashboard/fuel-supplier', label: 'Dashboard' },
+    { href: '/deliveries', label: 'Deliveries' },
+    { href: '/profile', label: 'Profile' },
+  ],
+};
+
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
 
   const menuRef = useRef(null);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  const handleLinkClick = () => setIsOpen(false);
 
-  // 🔍 Check user + listen to auth changes
   useEffect(() => {
-    async function getUser() {
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
+    async function loadUserAndRole() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setUser(user ?? null);
+
+      if (!user) {
+        setRole(null);
+        return;
+      }
+
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+
+      if (error) {
+        console.error('Error fetching role:', error.message);
+        setRole(null);
+        return;
+      }
+
+      setRole(profile.role);
     }
 
-    getUser();
+    loadUserAndRole();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user || null);
+      async (_event, session) => {
+        const nextUser = session?.user ?? null;
+        setUser(nextUser);
+
+        if (!nextUser) {
+          setRole(null);
+          return;
+        }
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', nextUser.id)
+          .single();
+
+        setRole(profile?.role ?? null);
       }
     );
 
@@ -35,14 +98,6 @@ export default function Menu() {
     };
   }, []);
 
-  // 🚪 Logout
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setIsOpen(false);
-  };
-
-  // ❌ Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -56,9 +111,14 @@ export default function Menu() {
     };
   }, []);
 
-  const handleLinkClick = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setRole(null);
     setIsOpen(false);
   };
+
+  const links = role ? roleMenus[role] ?? [] : [];
 
   return (
     <div className="menu" ref={menuRef}>
@@ -74,28 +134,6 @@ export default function Menu() {
           </Link>
         </li>
 
-        {/* 🧠 ONLY show dashboard if logged in */}
-        {user && (
-          <>
-            <li className="pl-2">
-              <Link onClick={handleLinkClick} href="/operations/dashboard">
-                Dashboard
-              </Link>
-            </li>
-            <li className="pl-2">
-              <Link onClick={handleLinkClick} href="/resources/projects/">
-                Add fuel transaction
-              </Link>
-            </li>
-            <li className="pl-2">
-              <Link onClick={handleLinkClick} href="/resources/profile/">
-                Profile
-              </Link>
-            </li>
-          </>
-        )}
-
-        {/* 🔐 If NOT logged in */}
         {!user && (
           <>
             <li className="pl-2">
@@ -103,15 +141,19 @@ export default function Menu() {
                 Login
               </Link>
             </li>
-            <li className="last-li">
-              <Link onClick={handleLinkClick} href="/register/">
-                Register
-              </Link>
-            </li>
+            
           </>
         )}
 
-        {/* 🚪 If logged in → show logout */}
+        {user &&
+          links.map((item) => (
+            <li className="pl-2" key={item.href}>
+              <Link onClick={handleLinkClick} href={item.href}>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+
         {user && (
           <li className="last-li">
             <button onClick={handleLogout} className="ml-2">
