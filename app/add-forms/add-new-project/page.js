@@ -27,12 +27,14 @@ export default function AddProjectPage() {
     contractor_address: '',
     email: '',
     mobile: '',
+
     selectedTechnician: null,
     technicians: [],
     technician_ids: [],
-    generator_id: '',
-    generator_name: '',
-    tank: '',
+
+    generators: [],
+    selectedGenerator: null,
+
     amount: '',
     selling_price: '',
     specification: '',
@@ -42,6 +44,35 @@ export default function AddProjectPage() {
     active: true,
     company_name: '',
   });
+
+  const buildGeneratorsTanksRows = (projectId, generators) => {
+    return (generators || []).flatMap((generator) =>
+      (generator.tanks || []).map((tank) => ({
+        project_id: projectId,
+        generator_id: generator.id,
+        generator_name: generator.name,
+        tank_id: tank.id,
+        tank_name: tank.name,
+      }))
+    );
+  };
+
+  const saveGeneratorsTanks = async (projectId, formData) => {
+    const rows = buildGeneratorsTanksRows(projectId, formData.generators);
+
+    if (rows.length === 0) return;
+
+    const { data, error } = await supabase
+      .from('generators_tanks')
+      .insert(rows)
+      .select();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,17 +94,9 @@ export default function AddProjectPage() {
         amount: formData.amount || null,
         selling_price: formData.selling_price || null,
         specification: formData.specification || null,
-        tank:
-          typeof formData.tank === 'object'
-            ? formData.tank?.name || null
-            : formData.tank || null,
         additional: formData.additional || null,
         active: formData.active ?? true,
         company_name: formData.company_name || null,
-        generator_id:
-          typeof formData.generator_id === 'object'
-            ? formData.generator_id?.id || null
-            : formData.generator_id || null,
         event_organizer_id: formData.event_organizer_id || null,
         fuel_suppliers_id: formData.fuel_suppliers_id || null,
       };
@@ -86,7 +109,7 @@ export default function AddProjectPage() {
 
       if (projectError) throw projectError;
 
-      if (formData.technician_ids.length > 0) {
+      if ((formData.technician_ids || []).length > 0) {
         const technicianRelations = formData.technician_ids.map(
           (technicianId) => ({
             projects_id: projectData.id,
@@ -101,6 +124,8 @@ export default function AddProjectPage() {
         if (relationError) throw relationError;
       }
 
+      await saveGeneratorsTanks(projectData.id, formData);
+
       alert('Project added successfully!');
       router.push(`/resources/projects/${projectData.id}`);
 
@@ -113,12 +138,14 @@ export default function AddProjectPage() {
         contractor_address: '',
         email: '',
         mobile: '',
+
         selectedTechnician: null,
         technicians: [],
         technician_ids: [],
-        generator_id: '',
-        generator_name: '',
-        tank: '',
+
+        generators: [],
+        selectedGenerator: null,
+
         amount: '',
         selling_price: '',
         specification: '',
@@ -149,7 +176,7 @@ export default function AddProjectPage() {
   return (
     <div>
       <div className="main-container">
-        <div className="form-header mb-4">
+        <div className="form-header">
           <h1>Add new Project</h1>
         </div>
 

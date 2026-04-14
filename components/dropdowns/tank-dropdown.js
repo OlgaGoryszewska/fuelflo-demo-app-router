@@ -1,46 +1,61 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function TankDropdown({ value, onChange }) {
-  const [tank, setTank] = useState([]);
+  const [tanks, setTanks] = useState([]);
 
   useEffect(() => {
-    async function fetchTank() {
-      const { data, error } = await supabase.from('tanks').select('id, name');
+    async function fetchTanks() {
+      const { data, error } = await supabase
+        .from('tanks')
+        .select('id, name');
+
       if (error) {
-        console.error('Error fetching tanks:', error);
+        console.error('Error fetching tanks:', error.message);
       } else {
-        setTank(data || []);
+        setTanks(data || []);
       }
     }
-    fetchTank();
+
+    fetchTanks();
   }, []);
 
   return (
     <div className="w-full">
-      <label className="flex flex-col w-full">
+      <label className="flex w-full flex-col">
         <select
-          className="pr-4 mr-4 w-full b-white"
-          value={value}
+          className="b-white mr-4 w-full pr-4"
+          value={value || ''}
           onChange={(e) => {
             const selectedId = e.target.value;
-            const selectedTank = tank.find(
-              (g) => g.id.toString() === selectedId
+
+            if (!selectedId) {
+              onChange(null);
+              return;
+            }
+
+            const selectedTank = tanks.find(
+              (t) => String(t.id) === String(selectedId)
             );
 
+            if (!selectedTank) {
+              onChange(null);
+              return;
+            }
+
             onChange({
-              id: selectedTank?.id,
-              name: selectedTank?.name,
+              id: selectedTank.id,
+              name: selectedTank.name,
             });
-            console.log('tank:', selectedId);
           }}
         >
-          <option value=""> Select Tank </option>
-          {tank.map((t) => (
-            <option className="pr-4 mr-4 b-white" key={t.id} value={t.id}>
-              {t.name}
+          <option value="">Select Tank</option>
+
+          {tanks.map((tank) => (
+            <option key={tank.id} value={tank.id}>
+              {tank.name}
             </option>
           ))}
         </select>

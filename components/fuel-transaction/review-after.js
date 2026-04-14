@@ -15,7 +15,11 @@ export default function ReviewAfter({ formData }) {
 
       <div className="window mb-2 mt-2">
         {formData.after_photo_preview && (
-          <img src={formData.after_photo_preview} alt="preview"  className="window"/>
+          <img
+            src={formData.after_photo_preview}
+            alt="preview"
+            className="window"
+          />
         )}
       </div>
     </div>

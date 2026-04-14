@@ -125,10 +125,7 @@ export default function TransactionAfter() {
           transactionId={transactionId}
         />
       ) : (
-        <form
-          className="form-transaction"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
           {steps[currentStep]}
 
           <StepNavigation

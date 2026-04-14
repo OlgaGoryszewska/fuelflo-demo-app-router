@@ -1,31 +1,16 @@
 'use client';
 
 import GeneratorDropdown from './GeneratorDropdown';
+import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 
 export default function StepThree({ formData, setFormData }) {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleGeneratorChange = (generator) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      generator_id:
-        typeof generator === 'object' ? generator?.id || '' : generator || '',
-      generator_name:
-        typeof generator === 'object' ? generator?.name || '' : '',
-    }));
-  };
+  const technicians = formData.technicians || [];
+  const generators = formData.generators || [];
 
   const handleTechnicianSelect = (technician) => {
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       selectedTechnician: technician || null,
     }));
   };
@@ -35,28 +20,123 @@ export default function StepThree({ formData, setFormData }) {
 
     if (!selected || !selected.id) return;
 
-    const alreadyExists = formData.technicians.some(
+    const alreadyExists = technicians.some(
       (tech) => String(tech.id) === String(selected.id)
     );
 
     if (alreadyExists) return;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      technicians: [...prevData.technicians, selected],
-      technician_ids: [...prevData.technician_ids, selected.id],
+    setFormData((prev) => ({
+      ...prev,
+      technicians: [...(prev.technicians || []), selected],
+      technician_ids: [...(prev.technician_ids || []), selected.id],
       selectedTechnician: null,
     }));
   };
 
   const handleRemoveTechnician = (technicianId) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      technicians: prevData.technicians.filter(
+    setFormData((prev) => ({
+      ...prev,
+      technicians: (prev.technicians || []).filter(
         (tech) => String(tech.id) !== String(technicianId)
       ),
-      technician_ids: prevData.technician_ids.filter(
+      technician_ids: (prev.technician_ids || []).filter(
         (id) => String(id) !== String(technicianId)
+      ),
+    }));
+  };
+
+  const handleGeneratorSelect = (generator) => {
+    setFormData((prev) => ({
+      ...prev,
+      selectedGenerator: generator || null,
+    }));
+  };
+
+  const handleAddGenerator = () => {
+    const selected = formData.selectedGenerator;
+
+    if (!selected || !selected.id) return;
+
+    const alreadyExists = generators.some(
+      (gen) => String(gen.id) === String(selected.id)
+    );
+
+    if (alreadyExists) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      generators: [
+        ...(prev.generators || []),
+        {
+          id: selected.id,
+          name: selected.name,
+          tanks: [],
+          selectedTank: null,
+        },
+      ],
+      selectedGenerator: null,
+    }));
+  };
+
+  const handleTankSelect = (generatorId, tank) => {
+    setFormData((prev) => ({
+      ...prev,
+      generators: (prev.generators || []).map((gen) =>
+        String(gen.id) === String(generatorId)
+          ? { ...gen, selectedTank: tank || null }
+          : gen
+      ),
+    }));
+  };
+
+  const handleAddTank = (generatorId) => {
+    setFormData((prev) => ({
+      ...prev,
+      generators: (prev.generators || []).map((gen) => {
+        if (String(gen.id) !== String(generatorId)) return gen;
+
+        const selectedTank = gen.selectedTank;
+        if (!selectedTank || !selectedTank.id) return gen;
+
+        const alreadyExists = (gen.tanks || []).some(
+          (tank) => String(tank.id) === String(selectedTank.id)
+        );
+
+        if (alreadyExists) {
+          return { ...gen, selectedTank: null };
+        }
+
+        return {
+          ...gen,
+          tanks: [...(gen.tanks || []), selectedTank],
+          selectedTank: null,
+        };
+      }),
+    }));
+  };
+
+  const handleRemoveTank = (generatorId, tankId) => {
+    setFormData((prev) => ({
+      ...prev,
+      generators: (prev.generators || []).map((gen) => {
+        if (String(gen.id) !== String(generatorId)) return gen;
+
+        return {
+          ...gen,
+          tanks: (gen.tanks || []).filter(
+            (tank) => String(tank.id) !== String(tankId)
+          ),
+        };
+      }),
+    }));
+  };
+
+  const handleRemoveGenerator = (generatorId) => {
+    setFormData((prev) => ({
+      ...prev,
+      generators: (prev.generators || []).filter(
+        (gen) => String(gen.id) !== String(generatorId)
       ),
     }));
   };
@@ -83,11 +163,11 @@ export default function StepThree({ formData, setFormData }) {
       </div>
 
       <div className="mb-6">
-        {formData.technicians.length === 0 ? (
+        {technicians.length === 0 ? (
           <p>No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
-            {formData.technicians.map((tech) => (
+            {technicians.map((tech) => (
               <div
                 key={tech.id}
                 className="flex w-full items-center justify-between"
@@ -112,26 +192,83 @@ export default function StepThree({ formData, setFormData }) {
       <h2 className="mt-4">Add Fleet</h2>
 
       <label className="mb-2 block">Add Generator:</label>
-      <GeneratorDropdown
-        value={formData.generator_id}
-        onChange={handleGeneratorChange}
-      />
 
-      {formData.generator_name && (
-        <p className="mt-2 text-sm text-gray-600">
-          Selected generator: {formData.generator_name}
-        </p>
-      )}
-
-      <label className="mt-4 block">
-        Add Fuel Tank:
-        <input
-          name="tank"
-          type="text"
-          value={formData.tank || ''}
-          onChange={handleChange}
+      <div className="mb-4 flex items-center gap-2">
+        <GeneratorDropdown
+          value={formData.selectedGenerator?.id || ''}
+          onChange={handleGeneratorSelect}
         />
-      </label>
+
+        <button
+          type="button"
+          onClick={handleAddGenerator}
+          className="underline-link"
+        >
+          Add Generator
+        </button>
+      </div>
+
+      <div className="mb-6">
+        {generators.length === 0 ? (
+          <p>No generators assigned yet.</p>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {generators.map((gen) => (
+              <div key={gen.id} className="rounded border p-3">
+                <div className="mb-3 flex items-center justify-between">
+                  <strong>{gen.name}</strong>
+
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveGenerator(gen.id)}
+                    className="underline-link"
+                  >
+                    Remove Generator
+                  </button>
+                </div>
+
+                <div className="mb-3 flex items-center gap-2">
+                  <TankDropdown
+                    value={gen.selectedTank?.id || ''}
+                    onChange={(tank) => handleTankSelect(gen.id, tank)}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => handleAddTank(gen.id)}
+                    className="underline-link"
+                  >
+                    Add Tank
+                  </button>
+                </div>
+
+                {(gen.tanks || []).length === 0 ? (
+                  <p>No tanks assigned yet.</p>
+                ) : (
+                  <ul className="flex flex-col gap-2">
+                    {(gen.tanks || []).map((tank) => (
+                      <li
+                        key={`${gen.id}-${tank.id}`}
+                        className="flex items-center justify-between"
+                      >
+                        <span>{tank.name}</span>
+
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTank(gen.id, tank.id)}
+                          className="underline-link"
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

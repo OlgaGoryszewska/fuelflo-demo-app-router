@@ -19,7 +19,11 @@ export default function ReviewBefore({ formData }) {
 
       <div className="window mt-2 mb-2">
         {formData.before_photo_preview && (
-          <img src={formData.before_photo_preview} alt="preview"  className="window"/>
+          <img
+            src={formData.before_photo_preview}
+            alt="preview"
+            className="window"
+          />
         )}
       </div>
     </div>

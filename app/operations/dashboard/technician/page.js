@@ -112,10 +112,8 @@ export default function Dashboard() {
               <ManageAccountsOutlinedIcon />
               Hire Desk Coordinator
             </Link>
-          
           </div>
         )}
-     
 
         <div
           onClick={() => toggleCard('equipment')}
@@ -139,6 +137,11 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
+        <div className="divider-full mt-2 mb-2"></div>
+        <button className="button-big">
+          {' '}
+          <Link href={`/resources/projects/`}>Add Fuel Transaction</Link>
+        </button>
       </div>
     </div>
   );

@@ -70,7 +70,7 @@ export default function OperationAfter({ formData, setFormData }) {
         value={formData.after_photo_url}
         className="hidden"
       />
-        {formData.after_photo_preview && (
+      {formData.after_photo_preview && (
         <div className="mt-4">
           <img
             src={formData.after_photo_preview}

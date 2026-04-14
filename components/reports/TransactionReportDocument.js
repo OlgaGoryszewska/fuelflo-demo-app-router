@@ -178,12 +178,16 @@ export default function TransactionReportDocument({ transaction }) {
 
           <View style={styles.row}>
             <Text style={styles.label}>Created</Text>
-            <Text style={styles.value}>{formatDate(transaction.created_at)}</Text>
+            <Text style={styles.value}>
+              {formatDate(transaction.created_at)}
+            </Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Completed</Text>
-            <Text style={styles.value}>{formatDate(transaction.completed_at)}</Text>
+            <Text style={styles.value}>
+              {formatDate(transaction.completed_at)}
+            </Text>
           </View>
         </View>
 
@@ -200,7 +204,8 @@ export default function TransactionReportDocument({ transaction }) {
           <View style={styles.row}>
             <Text style={styles.label}>Generator</Text>
             <Text style={styles.value}>
-              {transaction.generators?.name || shortId(transaction.generator_id)}
+              {transaction.generators?.name ||
+                shortId(transaction.generator_id)}
             </Text>
           </View>
 
@@ -213,7 +218,9 @@ export default function TransactionReportDocument({ transaction }) {
 
           <View style={styles.row}>
             <Text style={styles.label}>Technician ID</Text>
-            <Text style={styles.value}>{shortId(transaction.technician_id)}</Text>
+            <Text style={styles.value}>
+              {shortId(transaction.technician_id)}
+            </Text>
           </View>
         </View>
 
@@ -244,7 +251,10 @@ export default function TransactionReportDocument({ transaction }) {
             <View style={styles.imageCard}>
               <Text style={styles.imageTitle}>Before transaction</Text>
               {transaction.before_photo_url ? (
-                <Image src={transaction.before_photo_url} style={styles.image} />
+                <Image
+                  src={transaction.before_photo_url}
+                  style={styles.image}
+                />
               ) : (
                 <View style={styles.imagePlaceholder}>
                   <Text>No before photo</Text>

@@ -8,8 +8,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 
-
-
 export default function TransactionDetailPage() {
   const params = useParams();
   const { id } = params;
@@ -260,26 +258,29 @@ export default function TransactionDetailPage() {
             Open
           </Link>
         </div>
-        <div className='container-flex'>
-        <h4 className='mb-2'>Transaction files</h4>
-        
-        {transaction.before_photo_url && (
-          <img
-            src={transaction.before_photo_url}
-            alt="Before fuel"
-            width="250"
-            className='window'
-          />
-        )}
-        <p className='steps-text mb-2'>Image taken before transaction</p>
+        <div className="container-flex">
+          <h4 className="mb-2">Transaction files</h4>
 
-        {transaction.after_photo_url && (
-          <img src={transaction.after_photo_url} alt="After fuel" width="250" className='window' />
-        )}
-        <p className='steps-text mb-2'>Image taken after transaction</p>
+          {transaction.before_photo_url && (
+            <img
+              src={transaction.before_photo_url}
+              alt="Before fuel"
+              width="250"
+              className="window"
+            />
+          )}
+          <p className="steps-text mb-2">Image taken before transaction</p>
+
+          {transaction.after_photo_url && (
+            <img
+              src={transaction.after_photo_url}
+              alt="After fuel"
+              width="250"
+              className="window"
+            />
+          )}
+          <p className="steps-text mb-2">Image taken after transaction</p>
         </div>
-       
-      
       </div>
     </div>
   );

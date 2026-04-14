@@ -21,8 +21,8 @@ const roleMenus = {
     { href: '/profile', label: 'Profile' },
   ],
   hire_desk: [
-    { href: 'operations/dashboard/hire-desk', label: 'Dashboard' },
-    { href: 'resources/projects/new', label: 'New project' },
+    { href: '/operations/dashboard/hire-desk/', label: 'Dashboard' },
+    { href: '/resources/projects/new', label: 'New project' },
     { href: '/users/register', label: 'Register user' },
     { href: '/profile', label: 'Profile' },
   ],
@@ -118,7 +118,7 @@ export default function Menu() {
     setIsOpen(false);
   };
 
-  const links = role ? roleMenus[role] ?? [] : [];
+  const links = role ? (roleMenus[role] ?? []) : [];
 
   return (
     <div className="menu" ref={menuRef}>
@@ -141,7 +141,6 @@ export default function Menu() {
                 Login
               </Link>
             </li>
-            
           </>
         )}
 
