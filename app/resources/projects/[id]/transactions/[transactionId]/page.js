@@ -266,9 +266,7 @@ export default function TransactionDetailPage() {
         )}
         <p className='steps-text mb-2'>Image taken after transaction</p>
         </div>
-        <div className="container-flex">
-  
-</div>
+       
 
        
       </div>
