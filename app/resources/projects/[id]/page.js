@@ -248,17 +248,17 @@ export default function ProjectDetailPage() {
         </div>
 
         {openCard === 'generators' && (
-          <div className="card-button flex-col items-start gap-3">
+          <div className="">
             {fleet.length > 0 ? (
               fleet.map((generator) => (
                 <div key={generator.id} className="w-full">
                   <div className="flex items-center gap-2">
-                    <BoltOutlinedIcon />
-                    <p className="steps-text font-semibold">{generator.name}</p>
+                   
+                    <h4>{generator.name}</h4>
                   </div>
 
                   {(generator.tanks || []).length > 0 ? (
-                    <ul className="ml-8 mt-1 list-disc">
+                    <ul className="steps-text mb-2">
                       {generator.tanks.map((tank) => (
                         <li key={`${generator.id}-${tank.id || tank.name}`}>
                           {tank.name}
@@ -289,16 +289,16 @@ export default function ProjectDetailPage() {
         </div>
 
         {openCard === 'tanks' && (
-          <div className="card-button flex-col items-start gap-2">
+          <div >
             {fleetRows.length > 0 ? (
               fleetRows.map((row) => (
-                <div key={row.id} className="flex items-center gap-2">
-                  <OilBarrelOutlinedIcon />
-                  <p>
+                <div key={row.id} >
+                  
+                  <p className='steps-text mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2'>
                     {row.tank_name || 'Unnamed tank'}{' '}
-                    <span className="text-gray-500">
+                    
                       ({row.generator_name || 'Unknown generator'})
-                    </span>
+                  
                   </p>
                 </div>
               ))
@@ -321,15 +321,15 @@ export default function ProjectDetailPage() {
         </div>
 
         {openCard === 'technicians' && (
-          <div className="card-button flex-col items-start gap-2">
+          <div>
             {technicians.length > 0 ? (
               technicians.map((tech) => (
-                <div key={tech.id} className="flex items-center gap-2">
-                  <EngineeringOutlinedIcon className="gray-icon" />
+                <div key={tech.id} className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2">
+                  
                   <div>
                     <p>{tech.full_name || 'Unnamed technician'}</p>
                     {tech.role && (
-                      <p className="steps-text text-gray-500">{tech.role}</p>
+                      <p className="steps-text ">{tech.role}</p>
                     )}
                   </div>
                 </div>
