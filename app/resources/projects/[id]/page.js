@@ -47,7 +47,8 @@ export default function ProjectDetailPage() {
         // 1. Project
         const { data: projectData, error: projectError } = await supabase
           .from('projects')
-          .select(`
+          .select(
+            `
             id,
             name,
             location,
@@ -63,7 +64,8 @@ export default function ProjectDetailPage() {
             additional,
             company_name,
             expected_liters
-          `)
+          `
+          )
           .eq('id', idValue)
           .single();
 
@@ -73,7 +75,8 @@ export default function ProjectDetailPage() {
         const { data: technicianRelations, error: techniciansError } =
           await supabase
             .from('profiles_projects')
-            .select(`
+            .select(
+              `
               profiles_id,
               profiles:profiles_projects_profiles_id_fkey (
                 id,
@@ -82,7 +85,8 @@ export default function ProjectDetailPage() {
                 email,
                 phone
               )
-            `)
+            `
+            )
             .eq('projects_id', idValue);
 
         if (techniciansError) throw techniciansError;
@@ -90,14 +94,16 @@ export default function ProjectDetailPage() {
         // 3. Generators and tanks
         const { data: fleetData, error: fleetError } = await supabase
           .from('generators_tanks')
-          .select(`
+          .select(
+            `
             id,
             project_id,
             generator_id,
             generator_name,
             tank_id,
             tank_name
-          `)
+          `
+          )
           .eq('project_id', idValue);
 
         if (fleetError) throw fleetError;
@@ -253,7 +259,6 @@ export default function ProjectDetailPage() {
               fleet.map((generator) => (
                 <div key={generator.id} className="w-full">
                   <div className="flex items-center gap-2">
-                   
                     <h4>{generator.name}</h4>
                   </div>
 
@@ -289,16 +294,13 @@ export default function ProjectDetailPage() {
         </div>
 
         {openCard === 'tanks' && (
-          <div >
+          <div>
             {fleetRows.length > 0 ? (
               fleetRows.map((row) => (
-                <div key={row.id} >
-                  
-                  <p className='steps-text mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2'>
-                    {row.tank_name || 'Unnamed tank'}{' '}
-                    
-                      ({row.generator_name || 'Unknown generator'})
-                  
+                <div key={row.id}>
+                  <p className="steps-text mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2">
+                    {row.tank_name || 'Unnamed tank'} (
+                    {row.generator_name || 'Unknown generator'})
                   </p>
                 </div>
               ))
@@ -324,13 +326,13 @@ export default function ProjectDetailPage() {
           <div>
             {technicians.length > 0 ? (
               technicians.map((tech) => (
-                <div key={tech.id} className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2">
-                  
+                <div
+                  key={tech.id}
+                  className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2"
+                >
                   <div>
                     <p>{tech.full_name || 'Unnamed technician'}</p>
-                    {tech.role && (
-                      <p className="steps-text ">{tech.role}</p>
-                    )}
+                    {tech.role && <p className="steps-text ">{tech.role}</p>}
                   </div>
                 </div>
               ))

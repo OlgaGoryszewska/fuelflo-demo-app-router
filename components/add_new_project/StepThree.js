@@ -204,7 +204,7 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddGenerator}
           className="underline-link"
         >
-          Add 
+          Add
         </button>
       </div>
 
@@ -223,7 +223,7 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleRemoveGenerator(gen.id)}
                     className="underline-link"
                   >
-                    Remove 
+                    Remove
                   </button>
                 </div>
 
@@ -238,7 +238,7 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleAddTank(gen.id)}
                     className="underline-link"
                   >
-                    Add 
+                    Add
                   </button>
                 </div>
 

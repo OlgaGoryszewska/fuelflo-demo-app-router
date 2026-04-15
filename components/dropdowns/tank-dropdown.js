@@ -8,9 +8,7 @@ export default function TankDropdown({ value, onChange }) {
 
   useEffect(() => {
     async function fetchTanks() {
-      const { data, error } = await supabase
-        .from('tanks')
-        .select('id, name');
+      const { data, error } = await supabase.from('tanks').select('id, name');
 
       if (error) {
         console.error('Error fetching tanks:', error.message);

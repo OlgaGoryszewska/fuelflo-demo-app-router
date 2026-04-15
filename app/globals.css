@@ -404,6 +404,11 @@ button:active,
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
+.logout-button {
+  font-family: var(--font-poppins);
+  font-size: 20px;
+  margin-left: 1rem;
+}
 
 li {
   border-bottom: 1px solid var(--primary-gray-light);

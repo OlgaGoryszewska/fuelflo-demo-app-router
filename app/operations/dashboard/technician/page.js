@@ -49,7 +49,6 @@ export default function Dashboard() {
               <RouteOutlinedIcon />
               Ongoing Projects
             </Link>
-            
           </div>
         )}
 
@@ -105,7 +104,6 @@ export default function Dashboard() {
               <EngineeringOutlinedIcon />
               Technicians
             </Link>
-            
           </div>
         )}
 

@@ -23,9 +23,9 @@ const roleMenus = {
   ],
   hire_desk: [
     { href: '/operations/dashboard/hire-desk', label: 'Dashboard' },
-    { href: '/resources/projects/new', label: 'New project' },
-    { href: '/users/register', label: 'Register user' },
-    { href: '/profile', label: 'Profile' },
+    { href: '/add-forms/add-new-project', label: 'New project' },
+    { href: '/register', label: 'Register user' },
+    { href: '/resources/profile/', label: 'Profile' },
   ],
   fuel_supplier: [
     { href: '/dashboard/fuel-supplier', label: 'Dashboard' },
@@ -137,7 +137,7 @@ export default function Menu() {
     router.refresh();
   };
 
-  const links = role ? roleMenus[role] ?? [] : [];
+  const links = role ? (roleMenus[role] ?? []) : [];
 
   return (
     <div className="menu" ref={menuRef}>
@@ -171,10 +171,8 @@ export default function Menu() {
           ))}
 
         {user && (
-          <li className="last-li">
-            <button type="button" onClick={handleLogout} className="ml-2">
-              Logout
-            </button>
+          <li className="logout-button" onClick={handleLogout}>
+            Logout
           </li>
         )}
       </ul>
