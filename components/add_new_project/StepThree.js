@@ -204,7 +204,7 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddGenerator}
           className="underline-link"
         >
-          Add Generator
+          Add 
         </button>
       </div>
 
@@ -214,7 +214,7 @@ export default function StepThree({ formData, setFormData }) {
         ) : (
           <div className="flex flex-col gap-4">
             {generators.map((gen) => (
-              <div key={gen.id} className="rounded border p-3">
+              <div key={gen.id} className="">
                 <div className="mb-3 flex items-center justify-between">
                   <strong>{gen.name}</strong>
 
@@ -223,7 +223,7 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleRemoveGenerator(gen.id)}
                     className="underline-link"
                   >
-                    Remove Generator
+                    Remove 
                   </button>
                 </div>
 
@@ -238,7 +238,7 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleAddTank(gen.id)}
                     className="underline-link"
                   >
-                    Add Tank
+                    Add 
                   </button>
                 </div>
 
