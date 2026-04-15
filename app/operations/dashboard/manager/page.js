@@ -151,6 +151,18 @@ export default function Dashboard() {
             </Link>
           </div>
         )}
+            <Link href="/operations/create-qr-code" className="form-button mt-2">
+          <QrCodeOutlinedIcon />
+          Create a new QR Code
+        </Link>
+        <Link href="/resources/fuel-transactions" className="form-button">
+          <AssessmentOutlinedIcon />
+          Reports
+        </Link>
+        <Link href="/resources/profile" className="form-button">
+          <Person4OutlinedIcon />
+          Profile
+        </Link>
       </div>
     </div>
   );
