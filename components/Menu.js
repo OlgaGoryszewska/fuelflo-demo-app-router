@@ -170,7 +170,7 @@ export default function Menu() {
             </li>
           ))}
 
-        {user && (
+{user && (
           <li className="logout-button" onClick={handleLogout}>
             Logout
           </li>
