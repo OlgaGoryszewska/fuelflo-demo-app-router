@@ -49,10 +49,7 @@ export default function Dashboard() {
               <RouteOutlinedIcon />
               Ongoing Projects
             </Link>
-            <Link href="/" className="card-button">
-              <ArchiveOutlinedIcon />
-              Archive
-            </Link>
+            
           </div>
         )}
 
@@ -100,18 +97,15 @@ export default function Dashboard() {
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
-            <Link href="/ongoing-technicians-page" className="card-button">
+            <Link href="/resources/technicians" className="card-button">
               <EngineeringOutlinedIcon />
               Managers
             </Link>
-            <Link href="/ongoing-technicians-page" className="card-button">
+            <Link href="/resources/technicians" className="card-button">
               <EngineeringOutlinedIcon />
               Technicians
             </Link>
-            <Link href="/ongoing-technicians-page" className="card-button">
-              <ManageAccountsOutlinedIcon />
-              Hire Desk Coordinator
-            </Link>
+            
           </div>
         )}
 

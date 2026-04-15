@@ -3,15 +3,16 @@
 import Link from 'next/link';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import logo from '@/public/flo-logo.png';
 import { supabase } from '@/lib/supabaseClient';
 
 const roleMenus = {
   technician: [
-    { href: '/operations/dashboard/technician/', label: 'Dashboard' },
-    { href: '/resources/fuel-transactions/', label: 'Fuel transactions' },
-    { href: '/resources/projects/', label: 'Projects' },
+    { href: '/operations/dashboard/technician', label: 'Dashboard' },
+    { href: '/resources/fuel-transactions', label: 'Fuel transactions' },
+    { href: '/resources/projects', label: 'Projects' },
     { href: '/resources/profile', label: 'Profile' },
   ],
   manager: [
@@ -21,7 +22,7 @@ const roleMenus = {
     { href: '/profile', label: 'Profile' },
   ],
   hire_desk: [
-    { href: '/operations/dashboard/hire-desk/', label: 'Dashboard' },
+    { href: '/operations/dashboard/hire-desk', label: 'Dashboard' },
     { href: '/resources/projects/new', label: 'New project' },
     { href: '/users/register', label: 'Register user' },
     { href: '/profile', label: 'Profile' },
@@ -39,62 +40,70 @@ export default function Menu() {
   const [role, setRole] = useState(null);
 
   const menuRef = useRef(null);
+  const router = useRouter();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const handleLinkClick = () => setIsOpen(false);
 
   useEffect(() => {
-    async function loadUserAndRole() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      setUser(user ?? null);
-
-      if (!user) {
-        setRole(null);
-        return;
-      }
-
+    async function fetchRole(userId) {
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('role')
-        .eq('id', user.id)
+        .eq('id', userId)
         .single();
 
       if (error) {
         console.error('Error fetching role:', error.message);
+        return null;
+      }
+
+      return profile?.role ?? null;
+    }
+
+    async function loadUserAndRole() {
+      const {
+        data: { user: currentUser },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error('Error fetching user:', error.message);
+        setUser(null);
         setRole(null);
         return;
       }
 
-      setRole(profile.role);
+      setUser(currentUser ?? null);
+
+      if (!currentUser) {
+        setRole(null);
+        return;
+      }
+
+      const fetchedRole = await fetchRole(currentUser.id);
+      setRole(fetchedRole);
     }
 
     loadUserAndRole();
 
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        const nextUser = session?.user ?? null;
-        setUser(nextUser);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      const nextUser = session?.user ?? null;
+      setUser(nextUser);
 
-        if (!nextUser) {
-          setRole(null);
-          return;
-        }
-
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', nextUser.id)
-          .single();
-
-        setRole(profile?.role ?? null);
+      if (!nextUser) {
+        setRole(null);
+        return;
       }
-    );
+
+      const fetchedRole = await fetchRole(nextUser.id);
+      setRole(fetchedRole);
+    });
 
     return () => {
-      listener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
 
@@ -106,19 +115,29 @@ export default function Menu() {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('Error logging out:', error.message);
+      return;
+    }
+
     setUser(null);
     setRole(null);
     setIsOpen(false);
+
+    router.push('/signIn');
+    router.refresh();
   };
 
-  const links = role ? (roleMenus[role] ?? []) : [];
+  const links = role ? roleMenus[role] ?? [] : [];
 
   return (
     <div className="menu" ref={menuRef}>
@@ -135,13 +154,11 @@ export default function Menu() {
         </li>
 
         {!user && (
-          <>
-            <li className="pl-2">
-              <Link onClick={handleLinkClick} href="/signIn">
-                Login
-              </Link>
-            </li>
-          </>
+          <li className="pl-2">
+            <Link onClick={handleLinkClick} href="/signIn">
+              Login
+            </Link>
+          </li>
         )}
 
         {user &&
@@ -155,7 +172,7 @@ export default function Menu() {
 
         {user && (
           <li className="last-li">
-            <button onClick={handleLogout} className="ml-2">
+            <button type="button" onClick={handleLogout} className="ml-2">
               Logout
             </button>
           </li>

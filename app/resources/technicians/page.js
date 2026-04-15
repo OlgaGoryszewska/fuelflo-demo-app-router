@@ -32,9 +32,8 @@ export default function OngoingProjectsPage() {
           <h1 className="ml-2">Technicians</h1>
         </div>
         <div className="background-container">
-          <h2>Choose a technician</h2>
-          <p className="steps-text mb-2">Before adding fuel transaction </p>
-          <div className="divider-full"></div>
+          
+          
           <div className="flex flex-col w-full"></div>
           <div className="pr-2 w-full flex justify-between">
             <h4 className="pl-2">Name</h4>
