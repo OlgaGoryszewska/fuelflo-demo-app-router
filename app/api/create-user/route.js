@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request) {
   try {
@@ -11,11 +11,6 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
 
     const { data: authData, error: authError } =
       await supabaseAdmin.auth.admin.createUser({
@@ -31,7 +26,10 @@ export async function POST(request) {
     const user = authData.user;
 
     if (!user) {
-      return Response.json({ error: 'User was not created.' }, { status: 400 });
+      return Response.json(
+        { error: 'User was not created.' },
+        { status: 400 }
+      );
     }
 
     const { error: profileError } = await supabaseAdmin
@@ -40,18 +38,22 @@ export async function POST(request) {
         id: user.id,
         full_name,
         email,
-        phone,
+        phone: phone || null,
         role,
-        address,
+        address: address || null,
       });
 
     if (profileError) {
       return Response.json({ error: profileError.message }, { status: 400 });
     }
 
-    return Response.json({
-      message: 'User and profile created successfully.',
-    });
+    return Response.json(
+      {
+        message: 'User and profile created successfully.',
+        userId: user.id,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     return Response.json(
       { error: error.message || 'Server error.' },
