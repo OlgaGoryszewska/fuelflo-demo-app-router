@@ -1,4 +1,4 @@
-import { supabaseAdmin } from '@/lib/supabase/admin';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request) {
   try {
@@ -11,6 +11,8 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    const supabaseAdmin = getSupabaseAdmin();
 
     const { data: authData, error: authError } =
       await supabaseAdmin.auth.admin.createUser({
