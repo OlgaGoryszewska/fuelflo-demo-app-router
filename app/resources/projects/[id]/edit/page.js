@@ -4,9 +4,22 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
+import ProgresionBar from '@/components/ProgresionBar';
+import StepNavigation from '@/components/StepNavigation';
+
+import StepOne from '@/components/add_new_project/StepOne';
+import StepTwo from '@/components/add_new_project/StepTwo';
+import StepThree from '@/components/add_new_project/StepThree';
+import StepFour from '@/components/add_new_project/StepFour';
+import StepFive from '@/components/add_new_project/StepFive';
+
 export default function EditProjectPage() {
   const { id } = useParams();
   const router = useRouter();
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,272 +30,311 @@ export default function EditProjectPage() {
     contractor_address: '',
     email: '',
     mobile: '',
+
+    selectedTechnician: null,
+    technicians: [],
+    technician_ids: [],
+
+    generators: [],
+    selectedGenerator: null,
+
     amount: '',
     selling_price: '',
     specification: '',
     additional: '',
+    event_organizer_id: '',
+    fuel_suppliers_id: '',
+    active: true,
     company_name: '',
-    expected_liters: '',
   });
 
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
+  const steps = [
+    <StepOne key="step-1" formData={formData} setFormData={setFormData} />,
+    <StepTwo key="step-2" formData={formData} setFormData={setFormData} />,
+    <StepThree key="step-3" formData={formData} setFormData={setFormData} />,
+    <StepFour key="step-4" formData={formData} setFormData={setFormData} />,
+    <StepFive key="step-5" formData={formData} />,
+  ];
 
   useEffect(() => {
     if (!id) return;
 
     async function loadProject() {
       setLoading(true);
-      setError('');
 
-      const idValue = isNaN(Number(id)) ? id : Number(id);
+      try {
+        const projectId = isNaN(Number(id)) ? id : Number(id);
 
-      const { data, error } = await supabase
-        .from('projects')
-        .select(`
-          id,
-          name,
-          location,
-          start_date,
-          end_date,
-          contractor_name,
-          contractor_address,
-          email,
-          mobile,
-          amount,
-          selling_price,
-          specification,
-          additional,
-          company_name,
-          expected_liters
-        `)
-        .eq('id', idValue)
-        .single();
+        const { data: projectData, error: projectError } = await supabase
+          .from('projects')
+          .select(`
+            id,
+            name,
+            location,
+            start_date,
+            end_date,
+            contractor_name,
+            contractor_address,
+            email,
+            mobile,
+            amount,
+            selling_price,
+            specification,
+            additional,
+            event_organizer_id,
+            fuel_suppliers_id,
+            active,
+            company_name
+          `)
+          .eq('id', projectId)
+          .single();
 
-      if (error) {
-        setError(error.message);
+        if (projectError) throw projectError;
+
+        const { data: technicianRelations, error: technicianError } =
+          await supabase
+            .from('profiles_projects')
+            .select(`
+              profiles_id,
+              profiles:profiles_projects_profiles_id_fkey (
+                id,
+                full_name
+              )
+            `)
+            .eq('projects_id', projectId);
+
+        if (technicianError) throw technicianError;
+
+        const { data: fleetData, error: fleetError } = await supabase
+          .from('generators_tanks')
+          .select(`
+            id,
+            generator_id,
+            generator_name,
+            tank_id,
+            tank_name
+          `)
+          .eq('project_id', projectId);
+
+        if (fleetError) throw fleetError;
+
+        const technicians = (technicianRelations || [])
+          .map((item) => ({
+            id: item.profiles?.id,
+            name: item.profiles?.full_name || 'Unnamed technician',
+          }))
+          .filter((tech) => tech.id);
+
+        const technician_ids = technicians.map((tech) => tech.id);
+
+        const groupedGenerators = [];
+
+        (fleetData || []).forEach((row) => {
+          const existingGenerator = groupedGenerators.find(
+            (gen) => String(gen.id) === String(row.generator_id)
+          );
+
+          if (existingGenerator) {
+            if (row.tank_id || row.tank_name) {
+              existingGenerator.tanks.push({
+                id: row.tank_id,
+                name: row.tank_name,
+              });
+            }
+          } else {
+            groupedGenerators.push({
+              id: row.generator_id,
+              name: row.generator_name,
+              selectedTank: null,
+              tanks:
+                row.tank_id || row.tank_name
+                  ? [
+                      {
+                        id: row.tank_id,
+                        name: row.tank_name,
+                      },
+                    ]
+                  : [],
+            });
+          }
+        });
+
+        setFormData({
+          name: projectData.name || '',
+          location: projectData.location || '',
+          start_date: projectData.start_date || '',
+          end_date: projectData.end_date || '',
+          contractor_name: projectData.contractor_name || '',
+          contractor_address: projectData.contractor_address || '',
+          email: projectData.email || '',
+          mobile: projectData.mobile || '',
+
+          selectedTechnician: null,
+          technicians,
+          technician_ids,
+
+          generators: groupedGenerators,
+          selectedGenerator: null,
+
+          amount: projectData.amount ?? '',
+          selling_price: projectData.selling_price ?? '',
+          specification: projectData.specification || '',
+          additional: projectData.additional || '',
+          event_organizer_id: projectData.event_organizer_id || '',
+          fuel_suppliers_id: projectData.fuel_suppliers_id || '',
+          active: projectData.active ?? true,
+          company_name: projectData.company_name || '',
+        });
+      } catch (error) {
+        console.error('Error loading project:', error);
+        alert(error.message || 'Failed to load project');
+      } finally {
         setLoading(false);
-        return;
       }
-
-      setFormData({
-        name: data.name || '',
-        location: data.location || '',
-        start_date: data.start_date || '',
-        end_date: data.end_date || '',
-        contractor_name: data.contractor_name || '',
-        contractor_address: data.contractor_address || '',
-        email: data.email || '',
-        mobile: data.mobile || '',
-        amount: data.amount ?? '',
-        selling_price: data.selling_price ?? '',
-        specification: data.specification || '',
-        additional: data.additional || '',
-        company_name: data.company_name || '',
-        expected_liters: data.expected_liters ?? '',
-      });
-
-      setLoading(false);
     }
 
     loadProject();
   }, [id]);
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
+  const buildGeneratorsTanksRows = (projectId, generators) => {
+    return (generators || []).flatMap((generator) => {
+      if (!generator.tanks || generator.tanks.length === 0) {
+        return [
+          {
+            project_id: projectId,
+            generator_id: generator.id,
+            generator_name: generator.name,
+            tank_id: null,
+            tank_name: null,
+          },
+        ];
+      }
+
+      return generator.tanks.map((tank) => ({
+        project_id: projectId,
+        generator_id: generator.id,
+        generator_name: generator.name,
+        tank_id: tank.id,
+        tank_name: tank.name,
+      }));
+    });
+  };
+
+  const saveTechnicians = async (projectId, technicianIds) => {
+    await supabase
+      .from('profiles_projects')
+      .delete()
+      .eq('projects_id', projectId);
+
+    if (!technicianIds || technicianIds.length === 0) return;
+
+    const rows = technicianIds.map((technicianId) => ({
+      projects_id: projectId,
+      profiles_id: technicianId,
     }));
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setSaving(true);
-    setError('');
-
-    const idValue = isNaN(Number(id)) ? id : Number(id);
 
     const { error } = await supabase
-      .from('projects')
-      .update({
-        name: formData.name,
-        location: formData.location,
+      .from('profiles_projects')
+      .insert(rows);
+
+    if (error) throw error;
+  };
+
+  const saveGeneratorsTanks = async (projectId, generators) => {
+    await supabase
+      .from('generators_tanks')
+      .delete()
+      .eq('project_id', projectId);
+
+    const rows = buildGeneratorsTanksRows(projectId, generators);
+
+    if (!rows.length) return;
+
+    const { error } = await supabase
+      .from('generators_tanks')
+      .insert(rows);
+
+    if (error) throw error;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (currentStep !== steps.length - 1) return;
+
+    setSubmitting(true);
+
+    try {
+      const projectId = isNaN(Number(id)) ? id : Number(id);
+
+      const projectPayload = {
+        name: formData.name || null,
+        location: formData.location || null,
         start_date: formData.start_date || null,
         end_date: formData.end_date || null,
-        contractor_name: formData.contractor_name,
-        contractor_address: formData.contractor_address,
-        email: formData.email,
-        mobile: formData.mobile,
-        amount: formData.amount === '' ? null : Number(formData.amount),
-        selling_price:
-          formData.selling_price === '' ? null : Number(formData.selling_price),
-        specification: formData.specification,
-        additional: formData.additional,
-        company_name: formData.company_name,
-        expected_liters:
-          formData.expected_liters === ''
-            ? null
-            : Number(formData.expected_liters),
-      })
-      .eq('id', idValue);
+        contractor_name: formData.contractor_name || null,
+        contractor_address: formData.contractor_address || null,
+        email: formData.email || null,
+        mobile: formData.mobile || null,
+        amount: formData.amount || null,
+        selling_price: formData.selling_price || null,
+        specification: formData.specification || null,
+        additional: formData.additional || null,
+        active: formData.active ?? true,
+        company_name: formData.company_name || null,
+        event_organizer_id: formData.event_organizer_id || null,
+        fuel_suppliers_id: formData.fuel_suppliers_id || null,
+      };
 
-    if (error) {
-      setError(error.message);
-      setSaving(false);
-      return;
+      const { error: projectError } = await supabase
+        .from('projects')
+        .update(projectPayload)
+        .eq('id', projectId);
+
+      if (projectError) throw projectError;
+
+      await saveTechnicians(projectId, formData.technician_ids || []);
+      await saveGeneratorsTanks(projectId, formData.generators || []);
+
+      alert('Project updated successfully!');
+      router.push(`/resources/projects/${projectId}`);
+      router.refresh();
+    } catch (error) {
+      console.error('Error updating project:', error);
+      alert(error.message || 'Failed to update project');
+    } finally {
+      setSubmitting(false);
     }
+  };
 
-    router.push(`/projects/${id}`);
-    router.refresh();
+  if (loading) {
+    return (
+      <div className="main-container">
+        <div className="form-header">
+          <h1>Loading project...</h1>
+        </div>
+      </div>
+    );
   }
 
-  if (loading) return <div className="main-container">Loading...</div>;
-  if (error) return <div className="main-container">Error: {error}</div>;
-
   return (
-    <div className="main-container">
-      <div className="background-container-white">
-        <h2>Edit Project</h2>
+    <div>
+      <div className="main-container">
+        <div className="form-header">
+          <h1>Edit Project</h1>
+        </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4">
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Project name"
-            className="border rounded p-2"
+        <form onSubmit={handleSubmit}>
+          <ProgresionBar currentStep={currentStep} />
+          {steps[currentStep]}
+
+          <StepNavigation
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            totalSteps={steps.length}
+            submitting={submitting}
+            onSubmit={handleSubmit}
           />
-
-          <input
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            className="border rounded p-2"
-          />
-
-          <input
-            type="date"
-            name="start_date"
-            value={formData.start_date}
-            onChange={handleChange}
-            className="border rounded p-2"
-          />
-
-          <input
-            type="date"
-            name="end_date"
-            value={formData.end_date}
-            onChange={handleChange}
-            className="border rounded p-2"
-          />
-
-          <input
-            name="contractor_name"
-            value={formData.contractor_name}
-            onChange={handleChange}
-            placeholder="Contractor name"
-            className="border rounded p-2"
-          />
-
-          <input
-            name="contractor_address"
-            value={formData.contractor_address}
-            onChange={handleChange}
-            placeholder="Contractor address"
-            className="border rounded p-2"
-          />
-
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="border rounded p-2"
-          />
-
-          <input
-            name="mobile"
-            value={formData.mobile}
-            onChange={handleChange}
-            placeholder="Mobile"
-            className="border rounded p-2"
-          />
-
-          <input
-            type="number"
-            step="0.01"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-            placeholder="Purchase price"
-            className="border rounded p-2"
-          />
-
-          <input
-            type="number"
-            step="0.01"
-            name="selling_price"
-            value={formData.selling_price}
-            onChange={handleChange}
-            placeholder="Selling price"
-            className="border rounded p-2"
-          />
-
-          <input
-            type="number"
-            name="expected_liters"
-            value={formData.expected_liters}
-            onChange={handleChange}
-            placeholder="Expected liters"
-            className="border rounded p-2"
-          />
-
-          <textarea
-            name="specification"
-            value={formData.specification}
-            onChange={handleChange}
-            placeholder="Specification"
-            className="border rounded p-2"
-            rows={4}
-          />
-
-          <textarea
-            name="additional"
-            value={formData.additional}
-            onChange={handleChange}
-            placeholder="Additional information"
-            className="border rounded p-2"
-            rows={4}
-          />
-
-          <input
-            name="company_name"
-            value={formData.company_name}
-            onChange={handleChange}
-            placeholder="Company name"
-            className="border rounded p-2"
-          />
-
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={saving}
-              className="rounded-lg bg-black px-4 py-2 text-white"
-            >
-              {saving ? 'Saving...' : 'Save'}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => router.push(`/projects/${id}`)}
-              className="rounded-lg border px-4 py-2"
-            >
-              Cancel
-            </button>
-          </div>
         </form>
       </div>
     </div>

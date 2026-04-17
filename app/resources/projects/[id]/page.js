@@ -338,6 +338,12 @@ export default function ProjectDetailPage() {
             )}
           </div>
         )}
+          <Link
+    href={`/resources/projects/${projectId}/edit`}
+    className="rounded-lg bg-black px-4 py-2 text-white"
+  >
+    Edit
+  </Link>
       </div>
 
       <ProjectFuelTransactionList projectId={projectId} />
@@ -407,12 +413,7 @@ export default function ProjectDetailPage() {
     <h4 className="h-mid-gray-s">{project.name || '-'}</h4>
   </div>
 
-  <Link
-    href={`/resources/projects/${projectId}/edit`}
-    className="rounded-lg bg-black px-4 py-2 text-white"
-  >
-    Edit
-  </Link>
+
 </div>
       </div>
     </div>
