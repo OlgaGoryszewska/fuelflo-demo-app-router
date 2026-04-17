@@ -99,15 +99,15 @@ export default function Dashboard() {
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
-            <Link href="/ongoing-technicians-page" className="card-button">
+            <Link href="/resources/manager" className="card-button">
               <EngineeringOutlinedIcon />
               Managers
             </Link>
-            <Link href="/resources/technicians/" className="card-button">
+            <Link href="/resources/technician/" className="card-button">
               <EngineeringOutlinedIcon />
               Technicians
             </Link>
-            <Link href="/ongoing-technicians-page" className="card-button">
+            <Link href="/resources/hire-desk" className="card-button">
               <ManageAccountsOutlinedIcon />
               Hire Desk Coordinator
             </Link>
