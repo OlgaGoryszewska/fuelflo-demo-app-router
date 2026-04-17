@@ -409,8 +409,7 @@ export default function ProjectDetailPage() {
         </div>
         <div className="flex items-center justify-between">
   <div>
-    <h2 className="mt-2">Project Details</h2>
-    <h4 className="h-mid-gray-s">{project.name || '-'}</h4>
+    
   </div>
 
 
