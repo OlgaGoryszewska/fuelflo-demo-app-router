@@ -93,7 +93,7 @@ export default function CreateUserPage() {
       });
 
       setTimeout(() => {
-        router.push('oerations/dashboard/hire-desk');
+        router.push('/operations/dashboard/hire-desk');
       }, 1500);
     } catch (error) {
       setErrorMessage(
