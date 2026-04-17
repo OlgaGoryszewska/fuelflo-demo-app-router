@@ -13,9 +13,6 @@ import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList'
 
 // icons
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import OilBarrelOutlinedIcon from '@mui/icons-material/OilBarrelOutlined';
-import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
@@ -404,6 +401,19 @@ export default function ProjectDetailPage() {
           <CallOutlinedIcon className="gray-icon mr-2" />
           <p className="steps-text">{project.mobile ?? '-'}</p>
         </div>
+        <div className="flex items-center justify-between">
+  <div>
+    <h2 className="mt-2">Project Details</h2>
+    <h4 className="h-mid-gray-s">{project.name || '-'}</h4>
+  </div>
+
+  <Link
+    href={`/resources/projects/${projectId}/edit`}
+    className="rounded-lg bg-black px-4 py-2 text-white"
+  >
+    Edit
+  </Link>
+</div>
       </div>
     </div>
   );

@@ -16,7 +16,8 @@ export default function OngoingProjectsPage() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('role', 'technician');
+        .eq('role', 'technician')
+        .order('full_name', { ascending: false });
 
       if (error) setError(error.message);
       setProfiles(data || []);
@@ -42,7 +43,7 @@ export default function OngoingProjectsPage() {
               <li className="file-row " key={p.id}>
                 <Link
                   className="steps-text"
-                  href={`/resources/technicians/${p.id}`}
+                  href={`/resources/technician/${p.id}`}
                 >
                   {p.full_name}
                 </Link>

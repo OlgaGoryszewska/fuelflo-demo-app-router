@@ -16,7 +16,8 @@ export default function OngoingProjectsPage() {
       setError(null);
       const { data, error } = await supabase
         .from('projects')
-        .select('id, name, start_date'); // if you don't have is_active yet, use 'id, name'
+        .select('id, name, start_date') // if you don't have is_active yet, use 'id, name'
+        .order('start_date', { ascending: false });
 
       if (error) setError(error.message);
       setProjects(data || []);

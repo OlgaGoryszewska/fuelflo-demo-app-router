@@ -17,8 +17,8 @@ export default function FuelTransactionsPage() {
 
       const { data, error } = await supabase
         .from('fuel_transactions')
-        .select('id, type, created_at, before_fuel_level, after_fuel_level');
-
+        .select('id, type, created_at, before_fuel_level, after_fuel_level')
+        .order('created_at', { ascending: false });
       if (error) {
         setError(error.message);
         setLoading(false);
