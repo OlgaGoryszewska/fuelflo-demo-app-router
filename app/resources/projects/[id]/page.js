@@ -338,7 +338,7 @@ export default function ProjectDetailPage() {
             )}
           </div>
         )}
-        <button className="button-white">
+        <button className="button-white mt-2 mb-2">
           <Link
     href={`/resources/projects/${projectId}/edit`}
     
