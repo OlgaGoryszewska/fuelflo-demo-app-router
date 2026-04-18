@@ -261,7 +261,7 @@ option {
 }
 .button-white,
 button {
-  padding: 0.4rem;
+  padding: 0.3rem;
   background-color: var(--white);
   color: var(--primary-black);
   font-weight: 500;
@@ -272,7 +272,7 @@ button {
   width: 8rem;
   box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
-  height: 2rem;
+ 
 }
 
 button:disabled {
