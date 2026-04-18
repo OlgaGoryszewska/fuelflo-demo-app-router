@@ -338,12 +338,14 @@ export default function ProjectDetailPage() {
             )}
           </div>
         )}
+        <button className="button-white">
           <Link
     href={`/resources/projects/${projectId}/edit`}
-    className="rounded-lg bg-black px-4 py-2 text-white"
+    
   >
     Edit
   </Link>
+  </button>
       </div>
 
       <ProjectFuelTransactionList projectId={projectId} />

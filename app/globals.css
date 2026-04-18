@@ -259,6 +259,7 @@ option {
   justify-content: center; /* horizontal center */
   align-items: center;
 }
+.button-white,
 button {
   padding: 0.4rem;
   background-color: var(--white);
@@ -271,7 +272,9 @@ button {
   width: 8rem;
   box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
+  height: 2rem;
 }
+
 button:disabled {
   color: var(--primary-gray-light);
   border: 2px solid var(--primary-gray-light);
@@ -280,8 +283,12 @@ button:disabled {
   cursor: not-allowed;
   pointer-events: none;
 }
+.button-white{
+  width: 100%;
 
-.small-button-green,
+}
+
+
 .small-button {
   display: flex;
   justify-content: center;
@@ -302,15 +309,7 @@ button:disabled {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
-.small-button-green {
-  font-family: var(--font-roboto-flex);
-  background-color: #e4f7c1;
-  border: none;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
-  color: var(--primary-mid-gray);
-  font-weight: 500;
-}
+
 
 .form-button-orange,
 .card-button,
