@@ -261,7 +261,7 @@ option {
 }
 .button-white,
 button {
-  padding: 0.3rem;
+  padding: 0.4rem;
   background-color: var(--white);
   color: var(--primary-black);
   font-weight: 500;
