@@ -93,15 +93,15 @@ export default function TransactionDetailPage() {
   }
 
   if (loading) {
-    return <div className="main-container">Loading transaction...</div>;
+    return <div className="background-container">Loading transaction...</div>;
   }
 
   if (errorMessage) {
-    return <div className="main-container">Error: {errorMessage}</div>;
+    return <div className="background-container">Error: {errorMessage}</div>;
   }
 
   if (!transaction) {
-    return <div className="main-container">No transaction found.</div>;
+    return <div className="background-container">No transaction found.</div>;
   }
 
   const beforeFuel = Number(transaction.before_fuel_level) || 0;
@@ -175,13 +175,13 @@ export default function TransactionDetailPage() {
             </button>
           </div>
 
-          <p className="h-mid-gray-s">Technician</p>
+          <p className="h-mid-gray-s">Logged by</p>
           <p className="steps-text mb-2">
             {shortId(transaction.technician_id)}
           </p>
           <Link
             className="underline-link"
-            href={`/resources/technicians/${transaction.technician_id}`}
+            href={`/resources/technician/${transaction.technician_id}`}
           >
             Open
           </Link>
