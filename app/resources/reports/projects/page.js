@@ -1,5 +1,3 @@
-export default function ReportProjectsPage () {
-    return(
-        <div> Report projects</div>
-    )
-};
+export default function ReportProjectsPage() {
+  return <div> Report projects</div>;
+}

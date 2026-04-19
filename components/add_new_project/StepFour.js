@@ -10,6 +10,35 @@ export default function StepFour({ formData, setFormData }) {
   };
   return (
     <div className="m-4">
+           <h2 className='mt-4'>Status</h2>
+      <div className="flex justify-between align-middle mt-2">
+     
+      <label className='mt-2'>
+    {formData.active ? 'Active' : 'Inactive'}
+  </label>
+
+  <button
+  type="button"
+  onClick={() =>
+    setFormData((prev) => ({
+      ...prev,
+      active: !prev.active,
+    }))
+  }
+  className={`!w-16 !h-8 !p-1 flex items-center rounded-full mb-4  ${
+    formData.active ? 'active' : 'not-active'
+  }`}
+>
+  <div
+    className={`bg-white w-6 h-6 rounded-full shadow-md transform transition ${
+      formData.active ? 'translate-x-8' : 'translate-x-0'
+    }`}
+  />
+</button>
+
+  
+</div>
+<div className='divider-full mb-2'></div>
       <h2>Fuel Pricing Details</h2>
       <label>
         Purchase Price
@@ -58,6 +87,9 @@ export default function StepFour({ formData, setFormData }) {
           onChange={(e) => handleChange(e.target.value, e.target.name)}
         />
       </label>
+     
+ 
+
     </div>
   );
 }

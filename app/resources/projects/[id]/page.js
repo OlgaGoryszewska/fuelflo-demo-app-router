@@ -339,13 +339,8 @@ export default function ProjectDetailPage() {
           </div>
         )}
         <button className="button-white mt-2 mb-2">
-          <Link
-    href={`/resources/projects/${projectId}/edit`}
-    
-  >
-    Edit
-  </Link>
-  </button>
+          <Link href={`/resources/projects/${projectId}/edit`}>Edit</Link>
+        </button>
       </div>
 
       <ProjectFuelTransactionList projectId={projectId} />
@@ -410,12 +405,8 @@ export default function ProjectDetailPage() {
           <p className="steps-text">{project.mobile ?? '-'}</p>
         </div>
         <div className="flex items-center justify-between">
-  <div>
-    
-  </div>
-
-
-</div>
+          <div></div>
+        </div>
       </div>
     </div>
   );

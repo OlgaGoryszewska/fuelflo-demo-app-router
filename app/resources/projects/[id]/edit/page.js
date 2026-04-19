@@ -67,7 +67,8 @@ export default function EditProjectPage() {
 
         const { data: projectData, error: projectError } = await supabase
           .from('projects')
-          .select(`
+          .select(
+            `
             id,
             name,
             location,
@@ -85,7 +86,8 @@ export default function EditProjectPage() {
             fuel_suppliers_id,
             active,
             company_name
-          `)
+          `
+          )
           .eq('id', projectId)
           .single();
 
@@ -94,26 +96,30 @@ export default function EditProjectPage() {
         const { data: technicianRelations, error: technicianError } =
           await supabase
             .from('profiles_projects')
-            .select(`
+            .select(
+              `
               profiles_id,
               profiles:profiles_projects_profiles_id_fkey (
                 id,
                 full_name
               )
-            `)
+            `
+            )
             .eq('projects_id', projectId);
 
         if (technicianError) throw technicianError;
 
         const { data: fleetData, error: fleetError } = await supabase
           .from('generators_tanks')
-          .select(`
+          .select(
+            `
             id,
             generator_id,
             generator_name,
             tank_id,
             tank_name
-          `)
+          `
+          )
           .eq('project_id', projectId);
 
         if (fleetError) throw fleetError;
@@ -233,9 +239,7 @@ export default function EditProjectPage() {
       profiles_id: technicianId,
     }));
 
-    const { error } = await supabase
-      .from('profiles_projects')
-      .insert(rows);
+    const { error } = await supabase.from('profiles_projects').insert(rows);
 
     if (error) throw error;
   };
@@ -250,9 +254,7 @@ export default function EditProjectPage() {
 
     if (!rows.length) return;
 
-    const { error } = await supabase
-      .from('generators_tanks')
-      .insert(rows);
+    const { error } = await supabase.from('generators_tanks').insert(rows);
 
     if (error) throw error;
   };

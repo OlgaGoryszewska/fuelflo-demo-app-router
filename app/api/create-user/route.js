@@ -28,10 +28,7 @@ export async function POST(request) {
     const user = authData.user;
 
     if (!user) {
-      return Response.json(
-        { error: 'User was not created.' },
-        { status: 400 }
-      );
+      return Response.json({ error: 'User was not created.' }, { status: 400 });
     }
 
     const { error: profileError } = await supabaseAdmin

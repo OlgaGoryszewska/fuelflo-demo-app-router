@@ -43,12 +43,14 @@ export default function TechnicianDetailPage() {
       // 2. Load assigned projects through join table
       const { data: projectsData, error: projectsError } = await supabase
         .from('profiles_projects')
-        .select(`
+        .select(
+          `
           id,
           projects:projects_id (
             *
           )
-        `)
+        `
+        )
         .eq('profiles_id', id);
 
       if (projectsError) {
@@ -59,9 +61,8 @@ export default function TechnicianDetailPage() {
       }
 
       // flatten nested projects
-      const projectList = projectsData
-        ?.map((item) => item.projects)
-        .filter(Boolean) || [];
+      const projectList =
+        projectsData?.map((item) => item.projects).filter(Boolean) || [];
 
       setAssignedProjects(projectList);
       setLoading(false);
@@ -133,7 +134,10 @@ export default function TechnicianDetailPage() {
                 {assignedProjects.map((project) => (
                   <div key={project.id} className="background-container mt-2">
                     <p className="steps-text">
-                      {project.name || project.project_name || project.title || 'Untitled project'}
+                      {project.name ||
+                        project.project_name ||
+                        project.title ||
+                        'Untitled project'}
                     </p>
 
                     {project.description && (

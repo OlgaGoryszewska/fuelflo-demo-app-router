@@ -272,9 +272,42 @@ button {
   width: 8rem;
   box-shadow: 0 2px 4px rgba(183, 194, 208, 0.3);
   border: 2px solid var(--light-blue);
- 
 }
 
+.round-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #2563eb; /* blue */
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.round-plus-button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.05);
+}
+.active{
+  background-color: var(--primary-orange-light);
+  border: 0rem;
+  box-shadow: none;
+}
+.not-active{
+  background-color: white;
+}
 button:disabled {
   color: var(--primary-gray-light);
   border: 2px solid var(--primary-gray-light);
@@ -283,11 +316,9 @@ button:disabled {
   cursor: not-allowed;
   pointer-events: none;
 }
-.button-white{
+.button-white {
   width: 100%;
-
 }
-
 
 .small-button {
   display: flex;
@@ -309,7 +340,6 @@ button:disabled {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
-
 
 .form-button-orange,
 .card-button,
@@ -406,7 +436,6 @@ button:active,
 .logout-button {
   font-family: var(--font-poppins);
   font-size: 20px;
-
 }
 
 li {
@@ -585,20 +614,21 @@ li a:hover {
   border-top: 1px solid var(--primary-gray-light);
 }
 .progresion-number {
-  border: 1.5px solid var(--primary-orange-light);
+  border: 1.5px solid var(--primary-gray-light);
   border-radius: 50%;
   width: 25px;
   height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  font-size: 14x;
   color: var(--primary-gray-light);
   background-color: white;
 }
 .active-progresion-number {
+  border: 0px;
   background-color: var(--primary-orange-light);
-  color: var(--primary-black);
+  color: white;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
