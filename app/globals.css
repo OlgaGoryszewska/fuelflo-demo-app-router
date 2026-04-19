@@ -276,7 +276,7 @@ button {
 
 .round-icon-button {
   width: 40px !important;
-  height: 38px !important;
+  height: 36px !important;
   padding: 0 !important;
   color: var(--primary-mid-gray);
   display: flex;
@@ -389,8 +389,7 @@ button:active,
 .card-button {
   margin: 0;
 }
-.button-big-border-orange,
-.dashed-card,
+
 .button-big {
   width: 100%;
   margin: 0rem;
@@ -398,24 +397,23 @@ button:active,
   background: linear-gradient(90deg, #ff7a00 0%, #ff8a00 50%, #ffb347 100%);
   color: var(--white);
   border: 1px solid var(--primary-gray-light);
-}
-.button-big-border-orange {
-  border: 2px solid var(--primary-orange-light);
-  background-color: #fff;
-  color: var(--primary-black);
+
+  transition: all 0.15s ease;
 }
 
 .button-big:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
+  filter: brightness(1.05);
 }
 
-.dashed-card {
-  border-radius: 8px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.06),
-    0 4px 12px rgba(0, 0, 0, 0.08);
+.button-big:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.95);
 }
+
+
 .file-row {
   display: flex;
   flex-direction: row;
