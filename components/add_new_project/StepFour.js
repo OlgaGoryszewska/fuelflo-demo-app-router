@@ -38,7 +38,7 @@ export default function StepFour({ formData, setFormData }) {
 
   
 </div>
-<div className='divider-full mb-2'></div>
+<div className='divider-full mb-4'></div>
       <h2>Fuel Pricing Details</h2>
       <label>
         Purchase Price

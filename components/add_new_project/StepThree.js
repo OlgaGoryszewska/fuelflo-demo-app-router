@@ -3,6 +3,7 @@
 import GeneratorDropdown from './GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function StepThree({ formData, setFormData }) {
   const technicians = formData.technicians || [];
@@ -156,15 +157,15 @@ export default function StepThree({ formData, setFormData }) {
         <button
           type="button"
           onClick={handleAddTechnician}
-          className="underline-link"
+          className="round-icon-button"
         >
-          Add
+          <AddIcon/>
         </button>
       </div>
 
       <div className="mb-6">
         {technicians.length === 0 ? (
-          <p>No technicians assigned yet.</p>
+          <p className='steps-text'>No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
@@ -202,15 +203,15 @@ export default function StepThree({ formData, setFormData }) {
         <button
           type="button"
           onClick={handleAddGenerator}
-          className="underline-link"
+          className="round-icon-button"
         >
-          Add
+          <AddIcon/>
         </button>
       </div>
 
       <div className="mb-6">
         {generators.length === 0 ? (
-          <p>No generators assigned yet.</p>
+          <p className='steps-text'>No generators assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {generators.map((gen) => (
@@ -236,14 +237,14 @@ export default function StepThree({ formData, setFormData }) {
                   <button
                     type="button"
                     onClick={() => handleAddTank(gen.id)}
-                    className="underline-link"
+                    className="round-icon-button "
                   >
-                    Add
+                    <AddIcon/>
                   </button>
                 </div>
 
                 {(gen.tanks || []).length === 0 ? (
-                  <p>No tanks assigned yet.</p>
+                  <p className='steps-text'>No tanks assigned yet.</p>
                 ) : (
                   <ul className="flex flex-col gap-2">
                     {(gen.tanks || []).map((tank) => (

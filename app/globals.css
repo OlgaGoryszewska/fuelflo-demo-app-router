@@ -274,32 +274,30 @@ button {
   border: 2px solid var(--light-blue);
 }
 
-.round-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-
+.round-icon-button {
+  width: 40px !important;
+  height: 38px !important;
+  padding: 0 !important;
+  color: var(--primary-mid-gray);
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: #2563eb; /* blue */
-  color: white;
+  border-radius: 50% !important;
 
-  font-size: 24px;
-  font-weight: bold;
-
-  border: none;
+  border: none !important;
   cursor: pointer;
 
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }
 
-.round-plus-button:hover {
-  background-color: #1d4ed8;
+.round-icon-button:hover {
+  background-color: var(--primary-orange-light);
   transform: scale(1.05);
+  color: white;
 }
+
 .active{
   background-color: var(--primary-orange-light);
   border: 0rem;
