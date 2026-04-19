@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import login from '@/public/login.png';
+import FloLogo from '@/public/flo-logo.png';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -57,8 +57,8 @@ export default function AuthForm() {
 
   return (
     <div className="flex flex-col">
-      <Image src={login} alt="welcome img" className="w-32 mx-auto" />
-      <h2 className="mx-auto">Sign in to FuelFlo</h2>
+      <Image src={FloLogo} alt="welcome img" className="w-32 mx-auto mt-4" />
+      <h2 className="mx-auto mt-4">Sign in to FuelFlo</h2>
       <label>
         Email:
         <input

@@ -446,7 +446,7 @@ li a {
   color: var(--primary-black);
   font-size: 20px;
 }
-
+.logout-button,
 li a:hover {
   color: var(--primary-orange-light);
   transition: color 0.3s ease;

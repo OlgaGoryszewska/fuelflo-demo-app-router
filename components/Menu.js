@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import logo from '@/public/flo-logo.png';
 import { supabase } from '@/lib/supabaseClient';
@@ -25,7 +25,7 @@ const roleMenus = {
     { href: '/operations/dashboard/hire-desk', label: 'Dashboard' },
     { href: '/add-forms/add-new-project', label: 'New project' },
     { href: '/register', label: 'Register user' },
-    { href: '/resources/profile/', label: 'Profile' },
+    { href: '/resources/profile', label: 'Profile' },
   ],
   fuel_supplier: [
     { href: '/dashboard/fuel-supplier', label: 'Dashboard' },
@@ -38,14 +38,18 @@ export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const menuRef = useRef(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const handleLinkClick = () => setIsOpen(false);
 
   useEffect(() => {
+    if (pathname === '/') return;
+
     async function fetchRole(userId) {
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -89,7 +93,7 @@ export default function Menu() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
       const nextUser = session?.user ?? null;
       setUser(nextUser);
 
@@ -98,14 +102,16 @@ export default function Menu() {
         return;
       }
 
-      const fetchedRole = await fetchRole(nextUser.id);
-      setRole(fetchedRole);
+      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+        const fetchedRole = await fetchRole(nextUser.id);
+        setRole(fetchedRole);
+      }
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -122,20 +128,28 @@ export default function Menu() {
   }, []);
 
   const handleLogout = async () => {
+    if (loggingOut) return;
+
+    setLoggingOut(true);
+    setIsOpen(false);
+
     const { error } = await supabase.auth.signOut();
 
     if (error) {
       console.error('Error logging out:', error.message);
+      setLoggingOut(false);
       return;
     }
 
     setUser(null);
     setRole(null);
-    setIsOpen(false);
 
-    router.push('/');
-    router.refresh();
+    router.replace('/');
   };
+
+  if (pathname === '/') {
+    return null;
+  }
 
   const links = role ? (roleMenus[role] ?? []) : [];
 
@@ -147,7 +161,6 @@ export default function Menu() {
       </nav>
 
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
-
         {!user && (
           <li className="pl-2">
             <Link onClick={handleLinkClick} href="/">
@@ -167,7 +180,7 @@ export default function Menu() {
 
         {user && (
           <li className="logout-button pl-2" onClick={handleLogout}>
-            Logout
+            {loggingOut ? 'Logging out...' : 'Logout'}
           </li>
         )}
       </ul>
