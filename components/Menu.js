@@ -133,7 +133,7 @@ export default function Menu() {
     setRole(null);
     setIsOpen(false);
 
-    router.push('/signIn');
+    router.push('/');
     router.refresh();
   };
 
@@ -147,15 +147,10 @@ export default function Menu() {
       </nav>
 
       <ul className={`menu-items ${isOpen ? 'open' : 'closed'}`}>
-        <li className="pl-2">
-          <Link onClick={handleLinkClick} href="/">
-            Home
-          </Link>
-        </li>
 
         {!user && (
           <li className="pl-2">
-            <Link onClick={handleLinkClick} href="/signIn">
+            <Link onClick={handleLinkClick} href="/">
               Login
             </Link>
           </li>
