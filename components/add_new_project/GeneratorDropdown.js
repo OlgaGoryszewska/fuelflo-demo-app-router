@@ -22,7 +22,7 @@ export default function GeneratorDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <label className="flex flex-col w-full">
         <select
           className="pr-4 mr-4 w-full b-white"

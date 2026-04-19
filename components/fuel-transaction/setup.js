@@ -96,11 +96,11 @@ export default function Setup({ formData, setFormData }) {
         />
       )}
 
-      <div className="divider">
+      <div className="divider mt-5">
         <h3 className="steps-text">or</h3>
       </div>
 
-      <p className="h-mid-gray-s">Select generator</p>
+      <p className="h-mid-gray-s mt-4">Select generator</p>
       <GeneratorDropdown
         value={formData.generator_id}
         onChange={(generator) =>
@@ -112,7 +112,7 @@ export default function Setup({ formData, setFormData }) {
         }
       />
 
-      <p className="h-mid-gray-s pt-2 mb-4">Select external tank</p>
+      <p className="h-mid-gray-s pt-2 ">Select external tank</p>
       <TankDropdown
       className="mb-4"
         value={formData.tank_id}

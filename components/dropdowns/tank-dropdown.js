@@ -21,7 +21,7 @@ export default function TankDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-4">
       <label className="flex w-full flex-col">
         <select
           className="b-white mr-4 w-full pr-4"
