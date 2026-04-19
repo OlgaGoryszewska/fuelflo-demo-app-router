@@ -127,25 +127,7 @@ export default function Menu() {
     };
   }, []);
 
-  const handleLogout = async () => {
-    if (loggingOut) return;
-
-    setLoggingOut(true);
-    setIsOpen(false);
-
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error('Error logging out:', error.message);
-      setLoggingOut(false);
-      return;
-    }
-
-    setUser(null);
-    setRole(null);
-
-    router.replace('/');
-  };
+  
 
   if (pathname === '/') {
     return null;
@@ -178,11 +160,7 @@ export default function Menu() {
             </li>
           ))}
 
-        {user && (
-          <li className="logout-button pl-2" onClick={handleLogout}>
-            {loggingOut ? 'Logging out...' : 'Logout'}
-          </li>
-        )}
+       
       </ul>
     </div>
   );
