@@ -60,7 +60,8 @@ export default function ProjectDetailPage() {
             specification,
             additional,
             company_name,
-            expected_liters
+            expected_liters,
+            active
           `
           )
           .eq('id', idValue)
@@ -185,11 +186,26 @@ export default function ProjectDetailPage() {
   return (
     <div className="main-container">
       <div className="background-container-white mb-4">
-        <h2 className="mt-2">Project Details</h2>
+        <div className="flex flex-row justify-between items-center mt-2">
+          {' '}
+          <h2 className="">Project Details</h2>
+          <div className="mt-2 mb-4">
+            <span
+              className={`px-3 py-1 rounded-full text-sm ${
+                project.active
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-gray-200 text-gray-600'
+              }`}
+            >
+              {project.active ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+        </div>
+
         <h4 className="h-mid-gray-s">{project.name || '-'}</h4>
 
         {project.location && (
-          <div className="h-54 w-full">
+          <div className="h-54 w-full mb-4">
             <iframe
               title="Project location map"
               className="h-full w-full rounded-lg border-0"
@@ -202,7 +218,7 @@ export default function ProjectDetailPage() {
           </div>
         )}
 
-        <div className="flex items-start">
+        <div className="flex items-start mb-4">
           <LocationOnOutlinedIcon className="gray-icon" />
           {project.location ? (
             <Link

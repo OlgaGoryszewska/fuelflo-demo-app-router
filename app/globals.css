@@ -298,12 +298,12 @@ button {
   color: white;
 }
 
-.active{
+.active {
   background-color: var(--primary-orange-light);
   border: 0rem;
   box-shadow: none;
 }
-.not-active{
+.not-active {
   background-color: white;
 }
 button:disabled {
@@ -412,7 +412,6 @@ button:active,
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   filter: brightness(0.95);
 }
-
 
 .file-row {
   display: flex;

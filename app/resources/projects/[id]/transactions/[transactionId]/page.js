@@ -164,7 +164,6 @@ export default function TransactionDetailPage() {
             </button>
           </div>
 
-     
           <p className="h-mid-gray-s">Logged by</p>
           <p className="steps-text mb-2">
             {shortId(transaction.technician_id)}

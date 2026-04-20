@@ -127,8 +127,6 @@ export default function Menu() {
     };
   }, []);
 
-  
-
   if (pathname === '/') {
     return null;
   }
@@ -159,8 +157,6 @@ export default function Menu() {
               </Link>
             </li>
           ))}
-
-       
       </ul>
     </div>
   );

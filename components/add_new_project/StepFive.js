@@ -11,17 +11,16 @@ export default function StepFive({ formData }) {
 
       <h2>Project Specification</h2>
 
-        <h4>Name of the Project</h4>
- 
+      <h4>Name of the Project</h4>
+
       <p className="steps-text mb-2">{formData.name || '-'}</p>
 
-        <h4>Localisation of the Project</h4>
-  
+      <h4>Localisation of the Project</h4>
+
       <p className="steps-text mb-2">{formData.location || '-'}</p>
 
-   
-        <h4>Release Date</h4>
-   
+      <h4>Release Date</h4>
+
       <p className="steps-text mb-2">{formData.start_date || '-'}</p>
 
       <div className="flex flex-row">

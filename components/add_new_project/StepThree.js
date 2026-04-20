@@ -159,13 +159,13 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddTechnician}
           className="round-icon-button"
         >
-          <AddIcon/>
+          <AddIcon />
         </button>
       </div>
 
       <div className="mb-6">
         {technicians.length === 0 ? (
-          <p className='steps-text'>No technicians assigned yet.</p>
+          <p className="steps-text">No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
@@ -205,13 +205,13 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddGenerator}
           className="round-icon-button"
         >
-          <AddIcon/>
+          <AddIcon />
         </button>
       </div>
 
       <div className="mb-6">
         {generators.length === 0 ? (
-          <p className='steps-text'>No generators assigned yet.</p>
+          <p className="steps-text">No generators assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {generators.map((gen) => (
@@ -239,12 +239,12 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleAddTank(gen.id)}
                     className="round-icon-button "
                   >
-                    <AddIcon/>
+                    <AddIcon />
                   </button>
                 </div>
 
                 {(gen.tanks || []).length === 0 ? (
-                  <p className='steps-text'>No tanks assigned yet.</p>
+                  <p className="steps-text">No tanks assigned yet.</p>
                 ) : (
                   <ul className="flex flex-col gap-2">
                     {(gen.tanks || []).map((tank) => (

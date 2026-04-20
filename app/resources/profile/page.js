@@ -106,7 +106,7 @@ export default function ProfilePage() {
             className="profile-logout-button mt-4"
           >
             <LogoutIcon fontSize="small" />
-            <span>{loggingOut ? 'Logging out...' : 'Logout'}</span>
+            <span>loggout</span>
           </button>
         </div>
       </div>

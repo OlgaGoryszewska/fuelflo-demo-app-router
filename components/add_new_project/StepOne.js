@@ -41,7 +41,7 @@ export default function StepOne({ formData, setFormData }) {
           onChange={handleChange}
         />
       </label>
-      <label >
+      <label>
         End Date:
         <input
           type="date"
