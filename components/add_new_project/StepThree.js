@@ -3,12 +3,21 @@
 import GeneratorDropdown from './GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
+import ManagerDropdown from '@/components/dropdowns/ManagerDropdown';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function StepThree({ formData, setFormData }) {
   const technicians = formData.technicians || [];
   const generators = formData.generators || [];
+
+  const handleManagerSelect = (manager) => {
+    setFormData((prev) => ({
+      ...prev,
+      manager: manager || null,
+      manager_id: manager?.id || null,
+    }));
+  };
 
   const handleTechnicianSelect = (technician) => {
     setFormData((prev) => ({
@@ -147,9 +156,39 @@ export default function StepThree({ formData, setFormData }) {
     <div className="m-4">
       <h2>Setup</h2>
 
-      <label className="mb-2 block">Add Technician:</label>
+      <label className="mt-2 block">Add Manager:</label>
+      <ManagerDropdown
+       value={formData.manager?.id || ''}
+       onChange={handleManagerSelect}/>
 
-      <div className="mb-4 flex items-center gap-2">
+<div className="mb-4">
+  {formData.manager ? (
+    <div className="flex items-center justify-between">
+      <span>{formData.manager.name}</span>
+
+      <button
+        type="button"
+        onClick={() =>
+          setFormData((prev) => ({
+            ...prev,
+            manager: null,
+            manager_id: null,
+          }))
+        }
+        className="round-icon-button"
+      >
+        <RemoveIcon />
+      </button>
+    </div>
+  ) : (
+    <p className="steps-text mb-2">No manager assigned yet.</p>
+  )}
+</div>
+
+
+      <label className="mt-2 block">Add Technician:</label>
+
+      <div className=" flex items-center gap-2">
         <TechniciansDropdown
           value={formData.selectedTechnician?.id || ''}
           onChange={handleTechnicianSelect}
@@ -166,7 +205,7 @@ export default function StepThree({ formData, setFormData }) {
 
       <div className="mb-6">
         {technicians.length === 0 ? (
-          <p className="steps-text">No technicians assigned yet.</p>
+          <p className="steps-text mb-2">No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
@@ -191,11 +230,11 @@ export default function StepThree({ formData, setFormData }) {
 
       <div className="divider-full"></div>
 
-      <h2 className="mt-4">Add Fleet</h2>
+      <h2 className="mt-4 mb-2">Add Fleet</h2>
 
-      <label className="mb-2 block">Add Generator:</label>
+      <label className=" block">Add Generator:</label>
 
-      <div className="mb-4 flex items-center gap-2">
+      <div className=" flex items-center gap-2">
         <GeneratorDropdown
           value={formData.selectedGenerator?.id || ''}
           onChange={handleGeneratorSelect}
@@ -212,7 +251,7 @@ export default function StepThree({ formData, setFormData }) {
 
       <div className="mb-6">
         {generators.length === 0 ? (
-          <p className="steps-text">No generators assigned yet.</p>
+          <p className="steps-text mb-2">No generators assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {generators.map((gen) => (

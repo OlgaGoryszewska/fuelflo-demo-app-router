@@ -89,6 +89,7 @@ span {
 .main-container {
   display: flex;
   flex-direction: column;
+  justify-content: center; /* vertical center */     /* full screen height */
   padding: 0.6rem;
 }
 
@@ -337,6 +338,7 @@ button:disabled {
 .form-button-orange,
 .card-button,
 .form-button {
+  max-width: 600px;
   display: flex;
   justify-items: center;
   align-items: center;

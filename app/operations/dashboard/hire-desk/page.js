@@ -30,7 +30,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="m-2.5">
+      <div className="m-2.5 max-w-[600px]">
         <div className="form-header ">
           <h1 className="ml-2">Hire desk dashboard</h1>
         </div>
