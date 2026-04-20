@@ -281,20 +281,16 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 50% !important;
-
   border: none !important;
   cursor: pointer;
-
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   transition: all 0.2s ease;
 }
 
 .round-icon-button:hover {
-  background-color: var(--primary-orange-light);
+  color: var(--primary-orange-light);
   transform: scale(1.05);
-  color: white;
+  ;
 }
 
 .active {

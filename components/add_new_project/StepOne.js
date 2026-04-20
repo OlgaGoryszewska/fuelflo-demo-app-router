@@ -1,3 +1,9 @@
+
+'use client'
+
+import Image from 'next/image';
+import  Blob from '@/public/blob-plus.png';
+
 export default function StepOne({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -8,10 +14,10 @@ export default function StepOne({ formData, setFormData }) {
   };
   return (
     <div className="mx-4">
-      <img
-        src="/blob-plus.png"
-        alt="project planin"
-        className="w-2/5 mx-auto "
+      <Image
+        src={Blob}
+        alt="project planing"
+        className="w-30 mx-auto "
       />
       <h2>Specification</h2>
       <label>

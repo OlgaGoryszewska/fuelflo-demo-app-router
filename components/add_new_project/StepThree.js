@@ -4,6 +4,7 @@ import GeneratorDropdown from './GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function StepThree({ formData, setFormData }) {
   const technicians = formData.technicians || [];
@@ -178,9 +179,9 @@ export default function StepThree({ formData, setFormData }) {
                 <button
                   type="button"
                   onClick={() => handleRemoveTechnician(tech.id)}
-                  className="underline-link"
+                  className="round-icon-button "
                 >
-                  Remove
+             <RemoveIcon/>
                 </button>
               </div>
             ))}
@@ -222,9 +223,9 @@ export default function StepThree({ formData, setFormData }) {
                   <button
                     type="button"
                     onClick={() => handleRemoveGenerator(gen.id)}
-                    className="underline-link"
+                    className="round-icon-button "
                   >
-                    Remove
+                     <RemoveIcon/>
                   </button>
                 </div>
 
@@ -257,9 +258,9 @@ export default function StepThree({ formData, setFormData }) {
                         <button
                           type="button"
                           onClick={() => handleRemoveTank(gen.id, tank.id)}
-                          className="underline-link"
+                          className="round-icon-button "
                         >
-                          Remove
+                          <RemoveIcon/>
                         </button>
                       </li>
                     ))}
