@@ -16,7 +16,7 @@ export default function OngoingProjectsPage() {
       const { data, error } = await supabase
         .from('projects')
         .select('id, name, start_date') // if you don't have is_active yet, use 'id, name'
-        .eq('active', true) 
+        .eq('active', false) 
         .order('start_date', { ascending: false });
 
       if (error) setError(error.message);
@@ -30,12 +30,10 @@ export default function OngoingProjectsPage() {
     <div className="main-container">
       <div>
         <div className="form-header ">
-          <h1 className="ml-2">Projects</h1>
+          <h1 className="ml-2">Archived projects</h1>
         </div>
         <div className="background-container">
-          <h2>Choose a project</h2>
-          <p className="steps-text mb-2">Before adding fuel transaction </p>
-          <div className="divider-full"></div>
+      
           <div className="flex flex-col w-full"></div>
           <div className="pr-2 w-full flex justify-between">
             <h4 className="pl-2">Name</h4>

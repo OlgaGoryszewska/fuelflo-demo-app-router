@@ -50,7 +50,7 @@ export default function Dashboard() {
               <RouteOutlinedIcon />
               Ongoing Projects
             </Link>
-            <Link href="/" className="card-button">
+            <Link href="/resources/projects/archived" className="card-button">
               <ArchiveOutlinedIcon />
               Archive
             </Link>
