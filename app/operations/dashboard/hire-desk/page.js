@@ -65,7 +65,7 @@ export default function Dashboard() {
           onClick={() => toggleCard('transactions')}
           className={`form-button ${openCard === 'transactions' ? 'border-active' : ''}`}
         >
-          <CachedIcon /> Transactions{' '}
+          <CachedIcon /> Fuel Transactions{' '}
           <KeyboardArrowDownOutlinedIcon
             className={` ml-auto transition-transform text-gray-400 ${openCard === 'transactions' ? 'rotate-180' : ''}`}
           />
@@ -76,7 +76,7 @@ export default function Dashboard() {
               <ElectricRickshawOutlinedIcon />
               Deliveries
             </Link>
-            <Link href="/resources/fuel-transactions/" className="card-button">
+            <Link href="/resources/fuel-transactions/returns" className="card-button">
               <UndoOutlinedIcon />
               Returns
             </Link>

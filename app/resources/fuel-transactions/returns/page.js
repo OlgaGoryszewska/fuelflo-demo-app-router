@@ -18,7 +18,7 @@ export default function FuelTransactionsPage() {
       const { data, error } = await supabase
         .from('fuel_transactions')
         .select('id, type, created_at, before_fuel_level, after_fuel_level')
-        .eq('type', 'delivery')
+        .eq('type', 'return')
         .order('created_at', { ascending: false });
       if (error) {
         setError(error.message);
@@ -40,17 +40,21 @@ export default function FuelTransactionsPage() {
     load();
   }, []);
 
+  
+
   return (
     <div className="main-container">
-        <div className="generator-container mb-4">
-        <h2 className=" ">Fuel Deliveries</h2>
-      {loading && <p>Loading...</p>}
+       
+          <div className="generator-container mb-4">
+          <h2 className=" ">Fuel Returns</h2>
+     
+
+     
+        <FuelTransactionsList transactions={transactions} />
+        {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p>{message}</p>}
-
-      {!loading && !error && transactions.length > 0 && (
-        <FuelTransactionsList transactions={transactions} />
-      )}
+ 
     </div>
     </div>
   );

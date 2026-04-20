@@ -104,8 +104,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-}
-body {
+
   margin: 0;
   padding: 0;
   font-family: Poppins, sans-serif;
@@ -468,7 +467,7 @@ li a:hover {
   border-bottom: 1px solid var(--primary-gray-light);
   z-index: 1000;
   position: absolute;
-  background-color: white;
+  background-color: #e2ecfc;
   width: 100%;
   padding-left: 0;
   padding-right: 0;
