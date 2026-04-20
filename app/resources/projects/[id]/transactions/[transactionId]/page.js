@@ -98,6 +98,7 @@ export default function TransactionDetailPage() {
   const difference = Math.abs(afterFuel - beforeFuel);
   const sign = transaction.type === 'delivery' ? '+' : '-';
 
+  const isDelivery = transaction.type === 'delivery';
   return (
     <div className="main-container">
       <div className="form-header">
@@ -123,12 +124,12 @@ export default function TransactionDetailPage() {
         <div className="divider-full mb-2"></div>
 
         <h4>Starting fuel level</h4>
-        <div className="fuel-bar-before"></div>
+        <div className={isDelivery? 'fuel-bar-before' : 'fuel-bar'}></div>
         <p className="nr-middle text-right">{beforeFuel} L</p>
         <div className="divider-full"></div>
 
         <h4>Ending fuel level</h4>
-        <div className="fuel-bar"></div>
+        <div className={isDelivery? 'fuel-bar': 'fuel-bar-before'}></div>
         <p className="nr-middle text-right">{afterFuel} L</p>
         <div className="divider-full"></div>
 
