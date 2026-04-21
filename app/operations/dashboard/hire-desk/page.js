@@ -76,7 +76,10 @@ export default function Dashboard() {
               <ElectricRickshawOutlinedIcon />
               Deliveries
             </Link>
-            <Link href="/resources/fuel-transactions/returns" className="card-button">
+            <Link
+              href="/resources/fuel-transactions/returns"
+              className="card-button"
+            >
               <UndoOutlinedIcon />
               Returns
             </Link>

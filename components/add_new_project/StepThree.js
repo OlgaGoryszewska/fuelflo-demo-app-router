@@ -156,35 +156,12 @@ export default function StepThree({ formData, setFormData }) {
     <div className="m-4">
       <h2>Setup</h2>
 
-      <label className="mt-2 block">Add Manager:</label>
+      <label className="mt-2 block">Choose Manager:</label>
       <ManagerDropdown
-       value={formData.manager?.id || ''}
-       onChange={handleManagerSelect}/>
-
-<div className="mb-4">
-  {formData.manager ? (
-    <div className="flex items-center justify-between">
-      <span>{formData.manager.name}</span>
-
-      <button
-        type="button"
-        onClick={() =>
-          setFormData((prev) => ({
-            ...prev,
-            manager: null,
-            manager_id: null,
-          }))
-        }
-        className="round-icon-button"
-      >
-        <RemoveIcon />
-      </button>
-    </div>
-  ) : (
-    <p className="steps-text mb-2">No manager assigned yet.</p>
-  )}
-</div>
-
+        value={formData.manager?.id || ''}
+        onChange={handleManagerSelect}
+      />
+      <div className="divider-full mt-4 mb-4"></div>
 
       <label className="mt-2 block">Add Technician:</label>
 
@@ -203,7 +180,7 @@ export default function StepThree({ formData, setFormData }) {
         </button>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4">
         {technicians.length === 0 ? (
           <p className="steps-text mb-2">No technicians assigned yet.</p>
         ) : (
@@ -220,7 +197,7 @@ export default function StepThree({ formData, setFormData }) {
                   onClick={() => handleRemoveTechnician(tech.id)}
                   className="round-icon-button "
                 >
-             <RemoveIcon/>
+                  <RemoveIcon />
                 </button>
               </div>
             ))}
@@ -249,7 +226,7 @@ export default function StepThree({ formData, setFormData }) {
         </button>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4">
         {generators.length === 0 ? (
           <p className="steps-text mb-2">No generators assigned yet.</p>
         ) : (
@@ -264,11 +241,11 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleRemoveGenerator(gen.id)}
                     className="round-icon-button "
                   >
-                     <RemoveIcon/>
+                    <RemoveIcon />
                   </button>
                 </div>
 
-                <div className="mb-3 flex items-center gap-2">
+                <div className="mb-2 flex items-center gap-2">
                   <TankDropdown
                     value={gen.selectedTank?.id || ''}
                     onChange={(tank) => handleTankSelect(gen.id, tank)}
@@ -299,7 +276,7 @@ export default function StepThree({ formData, setFormData }) {
                           onClick={() => handleRemoveTank(gen.id, tank.id)}
                           className="round-icon-button "
                         >
-                          <RemoveIcon/>
+                          <RemoveIcon />
                         </button>
                       </li>
                     ))}

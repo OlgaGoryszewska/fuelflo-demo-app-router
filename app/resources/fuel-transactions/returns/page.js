@@ -40,22 +40,16 @@ export default function FuelTransactionsPage() {
     load();
   }, []);
 
-  
-
   return (
     <div className="main-container">
-       
-          <div className="generator-container mb-4">
-          <h2 className=" ">Fuel Returns</h2>
-     
+      <div className="generator-container mb-4">
+        <h2 className=" ">Fuel Returns</h2>
 
-     
         <FuelTransactionsList transactions={transactions} />
         {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {message && <p>{message}</p>}
- 
-    </div>
+        {error && <p className="text-red-500">{error}</p>}
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }

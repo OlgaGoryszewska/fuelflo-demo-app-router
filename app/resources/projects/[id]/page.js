@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import { ChevronDown } from 'lucide-react';
+import avatar from '@/public/avatar.png';
 
 import Image from 'next/image';
 import banner from '@/public/banner.jpg';
@@ -12,6 +13,7 @@ import formatDate from '@/components/FormatDate';
 import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList';
 
 // icons
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
@@ -61,7 +63,14 @@ export default function ProjectDetailPage() {
             additional,
             company_name,
             expected_liters,
-            active
+            active,
+            manager_id,
+            manager:profiles!projects_manager_id_fkey (
+                  id,
+                  full_name,
+                   role,
+                   email,
+                  phone)
           `
           )
           .eq('id', idValue)
@@ -253,7 +262,47 @@ export default function ProjectDetailPage() {
         </div>
 
         <p className="steps-text mt-4">Assigned to the project</p>
+        <div className="container-flex">
+          <div className="flex flex-col justify-between items-center">
+            <Image src={avatar} alt="avatar" className="avatar" />
+            <p className="steps-text">Manager</p>
+            <p className="h-mid-gray-s">{project.manager?.full_name || 'No manager assigned'}</p>
+          </div>
 
+         
+        </div>
+
+        <div
+          onClick={() => toggleCard('technicians')}
+          className="mt-4 flex flex-row items-center border-b border-b-gray-200 pb-2"
+        >
+          <p className="h-mid-gray-s">Technicians</p>
+          <ChevronDown
+            className={`ml-auto text-gray-400 transition-transform ${
+              openCard === 'technicians' ? 'rotate-180' : ''
+            }`}
+          />
+        </div>
+
+        {openCard === 'technicians' && (
+          <div>
+            {technicians.length > 0 ? (
+              technicians.map((tech) => (
+                <div
+                  key={tech.id}
+                  className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2"
+                >
+                  <div>
+                    <p>{tech.full_name || 'Unnamed technician'}</p>
+                    {tech.role && <p className="steps-text ">{tech.role}</p>}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No technicians assigned.</p>
+            )}
+          </div>
+        )}
         <div
           onClick={() => toggleCard('generators')}
           className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2"
@@ -323,37 +372,6 @@ export default function ProjectDetailPage() {
           </div>
         )}
 
-        <div
-          onClick={() => toggleCard('technicians')}
-          className="mt-4 flex flex-row items-center border-b border-b-gray-200 pb-2"
-        >
-          <p className="h-mid-gray-s">Technicians</p>
-          <ChevronDown
-            className={`ml-auto text-gray-400 transition-transform ${
-              openCard === 'technicians' ? 'rotate-180' : ''
-            }`}
-          />
-        </div>
-
-        {openCard === 'technicians' && (
-          <div>
-            {technicians.length > 0 ? (
-              technicians.map((tech) => (
-                <div
-                  key={tech.id}
-                  className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2"
-                >
-                  <div>
-                    <p>{tech.full_name || 'Unnamed technician'}</p>
-                    {tech.role && <p className="steps-text ">{tech.role}</p>}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No technicians assigned.</p>
-            )}
-          </div>
-        )}
         <button className="button-white mt-2 mb-2">
           <Link href={`/resources/projects/${projectId}/edit`}>Edit</Link>
         </button>

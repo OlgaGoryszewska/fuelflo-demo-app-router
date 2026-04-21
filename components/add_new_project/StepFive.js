@@ -53,6 +53,11 @@ export default function StepFive({ formData }) {
       <h2>Setup</h2>
 
       <div className="flex flex-row">
+        <h4>Manager</h4>
+      </div>
+      <p className="steps-text mb-2">{formData.manager.name || '-'}</p>
+
+      <div className="flex flex-row">
         <h4>Technicians</h4>
       </div>
       <p className="steps-text mb-2">

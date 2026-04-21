@@ -89,7 +89,7 @@ span {
 .main-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical center */     /* full screen height */
+  justify-content: center; /* vertical center */ /* full screen height */
   padding: 0.6rem;
 }
 
@@ -291,7 +291,6 @@ button {
 .round-icon-button:hover {
   color: var(--primary-orange-light);
   transform: scale(1.05);
-  ;
 }
 
 .active {

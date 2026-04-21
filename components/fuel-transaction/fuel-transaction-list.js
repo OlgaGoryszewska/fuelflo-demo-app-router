@@ -36,22 +36,17 @@ function FuelTransactionRow({ transaction }) {
 
 export default function FuelTransactionsList({ transactions = [] }) {
   return (
-  
-      <div className="flex flex-col w-full">
-        <div className="pr-2 w-full flex justify-between">
-          <h4>Date</h4>
-          <h4>Vol</h4>
-        </div>
-
-        <ul className="flex flex-col w-full">
-          {transactions.map((transaction) => (
-            <FuelTransactionRow
-              key={transaction.id}
-              transaction={transaction}
-            />
-          ))}
-        </ul>
+    <div className="flex flex-col w-full">
+      <div className="pr-2 w-full flex justify-between">
+        <h4>Date</h4>
+        <h4>Vol</h4>
       </div>
 
+      <ul className="flex flex-col w-full">
+        {transactions.map((transaction) => (
+          <FuelTransactionRow key={transaction.id} transaction={transaction} />
+        ))}
+      </ul>
+    </div>
   );
 }

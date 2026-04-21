@@ -27,7 +27,8 @@ export default function AddProjectPage() {
     contractor_address: '',
     email: '',
     mobile: '',
-
+    manager: null,
+    manager_id: null,
     selectedTechnician: null,
     technicians: [],
     technician_ids: [],
@@ -99,6 +100,7 @@ export default function AddProjectPage() {
         company_name: formData.company_name || null,
         event_organizer_id: formData.event_organizer_id || null,
         fuel_suppliers_id: formData.fuel_suppliers_id || null,
+        manager_id: formData.manager_id || null,
       };
 
       const { data: projectData, error: projectError } = await supabase
@@ -145,7 +147,8 @@ export default function AddProjectPage() {
 
         generators: [],
         selectedGenerator: null,
-
+        manager: null,
+        manager_id: null,
         amount: '',
         selling_price: '',
         specification: '',
