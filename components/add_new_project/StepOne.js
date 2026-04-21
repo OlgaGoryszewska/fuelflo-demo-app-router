@@ -14,14 +14,16 @@ export default function StepOne({ formData, setFormData }) {
   return (
     <div className="mx-4">
       <Image src={Blob} alt="project planing" className="w-30 mx-auto " />
-      <h2>Specification</h2>
-      <label>
+      <h2  className='mb-2'>Specification</h2>
+      <label className='mt-4' >
         Name of the Project:
         <input
           name="name"
           type="text"
           value={formData.name}
           onChange={handleChange}
+          className='mb-2'
+         
         />
       </label>
       <label>
@@ -31,6 +33,7 @@ export default function StepOne({ formData, setFormData }) {
           type="text"
           value={formData.location}
           onChange={handleChange}
+           className='mb-2'
         />
       </label>
       <label>
@@ -40,6 +43,7 @@ export default function StepOne({ formData, setFormData }) {
           name="start_date"
           value={formData.start_date}
           onChange={handleChange}
+           className='mb-2 h-[46.8px]'
         />
       </label>
       <label>
@@ -49,7 +53,7 @@ export default function StepOne({ formData, setFormData }) {
           name="end_date"
           value={formData.end_date}
           onChange={handleChange}
-          className="mb-4"
+          className="mb-4 h-[46.8px]"
         />
       </label>
     </div>
