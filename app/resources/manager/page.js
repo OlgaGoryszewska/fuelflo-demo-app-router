@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import formatDateShort from '@/components/FormatDateShort';
 
-export default function TechniciansPage() {
+export default function ManagersPage() {
   const [profile, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ export default function TechniciansPage() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('role', 'technician')
+        .eq('role', 'manager')
         .order('full_name', { ascending: false });
 
       if (error) setError(error.message);
@@ -30,7 +30,7 @@ export default function TechniciansPage() {
     <div className="main-container">
       <div>
         <div className="form-header ">
-          <h1 className="ml-2">Technicians</h1>
+          <h1 className="ml-2">Managerss</h1>
         </div>
         <div className="background-container">
           <div className="flex flex-col w-full"></div>

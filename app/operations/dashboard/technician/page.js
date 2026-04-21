@@ -64,14 +64,14 @@ export default function Dashboard() {
         {openCard === 'transactions' && (
           <div className="open-card ">
             <Link
-              href="/resources/transactions/deliveries"
+              href="app/resources/fuel-transactions"
               className="card-button"
             >
               <ElectricRickshawOutlinedIcon />
               Deliveries
             </Link>
             <Link
-              href="/resources/transactions/returns"
+              href="/resources/fuel-transactions/returns"
               className="card-button"
             >
               <UndoOutlinedIcon />

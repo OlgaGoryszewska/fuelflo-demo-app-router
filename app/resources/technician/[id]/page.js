@@ -90,7 +90,7 @@ export default function TechnicianDetailPage() {
   if (!technician) {
     return (
       <div className="main-container">
-        <div className="background-container">Technician not found.</div>
+        <div className="background-container">Personel not found.</div>
       </div>
     );
   }

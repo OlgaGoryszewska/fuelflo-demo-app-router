@@ -16,7 +16,7 @@ export default function TechniciansPage() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('role', 'technician')
+        .eq('role', 'hire_desk')
         .order('full_name', { ascending: false });
 
       if (error) setError(error.message);
@@ -30,7 +30,7 @@ export default function TechniciansPage() {
     <div className="main-container">
       <div>
         <div className="form-header ">
-          <h1 className="ml-2">Technicians</h1>
+          <h1 className="ml-2">Hire Desk</h1>
         </div>
         <div className="background-container">
           <div className="flex flex-col w-full"></div>
