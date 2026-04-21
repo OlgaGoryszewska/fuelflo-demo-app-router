@@ -13,7 +13,7 @@ export default function StepOne({ formData, setFormData }) {
   };
   return (
     <div className="mx-4">
-      <Image src={Blob} alt="project planing" className="w-30 mx-auto " />
+      <Image src={Blob} alt="project planing" className="w-26 mx-auto " />
       <h2  className='mb-2'>Specification</h2>
       <label className='mt-4' >
         Name of the Project:

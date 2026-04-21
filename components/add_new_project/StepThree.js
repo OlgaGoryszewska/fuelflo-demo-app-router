@@ -6,6 +6,8 @@ import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 import ManagerDropdown from '@/components/dropdowns/ManagerDropdown';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 
 export default function StepThree({ formData, setFormData }) {
   const technicians = formData.technicians || [];
@@ -154,9 +156,18 @@ export default function StepThree({ formData, setFormData }) {
 
   return (
     <div className="m-4">
-      <h2>Setup</h2>
+      <h2 className="mb-2">Setup</h2>
+      <div className='flex flex-row '>
+      <div className=' mb-4 size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-2'>
+      <PeopleAltIcon/>
+      </div>
+      <div className='flex flex-col'>
+      <p className='h-mid-gray-s'>Team</p>
+      <p className='steps-text'>Assign manager and add technicians</p>
+      </div>
+      </div>
 
-      <label className="mt-2 block">Choose Manager:</label>
+      <label >Choose Manager:</label>
       <ManagerDropdown
         value={formData.manager?.id || ''}
         onChange={handleManagerSelect}
@@ -182,7 +193,7 @@ export default function StepThree({ formData, setFormData }) {
 
       <div className="mb-4">
         {technicians.length === 0 ? (
-          <p className="steps-text mb-2">No technicians assigned yet.</p>
+          <p className="text-[#62748e] text-sm ml-1 mb-2">No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
@@ -205,9 +216,18 @@ export default function StepThree({ formData, setFormData }) {
         )}
       </div>
 
-      <div className="divider-full"></div>
+      <div className="divider-full mb-4"></div>
+      <div className='flex flex-row mb-4 '>
+      <div className='size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-4'>
+      < LocalShippingOutlinedIcon/>
+      </div>
+      <div className='flex flex-col'>
+      <p className=" h-mid-gray-s ">Add Fleet</p>
+      <p className='steps-text'>Add generators and tanks to your fleet</p>
+      </div>
+      </div>
 
-      <h2 className="mt-4 mb-2">Add Fleet</h2>
+     
 
       <label className=" block">Add Generator:</label>
 
@@ -226,7 +246,7 @@ export default function StepThree({ formData, setFormData }) {
         </button>
       </div>
 
-      <div className="mb-4">
+      <div className="">
         {generators.length === 0 ? (
           <p className="steps-text mb-2">No generators assigned yet.</p>
         ) : (
@@ -234,7 +254,7 @@ export default function StepThree({ formData, setFormData }) {
             {generators.map((gen) => (
               <div key={gen.id} className="">
                 <div className="mb-3 flex items-center justify-between">
-                  <strong>{gen.name}</strong>
+                  <p className='h-mid-gray-s'>{gen.name}</p>
 
                   <button
                     type="button"

@@ -11,7 +11,7 @@
   --primary-mid-gray: #717887;
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
-  --light-blue: hsl(200, 49%, 92%);
+  --light-blue: hwb(201 80% 2%);
   --white: #fff;
   --slate-light: #cbdae3;
   --slate-line: #e2e8f0;
@@ -37,7 +37,7 @@ h3{
 }
 
 label {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--primary-mid-black);
  
 }
