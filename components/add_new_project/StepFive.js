@@ -73,17 +73,17 @@ export default function StepFive({ formData }) {
       {generators.length === 0 ? (
         <p className="steps-text mb-2">No generators assigned</p>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           {generators.map((gen) => (
             <div key={gen.id}>
-              <p className="steps-text mb-2 font-semibold">{gen.name}</p>
+              <p className="steps-text mb-2 font-semibold"> Generator: {gen.name}</p>
 
               {(gen.tanks || []).length === 0 ? (
                 <p className="steps-text mb-2">No tanks assigned</p>
               ) : (
                 <ul>
                   {(gen.tanks || []).map((tank) => (
-                    <li key={tank.id} className="steps-text mb-2">
+                    <li key={tank.id} className="steps-text ">
                       {tank.name}
                     </li>
                   ))}

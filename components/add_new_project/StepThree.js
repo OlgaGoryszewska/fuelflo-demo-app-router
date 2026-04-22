@@ -230,7 +230,7 @@ export default function StepThree({ formData, setFormData }) {
         </div>
       </div>
 
-      <label className=" block">Add Generator:</label>
+      <label className="">Add Generator:</label>
 
       <div className=" flex items-center gap-2">
         <GeneratorDropdown
