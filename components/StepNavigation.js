@@ -23,17 +23,17 @@ export default function StepNavigation({
   return (
     <div className="form-footer">
       {/* Previous Button */}
-      <button type="button" onClick={goPrevious} disabled={isFirstStep}>
+      <button type="button" onClick={goPrevious} disabled={isFirstStep} className="button">
         Back
       </button>
 
       {/* Submit on last step, Next on others */}
       {!isLastStep ? (
-        <button type="button" onClick={goNext}>
+        <button type="button" onClick={goNext} className="button">
           Next
         </button>
       ) : (
-        <button type="button" disabled={submitting} onClick={onSubmit}>
+        <button type="button" disabled={submitting} className='button' onClick={onSubmit}>
           {submitting ? 'Submitting...' : 'Submit'}
         </button>
       )}

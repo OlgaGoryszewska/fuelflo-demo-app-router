@@ -11,7 +11,8 @@
   --primary-mid-gray: #717887;
   --primary-gray-soft: #c6c6c6;
   --dark-blue: #7291a4;
-  --light-blue: hwb(201 80% 2%);
+  --very-light-blue: #f5fbff;
+  --light-blue: #d5eefc;
   --white: #fff;
   --slate-light: #cbdae3;
   --slate-line: #e2e8f0;
@@ -37,8 +38,10 @@ h3{
 }
 
 label {
-  font-size: 16px;
-  color: var(--primary-mid-black);
+  font-size: 15px;
+  font-family: var(--font-roboto-flex);
+  color: var(--slate-dark);
+  letter-spacing: 0.8px;
  
 }
 .s-bold-text,
@@ -71,7 +74,7 @@ h4 {
   padding-bottom: 0.6rem;
 }
 .steps-text {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--primary-mid-gray);
   font-weight: 100;
 }
@@ -189,9 +192,9 @@ form {
 input,
 select,
 option {
-  color: var(--primary-mid-gray);
+  color: var(--slate-dark);
   padding: 0.6rem;
-  border: 1.5px solid var(--primary-gray-light);
+  border: 1px solid var(--primary-gray-light);
   border-radius: 10px;
   font-size: 16px;
   width: 100%;
@@ -264,7 +267,7 @@ option {
   align-items: center;
 }
 .button-white,
-button {
+.button {
   padding: 0.4rem;
   background-color: var(--white);
   color: var(--primary-black);
@@ -305,7 +308,7 @@ button {
 .not-active {
   background-color: white;
 }
-button:disabled {
+.button:disabled {
   color: var(--primary-gray-light);
   border: 2px solid var(--primary-gray-light);
   box-shadow: none;
@@ -362,7 +365,7 @@ button:disabled {
   border: 1px solid var(--primary-black);
 }
 
-button:hover,
+.button:hover,
 .form-button-orange,
 .card-button:hover,
 .form-button:hover {
@@ -370,7 +373,7 @@ button:hover,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.02);
 }
-button:active,
+.button:active,
 .form-button-orange,
 .card-button:active,
 .form-button:active {

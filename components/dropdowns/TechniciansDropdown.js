@@ -47,7 +47,7 @@ export default function TechniciansDropdown({ value, onChange }) {
             });
           }}
         >
-          <option value="">Select Technician</option>
+          <option value=""></option>
 
           {technicians.map((t) => (
             <option key={t.id} value={t.id}>

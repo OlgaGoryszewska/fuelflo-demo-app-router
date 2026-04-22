@@ -8,6 +8,9 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 export default function StepThree({ formData, setFormData }) {
   const technicians = formData.technicians || [];
@@ -158,7 +161,7 @@ export default function StepThree({ formData, setFormData }) {
     <div className="m-4">
       <h2 className="mb-2">Setup</h2>
       <div className='flex flex-row '>
-      <div className=' mb-4 size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-2'>
+      <div className=' mb-4 size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2'>
       <PeopleAltIcon/>
       </div>
       <div className='flex flex-col'>
@@ -187,29 +190,33 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddTechnician}
           className="round-icon-button"
         >
-          <AddIcon />
+          <AddIcon fontSize="small"/>
         </button>
       </div>
 
       <div className="mb-4">
         {technicians.length === 0 ? (
-          <p className="text-[#62748e] text-sm ml-1 mb-2">No technicians assigned yet.</p>
+          <p className="steps-text mb-2">No technicians assigned yet.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
               <div
                 key={tech.id}
-                className="flex w-full items-center justify-between"
-              >
-                <span>{tech.name}</span>
+                className="mt-2 "
+              ><div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+                         <div className='flex flex-row ml-2'>
+                           <PersonOutlineOutlinedIcon className='mr-2' />
+                <p>{tech.name}</p>
+                </div>
 
                 <button
                   type="button"
                   onClick={() => handleRemoveTechnician(tech.id)}
                   className="round-icon-button "
                 >
-                  <RemoveIcon />
+                  <RemoveIcon fontSize="small"/>
                 </button>
+              </div>
               </div>
             ))}
           </div>
@@ -218,8 +225,8 @@ export default function StepThree({ formData, setFormData }) {
 
     
     
-      <div className='flex flex-row mb-4 mt-4'>
-      <div className='size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-2'>
+      <div className='flex flex-row mb-4 mt-6'>
+      <div className='size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2'>
       < LocalShippingOutlinedIcon/>
       </div>
       <div className='flex flex-col'>
@@ -243,7 +250,7 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddGenerator}
           className="round-icon-button"
         >
-          <AddIcon />
+          <AddIcon fontSize="small"/>
         </button>
       </div>
 
@@ -253,20 +260,22 @@ export default function StepThree({ formData, setFormData }) {
         ) : (
           <div className="flex flex-col gap-4">
             {generators.map((gen) => (
-              <div key={gen.id} className="">
-                <div className="mb-3 flex items-center justify-between">
-                  <p className='h-mid-gray-s'>{gen.name}</p>
-
+              <div key={gen.id} className="mt-2">
+                <div className="h-10 rounded-xl text-[#62748e] flex bg-[#e7f6ff] items-center justify-between">
+                  <div className='flex flex-row'>
+                  <BoltOutlinedIcon className="ml-2 "/>
+                  <p className=' ml-2 color-[#62748e]'>{gen.name}</p>
+                  </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveGenerator(gen.id)}
-                    className="round-icon-button "
+                    className="mr-2 "
                   >
-                    <RemoveIcon />
+                    <RemoveIcon fontSize="small"/>
                   </button>
                 </div>
-
-                <div className="mb-2 flex items-center gap-2">
+                <label className="mt-4">Add Tank:</label>
+                <div className="flex items-center ">
                   <TankDropdown
                     value={gen.selectedTank?.id || ''}
                     onChange={(tank) => handleTankSelect(gen.id, tank)}
@@ -277,28 +286,34 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleAddTank(gen.id)}
                     className="round-icon-button "
                   >
-                    <AddIcon />
+                    <AddIcon fontSize="small"/>
                   </button>
                 </div>
 
                 {(gen.tanks || []).length === 0 ? (
                   <p className="steps-text">No tanks assigned yet.</p>
                 ) : (
-                  <ul className="flex flex-col gap-2">
+                  <ul className="flex flex-col ">
                     {(gen.tanks || []).map((tank) => (
                       <li
                         key={`${gen.id}-${tank.id}`}
-                        className="flex items-center justify-between"
+                        
                       >
-                        <span>{tank.name}</span>
+                         <div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+                         <div className='flex flex-row ml-2'>
+                        <PropaneTankOutlinedIcon/>
+                        <p className='ml-2'>{tank.name}</p>
+                        </div>
+                       
 
                         <button
                           type="button"
                           onClick={() => handleRemoveTank(gen.id, tank.id)}
-                          className="round-icon-button "
+                          className=""
                         >
-                          <RemoveIcon />
+                          <RemoveIcon fontSize="small" />
                         </button>
+                        </div>
                       </li>
                     ))}
                   </ul>

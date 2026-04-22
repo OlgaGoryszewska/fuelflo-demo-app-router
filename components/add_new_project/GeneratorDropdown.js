@@ -40,7 +40,7 @@ export default function GeneratorDropdown({ value, onChange }) {
             console.log('generator:', selectedId);
           }}
         >
-          <option value="">Select Generator</option>
+          <option value=""></option>
           {generators.map((g) => (
             <option key={g.id} value={g.id}>
               {g.name}
