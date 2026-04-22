@@ -172,7 +172,7 @@ export default function StepThree({ formData, setFormData }) {
         value={formData.manager?.id || ''}
         onChange={handleManagerSelect}
       />
-      <div className="divider-full mt-4 mb-4"></div>
+      
 
       <label className="mt-2 block">Add Technician:</label>
 
@@ -216,9 +216,10 @@ export default function StepThree({ formData, setFormData }) {
         )}
       </div>
 
-      <div className="divider-full mb-4"></div>
-      <div className='flex flex-row mb-4 '>
-      <div className='size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-4'>
+    
+    
+      <div className='flex flex-row mb-4 mt-4'>
+      <div className='size-12 rounded-xl border border-[#CCE3F9] flex items-center justify-center text-[#CCE3F9] mr-2'>
       < LocalShippingOutlinedIcon/>
       </div>
       <div className='flex flex-col'>
