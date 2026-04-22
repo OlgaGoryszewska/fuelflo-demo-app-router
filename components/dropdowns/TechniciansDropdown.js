@@ -27,7 +27,7 @@ export default function TechniciansDropdown({ value, onChange }) {
     <div className="w-full">
       <label className="flex flex-col w-full">
         <select
-          className="pr-4 mr-4 w-full b-white"
+          className="pr-4 mr-4 w-full b-white h-[40px]"
           value={value}
           onChange={(e) => {
             const selectedId = e.target.value;

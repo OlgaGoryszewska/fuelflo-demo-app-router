@@ -24,7 +24,7 @@ export default function TankDropdown({ value, onChange }) {
     <div className="w-full mb-4">
       <label className="flex w-full flex-col">
         <select
-          className="b-white mr-4 w-full pr-4"
+          className="b-white mr-4 w-full pr-4 h-[40px]"
           value={value || ''}
           onChange={(e) => {
             const selectedId = e.target.value;
