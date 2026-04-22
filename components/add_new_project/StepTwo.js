@@ -10,7 +10,7 @@ export default function StepTwo({ formData, setFormData }) {
   };
   return (
     <div className="m-4">
-      <h2 className='mb-2' >Contact to Contractor</h2>
+      <h2 className="mb-2">Contact to Contractor</h2>
       <label>
         Name of the Contractor:
         <input
@@ -18,7 +18,7 @@ export default function StepTwo({ formData, setFormData }) {
           type="text"
           value={formData.contractor_name}
           onChange={handleChange}
-          className='mb-2'
+          className="mb-2"
         />
       </label>
       <label>
@@ -28,7 +28,7 @@ export default function StepTwo({ formData, setFormData }) {
           value={formData.contractor_address}
           type="text"
           onChange={handleChange}
-          className='mb-2'
+          className="mb-2"
         />
       </label>
       <label>
@@ -38,7 +38,7 @@ export default function StepTwo({ formData, setFormData }) {
           type="email"
           value={formData.email}
           onChange={handleChange}
-           className='mb-2'
+          className="mb-2"
         />
       </label>
       <label>
@@ -48,7 +48,6 @@ export default function StepTwo({ formData, setFormData }) {
           type="text"
           value={formData.mobile}
           onChange={handleChange}
-         
         />
       </label>
     </div>

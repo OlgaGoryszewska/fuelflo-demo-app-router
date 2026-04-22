@@ -47,7 +47,7 @@ export default function ManagerDropdown({ value, onChange }) {
             });
           }}
         >
-          <option value="">Select Manager</option>
+          <option value=""></option>
 
           {managers.map((m) => (
             <option key={m.id} value={m.id}>

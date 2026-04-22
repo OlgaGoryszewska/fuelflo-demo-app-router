@@ -160,26 +160,25 @@ export default function StepThree({ formData, setFormData }) {
   return (
     <div className="m-4">
       <h2 className="mb-2">Setup</h2>
-      <div className='flex flex-row '>
-      <div className=' mb-4 size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2'>
-      <PeopleAltIcon/>
-      </div>
-      <div className='flex flex-col'>
-      <p className='h-mid-gray-s'>Team</p>
-      <p className='steps-text'>Assign manager and add technicians</p>
-      </div>
+      <div className="flex flex-row ">
+        <div className=" mb-4 size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2">
+          <PeopleAltIcon />
+        </div>
+        <div className="flex flex-col">
+          <p className="h-mid-gray-s">Team</p>
+          <p className="steps-text">Assign manager and add technicians</p>
+        </div>
       </div>
 
-      <label >Choose Manager:</label>
+      <label>Select Manager:</label>
       <ManagerDropdown
         value={formData.manager?.id || ''}
         onChange={handleManagerSelect}
       />
-      
 
-      <label className="mt-2 block">Add Technician:</label>
+      <label className="mt-2 block">Select Technician:</label>
 
-      <div className=" flex items-center gap-2">
+      <div className=" flex items-center">
         <TechniciansDropdown
           value={formData.selectedTechnician?.id || ''}
           onChange={handleTechnicianSelect}
@@ -190,7 +189,7 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddTechnician}
           className="round-icon-button"
         >
-          <AddIcon fontSize="small"/>
+          <AddIcon fontSize="small" />
         </button>
       </div>
 
@@ -200,42 +199,36 @@ export default function StepThree({ formData, setFormData }) {
         ) : (
           <div className="flex flex-col gap-2">
             {technicians.map((tech) => (
-              <div
-                key={tech.id}
-                className="mt-2 "
-              ><div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
-                         <div className='flex flex-row ml-2'>
-                           <PersonOutlineOutlinedIcon className='mr-2' />
-                <p>{tech.name}</p>
-                </div>
+              <div key={tech.id} className="mt-2 ">
+                <div className="h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+                  <div className="flex flex-row ml-2">
+                    <PersonOutlineOutlinedIcon className="mr-2" />
+                    <p>{tech.name}</p>
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleRemoveTechnician(tech.id)}
-                  className="round-icon-button "
-                >
-                  <RemoveIcon fontSize="small"/>
-                </button>
-              </div>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTechnician(tech.id)}
+                    className="round-icon-button "
+                  >
+                    <RemoveIcon fontSize="small" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
 
-    
-    
-      <div className='flex flex-row mb-4 mt-6'>
-      <div className='size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2'>
-      < LocalShippingOutlinedIcon/>
+      <div className="flex flex-row mb-4 mt-6">
+        <div className="size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2">
+          <LocalShippingOutlinedIcon />
+        </div>
+        <div className="flex flex-col">
+          <p className=" h-mid-gray-s ">Add Fleet</p>
+          <p className="steps-text">Add generators and tanks to your fleet</p>
+        </div>
       </div>
-      <div className='flex flex-col'>
-      <p className=" h-mid-gray-s ">Add Fleet</p>
-      <p className='steps-text'>Add generators and tanks to your fleet</p>
-      </div>
-      </div>
-
-     
 
       <label className=" block">Add Generator:</label>
 
@@ -250,32 +243,32 @@ export default function StepThree({ formData, setFormData }) {
           onClick={handleAddGenerator}
           className="round-icon-button"
         >
-          <AddIcon fontSize="small"/>
+          <AddIcon fontSize="small" />
         </button>
       </div>
 
-      <div className="">
+      <div className="mt-2 ">
         {generators.length === 0 ? (
           <p className="steps-text mb-2">No generators assigned yet.</p>
         ) : (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col ">
             {generators.map((gen) => (
-              <div key={gen.id} className="mt-2">
-                <div className="h-10 rounded-xl text-[#62748e] flex bg-[#e7f6ff] items-center justify-between">
-                  <div className='flex flex-row'>
-                  <BoltOutlinedIcon className="ml-2 "/>
-                  <p className=' ml-2 color-[#62748e]'>{gen.name}</p>
+              <div key={gen.id} className="mt-2 mb-2 p-2 rounded-xl bg-[#CCE3F9] ">
+                <div className="h-10 mb-4 rounded-xl text-[#62748e] flex bg-[#e7f6ff] items-center justify-between">
+                  <div className="flex flex-row">
+                    <BoltOutlinedIcon className="ml-2 " />
+                    <p className=" ml-2 color-[#62748e]">{gen.name}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveGenerator(gen.id)}
                     className="mr-2 "
                   >
-                    <RemoveIcon fontSize="small"/>
+                    <RemoveIcon fontSize="small" />
                   </button>
                 </div>
-                <label className="mt-4">Add Tank:</label>
-                <div className="flex items-center ">
+                <label className="ml-1">Add Tank:</label>
+                <div className="flex  ">
                   <TankDropdown
                     value={gen.selectedTank?.id || ''}
                     onChange={(tank) => handleTankSelect(gen.id, tank)}
@@ -286,33 +279,29 @@ export default function StepThree({ formData, setFormData }) {
                     onClick={() => handleAddTank(gen.id)}
                     className="round-icon-button "
                   >
-                    <AddIcon fontSize="small"/>
+                    <AddIcon fontSize="small" />
                   </button>
                 </div>
 
                 {(gen.tanks || []).length === 0 ? (
-                  <p className="steps-text">No tanks assigned yet.</p>
+                  <p className="steps-text ml-1">No tanks assigned yet.</p>
                 ) : (
                   <ul className="flex flex-col ">
                     {(gen.tanks || []).map((tank) => (
-                      <li
-                        key={`${gen.id}-${tank.id}`}
-                        
-                      >
-                         <div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
-                         <div className='flex flex-row ml-2'>
-                        <PropaneTankOutlinedIcon/>
-                        <p className='ml-2'>{tank.name}</p>
-                        </div>
-                       
+                      <li key={`${gen.id}-${tank.id}`}>
+                        <div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+                          <div className="flex flex-row ml-2">
+                            <PropaneTankOutlinedIcon />
+                            <p className="ml-2">{tank.name}</p>
+                          </div>
 
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveTank(gen.id, tank.id)}
-                          className=""
-                        >
-                          <RemoveIcon fontSize="small" />
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveTank(gen.id, tank.id)}
+                            className="mr-2"
+                          >
+                            <RemoveIcon fontSize="small" />
+                          </button>
                         </div>
                       </li>
                     ))}

@@ -266,10 +266,10 @@ export default function ProjectDetailPage() {
           <div className="flex flex-col justify-between items-center">
             <Image src={avatar} alt="avatar" className="avatar" />
             <p className="steps-text">Manager</p>
-            <p className="h-mid-gray-s">{project.manager?.full_name || 'No manager assigned'}</p>
+            <p className="h-mid-gray-s">
+              {project.manager?.full_name || 'No manager assigned'}
+            </p>
           </div>
-
-         
         </div>
 
         <div

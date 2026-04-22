@@ -21,7 +21,7 @@ export default function TankDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <div className="w-full mb-4">
+    <div className="w-full ">
       <label className="flex w-full flex-col">
         <select
           className="b-white mr-4 w-full pr-4 h-[40px]"
@@ -49,7 +49,7 @@ export default function TankDropdown({ value, onChange }) {
             });
           }}
         >
-          <option value="">Select Tank</option>
+          <option value=""></option>
 
           {tanks.map((tank) => (
             <option key={tank.id} value={tank.id}>

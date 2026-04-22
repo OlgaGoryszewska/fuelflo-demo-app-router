@@ -32,7 +32,7 @@ h2 {
   color: var(--primary-black);
   font-weight: 600;
 }
-h3{
+h3 {
   font-size: 16px;
   color: var(--primary-mid-gray);
 }
@@ -42,7 +42,6 @@ label {
   font-family: var(--font-roboto-flex);
   color: var(--slate-dark);
   letter-spacing: 0.8px;
- 
 }
 .s-bold-text,
 h4 {
@@ -396,11 +395,14 @@ option {
 .button-big {
   width: 100%;
   margin: 0rem;
+  font-family: var(--font-roboto-flex);
   margin-bottom: 0.6rem;
   background: linear-gradient(90deg, #ff7a00 0%, #ff8a00 50%, #ffb347 100%);
   color: var(--white);
   border: 1px solid var(--primary-gray-light);
-
+  border-radius: 25px;
+  font-size: 18px;
+  padding: 8px;
   transition: all 0.15s ease;
 }
 
