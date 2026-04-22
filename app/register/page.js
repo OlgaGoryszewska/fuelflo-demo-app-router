@@ -205,7 +205,7 @@ export default function CreateUserPage() {
             <p className="text-sm text-green-600">{successMessage}</p>
           )}
 
-          <button type="submit" disabled={loading} className="button-big">
+          <button type="submit" disabled={loading} className="button-big ">
             {loading ? 'Creating account...' : 'Register'}
           </button>
         </form>
