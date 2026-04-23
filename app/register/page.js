@@ -193,6 +193,7 @@ export default function CreateUserPage() {
               <option value="manager">Manager</option>
               <option value="hire_desk">Hire Desk</option>
               <option value="supplier">Supplier</option>
+              <option value="supplier">Event Organizer</option>
             </select>
 
             <div className="divider-full my-2"></div>

@@ -132,7 +132,7 @@ export default function Dashboard() {
         </div>
         {openCard === 'external partners' && (
           <div className="open-card ">
-            <Link href="/resources/event_organizers/" className="card-button">
+            <Link href="/resources/event_organizers" className="card-button">
               <Person4OutlinedIcon />
               Event Organizers
             </Link>
