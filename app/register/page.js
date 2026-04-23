@@ -188,6 +188,7 @@ export default function CreateUserPage() {
               name="role"
               value={formData.role}
               onChange={handleChange}
+              className='h=[40]'
             >
               <option value="event_organizer">Event Organizer</option>
               <option value="technician">Technician</option>
