@@ -20,7 +20,7 @@ export default async function GeneratorsPage() {
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Generators</h1>
+        <h2 className="ml-2">Generators</h2>
       </div>
 
       {data && data.length > 0 ? (
@@ -35,7 +35,7 @@ export default async function GeneratorsPage() {
                 <p> {generator.localization}</p>
               </div>
               <p className="pt-4">Generator fuel</p>
-              <div className="fuel-bar"></div>
+              <div className="fuel-bar-100"></div>
               <p className="generator-localisation text-right">100%</p>
               <div className="gen-grid">
                 <div className="generator-inf-box">

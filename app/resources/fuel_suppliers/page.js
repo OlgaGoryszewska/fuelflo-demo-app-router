@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
+import formatDateShort from '@/components/FormatDateShort';
 
-export default function EventOrganizersPage() {
-  const [organizers, setOrganizers] = useState([]);
+export default function TechniciansPage() {
+  const [profile, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,34 +14,44 @@ export default function EventOrganizersPage() {
     async function load() {
       setError(null);
       const { data, error } = await supabase
-        .from('event_organizers')
-        .select('name, id')
-        .order('name', { ascending: true });
+        .from('profiles')
+        .select('*')
+        .eq('role', 'event_organizer')
+        .order('full_name', { ascending: false });
 
       if (error) setError(error.message);
-      console.log('Data from Supabase:', data);
-      setOrganizers(data || []);
+      setProfiles(data || []);
       setLoading(false);
     }
     load();
   }, []);
 
   return (
-    <div className="m-2.5">
-      <div className="form-header mb-4">
-        <h1 className="ml-2">event organizers</h1>
-      </div>
-      <div className="background-container-white">
-        <ul>
-          {organizers.map((o) => (
-            <li key={o.id}>
-              <span className="material-symbols-outlined">festival</span>{' '}
-              <Link href={`/event_organizers/${o.id}`}>
-                {o.name ?? 'No name'}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <div className="main-container">
+      <div>
+        <div className="form-header ">
+          <h1 className="ml-2">Technicians</h1>
+        </div>
+        <div className="background-container">
+          <div className="flex flex-col w-full"></div>
+          <div className="pr-2 w-full flex justify-between">
+            <h4 className="pl-2">Name</h4>
+            <h4>Active project</h4>
+          </div>
+          <ul className="flex flex-col gap-1 ">
+            {profile.map((p) => (
+              <li className="file-row " key={p.id}>
+                <Link
+                  className="steps-text"
+                  href={`/resources/technician/${p.id}`}
+                >
+                  {p.full_name}
+                </Link>
+                <p className="steps-text "> {formatDateShort(p.start_date)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

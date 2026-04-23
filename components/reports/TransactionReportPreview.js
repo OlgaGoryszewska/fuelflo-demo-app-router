@@ -12,15 +12,7 @@ export default function TransactionReportPreview({
 
   return (
     <div className="w-full space-y-4">
-      <div className="flex flex-wrap gap-3">
-        <PDFDownloadLink
-          document={<TransactionReportDocument transaction={transaction} />}
-          fileName={fileName}
-          className="button-big"
-        >
-          {({ loading }) => (loading ? 'Preparing PDF...' : 'Download report')}
-        </PDFDownloadLink>
-      </div>
+     
 
       {showPreview && (
         <div className="w-full overflow-hidden rounded border border-slate-300">
@@ -29,6 +21,15 @@ export default function TransactionReportPreview({
           </PDFViewer>
         </div>
       )}
+       <div className="flex flex-wrap gap-3">
+        <PDFDownloadLink
+          document={<TransactionReportDocument transaction={transaction} />}
+          fileName={fileName}
+          className="button-big"
+        >
+          {({ loading }) => (loading ? 'Preparing PDF...' : 'Download report')}
+        </PDFDownloadLink>
+      </div>
     </div>
   );
 }

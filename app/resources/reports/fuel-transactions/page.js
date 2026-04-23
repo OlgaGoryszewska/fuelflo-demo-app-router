@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
+import FuelTransactionsListReport from '@/components/fuel-transaction/FuelTransactionListReport';
 
 export default function RaportFuelTransactionsPage() {
   const [transactions, setTransactions] = useState([]);
@@ -47,7 +47,7 @@ export default function RaportFuelTransactionsPage() {
       {message && <p>{message}</p>}
 
       {!loading && !error && transactions.length > 0 && (
-        <FuelTransactionsList transactions={transactions} />
+        <FuelTransactionsListReport transactions={transactions} />
       )}
     </div>
   );
