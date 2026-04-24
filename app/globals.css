@@ -393,14 +393,20 @@ option {
 }
 
 .button-big {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
   width: 100%;
   margin: 0rem;
-  font-family: var(--font-roboto-flex);
+  font-family: var(--font-roboto-flex) !important;
   margin-bottom: 0.6rem;
   background: linear-gradient(90deg, #ff7a00 0%, #ff8a00 50%, #ffb347 100%);
   color: var(--white);
   border: 1px solid var(--primary-gray-light);
   border-radius: 25px;
+  font-weight: 600;
   font-size: 18px;
   padding: 8px;
   transition: all 0.15s ease;
@@ -654,6 +660,7 @@ li a:hover {
   width: 100%;
   padding: 0.6rem;
 }
+.fuel-bar-100,
 .fuel-bar-before {
   width: 50%;
   height: 18px;
@@ -667,6 +674,9 @@ li a:hover {
   background: linear-gradient(to right, #febd20, #f25822);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.fuel-bar-100{
+  width: 100%;
 }
 .project-inf-box-green,
 .project-inf-box,

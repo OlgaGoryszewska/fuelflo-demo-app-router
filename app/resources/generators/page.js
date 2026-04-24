@@ -19,22 +19,19 @@ export default async function GeneratorsPage() {
 
   return (
     <div className="m-2.5">
-      <div className="form-header mb-4">
-        <h2 className="ml-2">Generators</h2>
+      <div className="form-header">
+        <h1 className="ml-2">Generators</h1>
       </div>
 
       {data && data.length > 0 ? (
         <div>
           {data.map((generator) => (
             <div className="generator-container mb-4" key={generator.id}>
-              <div className="form-header mb-4">
-                <h3 className="uppercase">{generator.name}</h3>
+              <div className="form-header mb-2">
+                <p className="h-mid-gray-s">{generator.name}</p>
               </div>
-              <div className="flex gap-2 items-start mb-2">
-                <LocationOnOutlinedIcon />
-                <p> {generator.localization}</p>
-              </div>
-              <p className="pt-4">Generator fuel</p>
+              
+              <p className="pt-4">When fuel of the generator is</p>
               <div className="fuel-bar-100"></div>
               <p className="generator-localisation text-right">100%</p>
               <div className="gen-grid">
@@ -53,16 +50,8 @@ export default async function GeneratorsPage() {
                   <p className="box-insert">{generator.run_hours_100_load} H</p>
                 </div>
               </div>
-              <div>
-                <p className="pt-4">External Tanks</p>
-              </div>
-              <div className="form-button">
-                <p>
-                  {generator.external_tank
-                    ? generator.external_tank
-                    : 'No external tanks connected.'}
-                </p>
-              </div>
+              
+             
               <div className="gen-grid">
                 <div className="generator-inf-box">
                   <p className="box-text">Model No</p>

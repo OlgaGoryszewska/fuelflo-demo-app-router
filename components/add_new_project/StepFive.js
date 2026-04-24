@@ -59,12 +59,12 @@ export default function StepFive({ formData }) {
       <div className="mb-2 flex flex-col  rounded-xl text-[#62748e] bg-[#f5fbff] p-2">
         <p className="steps-text">Manager</p>
       
-      <p className="h-mid-gray-s mb-2">{formData.manager?.name || '-'}</p>
+      <p className="h-mid-gray-s">{formData.manager?.name || '-'}</p>
 </div>
       <div className="mb-2 flex flex-col  rounded-xl text-[#62748e] bg-[#f5fbff] p-2">
         <p className="steps-text">Technicians</p>
      
-      <p className="h-mid-gray-s  mb-2">
+      <p className="h-mid-gray-s">
         {technicians.length > 0
           ? technicians.map((tech) => tech.name).join(', ')
           : 'None'}

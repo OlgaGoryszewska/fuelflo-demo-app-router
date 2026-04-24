@@ -8,11 +8,9 @@ export default function AddGenerator() {
     name: '',
     model_no: '',
     fleet_no: '',
-    localization: '',
     fuel_capacity: '',
     fuel_consumption_100: '',
     run_hours_100_load: '',
-    external_tank: '',
     notes: '',
   });
 
@@ -40,11 +38,9 @@ export default function AddGenerator() {
         name: '',
         model_no: '',
         fleet_no: '',
-        localization: '',
         fuel_capacity: '',
         fuel_consumption_100: '',
         run_hours_100_load: '',
-        external_tank: '',
         notes: '',
       });
     }
@@ -91,15 +87,6 @@ export default function AddGenerator() {
             />
           </label>
           <label>
-            Localization:
-            <input
-              name="localization"
-              type="text"
-              onChange={handleChange}
-              value={formData.localization}
-            />
-          </label>
-          <label>
             Fuel Capacity:
             <input
               name="fuel_capacity"
@@ -124,15 +111,6 @@ export default function AddGenerator() {
               type="text"
               onChange={handleChange}
               value={formData.run_hours_100_load}
-            />
-          </label>
-          <label>
-            Choose External Tank:
-            <input
-              name="external_tank"
-              type="text"
-              onChange={handleChange}
-              value={formData.external_tank}
             />
           </label>
           <label>

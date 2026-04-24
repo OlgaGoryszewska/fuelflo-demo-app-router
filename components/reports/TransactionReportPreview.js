@@ -25,7 +25,7 @@ export default function TransactionReportPreview({
         <PDFDownloadLink
           document={<TransactionReportDocument transaction={transaction} />}
           fileName={fileName}
-          className="button-big"
+          className="button-big h-[35]" 
         >
           {({ loading }) => (loading ? 'Preparing PDF...' : 'Download report')}
         </PDFDownloadLink>
