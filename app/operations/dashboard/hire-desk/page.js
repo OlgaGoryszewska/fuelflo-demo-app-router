@@ -166,7 +166,7 @@ export default function Dashboard() {
               <PropaneTankOutlinedIcon />
               External Tanks
             </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
+            <Link href="/add-forms/add_equipment" className="card-button">
               <AddOutlinedIcon />
               Add new Equipment
             </Link>

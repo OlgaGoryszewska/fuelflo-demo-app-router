@@ -345,7 +345,7 @@ export default function ProjectDetailPage() {
 
         <div
           onClick={() => toggleCard('tanks')}
-          className="mt-4 flex flex-row items-center border-b border-b-gray-200 pb-2"
+          className="mt-2 flex flex-row items-center border-b border-b-gray-200 pb-2"
         >
           <p className="h-mid-gray-s">External tanks</p>
           <ChevronDown

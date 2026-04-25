@@ -1,61 +1,75 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
-import event from '@/public/event_baner.png';
+import generator from '@/public/generator.png'
 
-export default function AddEventOrganizer() {
+export default function AddGenerator() {
   const [formData, setFormData] = useState({
     name: '',
-    surname: '',
-    company_name: '',
-    address: '',
-    email: '',
-    mob: '',
+    model_no: '',
+    fleet_no: '',
+    fuel_capacity: '',
+    fuel_consumption_100: '',
+    run_hours_100_load: '',
+    notes: '',
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
 
+  const [message, setMessage] = useState('');
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
+
+  // 3️⃣ send to Supabase
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
 
     const { data, error } = await supabase
-      .from('event_organizers')
+      .from('generators')
       .insert([formData]);
 
     if (error) {
       console.error(error);
       setMessage('❌ Error: ' + error.message);
     } else {
-      setMessage('✅ Event Organizer added successfully!');
+      setMessage('✅ Generator added successfully!');
       // reset form
       setFormData({
         name: '',
-        surname: '',
-        company_name: '',
-        address: '',
-        email: '',
-        mob: '',
+        model_no: '',
+        fleet_no: '',
+        fuel_capacity: '',
+        fuel_consumption_100: '',
+        run_hours_100_load: '',
+        notes: '',
       });
     }
-    setSubmitting(false);
   };
-
   return (
     <div className="m-2.5">
-      <div className="form-header mb-4">
-        <h1 className="ml-2">Add Event Organizer</h1>
+      <div className="form-header">
+        <h1 className="ml-2">Add Equipment</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Image />
         <div className="m-4">
+          <Image
+            src={generator}
+            alt="generator image"
+            className="w-[150] mx-auto"
+          />
+          <h2>Specification</h2>
+          <label>
+            Model No:
+            <input
+              name="model_no"
+              type="text"
+              onChange={handleChange}
+              value={formData.model_no}
+            />
+          </label>
+
           <label>
             Name:
             <input
@@ -65,54 +79,53 @@ export default function AddEventOrganizer() {
               value={formData.name}
             />
           </label>
-
           <label>
-            Surname:
+            Fleet No:
             <input
-              name="surname"
+              name="fleet_no"
               type="text"
               onChange={handleChange}
-              value={formData.surname}
+              value={formData.fleet_no}
             />
           </label>
           <label>
-            Company:
+            Fuel Capacity:
             <input
-              name="company_name"
+              name="fuel_capacity"
               type="text"
               onChange={handleChange}
-              value={formData.company_name}
+              value={formData.fuel_capacity}
             />
           </label>
           <label>
-            Address:
+            Fuel consumption 100% load:
             <input
-              name="address"
+              name="fuel_consumption_100"
               type="text"
               onChange={handleChange}
-              value={formData.address}
+              value={formData.fuel_consumption_100}
             />
           </label>
           <label>
-            Mob:
+            Run hours at 100% load:
             <input
-              name="mob"
+              name="run_hours_100_load"
               type="text"
               onChange={handleChange}
-              value={formData.mob}
+              value={formData.run_hours_100_load}
             />
           </label>
           <label>
-            Email:
+            Notes:
             <input
-              name="email"
               type="text"
+              name="notes"
               onChange={handleChange}
-              value={formData.email}
+              value={formData.notes}
               className="mb-4"
             />
           </label>
-          <button className="button-big" type="submit">
+          <button className="button-big " type="submit">
             Submit
           </button>
           {message && <p className="mt-2">{message}</p>}

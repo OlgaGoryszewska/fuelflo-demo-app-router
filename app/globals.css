@@ -97,6 +97,7 @@ span {
   flex-direction: column;
   justify-content: center; /* vertical center */ /* full screen height */
   padding: 0.6rem;
+  max-width: 600px;
 }
 
 .main-content {
@@ -111,6 +112,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   margin: 0;
   padding: 0;
@@ -300,12 +302,13 @@ option {
 }
 
 .active {
-  background-color: var(--primary-orange-light);
+  background-color: var(--slate-light);
   border: 0rem;
   box-shadow: none;
 }
 .not-active {
   background-color: white;
+  border:1px solid var(--slate-line)
 }
 .button:disabled {
   color: var(--primary-gray-light);

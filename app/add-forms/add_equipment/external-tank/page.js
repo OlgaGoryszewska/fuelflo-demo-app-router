@@ -2,57 +2,61 @@
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import Image from 'next/image';
+import tank from '@/public/tank.png'
 
-export default function AddFuelSupplier() {
+export default function AddTank() {
   const [formData, setFormData] = useState({
     name: '',
-    surname: '',
-    company_name: '',
-    address: '',
-    email: '',
-    mob: '',
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
+    tank_nr:'',
+    capacity_liters:'',
+    tank_type:'',
+    notes:'',
 
+  });
+
+  const [message, setMessage] = useState('');
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
+
+  // 3️⃣ send to Supabase
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
 
     const { data, error } = await supabase
-      .from('fuel_suppliers')
+      .from('tanks')
       .insert([formData]);
 
     if (error) {
       console.error(error);
       setMessage('❌ Error: ' + error.message);
     } else {
-      setMessage('Added successfully!');
+      setMessage('✅ Generator added successfully!');
       // reset form
       setFormData({
         name: '',
-        surname: '',
-        company: '',
-        address: '',
-        email: '',
-        mob: '',
+        tank_nr:'',
+        capacity_liters:'',
+        tank_type:'',
+        notes:'',
       });
     }
-    setSubmitting(false);
   };
-
   return (
     <div className="m-2.5">
       <div className="form-header mb-4">
-        <h1 className="ml-2">Add Fuel Supplier</h1>
+        <h1 className="ml-2">Add Equipment</h1>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="m-4">
+          <Image
+            src={tank}
+            alt="generatorimage"
+            className="w-30 mx-auto"
+          />
+          <h2>Specification</h2>
           <label>
             Name:
             <input
@@ -64,48 +68,48 @@ export default function AddFuelSupplier() {
           </label>
 
           <label>
-            Surname:
+            Tank nr:
             <input
-              name="surname"
+              name="tank_nr"
               type="text"
               onChange={handleChange}
-              value={formData.surname}
+              value={formData.tank_nr}
             />
           </label>
           <label>
-            Company:
+            Capacity liters:
             <input
-              name="company"
+              name="capacity_liters"
               type="text"
               onChange={handleChange}
-              value={formData.company}
+              value={formData.capacity_liters}
             />
           </label>
           <label>
-            Address:
+            Tank type:
             <input
-              name="address"
+              name="tank_type"
               type="text"
               onChange={handleChange}
-              value={formData.address}
+              value={formData.tank_type}
             />
           </label>
           <label>
-            Mob:
+            Fuel Capacity:
             <input
-              name="mob"
+              name="fuel_capacity"
               type="text"
               onChange={handleChange}
-              value={formData.mob}
+              value={formData.fuel_capacity}
             />
           </label>
           <label>
-            Email:
+            Notes:
             <input
-              name="email"
               type="text"
+              name="notes"
               onChange={handleChange}
-              value={formData.email}
+              value={formData.notes}
               className="mb-4"
             />
           </label>
