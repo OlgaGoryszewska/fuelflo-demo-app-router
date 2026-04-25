@@ -95,7 +95,7 @@ span {
 .main-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical center */ /* full screen height */
+
   padding: 0.6rem;
   max-width: 600px;
 }
@@ -112,7 +112,6 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   margin: 0;
   padding: 0;
