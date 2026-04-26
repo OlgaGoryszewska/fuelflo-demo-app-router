@@ -32,6 +32,7 @@ export default function NewTransaction() {
     before_photo_url: '',
     before_photo_file: null,
     before_photo_preview: '',
+    status:'completed',
   });
 
   async function uploadBeforePhoto(file, transactionId) {
@@ -98,6 +99,7 @@ export default function NewTransaction() {
             completed_at: new Date().toISOString(),
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
+            status:'complited',
           },
         ])
         .select()
