@@ -7,8 +7,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
-import TransactionReportPreview from '@/components/reports/TransactionReportPreview'
-
+import TransactionReportPreview from '@/components/reports/TransactionReportPreview';
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -118,10 +117,7 @@ export default function TransactionDetailPage() {
       </div>
 
       <div className="background-container">
-        
-
-        <TransactionReportPreview  transaction={transaction} />
-        
+        <TransactionReportPreview transaction={transaction} />
       </div>
     </div>
   );

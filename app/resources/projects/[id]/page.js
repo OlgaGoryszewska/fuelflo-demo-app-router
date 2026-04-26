@@ -21,13 +21,34 @@ import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 
 export default function ProjectDetailPage() {
   const { id: projectId } = useParams();
-
+  const [fuelSummary, setFuelSummary] = useState(null);
   const [openCard, setOpenCard] = useState(null);
   const [project, setProject] = useState(null);
   const [technicians, setTechnicians] = useState([]);
   const [fleetRows, setFleetRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    async function fetchFuelSummary() {
+      const { data, error } = await supabase
+        .from('project_fuel_summary')
+        .select('*')
+        .eq('project_id', projectId)
+        .maybeSingle();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setFuelSummary(data);
+    }
+
+    if (projectId) {
+      fetchFuelSummary();
+    }
+  }, [projectId]);
 
   const toggleCard = (cardName) => {
     setOpenCard((prev) => (prev === cardName ? null : cardName));
@@ -198,6 +219,7 @@ export default function ProjectDetailPage() {
         <div className="flex flex-row justify-between items-center mt-2">
           {' '}
           <h2 className="">Project Details</h2>
+          <div></div>
           <div className="mt-2 mb-4">
             <span
               className={`px-3 py-1 rounded-full text-sm ${
@@ -378,6 +400,23 @@ export default function ProjectDetailPage() {
       </div>
 
       <ProjectFuelTransactionList projectId={projectId} />
+      <div className="background-container-white mb-2">
+        <h2>Fuel Summary</h2>
+        <p className='steps-text'>Summary is estimeted by a whole projects summary taking all complited deliveries in count</p>
+        <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+          <p>Delivered: </p>
+          <p className='h-mid-gray-s'>{fuelSummary?.total_delivered_litres ?? 0} L</p>
+        </div>
+
+        <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+          <p>Returned: </p>
+          <p className='h-mid-gray-s' >{fuelSummary?.total_returned_litres ?? 0} L</p>
+        </div>
+        <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
+          <p>Net Used:</p>
+          <p className='h-mid-gray-s' > {fuelSummary?.net_used_litres ?? 0} L</p>
+        </div>
+      </div>
 
       <div className="background-container mb-4">
         <h2>Fuel Financials</h2>

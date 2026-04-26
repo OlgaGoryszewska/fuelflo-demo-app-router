@@ -47,7 +47,12 @@ export default function RaportFuelTransactionsPage() {
       {message && <p>{message}</p>}
 
       {!loading && !error && transactions.length > 0 && (
-        <FuelTransactionsListReport transactions={transactions} />
+        <div className="background-container">
+          <h2>Choose a fuel transaction</h2>
+          <p className="steps-text ">To generate a report </p>
+          <div className="divider-full mb-2"></div>
+          <FuelTransactionsListReport transactions={transactions} />
+        </div>
       )}
     </div>
   );

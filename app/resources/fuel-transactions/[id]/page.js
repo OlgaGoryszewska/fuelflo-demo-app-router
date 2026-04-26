@@ -148,7 +148,7 @@ export default function TransactionDetailPage() {
         <div className="nr-container mb-2">
           <h4 className="pt-2 pl-2">Difference</h4>
           <p className="nr-big">
-            {sign} {difference.toFixed(2)} L
+            {sign} {difference} L
           </p>
         </div>
 

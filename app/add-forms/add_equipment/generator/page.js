@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
-import generator from '@/public/generator.png'
+import generator from '@/public/generator.png';
 
 export default function AddGenerator() {
   const [formData, setFormData] = useState({

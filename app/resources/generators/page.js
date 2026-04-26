@@ -30,7 +30,7 @@ export default async function GeneratorsPage() {
               <div className="form-header mb-2">
                 <p className="h-mid-gray-s">{generator.name}</p>
               </div>
-              
+
               <p className="pt-4">When fuel of the generator is</p>
               <div className="fuel-bar-100"></div>
               <p className="generator-localisation text-right">100%</p>
@@ -50,8 +50,7 @@ export default async function GeneratorsPage() {
                   <p className="box-insert">{generator.run_hours_100_load} H</p>
                 </div>
               </div>
-              
-             
+
               <div className="gen-grid">
                 <div className="generator-inf-box">
                   <p className="box-text">Model No</p>

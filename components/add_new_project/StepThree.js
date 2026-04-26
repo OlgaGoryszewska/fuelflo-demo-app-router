@@ -253,7 +253,10 @@ export default function StepThree({ formData, setFormData }) {
         ) : (
           <div className="flex flex-col ">
             {generators.map((gen) => (
-              <div key={gen.id} className="mt-2 mb-2 p-2 rounded-xl bg-[#CCE3F9] ">
+              <div
+                key={gen.id}
+                className="mt-2 mb-2 p-2 rounded-xl bg-[#CCE3F9] "
+              >
                 <div className="h-10 mb-4 rounded-xl text-[#62748e] flex bg-[#e7f6ff] items-center justify-between">
                   <div className="flex flex-row">
                     <BoltOutlinedIcon className="ml-2 " />

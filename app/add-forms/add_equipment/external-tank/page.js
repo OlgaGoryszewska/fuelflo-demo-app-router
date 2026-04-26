@@ -3,16 +3,15 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
-import tank from '@/public/tank.png'
+import tank from '@/public/tank.png';
 
 export default function AddTank() {
   const [formData, setFormData] = useState({
     name: '',
-    tank_nr:'',
-    capacity_liters:'',
-    tank_type:'',
-    notes:'',
-
+    tank_nr: '',
+    capacity_liters: '',
+    tank_type: '',
+    notes: '',
   });
 
   const [message, setMessage] = useState('');
@@ -25,9 +24,7 @@ export default function AddTank() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase
-      .from('tanks')
-      .insert([formData]);
+    const { data, error } = await supabase.from('tanks').insert([formData]);
 
     if (error) {
       console.error(error);
@@ -37,10 +34,10 @@ export default function AddTank() {
       // reset form
       setFormData({
         name: '',
-        tank_nr:'',
-        capacity_liters:'',
-        tank_type:'',
-        notes:'',
+        tank_nr: '',
+        capacity_liters: '',
+        tank_type: '',
+        notes: '',
       });
     }
   };
@@ -51,11 +48,7 @@ export default function AddTank() {
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="m-4">
-          <Image
-            src={tank}
-            alt="generatorimage"
-            className="w-30 mx-auto"
-          />
+          <Image src={tank} alt="generatorimage" className="w-30 mx-auto" />
           <h2>Specification</h2>
           <label>
             Name:

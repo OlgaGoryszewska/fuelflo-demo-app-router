@@ -55,9 +55,9 @@ h4 {
   margin-left: 0.6rem;
 }
 .nr-big {
-  font-size: 38px;
+  font-size: 42px;
   margin: auto;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   font-weight: 500;
 }
 .nr-middle {
@@ -308,7 +308,7 @@ option {
 }
 .not-active {
   background-color: white;
-  border:1px solid var(--slate-line)
+  border: 1px solid var(--slate-line);
 }
 .button:disabled {
   color: var(--primary-gray-light);
@@ -448,7 +448,6 @@ option {
 }
 
 li {
-
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   border-bottom: none;
@@ -678,7 +677,7 @@ li a:hover {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.fuel-bar-100{
+.fuel-bar-100 {
   width: 100%;
 }
 .project-inf-box-green,

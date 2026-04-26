@@ -178,10 +178,7 @@ export default function Dashboard() {
           <QrCodeOutlinedIcon />
           Create a new QR Code
         </Link>
-        <Link
-          href="/resources/reports"
-          className="form-button"
-        >
+        <Link href="/resources/reports" className="form-button">
           <AssessmentOutlinedIcon />
           Reports
         </Link>

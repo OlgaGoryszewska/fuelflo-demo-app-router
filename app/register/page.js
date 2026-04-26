@@ -188,14 +188,13 @@ export default function CreateUserPage() {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className='h=[40]'
+              className="h=[40]"
             >
               <option value="event_organizer">Event Organizer</option>
               <option value="technician">Technician</option>
               <option value="manager">Manager</option>
               <option value="hire_desk">Hire Desk</option>
               <option value="supplier">Supplier</option>
-              
             </select>
 
             <div className="divider-full my-2"></div>
