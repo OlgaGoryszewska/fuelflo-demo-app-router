@@ -13,7 +13,7 @@ export default function ReviewAfter({ formData }) {
       </p>
       <div className="divider-full mb-4"></div>
 
-      <div className="window mb-2 mt-2">
+      <div className="window mb-4 mt-2">
         {formData.after_photo_preview && (
           <img
             src={formData.after_photo_preview}

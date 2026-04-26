@@ -8,7 +8,7 @@ export default function NotFound() {
         The page you are looking for does not exist.
       </p>
       <Link href="/" className="not-found-link">
-        Go back to Home
+        Go back to dashboard
       </Link>
     </div>
   );

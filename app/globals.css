@@ -217,6 +217,7 @@ option {
   font-size: 20px;
   letter-spacing: 5%;
   border: 2px solid var(--primary-orange-light);
+  border-radius: 25px;
 }
 .nr-container,
 .window {

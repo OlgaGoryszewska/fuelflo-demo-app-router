@@ -179,7 +179,7 @@ export default function Dashboard() {
           Create a new QR Code
         </Link>
         <Link
-          href="/resources/reports/fuel-transactions"
+          href="/resources/reports"
           className="form-button"
         >
           <AssessmentOutlinedIcon />
