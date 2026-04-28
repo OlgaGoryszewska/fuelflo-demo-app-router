@@ -402,19 +402,26 @@ export default function ProjectDetailPage() {
       <ProjectFuelTransactionList projectId={projectId} />
       <div className="background-container-white mb-2">
         <h2>Fuel Summary</h2>
-        <p className='steps-text'>Summary is estimeted by a whole projects summary taking all complited deliveries in count</p>
+        <p className="steps-text">
+          Summary is estimeted by a whole projects summary taking all complited
+          deliveries in count
+        </p>
         <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
           <p>Delivered: </p>
-          <p className='h-mid-gray-s'>{fuelSummary?.total_delivered_litres ?? 0} L</p>
+          <p className="h-mid-gray-s">
+            {fuelSummary?.total_delivered_litres ?? 0} L
+          </p>
         </div>
 
         <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
           <p>Returned: </p>
-          <p className='h-mid-gray-s' >{fuelSummary?.total_returned_litres ?? 0} L</p>
+          <p className="h-mid-gray-s">
+            {fuelSummary?.total_returned_litres ?? 0} L
+          </p>
         </div>
         <div className=" pl-2 pr-2 h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
           <p>Net Used:</p>
-          <p className='h-mid-gray-s' > {fuelSummary?.net_used_litres ?? 0} L</p>
+          <p className="h-mid-gray-s"> {fuelSummary?.net_used_litres ?? 0} L</p>
         </div>
       </div>
 
