@@ -27,7 +27,9 @@ export default function OngoingProjectsPage() {
             setProjects(JSON.parse(cachedProjects));
             setIsOfflineData(true);
           } else {
-            setError('You are offline and no projects were saved yet.');
+            setError(
+              'No projects available offline yet. Please open this page once with internet before going to the field.'
+            );
           }
 
           setLoading(false);
@@ -72,6 +74,11 @@ export default function OngoingProjectsPage() {
         <div className="form-header">
           <h1 className="ml-2">Projects</h1>
         </div>
+        {!navigator.onLine && (
+  <p className="mb-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-sm text-yellow-700">
+    Offline mode: showing saved projects only
+  </p>
+)}
 
         <div className="background-container">
           <h2>Choose a project</h2>

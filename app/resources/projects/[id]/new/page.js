@@ -9,6 +9,7 @@ import Setup from '@/components/fuel-transaction/setup';
 import OperationBefore from '@/components/fuel-transaction/operation-before';
 import ReviewBefore from '@/components/fuel-transaction/review-before';
 import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert';
+import { saveTransactionOffline } from '@/lib/offline/offlineDb';
 
 export default function NewTransaction() {
   const { id: projectId } = useParams();
@@ -76,6 +77,24 @@ export default function NewTransaction() {
         setErrorMessage('Could not identify technician.');
         return;
       }
+      if (!navigator.onLine) {
+        await saveTransactionOffline({
+          id: newTransactionId,
+          type: formData.type || null,
+          project_id: projectId || null,
+          generator_id: formData.generator_id || null,
+          tank_id: formData.tank_id || null,
+          technician_id: user.id,
+          completed_at: new Date().toISOString(),
+          before_fuel_level: formData.before_fuel_level || null,
+          before_photo_url: null,
+          status: 'completed',
+        });
+      
+        setTransactionId(newTransactionId);
+        setSuccess(true);
+        return;
+      }
 
       let beforePhotoUrl = null;
 
@@ -105,11 +124,26 @@ export default function NewTransaction() {
         .select()
         .single();
 
-      if (error) {
-        console.error(error);
-        setErrorMessage('Transaction could not be saved.');
-        return;
-      }
+        if (error) {
+          console.error(error);
+        
+          await saveTransactionOffline({
+            id: newTransactionId,
+            type: formData.type || null,
+            project_id: projectId || null,
+            generator_id: formData.generator_id || null,
+            tank_id: formData.tank_id || null,
+            technician_id: user.id,
+            completed_at: new Date().toISOString(),
+            before_fuel_level: formData.before_fuel_level || null,
+            before_photo_url: null,
+            status: 'completed',
+          });
+        
+          setTransactionId(newTransactionId);
+          setSuccess(true);
+          return;
+        }
 
       setTransactionId(data.id);
       setSuccess(true);
