@@ -2,6 +2,8 @@ import './globals.css';
 import { Poppins, Roboto_Flex } from 'next/font/google';
 import Menu from '@/components/Menu';
 import Footer from '@/components/Footer';
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
+import OfflineBanner from '@/components/OfflineBanner';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -22,7 +24,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
+        <ServiceWorkerRegister />
         <Menu />
+        <OfflineBanner />
         <main className="main-content">{children}</main>
         <Footer />
       </body>
