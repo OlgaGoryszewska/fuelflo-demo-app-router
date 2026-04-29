@@ -68,29 +68,60 @@ export default function NewTransaction() {
     try {
       const newTransactionId = crypto.randomUUID();
 
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+      let user = null;
 
-      if (userError || !user) {
-        setErrorMessage('Could not identify technician.');
-        return;
+      if (navigator.onLine) {
+        const {
+          data: { user: currentUser },
+          error: userError,
+        } = await supabase.auth.getUser();
+      
+        if (userError || !currentUser) {
+          setErrorMessage('Could not identify technician.');
+          setSubmitting(false);
+          return;
+        }
+      
+        user = currentUser;
+        localStorage.setItem('offline_user_id', user.id);
+      } else {
+        const savedUserId = localStorage.getItem('offline_user_id');
+      
+        if (!savedUserId) {
+          setErrorMessage(
+            'You are offline and no technician was saved. Please login once with internet.'
+          );
+          setSubmitting(false);
+          return;
+        }
+      
+        user = { id: savedUserId };
       }
       if (!navigator.onLine) {
         await saveTransactionOffline({
           id: newTransactionId,
           type: formData.type || null,
           project_id: projectId || null,
+        
           generator_id: formData.generator_id || null,
+          generator_name: formData.generator_name || '',
+        
           tank_id: formData.tank_id || null,
+          tank_name: formData.tank_name || '',
+        
           technician_id: user.id,
           completed_at: new Date().toISOString(),
+        
           before_fuel_level: formData.before_fuel_level || null,
+        
           before_photo_url: null,
+          before_photo_file: formData.before_photo_file || null,
+          before_photo_preview: formData.before_photo_preview || '',
+        
           status: 'completed',
+          sync_status: 'pending',
         });
-      
+
         setTransactionId(newTransactionId);
         setSuccess(true);
         return;
@@ -118,32 +149,43 @@ export default function NewTransaction() {
             completed_at: new Date().toISOString(),
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
-            status: 'complited',
+            status: 'completed',
           },
         ])
         .select()
         .single();
 
-        if (error) {
-          console.error(error);
+      if (error) {
+        console.error(error);
+
+        await saveTransactionOffline({
+          id: newTransactionId,
+          type: formData.type || null,
+          project_id: projectId || null,
         
-          await saveTransactionOffline({
-            id: newTransactionId,
-            type: formData.type || null,
-            project_id: projectId || null,
-            generator_id: formData.generator_id || null,
-            tank_id: formData.tank_id || null,
-            technician_id: user.id,
-            completed_at: new Date().toISOString(),
-            before_fuel_level: formData.before_fuel_level || null,
-            before_photo_url: null,
-            status: 'completed',
-          });
+          generator_id: formData.generator_id || null,
+          generator_name: formData.generator_name || '',
         
-          setTransactionId(newTransactionId);
-          setSuccess(true);
-          return;
-        }
+          tank_id: formData.tank_id || null,
+          tank_name: formData.tank_name || '',
+        
+          technician_id: user.id,
+          completed_at: new Date().toISOString(),
+        
+          before_fuel_level: formData.before_fuel_level || null,
+        
+          before_photo_url: null,
+          before_photo_file: formData.before_photo_file || null,
+          before_photo_preview: formData.before_photo_preview || '',
+        
+          status: 'completed',
+          sync_status: 'pending',
+        });
+
+        setTransactionId(newTransactionId);
+        setSuccess(true);
+        return;
+      }
 
       setTransactionId(data.id);
       setSuccess(true);

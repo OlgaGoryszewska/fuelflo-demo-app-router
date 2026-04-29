@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import formatDateShort from '@/components/FormatDateShort';
 
-
 const PROJECTS_CACHE_KEY = 'offline_active_projects';
 
 export default function OngoingProjectsPage() {
@@ -75,10 +74,10 @@ export default function OngoingProjectsPage() {
           <h1 className="ml-2">Projects</h1>
         </div>
         {!navigator.onLine && (
-  <p className="mb-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-sm text-yellow-700">
-    Offline mode: showing saved projects only
-  </p>
-)}
+          <p className="mb-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-sm text-yellow-700">
+            Offline mode: showing saved projects only
+          </p>
+        )}
 
         <div className="background-container">
           <h2>Choose a project</h2>
@@ -115,9 +114,14 @@ export default function OngoingProjectsPage() {
                   {p.name}
                 </Link>
 
-                <p className="steps-text">
-                  {formatDateShort(p.start_date)}
-                </p>
+                <p className="steps-text">{formatDateShort(p.start_date)}</p>
+
+                <Link
+                  className="button text-sm"
+                  href={`/resources/projects/${p.id}/new`}
+                >
+                  Add fuel
+                </Link>
               </li>
             ))}
           </ul>

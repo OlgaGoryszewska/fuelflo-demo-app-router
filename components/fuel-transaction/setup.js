@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import qr2 from '@/public/qr2.png';
 import { supabase } from '@/lib/supabaseClient';
@@ -8,6 +9,9 @@ import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import MyToggleComponent from '../Toggle/ToggledTransaction';
 import GeneratorQrScanner from '@/components/GeneratorQrScanner';
+import { saveGenerators, saveTanks } from '@/lib/offline/fieldData';
+import OfflineGeneratorSelect from '@/components/OfflineGeneratorSelect';
+import OfflineTankSelect from '@/components/OfflineTankSelect';
 
 export default function Setup({ formData, setFormData }) {
   const [showScanner, setShowScanner] = useState(false);
@@ -43,6 +47,27 @@ export default function Setup({ formData, setFormData }) {
       setIsFetchingGenerator(false);
     }
   };
+  useEffect(() => {
+    async function loadAndCache() {
+      if (!navigator.onLine) return;
+
+      const { data: generators } = await supabase
+        .from('generators')
+        .select('id, name');
+
+      if (generators) {
+        saveGenerators(generators);
+      }
+
+      const { data: tanks } = await supabase.from('tanks').select('id, name');
+
+      if (tanks) {
+        saveTanks(tanks);
+      }
+    }
+
+    loadAndCache();
+  }, []);
 
   return (
     <div>
@@ -101,29 +126,37 @@ export default function Setup({ formData, setFormData }) {
       </div>
 
       <p className="h-mid-gray-s mt-4">Select generator</p>
-      <GeneratorDropdown
-        value={formData.generator_id}
-        onChange={(generator) =>
-          setFormData((prev) => ({
-            ...prev,
-            generator_id: generator.id,
-            generator_name: generator.name,
-          }))
-        }
-      />
+      {navigator.onLine ? (
+        <GeneratorDropdown
+          value={formData.generator_id}
+          onChange={(generator) =>
+            setFormData((prev) => ({
+              ...prev,
+              generator_id: generator.id,
+              generator_name: generator.name,
+            }))
+          }
+        />
+      ) : (
+        <OfflineGeneratorSelect formData={formData} setFormData={setFormData} />
+      )}
 
       <p className="h-mid-gray-s pt-2 ">Select external tank</p>
-      <TankDropdown
-        className="mb-4"
-        value={formData.tank_id}
-        onChange={(tank) =>
-          setFormData((prev) => ({
-            ...prev,
-            tank_id: tank.id,
-            tank_name: tank.name,
-          }))
-        }
-      />
+      {navigator.onLine ? (
+  <TankDropdown
+    className="mb-4"
+    value={formData.tank_id}
+    onChange={(tank) =>
+      setFormData((prev) => ({
+        ...prev,
+        tank_id: tank.id,
+        tank_name: tank.name,
+      }))
+    }
+  />
+) : (
+  <OfflineTankSelect formData={formData} setFormData={setFormData} />
+)}
     </div>
   );
 }
