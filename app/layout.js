@@ -4,6 +4,8 @@ import Menu from '@/components/Menu';
 import Footer from '@/components/Footer';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import OfflineBanner from '@/components/OfflineBanner';
+import OfflineSyncListener from '@/components/OfflineSyncListener';
+import OfflineSyncStatus from '@/components/OfflineSyncStatus';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,6 +30,8 @@ export default function RootLayout({ children }) {
         <Menu />
         <OfflineBanner />
         <main className="main-content">{children}</main>
+        <OfflineSyncListener />
+        <OfflineSyncStatus />
         <Footer />
       </body>
     </html>

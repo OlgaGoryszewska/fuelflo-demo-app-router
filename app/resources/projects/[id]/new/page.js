@@ -13,10 +13,11 @@ import { saveTransactionOffline } from '@/lib/offline/offlineDb';
 
 export default function NewTransaction() {
   const { id: projectId } = useParams();
+
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [transactionId, setTransactionId] = useState(null);
-
+  const [savedOffline, setSavedOffline] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
@@ -61,67 +62,80 @@ export default function NewTransaction() {
     return data.publicUrl;
   }
 
+  async function getCurrentTechnician() {
+    if (navigator.onLine) {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user) {
+        throw new Error('Could not identify technician.');
+      }
+
+      localStorage.setItem('offline_user_id', user.id);
+      return user;
+    }
+
+    const savedUserId = localStorage.getItem('offline_user_id');
+
+    if (!savedUserId) {
+      throw new Error(
+        'You are offline and no technician was saved. Please login once with internet.'
+      );
+    }
+
+    return { id: savedUserId };
+  }
+
+  function createOfflineTransaction(newTransactionId, user, completedAt) {
+    return {
+      id: newTransactionId,
+      type: formData.type || null,
+      project_id: projectId || null,
+
+      generator_id: formData.generator_id || null,
+      generator_name: formData.generator_name || '',
+
+      tank_id: formData.tank_id || null,
+      tank_name: formData.tank_name || '',
+
+      technician_id: user.id,
+      completed_at: completedAt,
+
+      before_fuel_level: formData.before_fuel_level || null,
+
+      before_photo_url: null,
+      before_photo_file: formData.before_photo_file || null,
+      before_photo_preview: formData.before_photo_preview || '',
+
+      status: 'completed',
+      sync_status: 'pending',
+    };
+  }
+
   async function handleSubmit() {
+    setSavedOffline(false);
+    setSuccess(false);
     setSubmitting(true);
     setErrorMessage('');
 
+    const newTransactionId = crypto.randomUUID();
+    const completedAt = new Date().toISOString();
+
     try {
-      const newTransactionId = crypto.randomUUID();
+      const user = await getCurrentTechnician();
 
-      let user = null;
+      const offlineTransaction = createOfflineTransaction(
+        newTransactionId,
+        user,
+        completedAt
+      );
 
-      if (navigator.onLine) {
-        const {
-          data: { user: currentUser },
-          error: userError,
-        } = await supabase.auth.getUser();
-      
-        if (userError || !currentUser) {
-          setErrorMessage('Could not identify technician.');
-          setSubmitting(false);
-          return;
-        }
-      
-        user = currentUser;
-        localStorage.setItem('offline_user_id', user.id);
-      } else {
-        const savedUserId = localStorage.getItem('offline_user_id');
-      
-        if (!savedUserId) {
-          setErrorMessage(
-            'You are offline and no technician was saved. Please login once with internet.'
-          );
-          setSubmitting(false);
-          return;
-        }
-      
-        user = { id: savedUserId };
-      }
       if (!navigator.onLine) {
-        await saveTransactionOffline({
-          id: newTransactionId,
-          type: formData.type || null,
-          project_id: projectId || null,
-        
-          generator_id: formData.generator_id || null,
-          generator_name: formData.generator_name || '',
-        
-          tank_id: formData.tank_id || null,
-          tank_name: formData.tank_name || '',
-        
-          technician_id: user.id,
-          completed_at: new Date().toISOString(),
-        
-          before_fuel_level: formData.before_fuel_level || null,
-        
-          before_photo_url: null,
-          before_photo_file: formData.before_photo_file || null,
-          before_photo_preview: formData.before_photo_preview || '',
-        
-          status: 'completed',
-          sync_status: 'pending',
-        });
+        await saveTransactionOffline(offlineTransaction);
 
+        setSavedOffline(true);
         setTransactionId(newTransactionId);
         setSuccess(true);
         return;
@@ -146,7 +160,7 @@ export default function NewTransaction() {
             generator_id: formData.generator_id || null,
             tank_id: formData.tank_id || null,
             technician_id: user.id,
-            completed_at: new Date().toISOString(),
+            completed_at: completedAt,
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
             status: 'completed',
@@ -158,40 +172,21 @@ export default function NewTransaction() {
       if (error) {
         console.error(error);
 
-        await saveTransactionOffline({
-          id: newTransactionId,
-          type: formData.type || null,
-          project_id: projectId || null,
-        
-          generator_id: formData.generator_id || null,
-          generator_name: formData.generator_name || '',
-        
-          tank_id: formData.tank_id || null,
-          tank_name: formData.tank_name || '',
-        
-          technician_id: user.id,
-          completed_at: new Date().toISOString(),
-        
-          before_fuel_level: formData.before_fuel_level || null,
-        
-          before_photo_url: null,
-          before_photo_file: formData.before_photo_file || null,
-          before_photo_preview: formData.before_photo_preview || '',
-        
-          status: 'completed',
-          sync_status: 'pending',
-        });
+        await saveTransactionOffline(offlineTransaction);
 
+        setSavedOffline(true);
         setTransactionId(newTransactionId);
         setSuccess(true);
         return;
       }
 
+      setSavedOffline(false);
       setTransactionId(data.id);
       setSuccess(true);
     } catch (err) {
       console.error(err);
       setErrorMessage(err.message || 'Unexpected error occurred.');
+      setSuccess(false);
     } finally {
       setSubmitting(false);
     }
@@ -220,6 +215,7 @@ export default function NewTransaction() {
         <BeforeDeliverySuccessAlert
           projectId={projectId}
           transactionId={transactionId}
+          isOffline={savedOffline}
         />
       ) : (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
