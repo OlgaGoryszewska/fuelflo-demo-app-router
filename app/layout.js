@@ -27,8 +27,9 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
       <body>
         <ServiceWorkerRegister />
-        <Menu />
         <OfflineBanner />
+        <Menu />
+   
         <main className="main-content">{children}</main>
         <OfflineSyncListener />
         <OfflineSyncStatus />

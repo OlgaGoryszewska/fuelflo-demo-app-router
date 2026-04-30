@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import StepNavigation from '@/components/StepNavigation';
 import { supabase } from '@/lib/supabaseClient';
-import { useParams } from 'next/navigation';
 import ReviewAfter from '@/components/fuel-transaction/review-after';
 import AfterDeliverySuccessAlert from '@/components/fuel-transaction/after-delivery-success-alert';
 import OperationAfter from '@/components/fuel-transaction/operation-after';
+import { updateOfflineTransaction } from '@/lib/offline/offlineDb';
 
 export default function TransactionAfter() {
   const params = useParams();
@@ -14,6 +15,7 @@ export default function TransactionAfter() {
   const transactionId = params.transactionId;
 
   const [success, setSuccess] = useState(false);
+  const [savedOffline, setSavedOffline] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -50,18 +52,33 @@ export default function TransactionAfter() {
     return data.publicUrl;
   }
 
+  async function saveAfterOffline() {
+    await updateOfflineTransaction(transactionId, {
+      project_id: projectId || null,
+      after_fuel_level: formData.after_fuel_level || null,
+      after_photo_url: null,
+      after_photo_file: formData.after_photo_file || null,
+      after_photo_preview: formData.after_photo_preview || '',
+      after_completed_at: new Date().toISOString(),
+    });
+
+    setSavedOffline(true);
+    setSuccess(true);
+  }
+
   async function handleSubmit() {
     setSubmitting(true);
     setErrorMessage('');
+    setSavedOffline(false);
 
     try {
-      console.log('params:', params);
-      console.log('projectId:', projectId);
-      console.log('transactionId:', transactionId);
-      console.log('Submitting formData:', formData);
-
       if (!transactionId) {
         setErrorMessage('Transaction ID is missing.');
+        return;
+      }
+
+      if (!navigator.onLine) {
+        await saveAfterOffline();
         return;
       }
 
@@ -74,23 +91,22 @@ export default function TransactionAfter() {
         );
       }
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('fuel_transactions')
         .update({
           after_fuel_level: formData.after_fuel_level || null,
           after_photo_url: afterPhotoUrl,
         })
-        .eq('id', transactionId)
-        .select()
-        .single();
+        .eq('id', transactionId);
 
       if (error) {
-        console.error(error.message);
-        setErrorMessage('Transaction could not be saved.');
+        console.error(error);
+
+        await saveAfterOffline();
         return;
       }
 
-      console.log('Updated data:', data);
+      setSavedOffline(false);
       setSuccess(true);
     } catch (err) {
       console.error(err);
@@ -105,12 +121,10 @@ export default function TransactionAfter() {
     <ReviewAfter key={1} formData={formData} setFormData={setFormData} />,
   ];
 
-  const totalSteps = steps.length;
-
   return (
     <div className="main-container">
       <div className="form-header mt-4">
-        <h1 className="ml-2">Add fuel transaction</h1>
+        <h1 className="ml-2">Complete fuel transaction</h1>
       </div>
 
       {errorMessage && (
@@ -123,6 +137,7 @@ export default function TransactionAfter() {
         <AfterDeliverySuccessAlert
           projectId={projectId}
           transactionId={transactionId}
+          isOffline={savedOffline}
         />
       ) : (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
@@ -131,7 +146,7 @@ export default function TransactionAfter() {
           <StepNavigation
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
-            totalSteps={totalSteps}
+            totalSteps={steps.length}
             submitting={submitting}
             onSubmit={handleSubmit}
           />

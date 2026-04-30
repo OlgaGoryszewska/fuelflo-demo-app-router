@@ -28,8 +28,8 @@ export default function OfflineBanner() {
   if (isOnline) return null;
 
   return (
-    <div className="fixed top-0 left-0 z-50 w-full bg-yellow-100 p-3 text-center text-sm text-yellow-800">
-      You are offline. New fuel transactions will be saved later.
+    <div className="fixed top-0 left-0  w-full bg-yellow-100 p-1 text-center text-sm text-yellow-800">
+      You are offline.
     </div>
   );
 }
