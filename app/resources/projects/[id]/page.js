@@ -12,7 +12,6 @@ import Link from 'next/link';
 import formatDate from '@/components/FormatDate';
 import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList';
 
-
 // icons
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';

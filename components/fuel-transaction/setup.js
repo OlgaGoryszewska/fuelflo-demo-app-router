@@ -143,20 +143,20 @@ export default function Setup({ formData, setFormData }) {
 
       <p className="h-mid-gray-s pt-2 ">Select external tank</p>
       {navigator.onLine ? (
-  <TankDropdown
-    className="mb-4"
-    value={formData.tank_id}
-    onChange={(tank) =>
-      setFormData((prev) => ({
-        ...prev,
-        tank_id: tank.id,
-        tank_name: tank.name,
-      }))
-    }
-  />
-) : (
-  <OfflineTankSelect formData={formData} setFormData={setFormData} />
-)}
+        <TankDropdown
+          className="mb-4"
+          value={formData.tank_id}
+          onChange={(tank) =>
+            setFormData((prev) => ({
+              ...prev,
+              tank_id: tank.id,
+              tank_name: tank.name,
+            }))
+          }
+        />
+      ) : (
+        <OfflineTankSelect formData={formData} setFormData={setFormData} />
+      )}
     </div>
   );
 }
