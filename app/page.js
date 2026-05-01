@@ -9,6 +9,7 @@ export default function SignInPage() {
         <AuthForm />
       </div>
       <InstallAppCard />
+      
     </div>
     
   );
