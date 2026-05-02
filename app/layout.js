@@ -38,10 +38,11 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body>
-        <AuthGuard/>
+     
         <ServiceWorkerRegister />
         <OfflineBanner />
         <Menu />
+        <AuthGuard/>
 
         <main className="main-content">{children}</main>
         <OfflineSyncListener />
