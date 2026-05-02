@@ -5,37 +5,56 @@ import { supabase } from '@/lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function AuthGuard({ children }) {
+  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    async function checkUser() {
+    let mounted = true;
+
+    async function init() {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      // NOT logged in → stay on "/" only
-      if (!user) {
-        if (pathname !== '/') {
-          router.replace('/');
-        } else {
-          setLoading(false);
-        }
-        return;
-      }
+      if (!mounted) return;
 
-      // Logged in → prevent going back to login page
-      if (user && pathname === '/') {
-        router.replace('/resources/projects'); // your main page
-        return;
-      }
-
+      setSession(session);
       setLoading(false);
     }
 
-    checkUser();
-  }, [pathname, router]);
+    init();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
+
+    return () => {
+      mounted = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (loading) return;
+
+    // Not logged in
+    if (!session) {
+      if (pathname !== '/') {
+        router.replace('/');
+      }
+      return;
+    }
+
+    // Logged in but on login page
+    if (session && pathname === '/') {
+      router.replace('/resources/projects');
+    }
+  }, [session, loading, pathname, router]);
 
   if (loading) {
     return (
