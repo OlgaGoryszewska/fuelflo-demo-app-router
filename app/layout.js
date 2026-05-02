@@ -6,6 +6,7 @@ import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import OfflineBanner from '@/components/OfflineBanner';
 import OfflineSyncListener from '@/components/OfflineSyncListener';
 import OfflineSyncStatus from '@/components/OfflineSyncStatus';
+import AuthGuard from '@/components/AuthGuard';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body>
+        <AuthGuard/>
         <ServiceWorkerRegister />
         <OfflineBanner />
         <Menu />
