@@ -44,7 +44,7 @@ export default function PwaBottomMenu() {
   if (!isPwa) return null;
 
   const base =
-    "flex flex-col items-center gap-1 text-xs transition-all duration-200 active:scale-90";
+    "flex flex-col items-center gap-1  transition-all duration-200 active:scale-90";
 
   const inactive = "text-[#717887]";
   const active = "text-[#62748e] scale-110 -translate-y-1";
@@ -56,7 +56,7 @@ export default function PwaBottomMenu() {
         relative
         fixed bottom-4 left-1/2 z-50 w-[92%] max-w-md -translate-x-1/2
         rounded-3xl border border-white/30
-        px-5 py-3
+        px-3 py-2
         backdrop-blur-xl
         transition-all duration-300 ease-out
         ${
@@ -72,7 +72,7 @@ export default function PwaBottomMenu() {
 
         <Link href="resources/projects" className={`${base} ${pathname === "/projects" ? active : inactive}`}>
           <Folder size={22} />
-          <span>Projects</span>
+        
         </Link>
 
         <Link
@@ -80,12 +80,12 @@ export default function PwaBottomMenu() {
           className="flex -translate-y-4 items-center justify-center rounded-full bg-[#62748e] p-4 text-white shadow-lg transition active:scale-90"
         >
           <Plus size={26} />
-          <span>Transaction</span>
+       
         </Link>
 
         <Link href="/resources/profile" className={`${base} ${pathname === "/profile" ? active : inactive}`}>
           <User size={22} />
-          <span>Profile</span>
+   
         </Link>
       </div>
     </nav>
