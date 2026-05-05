@@ -188,6 +188,15 @@ form {
 .border-active {
   border: 1px solid var(--primary-orange-light);
 }
+.glass-noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.15;
+  pointer-events: none;
+}
 
 input,
 select,
