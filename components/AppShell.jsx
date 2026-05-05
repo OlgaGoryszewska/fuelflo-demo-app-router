@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Menu from '@/components/Menu';
-import Footer from '@/components/Footer';
+import PwaBottomMenu from '@/components/PwaBottomMenu';
 import AuthGuard from '@/components/AuthGuard';
 import OfflineSyncListener from '@/components/OfflineSyncListener';
 import OfflineSyncStatus from '@/components/OfflineSyncStatus';
@@ -21,7 +21,7 @@ export default function AppShell({ children }) {
       <main className="main-content">{children}</main>
       <OfflineSyncListener />
       <OfflineSyncStatus />
-      <Footer />
+      <PwaBottomMenu/>
     </AuthGuard>
   );
 }

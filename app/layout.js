@@ -4,6 +4,7 @@ import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import OfflineBanner from '@/components/OfflineBanner';
 import AppShell from '@/components/AppShell';
 
+
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
