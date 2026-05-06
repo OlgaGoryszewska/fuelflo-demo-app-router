@@ -55,11 +55,13 @@ export default function PwaBottomMenu() {
   if (!isPwa) return null;
 
   const base =
-    'flex flex-col items-center gap-1  transition-all duration-200 active:scale-90';
+    'flex h-12 w-12 items-center justify-center rounded-full transition-all duration-200 active:scale-90 active:bg-[#344158] active:text-white active:ring-4 active:ring-[#62748e]/30';
 
-  const inactive = 'text-[#717887]';
-  const active = 'text-[#62748e] scale-110 -translate-y-1';
+  const inactive = 'text-[#717887] hover:bg-white/45';
+  const active =
+    'scale-110 -translate-y-1 bg-[#41516a] text-white ring-4 ring-[#62748e]/20 shadow-[0_8px_20px_rgba(65,81,106,0.25)]';
   const projectsActive = pathname?.startsWith('/resources/projects');
+  const profileActive = pathname === '/resources/profile';
 
   return (
     <nav
@@ -82,9 +84,10 @@ export default function PwaBottomMenu() {
       <div className="relative z-10 flex items-center justify-between">
         <Link
           href="/resources/projects"
+          aria-current={projectsActive ? 'page' : undefined}
           className={`${base} ${projectsActive ? active : inactive}`}
         >
-          <Building size={24} />
+          <Building size={24} strokeWidth={projectsActive ? 2.6 : 2} />
         </Link>
 
         <Link
@@ -106,9 +109,10 @@ export default function PwaBottomMenu() {
 
         <Link
           href="/resources/profile"
-          className={`${base} ${pathname === '/resources/profile' ? active : inactive}`}
+          aria-current={profileActive ? 'page' : undefined}
+          className={`${base} ${profileActive ? active : inactive}`}
         >
-          <User size={24} />
+          <User size={24} strokeWidth={profileActive ? 2.6 : 2} />
         </Link>
       </div>
     </nav>
