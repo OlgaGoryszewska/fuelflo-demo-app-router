@@ -83,7 +83,7 @@ export default function Dashboard() {
               <UndoOutlinedIcon />
               Returns
             </Link>
-            <Link href="/resources/projects/" className="card-button">
+            <Link href="/resources/projects/add-transaction" className="card-button">
               <AddOutlinedIcon />
               Add New Transaction
             </Link>

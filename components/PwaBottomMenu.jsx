@@ -60,7 +60,11 @@ export default function PwaBottomMenu() {
   const inactive = 'text-[#717887] hover:bg-white/45';
   const active =
     'scale-110 -translate-y-1 bg-[#41516a] text-white ring-4 ring-[#62748e]/20 shadow-[0_8px_20px_rgba(65,81,106,0.25)]';
-  const projectsActive = pathname?.startsWith('/resources/projects');
+  const addTransactionActive =
+    pathname === '/resources/projects/add-transaction' ||
+    /^\/resources\/projects\/[^/]+\/new/.test(pathname || '');
+  const projectsActive =
+    pathname?.startsWith('/resources/projects') && !addTransactionActive;
   const profileActive = pathname === '/resources/profile';
 
   return (
@@ -91,20 +95,20 @@ export default function PwaBottomMenu() {
         </Link>
 
         <Link
-          href="/resources/projects"
-          aria-current={projectsActive ? 'page' : undefined}
+          href="/resources/projects/add-transaction"
+          aria-current={addTransactionActive ? 'page' : undefined}
           className={`
             flex -translate-y-4 items-center justify-center rounded-full p-4 text-white
             shadow-lg transition-all duration-200 active:scale-90 active:bg-[#344158]
             active:ring-4 active:ring-[#62748e]/30
             ${
-              projectsActive
+              addTransactionActive
                 ? 'scale-110 bg-[#41516a] ring-4 ring-[#62748e]/25 shadow-[0_12px_28px_rgba(65,81,106,0.35)]'
                 : 'bg-[#62748e] shadow-[0_8px_20px_rgba(98,116,142,0.25)]'
             }
           `}
         >
-          <Plus size={26} strokeWidth={projectsActive ? 3 : 2} />
+          <Plus size={26} strokeWidth={addTransactionActive ? 3 : 2} />
         </Link>
 
         <Link

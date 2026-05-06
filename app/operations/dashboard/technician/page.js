@@ -77,7 +77,7 @@ export default function Dashboard() {
               <UndoOutlinedIcon />
               Returns
             </Link>
-            <Link href="/resources/transactions/new" className="card-button">
+            <Link href="/resources/projects/add-transaction" className="card-button">
               <AddOutlinedIcon />
               Add New Transaction
             </Link>
@@ -96,11 +96,11 @@ export default function Dashboard() {
         </div>
         {openCard === 'technicians' && (
           <div className="open-card ">
-            <Link href="/resources/technicians" className="card-button">
+            <Link href="/resources/manager" className="card-button">
               <EngineeringOutlinedIcon />
               Managers
             </Link>
-            <Link href="/resources/technicians" className="card-button">
+            <Link href="/resources/technician" className="card-button">
               <EngineeringOutlinedIcon />
               Technicians
             </Link>

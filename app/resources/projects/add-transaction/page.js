@@ -2,29 +2,23 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  CalendarDays,
-  FolderKanban,
-  MapPin,
-  Search,
-} from 'lucide-react';
+import { ArrowRight, Fuel, MapPin, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import formatDateShort from '@/components/FormatDateShort';
 
 const PROJECTS_CACHE_KEY = 'offline_active_projects';
 
-export default function OngoingProjectsPage() {
+export default function AddTransactionProjectPickerPage() {
   const [projects, setProjects] = useState([]);
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOfflineData, setIsOfflineData] = useState(false);
-  const [isOnline, setIsOnline] = useState(true);
-  const [query, setQuery] = useState('');
+  const [isOnline, setIsOnline] = useState(() =>
+    typeof navigator === 'undefined' ? true : navigator.onLine
+  );
 
   useEffect(() => {
-    setIsOnline(navigator.onLine);
-
     function handleOnline() {
       setIsOnline(true);
     }
@@ -56,7 +50,7 @@ export default function OngoingProjectsPage() {
             setIsOfflineData(true);
           } else {
             setError(
-              'No projects saved offline yet. Open this page once with internet before going to the field.'
+              'No projects saved offline yet. Open projects once with internet before going to the field.'
             );
           }
 
@@ -109,23 +103,15 @@ export default function OngoingProjectsPage() {
   return (
     <div className="main-container">
       <div className="form-header">
-        <h1 className="ml-2">Projects</h1>
+        <h1 className="ml-2">Add transaction</h1>
       </div>
 
       <div className="background-container">
-        <div className="mb-3 flex items-start justify-between gap-3">
-          <div>
-            <h2>Active projects</h2>
-            <p className="steps-text mt-1">
-              Review project details, locations, and start dates.
-            </p>
-          </div>
-
-          {!loading && (
-            <div className="rounded-full bg-white px-3 py-1 text-sm font-medium text-[#62748e] ring-1 ring-[#d5eefc]">
-              {projects.length}
-            </div>
-          )}
+        <div className="mb-3">
+          <h2>Choose project</h2>
+          <p className="steps-text mt-1">
+            Pick the project for this fuel transaction.
+          </p>
         </div>
 
         <div className="relative mb-4">
@@ -175,42 +161,31 @@ export default function OngoingProjectsPage() {
             {filteredProjects.map((project) => (
               <Link
                 key={project.id}
-                href={`/resources/projects/${project.id}`}
+                href={`/resources/projects/${project.id}/new`}
                 className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition active:scale-[0.98] active:border-[#62748e] active:bg-[#eef4fb]"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
-                  <FolderKanban size={21} strokeWidth={2.2} />
-                </div>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
+                  <Fuel size={21} strokeWidth={2.2} />
+                </span>
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="min-w-0 truncate text-base font-semibold text-gray-900">
-                      {project.name}
-                    </h3>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-base font-semibold text-gray-900">
+                    {project.name}
+                  </span>
 
-                    <div className="shrink-0 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 ring-1 ring-green-100">
-                      Active
-                    </div>
-                  </div>
+                  {project.location && (
+                    <span className="mt-1 flex items-center gap-1 text-sm text-[#717887]">
+                      <MapPin size={14} />
+                      <span className="truncate">{project.location}</span>
+                    </span>
+                  )}
 
-                  <div className="mt-2 flex flex-col gap-1">
-                    {project.location && (
-                      <p className="flex items-center gap-1 text-sm text-[#717887]">
-                        <MapPin size={14} />
-                        <span className="truncate">{project.location}</span>
-                      </p>
-                    )}
-
-                    {project.start_date && (
-                      <p className="flex items-center gap-1 text-sm text-[#717887]">
-                        <CalendarDays size={14} />
-                        <span>
-                          Starts {formatDateShort(project.start_date)}
-                        </span>
-                      </p>
-                    )}
-                  </div>
-                </div>
+                  {project.start_date && (
+                    <span className="steps-text mt-1 block">
+                      Starts {formatDateShort(project.start_date)}
+                    </span>
+                  )}
+                </span>
 
                 <ArrowRight className="h-5 w-5 shrink-0 text-[#62748e]" />
               </Link>
