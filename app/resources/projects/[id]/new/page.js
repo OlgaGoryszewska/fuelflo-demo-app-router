@@ -9,6 +9,7 @@ import Setup from '@/components/fuel-transaction/setup';
 import OperationBefore from '@/components/fuel-transaction/operation-before';
 import ReviewBefore from '@/components/fuel-transaction/review-before';
 import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert';
+import { TransactionValidationMessage } from '@/components/fuel-transaction/TransactionUi';
 import { saveTransactionOffline } from '@/lib/offline/offlineDb';
 
 export default function NewTransaction() {
@@ -20,6 +21,7 @@ export default function NewTransaction() {
   const [savedOffline, setSavedOffline] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
 
   const [formData, setFormData] = useState({
     type: 'delivery',
@@ -36,6 +38,53 @@ export default function NewTransaction() {
     before_photo_preview: '',
     status: 'completed',
   });
+
+  function updateFormData(update) {
+    setValidationMessage('');
+    setFormData(update);
+  }
+
+  function validateStep(stepIndex) {
+    let message = '';
+
+    if (stepIndex === 1) {
+      if (!formData.type) {
+        message = 'Choose delivery or return before continuing.';
+      } else if (!formData.generator_id) {
+        message = 'Select or scan a generator before continuing.';
+      } else if (!formData.tank_id) {
+        message = 'Select an external tank before continuing.';
+      }
+    }
+
+    if (stepIndex === 2) {
+      const fuelLevel = Number(formData.before_fuel_level);
+
+      if (!formData.before_photo_file && !formData.before_photo_preview) {
+        message = 'Take a clear meter photo before continuing.';
+      } else if (formData.before_fuel_level === '') {
+        message = 'Enter the meter reading before continuing.';
+      } else if (!Number.isFinite(fuelLevel) || fuelLevel <= 0) {
+        message = 'Enter a valid meter reading greater than 0.';
+      }
+    }
+
+    setValidationMessage(message);
+    return !message;
+  }
+
+  function validateTransaction() {
+    const requiredSteps = [1, 2];
+
+    for (const stepIndex of requiredSteps) {
+      if (!validateStep(stepIndex)) {
+        setCurrentStep(stepIndex);
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   async function uploadBeforePhoto(file, transactionId) {
     if (!file) return null;
@@ -115,6 +164,8 @@ export default function NewTransaction() {
   }
 
   async function handleSubmit() {
+    if (!validateTransaction()) return;
+
     setSavedOffline(false);
     setSuccess(false);
     setSubmitting(true);
@@ -194,10 +245,15 @@ export default function NewTransaction() {
 
   const steps = [
     <IntroForm key={0} />,
-    <Setup key={1} formData={formData} setFormData={setFormData} />,
-    <OperationBefore key={2} formData={formData} setFormData={setFormData} />,
+    <Setup key={1} formData={formData} setFormData={updateFormData} />,
+    <OperationBefore
+      key={2}
+      formData={formData}
+      setFormData={updateFormData}
+    />,
     <ReviewBefore key={3} formData={formData} />,
   ];
+  const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
 
   return (
     <div className="main-container">
@@ -219,6 +275,29 @@ export default function NewTransaction() {
         />
       ) : (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
+          <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-sm font-semibold text-gray-900">
+                Step {currentStep + 1} of {steps.length}
+              </p>
+              <p className="steps-text">
+                {isOnline ? 'Online save' : 'Offline save'}
+              </p>
+            </div>
+            <div className="h-2 rounded-full bg-[#eef4fb]">
+              <div
+                className="h-2 rounded-full bg-[#62748e] transition-all"
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          <TransactionValidationMessage>
+            {validationMessage}
+          </TransactionValidationMessage>
+
           {steps[currentStep]}
 
           <StepNavigation
@@ -227,6 +306,7 @@ export default function NewTransaction() {
             totalSteps={steps.length}
             submitting={submitting}
             onSubmit={handleSubmit}
+            onValidateStep={validateStep}
           />
         </form>
       )}

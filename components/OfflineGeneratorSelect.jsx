@@ -1,21 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getGenerators } from '@/lib/offline/fieldData';
 
 export default function OfflineGeneratorSelect({ formData, setFormData }) {
-  const [generators, setGenerators] = useState([]);
-
-  useEffect(() => {
-    const data = getGenerators();
-    setGenerators(data);
-  }, []);
+  const [generators] = useState(() =>
+    typeof localStorage === 'undefined' ? [] : getGenerators()
+  );
 
   return (
     <select
       value={formData.generator_id || ''}
       onChange={(e) => {
-        const selected = generators.find((g) => g.id === e.target.value);
+        const selected = generators.find(
+          (g) => String(g.id) === String(e.target.value)
+        );
 
         if (selected) {
           setFormData((prev) => ({
@@ -25,7 +24,7 @@ export default function OfflineGeneratorSelect({ formData, setFormData }) {
           }));
         }
       }}
-      className="mb-4"
+      className="h-12"
     >
       <option value="">Select generator (offline)</option>
 

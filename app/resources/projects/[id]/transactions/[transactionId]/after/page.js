@@ -8,6 +8,7 @@ import ReviewAfter from '@/components/fuel-transaction/review-after';
 import AfterDeliverySuccessAlert from '@/components/fuel-transaction/after-delivery-success-alert';
 import OperationAfter from '@/components/fuel-transaction/operation-after';
 import { updateOfflineTransaction } from '@/lib/offline/offlineDb';
+import { TransactionValidationMessage } from '@/components/fuel-transaction/TransactionUi';
 
 export default function TransactionAfter() {
   const params = useParams();
@@ -17,6 +18,7 @@ export default function TransactionAfter() {
   const [success, setSuccess] = useState(false);
   const [savedOffline, setSavedOffline] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [validationMessage, setValidationMessage] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,6 +28,39 @@ export default function TransactionAfter() {
     after_photo_file: null,
     after_photo_preview: '',
   });
+
+  function updateFormData(update) {
+    setValidationMessage('');
+    setFormData(update);
+  }
+
+  function validateStep(stepIndex) {
+    let message = '';
+
+    if (stepIndex === 0) {
+      const fuelLevel = Number(formData.after_fuel_level);
+
+      if (!formData.after_photo_file && !formData.after_photo_preview) {
+        message = 'Take a clear after meter photo before continuing.';
+      } else if (formData.after_fuel_level === '') {
+        message = 'Enter the after meter reading before continuing.';
+      } else if (!Number.isFinite(fuelLevel) || fuelLevel <= 0) {
+        message = 'Enter a valid after meter reading greater than 0.';
+      }
+    }
+
+    setValidationMessage(message);
+    return !message;
+  }
+
+  function validateTransaction() {
+    if (!validateStep(0)) {
+      setCurrentStep(0);
+      return false;
+    }
+
+    return true;
+  }
 
   async function uploadAfterPhoto(file, transactionId) {
     if (!file) return null;
@@ -67,6 +102,8 @@ export default function TransactionAfter() {
   }
 
   async function handleSubmit() {
+    if (!validateTransaction()) return;
+
     setSubmitting(true);
     setErrorMessage('');
     setSavedOffline(false);
@@ -117,9 +154,10 @@ export default function TransactionAfter() {
   }
 
   const steps = [
-    <OperationAfter key={0} formData={formData} setFormData={setFormData} />,
-    <ReviewAfter key={1} formData={formData} setFormData={setFormData} />,
+    <OperationAfter key={0} formData={formData} setFormData={updateFormData} />,
+    <ReviewAfter key={1} formData={formData} setFormData={updateFormData} />,
   ];
+  const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
 
   return (
     <div className="main-container">
@@ -141,6 +179,29 @@ export default function TransactionAfter() {
         />
       ) : (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
+          <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-sm font-semibold text-gray-900">
+                After step {currentStep + 1} of {steps.length}
+              </p>
+              <p className="steps-text">
+                {isOnline ? 'Online save' : 'Offline save'}
+              </p>
+            </div>
+            <div className="h-2 rounded-full bg-[#eef4fb]">
+              <div
+                className="h-2 rounded-full bg-[#62748e] transition-all"
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          <TransactionValidationMessage>
+            {validationMessage}
+          </TransactionValidationMessage>
+
           {steps[currentStep]}
 
           <StepNavigation
@@ -149,6 +210,7 @@ export default function TransactionAfter() {
             totalSteps={steps.length}
             submitting={submitting}
             onSubmit={handleSubmit}
+            onValidateStep={validateStep}
           />
         </form>
       )}

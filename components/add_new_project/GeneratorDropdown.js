@@ -25,10 +25,16 @@ export default function GeneratorDropdown({ value, onChange }) {
     <div className="w-full ">
       <label className="flex flex-col w-full">
         <select
-          className="pr-4 mr-4 w-full b-white h-[40px]"
-          value={value}
+          className="b-white mr-4 h-12 w-full pr-4"
+          value={value || ''}
           onChange={(e) => {
             const selectedId = e.target.value;
+
+            if (!selectedId) {
+              onChange({ id: '', name: '' });
+              return;
+            }
+
             const selectedGenerator = generators.find(
               (g) => g.id.toString() === selectedId
             );
@@ -37,10 +43,9 @@ export default function GeneratorDropdown({ value, onChange }) {
               id: selectedGenerator?.id,
               name: selectedGenerator?.name,
             });
-            console.log('generator:', selectedId);
           }}
         >
-          <option value=""></option>
+          <option value="">Select generator</option>
           {generators.map((g) => (
             <option key={g.id} value={g.id}>
               {g.name}

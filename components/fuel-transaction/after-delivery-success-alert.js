@@ -14,7 +14,7 @@ export default function AfterDeliverySuccessAlert() {
       <div className="mt-4 m-auto flex flex-col justyfy-center">
         <div className="grid grid-flow-row justify-items-center ">
           <h2 className="">Congratulations!</h2>
-          <p className="mt-2 mb-2">Data delivered successfuly</p>
+          <p className="mt-2 mb-2">Transaction evidence complete</p>
           <Image
             className="h-28 w-28 m-auto mb-2"
             src={success}

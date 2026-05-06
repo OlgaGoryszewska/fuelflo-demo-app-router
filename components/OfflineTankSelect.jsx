@@ -1,21 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getTanks } from '@/lib/offline/fieldData';
 
 export default function OfflineTankSelect({ formData, setFormData }) {
-  const [tanks, setTanks] = useState([]);
-
-  useEffect(() => {
-    const data = getTanks();
-    setTanks(data);
-  }, []);
+  const [tanks] = useState(() =>
+    typeof localStorage === 'undefined' ? [] : getTanks()
+  );
 
   return (
     <select
       value={formData.tank_id || ''}
       onChange={(e) => {
-        const selected = tanks.find((tank) => tank.id === e.target.value);
+        const selected = tanks.find(
+          (tank) => String(tank.id) === String(e.target.value)
+        );
 
         if (selected) {
           setFormData((prev) => ({
@@ -25,7 +24,7 @@ export default function OfflineTankSelect({ formData, setFormData }) {
           }));
         }
       }}
-      className="mb-4"
+      className="h-12"
     >
       <option value="">Select tank (offline)</option>
 

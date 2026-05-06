@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useEffect } from 'react';
-import Image from 'next/image';
-import qr2 from '@/public/qr2.png';
+import { useEffect, useState } from 'react';
+import { CheckCircle2, Fuel, QrCode, ScanLine } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
@@ -12,6 +10,7 @@ import GeneratorQrScanner from '@/components/GeneratorQrScanner';
 import { saveGenerators, saveTanks } from '@/lib/offline/fieldData';
 import OfflineGeneratorSelect from '@/components/OfflineGeneratorSelect';
 import OfflineTankSelect from '@/components/OfflineTankSelect';
+import { TransactionFieldCard, TransactionStepHeader } from './TransactionUi';
 
 export default function Setup({ formData, setFormData }) {
   const [showScanner, setShowScanner] = useState(false);
@@ -69,94 +68,126 @@ export default function Setup({ formData, setFormData }) {
     loadAndCache();
   }, []);
 
-  return (
-    <div>
-      <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 1 of 5</p>
-      </div>
+  const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
 
-      <MyToggleComponent
-        value={formData.type}
-        onChange={(newType) =>
-          setFormData((prev) => ({
-            ...prev,
-            type: newType,
-          }))
-        }
+  return (
+    <div className="space-y-4">
+      <TransactionStepHeader
+        eyebrow="Step 2 of 4"
+        title="Set up transaction"
+        description="Choose the transaction type and identify the equipment."
       />
 
-      <p className="h-mid-gray-s">Generator</p>
-      <p className="steps-text">Scan or select to identify</p>
-
-      <button
-        type="button"
-        className="qr-code-scanning-button my-2 flex flex-row items-center justify-center gap-2"
-        onClick={() => {
-          setScanError('');
-          setShowScanner(true);
-        }}
+      <TransactionFieldCard
+        icon={Fuel}
+        title="Transaction type"
+        description="Pick the direction of the fuel movement."
       >
-        <Image alt="qr code to scan" src={qr2} className="w-28" />
-        <p>Scan QR Code</p>
-      </button>
-
-      {isFetchingGenerator && (
-        <p className="steps-text mt-2">Loading generator...</p>
-      )}
-
-      {scanError && <p className="mt-2 text-sm text-red-600">{scanError}</p>}
-
-      {formData.generator_name && (
-        <p className="mt-2 mb-2 steps-text text-green-700">
-          Selected generator:{' '}
-          <span className="steps-test">{formData.generator_name}</span>
-        </p>
-      )}
-
-      {showScanner && (
-        <GeneratorQrScanner
-          onScanSuccess={handleQrScan}
-          onClose={() => setShowScanner(false)}
-          onError={setScanError}
-        />
-      )}
-
-      <div className="divider mt-5">
-        <h3 className="steps-text">or</h3>
-      </div>
-
-      <p className="h-mid-gray-s mt-4">Select generator</p>
-      {navigator.onLine ? (
-        <GeneratorDropdown
-          value={formData.generator_id}
-          onChange={(generator) =>
+        <MyToggleComponent
+          value={formData.type}
+          onChange={(newType) =>
             setFormData((prev) => ({
               ...prev,
-              generator_id: generator.id,
-              generator_name: generator.name,
+              type: newType,
             }))
           }
         />
-      ) : (
-        <OfflineGeneratorSelect formData={formData} setFormData={setFormData} />
-      )}
+      </TransactionFieldCard>
 
-      <p className="h-mid-gray-s pt-2 ">Select external tank</p>
-      {navigator.onLine ? (
-        <TankDropdown
-          className="mb-4"
-          value={formData.tank_id}
-          onChange={(tank) =>
-            setFormData((prev) => ({
-              ...prev,
-              tank_id: tank.id,
-              tank_name: tank.name,
-            }))
-          }
-        />
-      ) : (
-        <OfflineTankSelect formData={formData} setFormData={setFormData} />
-      )}
+      <TransactionFieldCard
+        icon={ScanLine}
+        title="Generator"
+        description="Scan the QR code or select the generator manually."
+      >
+        <button
+          type="button"
+          className="mb-3 flex w-full items-center gap-3 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] p-4 text-left shadow-sm transition active:scale-[0.98] active:bg-[#dbeaf5]"
+          onClick={() => {
+            setScanError('');
+            setShowScanner(true);
+          }}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#62748e] ring-1 ring-[#d5eefc]">
+            <QrCode size={21} strokeWidth={2.2} />
+          </span>
+          <span>
+            <span className="block text-base font-semibold text-gray-900">
+              Scan QR code
+            </span>
+            <span className="steps-text mt-1 block">
+              Fastest in the field when the QR label is available.
+            </span>
+          </span>
+        </button>
+
+        {isFetchingGenerator && (
+          <p className="steps-text mb-3">Loading generator...</p>
+        )}
+
+        {scanError && (
+          <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {scanError}
+          </p>
+        )}
+
+        {formData.generator_name && (
+          <p className="mb-3 flex items-center gap-2 rounded-xl border border-green-100 bg-green-50 p-3 text-sm font-medium text-green-700">
+            <CheckCircle2 size={18} />
+            Selected generator: {formData.generator_name}
+          </p>
+        )}
+
+        {showScanner && (
+          <GeneratorQrScanner
+            onScanSuccess={handleQrScan}
+            onClose={() => setShowScanner(false)}
+            onError={setScanError}
+          />
+        )}
+
+        <div className="divider mb-3">
+          <h3 className="steps-text">or select manually</h3>
+        </div>
+
+        {isOnline ? (
+          <GeneratorDropdown
+            value={formData.generator_id}
+            onChange={(generator) =>
+              setFormData((prev) => ({
+                ...prev,
+                generator_id: generator.id,
+                generator_name: generator.name,
+              }))
+            }
+          />
+        ) : (
+          <OfflineGeneratorSelect
+            formData={formData}
+            setFormData={setFormData}
+          />
+        )}
+      </TransactionFieldCard>
+
+      <TransactionFieldCard
+        icon={Fuel}
+        title="External tank"
+        description="Select the fuel source or return tank."
+      >
+        {isOnline ? (
+          <TankDropdown
+            value={formData.tank_id}
+            onChange={(tank) =>
+              setFormData((prev) => ({
+                ...prev,
+                tank_id: tank?.id || '',
+                tank_name: tank?.name || '',
+              }))
+            }
+          />
+        ) : (
+          <OfflineTankSelect formData={formData} setFormData={setFormData} />
+        )}
+      </TransactionFieldCard>
     </div>
   );
 }

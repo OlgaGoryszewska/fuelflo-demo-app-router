@@ -1,26 +1,63 @@
 'use client';
 
+import { Camera, CheckCircle2, Gauge } from 'lucide-react';
+import {
+  TransactionFieldCard,
+  TransactionReviewRow,
+  TransactionStepHeader,
+} from './TransactionUi';
+
 export default function ReviewAfter({ formData }) {
   return (
-    <div>
-      <div className="form-header-steps">
-        <p className="steps-text pr-2">Step 5 of 5</p>
-      </div>
-      <h2 className="mt-4">Review </h2>
-      <p className="mt-4 h-mid-gray-s ">
-        {' '}
-        Meter Reading: {formData.after_fuel_level}{' '}
-      </p>
-      <div className="divider-full mb-4"></div>
+    <div className="space-y-4">
+      <TransactionStepHeader
+        eyebrow="Review evidence"
+        title="Review after transaction"
+        description="Check the final evidence before closing the transaction."
+      />
 
-      <div className="window mb-4 mt-2">
-        {formData.after_photo_preview && (
-          <img
-            src={formData.after_photo_preview}
-            alt="preview"
-            className="window"
+      <TransactionFieldCard
+        icon={Gauge}
+        title="Final meter reading"
+        description="This reading is paired with the before reading in the transaction report."
+      >
+        <div className="rounded-2xl border border-gray-100 bg-white px-3">
+          <TransactionReviewRow
+            label="After meter reading"
+            value={formData.after_fuel_level}
           />
+        </div>
+      </TransactionFieldCard>
+
+      <TransactionFieldCard
+        icon={Camera}
+        title="After meter photo"
+        description="Confirm the photo is clear before saving."
+      >
+        {formData.after_photo_preview ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={formData.after_photo_preview}
+              alt="After meter photo preview"
+              className="h-52 w-full rounded-2xl border border-gray-100 object-cover shadow-sm"
+            />
+          </>
+        ) : (
+          <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-4 text-sm text-yellow-800">
+            No photo attached.
+          </div>
         )}
+      </TransactionFieldCard>
+
+      <div className="flex items-start gap-3 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] p-4">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#62748e] ring-1 ring-[#d5eefc]">
+          <CheckCircle2 size={21} strokeWidth={2.2} />
+        </span>
+        <p className="text-sm text-[#62748e]">
+          Saving now will connect the after evidence to the same delivery or
+          return transaction.
+        </p>
       </div>
     </div>
   );
