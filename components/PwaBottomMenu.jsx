@@ -70,7 +70,7 @@ export default function PwaBottomMenu() {
       <div className="relative z-10 flex items-center justify-between">
        
 
-        <Link href="/resources/projects/page.js" className={`${base} ${pathname === "/resources/projects/page.js" ? active : inactive}`}>
+        <Link href="/resources/projects" className={`${base} ${pathname === "/resources/projects" ? active : inactive}`}>
           <Building size={24} />
         
         </Link>
