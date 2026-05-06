@@ -173,6 +173,13 @@ export default function Setup({ formData, setFormData }) {
         title="External tank"
         description="Select the fuel source or return tank."
       >
+        {formData.tank_name && (
+          <p className="mb-3 flex items-center gap-2 rounded-xl border border-green-100 bg-green-50 p-3 text-sm font-medium text-green-700">
+            <CheckCircle2 size={18} />
+            Selected tank: {formData.tank_name}
+          </p>
+        )}
+
         {isOnline ? (
           <TankDropdown
             value={formData.tank_id}
