@@ -1,140 +1,115 @@
 'use client';
-import Link from 'next/link';
-import { useState } from 'react';
 
-import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
-import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
-import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
-import CachedIcon from '@mui/icons-material/Cached';
-import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
-import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
+import RoleDashboard from '@/components/RoleDashboard';
+import {
+  Bolt,
+  Fuel,
+  Gauge,
+  HardHat,
+  Package,
+  RotateCcw,
+  Users,
+  Workflow,
+} from 'lucide-react';
 
-export default function Dashboard() {
-  const [openCard, setOpenCard] = useState(null);
+const sections = [
+  {
+    id: 'projects',
+    title: 'Projects',
+    description: 'Open active project records.',
+    icon: Workflow,
+    items: [
+      {
+        href: '/resources/projects',
+        label: 'Active projects',
+        description: 'Review current project details.',
+        icon: Workflow,
+      },
+    ],
+  },
+  {
+    id: 'transactions',
+    title: 'Fuel transactions',
+    description: 'Review deliveries, returns, and field entries.',
+    icon: Fuel,
+    items: [
+      {
+        href: '/resources/fuel-transactions',
+        label: 'Deliveries',
+        description: 'View fuel delivery records.',
+        icon: Fuel,
+      },
+      {
+        href: '/resources/fuel-transactions/returns',
+        label: 'Returns',
+        description: 'Review returned fuel activity.',
+        icon: RotateCcw,
+      },
+      {
+        href: '/resources/projects/add-transaction',
+        label: 'Add new transaction',
+        description: 'Choose a project and record fuel.',
+        icon: Gauge,
+      },
+    ],
+  },
+  {
+    id: 'personnel',
+    title: 'Personnel',
+    description: 'Find managers and technicians.',
+    icon: Users,
+    items: [
+      {
+        href: '/resources/manager',
+        label: 'Managers',
+        description: 'View manager contacts.',
+        icon: HardHat,
+      },
+      {
+        href: '/resources/technician',
+        label: 'Technicians',
+        description: 'View technician contacts.',
+        icon: Users,
+      },
+    ],
+  },
+  {
+    id: 'equipment',
+    title: 'Equipment',
+    description: 'Open generators and external tanks.',
+    icon: Bolt,
+    items: [
+      {
+        href: '/resources/generators',
+        label: 'Generators',
+        description: 'Review assigned generators.',
+        icon: Bolt,
+      },
+      {
+        href: '/resources/external-tanks',
+        label: 'External tanks',
+        description: 'Review external tank records.',
+        icon: Package,
+      },
+    ],
+  },
+];
 
-  const toggleCard = (cardName) => {
-    setOpenCard((prev) => (prev === cardName ? null : cardName));
-  };
-
+export default function TechnicianDashboard() {
   return (
-    <div>
-      <div className="m-2.5">
-        <div className="form-header">
-          <h1 className="ml-2">technician dashboard</h1>
-        </div>
-        <div
-          onClick={() => toggleCard('projects')}
-          className={`form-button ${openCard === 'projects' ? 'border-active' : ''}`}
-        >
-          <AccountTreeOutlinedIcon className="mp-4" />
-          Projects{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'projects' && (
-          <div className="open-card ">
-            <Link href="/resources/projects" className="card-button">
-              <RouteOutlinedIcon />
-              Ongoing Projects
-            </Link>
-          </div>
-        )}
-
-        <div
-          onClick={() => toggleCard('transactions')}
-          className={`form-button ${openCard === 'transactions' ? 'border-active' : ''}`}
-        >
-          <CachedIcon /> Transactions{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'transactions' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'transactions' && (
-          <div className="open-card ">
-            <Link
-              href="app/resources/fuel-transactions"
-              className="card-button"
-            >
-              <ElectricRickshawOutlinedIcon />
-              Deliveries
-            </Link>
-            <Link
-              href="/resources/fuel-transactions/returns"
-              className="card-button"
-            >
-              <UndoOutlinedIcon />
-              Returns
-            </Link>
-            <Link href="/resources/projects/add-transaction" className="card-button">
-              <AddOutlinedIcon />
-              Add New Transaction
-            </Link>
-          </div>
-        )}
-
-        <div
-          onClick={() => toggleCard('technicians')}
-          className={`form-button ${openCard === 'technicians' ? 'border-active' : ''}`}
-        >
-          <PeopleOutlineOutlinedIcon />
-          Personel{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'technicians' && (
-          <div className="open-card ">
-            <Link href="/resources/manager" className="card-button">
-              <EngineeringOutlinedIcon />
-              Managers
-            </Link>
-            <Link href="/resources/technician" className="card-button">
-              <EngineeringOutlinedIcon />
-              Technicians
-            </Link>
-          </div>
-        )}
-
-        <div
-          onClick={() => toggleCard('equipment')}
-          className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
-        >
-          <BoltOutlinedIcon />
-          Equipment{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external tank' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'equipment' && (
-          <div className="open-card ">
-            <Link href="/resources/generators" className="card-button">
-              <BoltOutlinedIcon />
-              Generators
-            </Link>
-            <Link href="/resources/external-tanks" className="card-button">
-              <PropaneTankOutlinedIcon />
-              External Tanks
-            </Link>
-          </div>
-        )}
-        <div className="divider-full mt-2 mb-2"></div>
-        <button className="button-big">
-          {' '}
-          <Link href={`/resources/projects/`}>Add Fuel Transaction</Link>
-        </button>
-      </div>
-    </div>
+    <RoleDashboard
+      eyebrow="Technician dashboard"
+      title="Field workspace"
+      description="Access project records, equipment, and fuel transaction tools."
+      primaryActions={[
+        {
+          href: '/resources/projects/add-transaction',
+          label: 'Add fuel transaction',
+          description: 'Choose a project and record a delivery or return.',
+          icon: Gauge,
+        },
+      ]}
+      sections={sections}
+    />
   );
 }

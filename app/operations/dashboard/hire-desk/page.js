@@ -1,192 +1,202 @@
 'use client';
-import Link from 'next/link';
-import { useState } from 'react';
 
-import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
-import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
-import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
-import CachedIcon from '@mui/icons-material/Cached';
-import ElectricRickshawOutlinedIcon from '@mui/icons-material/ElectricRickshawOutlined';
-import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
-import PersonIcon from '@mui/icons-material/Person';
+import RoleDashboard from '@/components/RoleDashboard';
+import {
+  Archive,
+  BarChart3,
+  Bolt,
+  Building2,
+  Fuel,
+  Gauge,
+  HardHat,
+  Package,
+  Plus,
+  QrCode,
+  RotateCcw,
+  User,
+  UserPlus,
+  Users,
+  Workflow,
+} from 'lucide-react';
 
-export default function Dashboard() {
-  const [openCard, setOpenCard] = useState(null);
+const sections = [
+  {
+    id: 'projects',
+    title: 'Projects',
+    description: 'Create, review, and archive project records.',
+    icon: Workflow,
+    items: [
+      {
+        href: '/resources/projects',
+        label: 'Active projects',
+        description: 'Open current project records.',
+        icon: Workflow,
+      },
+      {
+        href: '/resources/projects/archived',
+        label: 'Archived projects',
+        description: 'Review inactive or completed projects.',
+        icon: Archive,
+      },
+      {
+        href: '/add-forms/add-new-project',
+        label: 'Add new project',
+        description: 'Create a project record.',
+        icon: Plus,
+      },
+    ],
+  },
+  {
+    id: 'transactions',
+    title: 'Fuel transactions',
+    description: 'Review deliveries, returns, and new entries.',
+    icon: Fuel,
+    items: [
+      {
+        href: '/resources/fuel-transactions',
+        label: 'Deliveries',
+        description: 'View fuel delivery records.',
+        icon: Fuel,
+      },
+      {
+        href: '/resources/fuel-transactions/returns',
+        label: 'Returns',
+        description: 'Review returned fuel activity.',
+        icon: RotateCcw,
+      },
+      {
+        href: '/resources/projects/add-transaction',
+        label: 'Add new transaction',
+        description: 'Choose a project and record fuel.',
+        icon: Gauge,
+      },
+    ],
+  },
+  {
+    id: 'personnel',
+    title: 'Personnel',
+    description: 'Manage internal operations contacts.',
+    icon: Users,
+    items: [
+      {
+        href: '/resources/manager',
+        label: 'Managers',
+        description: 'Review manager records.',
+        icon: HardHat,
+      },
+      {
+        href: '/resources/technician',
+        label: 'Technicians',
+        description: 'Review technician records.',
+        icon: Users,
+      },
+      {
+        href: '/resources/hire-desk',
+        label: 'Hire desk coordinators',
+        description: 'Review hire desk team records.',
+        icon: User,
+      },
+      {
+        href: '/register',
+        label: 'Add personnel',
+        description: 'Register a new team member.',
+        icon: UserPlus,
+      },
+    ],
+  },
+  {
+    id: 'external-partners',
+    title: 'External partners',
+    description: 'Review event organizers and fuel suppliers.',
+    icon: Building2,
+    items: [
+      {
+        href: '/resources/event_organizers',
+        label: 'Event organizers',
+        description: 'Open organizer records.',
+        icon: Building2,
+      },
+      {
+        href: '/resources/fuel_suppliers',
+        label: 'Fuel suppliers',
+        description: 'Open supplier records.',
+        icon: Fuel,
+      },
+    ],
+  },
+  {
+    id: 'equipment',
+    title: 'Equipment',
+    description: 'Create and review generator and tank resources.',
+    icon: Bolt,
+    items: [
+      {
+        href: '/resources/generators',
+        label: 'Generators',
+        description: 'Review generator records.',
+        icon: Bolt,
+      },
+      {
+        href: '/resources/external-tanks',
+        label: 'External tanks',
+        description: 'Review tank records.',
+        icon: Package,
+      },
+      {
+        href: '/add-forms/add_equipment',
+        label: 'Add new equipment',
+        description: 'Create generator or tank records.',
+        icon: Plus,
+      },
+    ],
+  },
+];
 
-  const toggleCard = (cardName) => {
-    setOpenCard((prev) => (prev === cardName ? null : cardName));
-  };
+const primaryActions = [
+  {
+    href: '/add-forms/add-new-project',
+    label: 'Add new project',
+    description: 'Create a project and assign details.',
+    icon: Plus,
+  },
+  {
+    href: '/resources/projects/add-transaction',
+    label: 'Add fuel transaction',
+    description: 'Choose a project and record fuel.',
+    icon: Gauge,
+  },
+];
 
+const utilityLinks = [
+  {
+    href: '/operations/create-qr-code',
+    label: 'Create QR code',
+    description: 'Generate a scannable equipment QR code.',
+    icon: QrCode,
+  },
+  {
+    href: '/resources/reports',
+    label: 'Reports',
+    description: 'Open project and fuel reports.',
+    icon: BarChart3,
+  },
+  {
+    href: '/resources/profile',
+    label: 'Profile',
+    description: 'View your account details.',
+    icon: User,
+  },
+];
+
+export default function HireDeskDashboard() {
   return (
-    <div>
-      <div className="m-2.5 max-w-[600px]">
-        <div className="form-header ">
-          <h1 className="ml-2">Hire desk dashboard</h1>
-        </div>
-        <div
-          onClick={() => toggleCard('projects')}
-          className={`form-button ${openCard === 'projects' ? 'border-active' : ''}`}
-        >
-          <AccountTreeOutlinedIcon className="mp-4" />
-          Projects{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'projects' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'projects' && (
-          <div className="open-card ">
-            <Link href="/resources/projects" className="card-button">
-              <RouteOutlinedIcon />
-              Ongoing Projects
-            </Link>
-            <Link href="/resources/projects/archived" className="card-button">
-              <ArchiveOutlinedIcon />
-              Archive
-            </Link>
-            <Link href="/add-forms/add-new-project" className="card-button">
-              <AddOutlinedIcon />
-              Add new Project
-            </Link>
-          </div>
-        )}
-
-        <div
-          onClick={() => toggleCard('transactions')}
-          className={`form-button ${openCard === 'transactions' ? 'border-active' : ''}`}
-        >
-          <CachedIcon /> Fuel Transactions{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'transactions' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'transactions' && (
-          <div className="open-card ">
-            <Link href="/resources/fuel-transactions/" className="card-button">
-              <ElectricRickshawOutlinedIcon />
-              Deliveries
-            </Link>
-            <Link
-              href="/resources/fuel-transactions/returns"
-              className="card-button"
-            >
-              <UndoOutlinedIcon />
-              Returns
-            </Link>
-            <Link href="/resources/projects/add-transaction" className="card-button">
-              <AddOutlinedIcon />
-              Add New Transaction
-            </Link>
-          </div>
-        )}
-
-        <div
-          onClick={() => toggleCard('technicians')}
-          className={`form-button ${openCard === 'technicians' ? 'border-active' : ''}`}
-        >
-          <PeopleOutlineOutlinedIcon />
-          Personel{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'technicians' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'technicians' && (
-          <div className="open-card ">
-            <Link href="/resources/manager" className="card-button">
-              <EngineeringOutlinedIcon />
-              Managers
-            </Link>
-            <Link href="/resources/technician/" className="card-button">
-              <EngineeringOutlinedIcon />
-              Technicians
-            </Link>
-            <Link href="/resources/hire-desk" className="card-button">
-              <ManageAccountsOutlinedIcon />
-              Hire Desk Coordinator
-            </Link>
-            <Link href="/register" className="card-button">
-              <AddOutlinedIcon />
-              Add Personel
-            </Link>
-          </div>
-        )}
-        <div
-          onClick={() => toggleCard('external partners')}
-          className={`form-button  ${openCard === 'external partners' ? 'border-active' : ''}`}
-        >
-          <GroupsOutlinedIcon />
-          External Partners
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external partners' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'external partners' && (
-          <div className="open-card ">
-            <Link href="/resources/event_organizers" className="card-button">
-              <Person4OutlinedIcon />
-              Event Organizers
-            </Link>
-            <Link href="/resources/event_organizers/" className="card-button">
-              <Person4OutlinedIcon />
-              Fuel Suppliers
-            </Link>
-            <Link href="/add-forms/add-generator" className="card-button">
-              <AddOutlinedIcon />
-              Add Partner
-            </Link>
-          </div>
-        )}
-        <div
-          onClick={() => toggleCard('equipment')}
-          className={`form-button  ${openCard === 'equipment' ? 'border-active' : ''}`}
-        >
-          <BoltOutlinedIcon />
-          Equipment{' '}
-          <KeyboardArrowDownOutlinedIcon
-            className={` ml-auto transition-transform text-gray-400 ${openCard === 'external tank' ? 'rotate-180' : ''}`}
-          />
-        </div>
-        {openCard === 'equipment' && (
-          <div className="open-card ">
-            <Link href="/resources/generators" className="card-button">
-              <BoltOutlinedIcon />
-              Generators
-            </Link>
-            <Link href="/resources/external-tanks" className="card-button">
-              <PropaneTankOutlinedIcon />
-              External Tanks
-            </Link>
-            <Link href="/add-forms/add_equipment" className="card-button">
-              <AddOutlinedIcon />
-              Add new Equipment
-            </Link>
-          </div>
-        )}
-        <div className="divider-full mt-2"></div>
-
-        <Link href="/operations/create-qr-code" className="form-button mt-2">
-          <QrCodeOutlinedIcon />
-          Create a new QR Code
-        </Link>
-        <Link href="/resources/reports" className="form-button">
-          <AssessmentOutlinedIcon />
-          Reports
-        </Link>
-        <Link href="/resources/profile" className="form-button">
-          <PersonIcon />
-          Profile
-        </Link>
-      </div>
-    </div>
+    <RoleDashboard
+      eyebrow="Hire desk dashboard"
+      title="Coordination workspace"
+      description="Create projects, manage resources, and support operations."
+      primaryActions={primaryActions}
+      sections={sections}
+      utilityLinks={utilityLinks}
+    />
   );
 }
