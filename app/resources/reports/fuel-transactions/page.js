@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionsListReport from '@/components/fuel-transaction/FuelTransactionListReport';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function RaportFuelTransactionsPage() {
   const [transactions, setTransactions] = useState([]);
@@ -42,7 +43,7 @@ export default function RaportFuelTransactionsPage() {
 
   return (
     <div className="main-container">
-      {loading && <p>Loading...</p>}
+      {loading && <LoadingIndicator />}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p>{message}</p>}
 

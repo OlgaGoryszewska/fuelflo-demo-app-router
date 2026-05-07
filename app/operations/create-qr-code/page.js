@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import QRCode from 'qrcode';
 
 export default function FetchGeneratorsByName() {
@@ -99,7 +100,7 @@ export default function FetchGeneratorsByName() {
         />
 
         <div className="mt-3">
-          {isLoading && <p>Loading…</p>}
+          {isLoading && <LoadingIndicator />}
           {error && <p className="text-red-600">Error: {error}</p>}
 
           {!isLoading &&
