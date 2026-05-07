@@ -9,9 +9,9 @@ import OfflineSyncStatus from '@/components/OfflineSyncStatus';
 
 export default function AppShell({ children }) {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isAuthPage = pathname === '/' || pathname === '/signIn';
 
-  if (isHomePage) {
+  if (isAuthPage) {
     return <main className="main-content">{children}</main>;
   }
 

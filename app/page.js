@@ -4,13 +4,9 @@ import InstallAppCard from '@/components/InstallAppCard';
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="background-container w-full max-w-md">
-        <AuthForm />
-      </div>
+    <div className="mx-auto flex min-h-screen w-full max-w-[640px] flex-col justify-center px-3 py-6">
+      <AuthForm />
       <InstallAppCard />
-      
     </div>
-    
   );
 }
