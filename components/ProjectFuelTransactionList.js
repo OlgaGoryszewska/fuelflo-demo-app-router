@@ -2,39 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ArrowRight, Plus } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
 
-function formatDate(dateValue) {
-  if (!dateValue) return '-';
-
-  return new Date(dateValue).toLocaleDateString('en-GB', {
-    year: '2-digit',
-    month: 'short',
-    day: '2-digit',
-  });
-}
-
-function FuelTransactionRow({ transaction }) {
-  const beforeFuel = Number(transaction.before_fuel_level) || 0;
-  const afterFuel = Number(transaction.after_fuel_level) || 0;
-  const difference = Math.abs(afterFuel - beforeFuel);
-  const sign = transaction.type === 'delivery' ? '+' : '-';
-
-  return (
-    <li className="file-row w-full flex items-center justify-between">
-      <Link
-        className="steps-text"
-        href={`/resources/fuel-transactions/${transaction.id}`}
-      >
-        {formatDate(transaction.created_at)}
-      </Link>
-
-      <span>
-        {sign} {difference.toFixed(2)} L
-      </span>
-    </li>
-  );
-}
+const TRANSACTION_SELECT = `
+  id,
+  project_id,
+  generator_id,
+  type,
+  status,
+  created_at,
+  completed_at,
+  before_fuel_level,
+  after_fuel_level,
+  after_photo_url,
+  generators (
+    id,
+    name
+  )
+`;
 
 export default function ProjectFuelTransactionsList({ projectId }) {
   const [transactions, setTransactions] = useState([]);
@@ -50,9 +37,7 @@ export default function ProjectFuelTransactionsList({ projectId }) {
 
       const { data, error } = await supabase
         .from('fuel_transactions')
-        .select(
-          'id, project_id, type, created_at, before_fuel_level, after_fuel_level'
-        )
+        .select(TRANSACTION_SELECT)
         .eq('project_id', projectId)
         .order('created_at', { ascending: false });
 
@@ -69,42 +54,70 @@ export default function ProjectFuelTransactionsList({ projectId }) {
     loadTransactions();
   }, [projectId]);
 
-  return (
-    <div className="background-container-white mb-4">
-      <h2>Fuel Transactions</h2>
+  const enrichedTransactions = transactions.map((transaction) => ({
+    ...transaction,
+    projects: {
+      id: projectId,
+      name: 'This project',
+    },
+  }));
 
-      <div className="flex flex-col w-full">
-        <div className="pr-2 w-full flex justify-between">
-          <h4>Date</h4>
-          <h4>Vol</h4>
+  return (
+    <section className="background-container-white mb-4">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          <p className="page-kicker">Fuel log</p>
+          <h2 className="mt-1">Project transactions</h2>
+          <p className="steps-text mt-1">
+            Deliveries, returns, and evidence status for this event.
+          </p>
         </div>
 
-        {loading && <p className="steps-text">Loading...</p>}
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        {!loading && !error && transactions.length === 0 && (
-          <p className="steps-text">No transactions found.</p>
-        )}
-
-        {!loading && !error && transactions.length > 0 && (
-          <ul className="flex flex-col w-full">
-            {transactions.map((transaction) => (
-              <FuelTransactionRow
-                key={transaction.id}
-                transaction={transaction}
-              />
-            ))}
-          </ul>
-        )}
-        <div className="divider-full my-4"></div>
-        <button className="button-big ">
-          {' '}
-          <Link href={`/resources/projects/${projectId}/new/`}>
-            Add Fuel Transaction
-          </Link>
-        </button>
+        <Link
+          href={`/resources/projects/${projectId}/new/`}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f25822] text-white shadow-[0_8px_20px_rgba(242,88,34,0.25)] active:scale-[0.96]"
+          title="Add fuel transaction"
+        >
+          <Plus size={22} strokeWidth={2.5} />
+        </Link>
       </div>
-    </div>
+
+      {loading && (
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white p-4">
+          <p className="steps-text">Loading transactions...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="rounded-[24px] border border-[#fee39f] bg-[#fff7e6] p-4 text-sm text-[#9a5f12]">
+          {error}
+        </div>
+      )}
+
+      {!loading && !error && enrichedTransactions.length === 0 && (
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white p-4">
+          <p className="text-sm font-semibold text-[var(--primary-black)]">
+            No fuel transactions yet.
+          </p>
+          <p className="steps-text mt-1">
+            Start with a delivery or return to build the project fuel record.
+          </p>
+          <Link
+            href={`/resources/projects/${projectId}/new/`}
+            className="form-button mt-4 justify-center gap-2"
+          >
+            Add transaction
+            <ArrowRight size={18} />
+          </Link>
+        </div>
+      )}
+
+      {!loading && !error && enrichedTransactions.length > 0 && (
+        <FuelTransactionsList
+          transactions={enrichedTransactions}
+          label="Movement"
+        />
+      )}
+    </section>
   );
 }

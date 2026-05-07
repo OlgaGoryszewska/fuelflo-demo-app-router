@@ -176,8 +176,9 @@ function FuelTransactionRow({ transaction }) {
 export default function FuelTransactionsList({
   transactions = [],
   type = 'delivery',
+  label,
 }) {
-  const typeLabel = type === 'delivery' ? 'Delivery' : 'Return';
+  const typeLabel = label || (type === 'delivery' ? 'Delivery' : 'Return');
 
   return (
     <div className="flex w-full flex-col gap-3">
