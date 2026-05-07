@@ -18,10 +18,10 @@ export default function AppShell({ children }) {
   return (
     <AuthGuard>
       <Menu />
-      <main className="main-content">{children}</main>
+      <main className="main-content pb-24">{children}</main>
       <OfflineSyncListener />
       <OfflineSyncStatus />
-      <PwaBottomMenu/>
+      <PwaBottomMenu />
     </AuthGuard>
   );
 }

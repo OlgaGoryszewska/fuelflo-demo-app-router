@@ -88,13 +88,17 @@ export default function TransactionAfter() {
   }
 
   async function saveAfterOffline() {
+    const completedAt = new Date().toISOString();
+
     await updateOfflineTransaction(transactionId, {
       project_id: projectId || null,
       after_fuel_level: formData.after_fuel_level || null,
       after_photo_url: null,
       after_photo_file: formData.after_photo_file || null,
       after_photo_preview: formData.after_photo_preview || '',
-      after_completed_at: new Date().toISOString(),
+      completed_at: completedAt,
+      after_completed_at: completedAt,
+      status: 'completed',
     });
 
     setSavedOffline(true);
@@ -133,6 +137,8 @@ export default function TransactionAfter() {
         .update({
           after_fuel_level: formData.after_fuel_level || null,
           after_photo_url: afterPhotoUrl,
+          completed_at: new Date().toISOString(),
+          status: 'completed',
         })
         .eq('id', transactionId);
 

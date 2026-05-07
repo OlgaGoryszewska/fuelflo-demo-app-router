@@ -17,6 +17,19 @@
   --slate-light: #cbdae3;
   --slate-line: #e2e8f0;
   --slate-dark: #62748e;
+  --fuel-primary: #ff8a00;
+  --fuel-primary-strong: #f25822;
+  --fuel-primary-soft: #fff4df;
+  --fuel-amber: #febd20;
+  --fuel-ink: #171e2c;
+  --fuel-steel: #62748e;
+  --fuel-muted: #717887;
+  --fuel-mist: #f5fbff;
+  --fuel-line: #e2e8f0;
+  --fuel-success: #2f8f5b;
+  --fuel-success-soft: #eef8f2;
+  --fuel-warning: #b7791f;
+  --fuel-warning-soft: #fff7e6;
 }
 h1 {
   font-size: 14px;

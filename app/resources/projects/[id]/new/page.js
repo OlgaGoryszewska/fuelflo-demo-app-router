@@ -36,7 +36,7 @@ export default function NewTransaction() {
     before_photo_url: '',
     before_photo_file: null,
     before_photo_preview: '',
-    status: 'completed',
+    status: 'awaiting_after_evidence',
   });
 
   function updateFormData(update) {
@@ -137,7 +137,7 @@ export default function NewTransaction() {
     return { id: savedUserId };
   }
 
-  function createOfflineTransaction(newTransactionId, user, completedAt) {
+  function createOfflineTransaction(newTransactionId, user) {
     return {
       id: newTransactionId,
       type: formData.type || null,
@@ -150,7 +150,7 @@ export default function NewTransaction() {
       tank_name: formData.tank_name || '',
 
       technician_id: user.id,
-      completed_at: completedAt,
+      completed_at: null,
 
       before_fuel_level: formData.before_fuel_level || null,
 
@@ -158,7 +158,7 @@ export default function NewTransaction() {
       before_photo_file: formData.before_photo_file || null,
       before_photo_preview: formData.before_photo_preview || '',
 
-      status: 'completed',
+      status: 'awaiting_after_evidence',
       sync_status: 'pending',
     };
   }
@@ -172,15 +172,12 @@ export default function NewTransaction() {
     setErrorMessage('');
 
     const newTransactionId = crypto.randomUUID();
-    const completedAt = new Date().toISOString();
-
     try {
       const user = await getCurrentTechnician();
 
       const offlineTransaction = createOfflineTransaction(
         newTransactionId,
-        user,
-        completedAt
+        user
       );
 
       if (!navigator.onLine) {
@@ -211,10 +208,10 @@ export default function NewTransaction() {
             generator_id: formData.generator_id || null,
             tank_id: formData.tank_id || null,
             technician_id: user.id,
-            completed_at: completedAt,
+            completed_at: null,
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
-            status: 'completed',
+            status: 'awaiting_after_evidence',
           },
         ])
         .select()
