@@ -98,7 +98,7 @@ export default function FuelTransactionDetailPage() {
   return (
     <div className="mx-auto w-full max-w-[640px] px-3 py-4">
       <div className="mb-3 px-1">
-        <h1>Transaction details</h1>
+        <p className="page-kicker">Transaction details</p>
       </div>
 
       <FuelTransactionDetail transaction={transaction} />
