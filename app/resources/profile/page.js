@@ -7,6 +7,7 @@ import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 import banner from '@/public/banner.jpg';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function ProfilePage() {
     router.replace('/');
   };
 
-  if (loading) return <p>Loading profile...</p>;
+  if (loading) return <LoadingIndicator />;
   if (errorMessage) return <p>{errorMessage}</p>;
 
   return (

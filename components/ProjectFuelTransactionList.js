@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Plus } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 const TRANSACTION_SELECT = `
   id,
@@ -28,31 +29,31 @@ export default function ProjectFuelTransactionsList({ projectId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function loadTransactions() {
-      if (!projectId) return;
+  const loadTransactions = useCallback(async () => {
+    if (!projectId) return;
 
-      setLoading(true);
-      setError(null);
+    setLoading(true);
+    setError(null);
 
-      const { data, error } = await supabase
-        .from('fuel_transactions')
-        .select(TRANSACTION_SELECT)
-        .eq('project_id', projectId)
-        .order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('fuel_transactions')
+      .select(TRANSACTION_SELECT)
+      .eq('project_id', projectId)
+      .order('created_at', { ascending: false });
 
-      if (error) {
-        setError(error.message);
-        setTransactions([]);
-      } else {
-        setTransactions(data || []);
-      }
-
-      setLoading(false);
+    if (error) {
+      setError(error.message);
+      setTransactions([]);
+    } else {
+      setTransactions(data || []);
     }
 
-    loadTransactions();
+    setLoading(false);
   }, [projectId]);
+
+  useEffect(() => {
+    loadTransactions();
+  }, [loadTransactions]);
 
   const enrichedTransactions = transactions.map((transaction) => ({
     ...transaction,
@@ -82,15 +83,18 @@ export default function ProjectFuelTransactionsList({ projectId }) {
         </Link>
       </div>
 
-      {loading && (
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white p-4">
-          <p className="steps-text">Loading transactions...</p>
-        </div>
-      )}
+      {loading && <LoadingIndicator />}
 
       {error && (
         <div className="rounded-[24px] border border-[#fee39f] bg-[#fff7e6] p-4 text-sm text-[#9a5f12]">
-          {error}
+          <p>{error}</p>
+          <button
+            type="button"
+            onClick={loadTransactions}
+            className="mt-3 inline-flex items-center rounded-full bg-[#f25822] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#d94620]"
+          >
+            Refresh
+          </button>
         </div>
       )}
 

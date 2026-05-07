@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import formatDate from '@/components/FormatDate';
 import { supabase } from '@/lib/supabaseClient';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 function toNumber(value) {
   const parsed = Number(value);
@@ -359,7 +360,7 @@ function RecentProjectTransactions({ projectId, currentTransactionId }) {
         description="The last few fuel movements for this project."
       />
 
-      {loading && <p className="steps-text">Loading recent transactions...</p>}
+      {loading && <LoadingIndicator />}
       {errorMessage && <p className="text-sm text-[#f25822]">{errorMessage}</p>}
 
       {!loading && !errorMessage && transactions.length === 0 && (

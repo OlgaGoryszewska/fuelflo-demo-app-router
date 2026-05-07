@@ -22,10 +22,30 @@ self.addEventListener('activate', (event) => {
 function canCacheRequest(request) {
   const url = new URL(request.url);
 
-  return (
-    request.method === 'GET' &&
-    (url.protocol === 'http:' || url.protocol === 'https:')
-  );
+  if (request.method !== 'GET') {
+    return false;
+  }
+
+  if (url.origin !== self.location.origin) {
+    return false;
+  }
+
+  if (request.mode === 'navigate') {
+    return true;
+  }
+
+  if (url.pathname.startsWith('/api/')) {
+    return false;
+  }
+
+  return [
+    'document',
+    'script',
+    'style',
+    'image',
+    'font',
+    'manifest',
+  ].includes(request.destination);
 }
 
 async function cacheResponse(request, response) {

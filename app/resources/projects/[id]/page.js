@@ -26,6 +26,7 @@ import {
   Zap,
 } from 'lucide-react';
 import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import formatDateShort from '@/components/FormatDateShort';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -353,13 +354,7 @@ export default function ProjectDetailPage() {
   }, [fleetRows]);
 
   if (loading) {
-    return (
-      <div className="mx-auto w-full max-w-[640px] px-3 py-4">
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/80 p-4">
-          <p className="steps-text">Loading project dashboard...</p>
-        </div>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   if (error) {
@@ -548,7 +543,7 @@ export default function ProjectDetailPage() {
           </Link>
           <Link
             href={`/resources/projects/${projectId}/edit`}
-            className="form-button mb-0 justify-center gap-2"
+            className="button-big mb-0 justify-center gap-2"
           >
             <Pencil size={18} />
             Edit

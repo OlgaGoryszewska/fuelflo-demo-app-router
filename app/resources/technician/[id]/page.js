@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 import banner from '@/public/banner.jpg';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function TechnicianDetailPage() {
   const { id } = useParams();
@@ -72,11 +73,7 @@ export default function TechnicianDetailPage() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="main-container">
-        <div className="background-container">Loading…</div>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   if (error) {

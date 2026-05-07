@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function AuthGuard({ children }) {
   const [session, setSession] = useState(null);
@@ -57,11 +58,7 @@ export default function AuthGuard({ children }) {
   }, [session, loading, pathname, router]);
 
   if (loading) {
-    return (
-      <div className="main-container flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   return children;

@@ -9,8 +9,7 @@ import {
   Fuel,
   LayoutDashboard,
   Menu as MenuIcon,
-  Plus,
-  User,
+  Plus,  RefreshCcw,  User,
   UserPlus,
   X,
 } from 'lucide-react';
@@ -117,6 +116,7 @@ export default function Menu() {
 
   const menuRef = useRef(null);
   const pathname = usePathname();
+  const refreshPage = () => window.location.reload();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const handleLinkClick = () => setIsOpen(false);
@@ -225,15 +225,26 @@ export default function Menu() {
           </span>
         </Link>
 
-        <button
-          type="button"
-          onClick={toggleMenu}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90 active:bg-[#dbeaf5]"
-        >
-          {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={refreshPage}
+            aria-label="Refresh page"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90 active:bg-[#dbeaf5]"
+          >
+            <RefreshCcw size={20} />
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleMenu}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90 active:bg-[#dbeaf5]"
+          >
+            {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
+          </button>
+        </div>
       </nav>
 
       <ul
