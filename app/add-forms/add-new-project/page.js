@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
-import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
 
 import StepOne from '@/components/add_new_project/StepOne';
@@ -132,7 +131,6 @@ export default function AddProjectPage() {
     }
   }
 
-  const currentStepMeta = PROJECT_STEPS[currentStep];
   const steps = [
     <StepOne
       key="step-1"
@@ -169,16 +167,26 @@ export default function AddProjectPage() {
 
       <form onSubmit={handleSubmit}>
         <div className="background-container">
-          <div className="mb-4">
-            <h2>{currentStepMeta.title}</h2>
-            <p className="steps-text mt-1">{currentStepMeta.description}</p>
+          <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-sm font-semibold text-gray-900">
+                Step {currentStep + 1} of {steps.length}
+              </p>
+              <p className="steps-text">Project setup</p>
+            </div>
+            <div className="h-2 rounded-full bg-[#eef4fb]">
+              <div
+                className="h-2 rounded-full bg-[#62748e] transition-all"
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}
+              />
+            </div>
           </div>
-
-          <ProgresionBar currentStep={currentStep} />
 
           {feedback.message && (
             <div
-              className={`mx-4 mb-4 rounded-[22px] border p-4 text-sm ${
+              className={`mx-4 mb-4 rounded-[22px] border p-4 ${
                 feedback.type === 'success'
                   ? 'border-[#d7edce] bg-[#f3fbef] text-[#2f8f5b]'
                   : 'border-[#fee39f] bg-[#fff7e6] text-[#9a5f12]'
@@ -190,7 +198,7 @@ export default function AddProjectPage() {
                 ) : (
                   <AlertTriangle size={20} />
                 )}
-                <p>{feedback.message}</p>
+                <p className="steps-text !font-medium">{feedback.message}</p>
               </div>
             </div>
           )}

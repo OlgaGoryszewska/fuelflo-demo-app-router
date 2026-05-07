@@ -10,6 +10,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { getExpectedEarnings, getMargin } from './projectForm';
+import { ProjectStepHeader } from './ProjectUi';
 
 function ReviewCard({ icon: Icon, title, children, tone = 'slate' }) {
   const tones = {
@@ -19,16 +20,14 @@ function ReviewCard({ icon: Icon, title, children, tone = 'slate' }) {
   };
 
   return (
-    <section className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
+    <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-center gap-3">
         <span
           className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-1 ${tones[tone]}`}
         >
           <Icon size={20} strokeWidth={2.3} />
         </span>
-        <h3 className="text-base font-semibold text-[var(--primary-black)]">
-          {title}
-        </h3>
+        <h3>{title}</h3>
       </div>
       <div className="grid grid-cols-1 gap-2">{children}</div>
     </section>
@@ -39,7 +38,7 @@ function ReviewRow({ label, value }) {
   return (
     <div className="rounded-[18px] bg-[#f5fbff] p-3">
       <p className="steps-text">{label}</p>
-      <p className="mt-1 text-sm font-semibold text-[var(--primary-black)]">
+      <p className="mt-1 text-sm font-semibold text-gray-900">
         {value || '-'}
       </p>
     </div>
@@ -66,13 +65,12 @@ export default function StepFive({ formData }) {
 
   return (
     <section className="m-4">
-      <div className="mb-5 rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-        <h2>Review project</h2>
-        <p className="steps-text mt-1">
-          Confirm the event, people, equipment, and commercial plan before
-          saving.
-        </p>
-      </div>
+      <ProjectStepHeader
+        eyebrow="Step 5 of 5"
+        title="Review project"
+        description="Confirm the event, people, equipment, and commercial plan before saving."
+        icon={CalendarDays}
+      />
 
       <div className="grid grid-cols-1 gap-4">
         <ReviewCard icon={MapPin} title="Event basics" tone="orange">
@@ -91,17 +89,19 @@ export default function StepFive({ formData }) {
         <ReviewCard icon={UsersRound} title="Partners">
           <ReviewRow
             label="Event organizer"
-            value={formData.event_organizer?.name || formData.contractor_name}
+            value={
+              formData.event_organizer?.name ||
+              formData.event_organizer?.full_name ||
+              formData.event_organizer_id
+            }
           />
-          <ReviewRow label="Company" value={formData.company_name} />
-          <ReviewRow label="Address" value={formData.contractor_address} />
-          <div className="grid grid-cols-2 gap-2">
-            <ReviewRow label="Email" value={formData.email} />
-            <ReviewRow label="Mobile" value={formData.mobile} />
-          </div>
           <ReviewRow
             label="Fuel supplier"
-            value={formData.fuel_supplier?.name || formData.fuel_suppliers_id}
+            value={
+              formData.fuel_supplier?.name ||
+              formData.fuel_supplier?.full_name ||
+              formData.fuel_suppliers_id
+            }
           />
         </ReviewCard>
 
@@ -123,14 +123,14 @@ export default function StepFive({ formData }) {
           <div className="rounded-[18px] bg-[#f5fbff] p-3">
             <p className="steps-text">Generators and tanks</p>
             {generators.length === 0 ? (
-              <p className="mt-1 text-sm font-semibold text-[var(--primary-black)]">
+              <p className="mt-1 text-sm font-semibold text-gray-900">
                 No generators assigned
               </p>
             ) : (
               <div className="mt-2 grid grid-cols-1 gap-2">
                 {generators.map((gen) => (
                   <div key={gen.id}>
-                    <p className="text-sm font-semibold text-[var(--primary-black)]">
+                    <p className="text-sm font-semibold text-gray-900">
                       {gen.name}
                     </p>
                     <p className="steps-text">
@@ -185,20 +185,16 @@ export default function StepFive({ formData }) {
         </ReviewCard>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-[22px] border border-[#d5eefc] bg-[#eef4fb] p-4">
+          <div className="rounded-2xl border border-[#d5eefc] bg-[#eef4fb] p-4 shadow-sm">
             <CalendarDays className="mb-3 text-[#62748e]" size={20} />
-            <p className="text-sm font-semibold text-[var(--primary-black)]">
-              Ready for dispatch
-            </p>
+            <h3>Ready for dispatch</h3>
             <p className="steps-text mt-1">
               Dates, team, and fleet are checked.
             </p>
           </div>
-          <div className="rounded-[22px] border border-[#d7edce] bg-[#f3fbef] p-4">
+          <div className="rounded-2xl border border-[#d7edce] bg-[#f3fbef] p-4 shadow-sm">
             <CircleDollarSign className="mb-3 text-[#2f8f5b]" size={20} />
-            <p className="text-sm font-semibold text-[var(--primary-black)]">
-              Margin planned
-            </p>
+            <h3>Margin planned</h3>
             <p className="steps-text mt-1">Pricing can feed the dashboard.</p>
           </div>
         </div>

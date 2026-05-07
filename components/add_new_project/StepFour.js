@@ -3,6 +3,7 @@
 import CurrencyInput from 'react-currency-input-field';
 import { BadgeCent, CircleDollarSign, Fuel, Lightbulb } from 'lucide-react';
 import { getExpectedEarnings, getMargin } from './projectForm';
+import { ProjectFieldCard, ProjectNoteCard, ProjectStepHeader } from './ProjectUi';
 
 function FieldError({ message }) {
   if (!message) return null;
@@ -46,71 +47,73 @@ export default function StepFour({ formData, setFormData, errors = {} }) {
 
   return (
     <section className="m-4">
-      <div className="mb-5 rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-        <div className="flex items-start gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#fff7e6] text-[#f25822] ring-1 ring-[#fee39f]">
-            <CircleDollarSign size={22} strokeWidth={2.3} />
-          </span>
-          <div>
-            <h2>Fuel plan</h2>
-            <p className="steps-text mt-1">
-              Set the expected litres and margin that power the project
-              dashboard.
-            </p>
-          </div>
-        </div>
-      </div>
+      <ProjectStepHeader
+        eyebrow="Step 4 of 5"
+        title="Fuel plan"
+        description="Set the expected litres and margin that power the project dashboard."
+        icon={CircleDollarSign}
+      />
 
       <div className="grid grid-cols-1 gap-4">
-        <label>
-          Expected litres
-          <CurrencyInput
-            id="expected_liters"
-            name="expected_liters"
-            placeholder="Expected fuel volume"
-            decimalsLimit={2}
-            suffix=" L"
-            value={formData.expected_liters}
-            onValueChange={(value) => handleChange(value, 'expected_liters')}
-            className="border rounded p-2 w-full"
-          />
-          <FieldError message={errors.expected_liters} />
-        </label>
+        <ProjectFieldCard
+          icon={Fuel}
+          title="Volume and pricing"
+          description="Enter the expected litres and commercial prices."
+          tone="amber"
+        >
+          <div className="grid grid-cols-1 gap-4">
+            <label>
+              Expected litres
+              <CurrencyInput
+                id="expected_liters"
+                name="expected_liters"
+                placeholder="Expected fuel volume"
+                decimalsLimit={2}
+                suffix=" L"
+                value={formData.expected_liters}
+                onValueChange={(value) =>
+                  handleChange(value, 'expected_liters')
+                }
+              />
+              <FieldError message={errors.expected_liters} />
+            </label>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label>
-            Purchase price
-            <CurrencyInput
-              id="amount"
-              name="amount"
-              placeholder="Supplier price"
-              decimalsLimit={2}
-              prefix="SAR "
-              value={formData.amount}
-              onValueChange={(value) => handleChange(value, 'amount')}
-              className="border rounded p-2 w-full"
-            />
-            <FieldError message={errors.amount} />
-          </label>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label>
+                Purchase price
+                <CurrencyInput
+                  id="amount"
+                  name="amount"
+                  placeholder="Supplier price"
+                  decimalsLimit={2}
+                  prefix="SAR "
+                  value={formData.amount}
+                  onValueChange={(value) => handleChange(value, 'amount')}
+                />
+                <FieldError message={errors.amount} />
+              </label>
 
-          <label>
-            Selling price
-            <CurrencyInput
-              id="selling_price"
-              name="selling_price"
-              placeholder="Customer price"
-              decimalsLimit={2}
-              prefix="SAR "
-              value={formData.selling_price}
-              onValueChange={(value) => handleChange(value, 'selling_price')}
-              className="border rounded p-2 w-full"
-            />
-            <FieldError message={errors.selling_price} />
-          </label>
-        </div>
+              <label>
+                Selling price
+                <CurrencyInput
+                  id="selling_price"
+                  name="selling_price"
+                  placeholder="Customer price"
+                  decimalsLimit={2}
+                  prefix="SAR "
+                  value={formData.selling_price}
+                  onValueChange={(value) =>
+                    handleChange(value, 'selling_price')
+                  }
+                />
+                <FieldError message={errors.selling_price} />
+              </label>
+            </div>
+          </div>
+        </ProjectFieldCard>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-[22px] border border-[#e8edf3] bg-white/85 p-4">
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
             <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
               <BadgeCent size={19} strokeWidth={2.3} />
             </span>
@@ -120,7 +123,7 @@ export default function StepFour({ formData, setFormData, errors = {} }) {
             <p className="steps-text mt-1">Margin per litre</p>
           </div>
 
-          <div className="rounded-[22px] border border-[#d7edce] bg-[#f3fbef] p-4">
+          <div className="rounded-2xl border border-[#d7edce] bg-[#f3fbef] p-4 shadow-sm">
             <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#2f8f5b] ring-1 ring-[#d7edce]">
               <Fuel size={19} strokeWidth={2.3} />
             </span>
@@ -131,46 +134,47 @@ export default function StepFour({ formData, setFormData, errors = {} }) {
           </div>
         </div>
 
-        <label>
-          Project specification
-          <textarea
-            name="specification"
-            value={formData.specification}
-            onChange={(event) =>
-              handleChange(event.target.value, event.target.name)
-            }
-            placeholder="Fuel scope, event requirements, billing notes"
-            className="min-h-24 w-full rounded-[10px] border border-[var(--primary-gray-light)] bg-white p-3 text-base text-[var(--slate-dark)]"
-          />
-          <FieldError message={errors.specification} />
-        </label>
+        <ProjectFieldCard
+          icon={Lightbulb}
+          title="Operational notes"
+          description="Capture requirements that affect dispatch and billing."
+        >
+          <div className="grid grid-cols-1 gap-4">
+            <label>
+              Project specification
+              <textarea
+                name="specification"
+                value={formData.specification}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.name)
+                }
+                placeholder="Fuel scope, event requirements, billing notes"
+                className="min-h-24 w-full rounded-[10px] border border-[var(--primary-gray-light)] bg-white p-3 text-base text-[var(--slate-dark)]"
+              />
+              <FieldError message={errors.specification} />
+            </label>
 
-        <label>
-          Additional note
-          <textarea
-            name="additional"
-            value={formData.additional}
-            onChange={(event) =>
-              handleChange(event.target.value, event.target.name)
-            }
-            placeholder="Gate access, delivery windows, site rules, supplier constraints"
-            className="min-h-28 w-full rounded-[10px] border border-[var(--primary-gray-light)] bg-white p-3 text-base text-[var(--slate-dark)]"
-          />
-          <FieldError message={errors.additional} />
-        </label>
-
-        <div className="rounded-[22px] border border-[#fee39f] bg-[#fff7e6] p-4">
-          <div className="flex items-start gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#f25822] ring-1 ring-[#fee39f]">
-              <Lightbulb size={19} strokeWidth={2.3} />
-            </span>
-            <p className="steps-text">
-              A positive margin and expected litres are required because the
-              project dashboard calculates expected earnings, savings, and
-              pricing opportunities from these fields.
-            </p>
+            <label>
+              Additional note
+              <textarea
+                name="additional"
+                value={formData.additional}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.name)
+                }
+                placeholder="Gate access, delivery windows, site rules, supplier constraints"
+                className="min-h-28 w-full rounded-[10px] border border-[var(--primary-gray-light)] bg-white p-3 text-base text-[var(--slate-dark)]"
+              />
+              <FieldError message={errors.additional} />
+            </label>
           </div>
-        </div>
+        </ProjectFieldCard>
+
+        <ProjectNoteCard icon={Lightbulb} title="Pricing feeds reporting">
+          A positive margin and expected litres are required because the project
+          dashboard calculates expected earnings, savings, and pricing
+          opportunities from these fields.
+        </ProjectNoteCard>
       </div>
     </section>
   );

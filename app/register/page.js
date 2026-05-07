@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-  AlertTriangle,
   BriefcaseBusiness,
   CheckCircle2,
+  Eye,
+  EyeOff,
   Mail,
   MapPin,
   Phone,
@@ -15,6 +16,10 @@ import {
   UsersRound,
   Wrench,
 } from 'lucide-react';
+import {
+  TransactionFieldCard,
+  TransactionValidationMessage,
+} from '@/components/fuel-transaction/TransactionUi';
 
 const ROLE_OPTIONS = [
   {
@@ -96,9 +101,92 @@ function validateUserForm(formData) {
   return errors;
 }
 
-function FieldError({ message }) {
+function FieldError({ id, message }) {
   if (!message) return null;
-  return <p className="mt-1 text-xs font-semibold text-[#b7791f]">{message}</p>;
+  return (
+    <p id={id} className="mt-1.5 text-xs font-semibold text-[#b45309]">
+      {message}
+    </p>
+  );
+}
+
+function TextField({
+  id,
+  label,
+  icon: Icon,
+  error,
+  className = '',
+  ...inputProps
+}) {
+  const errorId = `${id}-error`;
+
+  return (
+    <label htmlFor={id} className={`block ${className}`}>
+      <span className="mb-1.5 flex items-center gap-2 !text-[var(--slate-dark)]">
+        {Icon && <Icon size={16} strokeWidth={2.2} />}
+        {label}
+      </span>
+      <input
+        id={id}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        className={`h-12 rounded-2xl border bg-white px-3.5 text-base text-[#171e2c] outline-none transition placeholder:text-[#9aa7b5] focus:border-[#7291a4] focus:ring-4 focus:ring-[#d5eefc]/60 ${
+          error ? 'border-[#f6d78c] bg-[#fffaf0]' : 'border-[#e2e8f0]'
+        }`}
+        {...inputProps}
+      />
+      <FieldError id={errorId} message={error} />
+    </label>
+  );
+}
+
+function PasswordField({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  visible,
+  onToggleVisible,
+  placeholder,
+}) {
+  const errorId = `${id}-error`;
+  const ToggleIcon = visible ? EyeOff : Eye;
+
+  return (
+    <label htmlFor={id} className="block">
+      <span className="mb-1.5 block !text-[var(--slate-dark)]">
+        {label}
+      </span>
+      <span
+        className={`flex h-12 items-center rounded-2xl border bg-white pr-1.5 transition focus-within:border-[#7291a4] focus-within:ring-4 focus-within:ring-[#d5eefc]/60 ${
+          error ? 'border-[#f6d78c] bg-[#fffaf0]' : 'border-[#e2e8f0]'
+        }`}
+      >
+        <input
+          id={id}
+          name={id}
+          type={visible ? 'text' : 'password'}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          autoComplete="new-password"
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
+          className="h-full min-w-0 flex-1 border-0 bg-transparent px-3.5 text-base text-[#171e2c] outline-none placeholder:text-[#9aa7b5] focus:ring-0"
+        />
+        <button
+          type="button"
+          onClick={onToggleVisible}
+          aria-label={visible ? 'Hide password' : 'Show password'}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#62748e] transition active:scale-95 active:bg-[#eef4fb]"
+        >
+          <ToggleIcon size={18} strokeWidth={2.2} />
+        </button>
+      </span>
+      <FieldError id={errorId} message={error} />
+    </label>
+  );
 }
 
 function RoleCard({ option, selected, onSelect }) {
@@ -108,10 +196,10 @@ function RoleCard({ option, selected, onSelect }) {
     <button
       type="button"
       onClick={() => onSelect(option.value)}
-      className={`flex w-full items-start gap-3 rounded-[22px] border p-4 text-left transition active:scale-[0.98] ${
+      className={`flex min-h-[92px] w-full items-start gap-3 rounded-[22px] border p-4 text-left transition active:scale-[0.98] ${
         selected
-          ? 'border-[#fee39f] bg-[#fff7e6] ring-1 ring-[#fee39f]'
-          : 'border-[#e8edf3] bg-white/85 active:bg-[#eef4fb]'
+          ? 'border-[#f6d78c] bg-[#fff7e6] ring-1 ring-[#f6d78c]'
+          : 'border-[#e2e8f0] bg-white active:border-[#d5eefc] active:bg-[#eef4fb]'
       }`}
       aria-pressed={selected}
     >
@@ -125,10 +213,12 @@ function RoleCard({ option, selected, onSelect }) {
         <Icon size={20} strokeWidth={2.3} />
       </span>
       <span className="min-w-0">
-        <span className="block text-sm font-semibold text-[var(--primary-black)]">
+        <span className="block text-base font-semibold text-gray-900">
           {option.label}
         </span>
-        <span className="steps-text mt-1 block">{option.description}</span>
+        <span className="steps-text mt-1 block leading-5">
+          {option.description}
+        </span>
       </span>
     </button>
   );
@@ -140,6 +230,8 @@ export default function CreateUserPage() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -229,137 +321,114 @@ export default function CreateUserPage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-[640px] px-3 py-4">
-      <div className="mb-3 px-1">
-        <p className="page-kicker">User management</p>
+    <div className="main-container">
+      <div className="form-header mt-4">
+        <h1 className="ml-2">User management</h1>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="background-container">
-          <section className="relative mb-4 overflow-hidden rounded-[28px] border border-[#f6d78c] bg-gradient-to-br from-white via-[#fff8ea] to-[#fee39f] p-5 shadow-[0_12px_30px_rgba(98,116,142,0.16)]">
-            <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-white/45" />
-            <div className="relative flex items-start gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#f25822] ring-1 ring-[#fee39f]">
-                <UserRound size={24} strokeWidth={2.4} />
-              </span>
-              <div>
-                <p className="steps-text uppercase tracking-[0.18em]">
-                  Create account
-                </p>
-                <h2 className="mt-1">Add new user</h2>
-                <p className="steps-text mt-1">
-                  Create a secure profile and assign the right operational role.
-                </p>
-              </div>
-            </div>
-          </section>
+      <form className="form-transaction" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <h2>Add new user</h2>
+          <p className="steps-text mt-1">
+            Create a profile, assign access, and set a temporary password.
+          </p>
+        </div>
 
-          {feedback.message && (
+        {feedback.message &&
+          (feedback.type === 'success' ? (
             <div
-              className={`mb-4 rounded-[22px] border p-4 text-sm ${
-                feedback.type === 'success'
-                  ? 'border-[#d7edce] bg-[#f3fbef] text-[#2f8f5b]'
-                  : 'border-[#fee39f] bg-[#fff7e6] text-[#9a5f12]'
-              }`}
+              className="mb-4 rounded-xl border border-[#d7edce] bg-[#f3fbef] p-3 text-sm font-medium text-[#2f8f5b]"
+              role="status"
             >
               <div className="flex items-start gap-3">
-                {feedback.type === 'success' ? (
-                  <CheckCircle2 size={20} />
-                ) : (
-                  <AlertTriangle size={20} />
-                )}
+                <CheckCircle2 size={20} />
                 <p>{feedback.message}</p>
               </div>
             </div>
-          )}
+          ) : feedback.type === 'warning' ? (
+            <TransactionValidationMessage>
+              {feedback.message}
+            </TransactionValidationMessage>
+          ) : (
+            <p
+              className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-700"
+              role="alert"
+            >
+              {feedback.message}
+            </p>
+          ))}
 
-          <section className="mb-5">
-            <div className="mb-3">
-              <h2>Profile details</h2>
-              <p className="steps-text mt-1">
-                These details are saved to the user profile.
-              </p>
-            </div>
-
+        <div className="space-y-4">
+          <TransactionFieldCard
+            icon={UserRound}
+            title="Profile details"
+            description="These details are saved to the user profile."
+          >
             <div className="grid grid-cols-1 gap-4">
-              <label htmlFor="full_name">
-                Full name
-                <input
-                  id="full_name"
-                  type="text"
-                  name="full_name"
-                  placeholder="Full name"
-                  value={formData.full_name}
-                  onChange={handleChange}
-                  autoComplete="name"
-                />
-                <FieldError message={errors.full_name} />
-              </label>
+              <TextField
+                id="full_name"
+                type="text"
+                name="full_name"
+                label="Full name"
+                icon={UserRound}
+                placeholder="Full name"
+                value={formData.full_name}
+                onChange={handleChange}
+                autoComplete="name"
+                error={errors.full_name}
+              />
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <label htmlFor="phone">
-                  <span className="flex items-center gap-2">
-                    <Phone size={16} />
-                    Phone
-                  </span>
-                  <input
-                    id="phone"
-                    type="tel"
-                    name="phone"
-                    placeholder="+966..."
-                    value={formData.phone}
-                    onChange={handleChange}
-                    autoComplete="tel"
-                  />
-                  <FieldError message={errors.phone} />
-                </label>
+                <TextField
+                  id="phone"
+                  type="tel"
+                  name="phone"
+                  label="Phone"
+                  icon={Phone}
+                  placeholder="+966..."
+                  value={formData.phone}
+                  onChange={handleChange}
+                  autoComplete="tel"
+                  error={errors.phone}
+                />
 
-                <label htmlFor="email">
-                  <span className="flex items-center gap-2">
-                    <Mail size={16} />
-                    Email
-                  </span>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="name@example.com"
-                    autoComplete="email"
-                  />
-                  <FieldError message={errors.email} />
-                </label>
+                <TextField
+                  id="email"
+                  name="email"
+                  type="email"
+                  label="Email"
+                  icon={Mail}
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="name@example.com"
+                  autoComplete="email"
+                  error={errors.email}
+                />
               </div>
 
-              <label htmlFor="address">
-                <span className="flex items-center gap-2">
-                  <MapPin size={16} />
-                  Address
-                </span>
-                <input
-                  id="address"
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  autoComplete="street-address"
-                />
-                <FieldError message={errors.address} />
-              </label>
+              <TextField
+                id="address"
+                type="text"
+                name="address"
+                label="Address"
+                icon={MapPin}
+                placeholder="Address"
+                value={formData.address}
+                onChange={handleChange}
+                autoComplete="street-address"
+                error={errors.address}
+              />
             </div>
-          </section>
+          </TransactionFieldCard>
 
-          <section className="mb-5">
-            <div className="mb-3">
-              <h2>Role</h2>
-              <p className="steps-text mt-1">
-                {selectedRole?.description || 'Select what this user can do.'}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3">
+          <TransactionFieldCard
+            icon={ShieldCheck}
+            title="Role"
+            description={
+              selectedRole?.description || 'Select what this user can do.'
+            }
+          >
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {ROLE_OPTIONS.map((option) => (
                 <RoleCard
                   key={option.value}
@@ -369,50 +438,55 @@ export default function CreateUserPage() {
                 />
               ))}
             </div>
-            <FieldError message={errors.role} />
-          </section>
+            <FieldError id="role-error" message={errors.role} />
+          </TransactionFieldCard>
 
-          <section className="mb-5">
-            <div className="mb-3">
-              <h2>Temporary password</h2>
-              <p className="steps-text mt-1">
-                Give the user a temporary password they can use for first sign
-                in.
-              </p>
+          <TransactionFieldCard
+            icon={Eye}
+            title="Temporary password"
+            description="Give the user a temporary password they can use for first sign in."
+          >
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <PasswordField
+                id="password"
+                label="Temporary password"
+                value={formData.password}
+                onChange={handleChange}
+                error={errors.password}
+                visible={showPassword}
+                onToggleVisible={() => setShowPassword((current) => !current)}
+                placeholder="At least 8 characters"
+              />
+
+              <PasswordField
+                id="confirmPassword"
+                label="Confirm password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                error={errors.confirmPassword}
+                visible={showConfirmPassword}
+                onToggleVisible={() =>
+                  setShowConfirmPassword((current) => !current)
+                }
+                placeholder="Repeat password"
+              />
             </div>
+          </TransactionFieldCard>
+        </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              <label htmlFor="password">
-                Temporary password
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="At least 8 characters"
-                  autoComplete="new-password"
-                />
-                <FieldError message={errors.password} />
-              </label>
-
-              <label htmlFor="confirmPassword">
-                Confirm password
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Repeat password"
-                  autoComplete="new-password"
-                />
-                <FieldError message={errors.confirmPassword} />
-              </label>
-            </div>
-          </section>
-
-          <button type="submit" disabled={loading} className="button-big">
+        <div className="mt-5 flex items-center justify-between gap-3 border-t border-gray-100 pt-4">
+          <button
+            type="button"
+            disabled
+            className="flex h-12 flex-1 items-center justify-center rounded-2xl border border-gray-100 bg-white px-4 text-sm font-semibold text-gray-800 shadow-sm transition disabled:opacity-40"
+          >
+            Back
+          </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex h-12 flex-1 items-center justify-center rounded-2xl border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98] active:bg-[#dbeaf5] disabled:opacity-50"
+          >
             {loading ? 'Creating account...' : 'Create user'}
           </button>
         </div>

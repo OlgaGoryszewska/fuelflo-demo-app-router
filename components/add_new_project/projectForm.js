@@ -34,7 +34,7 @@ export const PROJECT_STEPS = [
   },
   {
     title: 'Partners',
-    description: 'Connect the organizer and fuel supplier details.',
+    description: 'Connect the organizer and fuel supplier records.',
   },
   {
     title: 'Team and fleet',
@@ -52,15 +52,7 @@ export const PROJECT_STEPS = [
 
 export const PROJECT_STEP_FIELDS = [
   ['name', 'location', 'start_date', 'end_date'],
-  [
-    'event_organizer_id',
-    'contractor_name',
-    'company_name',
-    'contractor_address',
-    'email',
-    'mobile',
-    'fuel_suppliers_id',
-  ],
+  ['event_organizer_id', 'fuel_suppliers_id'],
   ['manager_id', 'technician_ids', 'generators'],
   ['amount', 'selling_price', 'expected_liters', 'specification', 'additional'],
   [],
@@ -103,7 +95,6 @@ export function getExpectedEarnings(formData) {
 
 export function validateProjectStep(formData, stepIndex) {
   const errors = {};
-  const email = trimValue(formData.email);
   const purchasePrice = parsePositiveNumber(formData.amount);
   const sellingPrice = parsePositiveNumber(formData.selling_price);
   const expectedLitres = parsePositiveNumber(formData.expected_liters);
@@ -128,22 +119,6 @@ export function validateProjectStep(formData, stepIndex) {
     if (!formData.event_organizer_id) {
       errors.event_organizer_id = 'Event organizer is required.';
     }
-    if (!trimValue(formData.contractor_name)) {
-      errors.contractor_name = 'Organizer contact name is required.';
-    }
-    if (!trimValue(formData.company_name)) {
-      errors.company_name = 'Company name is required.';
-    }
-    if (!trimValue(formData.contractor_address)) {
-      errors.contractor_address = 'Organizer address is required.';
-    }
-    if (!email) {
-      errors.email = 'Email is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = 'Enter a valid email address.';
-    }
-    if (!trimValue(formData.mobile))
-      errors.mobile = 'Mobile number is required.';
     if (!formData.fuel_suppliers_id) {
       errors.fuel_suppliers_id = 'Fuel supplier is required.';
     }

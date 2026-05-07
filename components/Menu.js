@@ -69,6 +69,7 @@ const roleMenus = {
       icon: Plus,
     },
     { href: '/resources/projects', label: 'Projects', icon: FolderKanban },
+    { href: '/resources/fuel-transactions', label: 'Deliveries', icon: Fuel },
     { href: '/register', label: 'Register user', icon: UserPlus },
     { href: '/resources/profile', label: 'Profile', icon: User },
   ],
@@ -78,7 +79,7 @@ const roleMenus = {
       label: 'Dashboard',
       icon: LayoutDashboard,
     },
-    { href: '/deliveries', label: 'Deliveries', icon: Fuel },
+    { href: '/resources/fuel-transactions/[id]/page.js', label: 'Deliveries', icon: Fuel },
     { href: '/resources/profile', label: 'Profile', icon: User },
   ],
 };

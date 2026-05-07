@@ -5,6 +5,7 @@ import GeneratorDropdown from './GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 import ManagerDropdown from '@/components/dropdowns/ManagerDropdown';
+import { ProjectFieldCard, ProjectStepHeader } from './ProjectUi';
 
 function FieldError({ message }) {
   if (!message) return null;
@@ -170,50 +171,31 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
 
   return (
     <section className="m-4">
-      <div className="mb-5 rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-        <div className="flex items-start gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
-            <UsersRound size={22} strokeWidth={2.3} />
-          </span>
-          <div>
-            <h2>Team and fleet</h2>
-            <p className="steps-text mt-1">
-              Assign field ownership and connect every generator to an external
-              tank.
-            </p>
-          </div>
-        </div>
-      </div>
+      <ProjectStepHeader
+        eyebrow="Step 3 of 5"
+        title="Team and fleet"
+        description="Assign field ownership and connect every generator to an external tank."
+        icon={UsersRound}
+      />
 
       <div className="grid grid-cols-1 gap-5">
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-          <div className="mb-3 flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
-              <UserRound size={20} strokeWidth={2.2} />
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-[var(--primary-black)]">
-                Manager
-              </p>
-              <p className="steps-text">Required for project responsibility.</p>
-            </div>
-          </div>
-
+        <ProjectFieldCard
+          icon={UserRound}
+          title="Manager"
+          description="Required for project responsibility."
+        >
           <ManagerDropdown
             value={formData.manager_id || formData.manager?.id || ''}
             onChange={handleManagerSelect}
           />
           <FieldError message={errors.manager_id} />
-        </div>
+        </ProjectFieldCard>
 
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-          <p className="text-sm font-semibold text-[var(--primary-black)]">
-            Technicians
-          </p>
-          <p className="steps-text mt-1">
-            At least one technician is required.
-          </p>
-
+        <ProjectFieldCard
+          icon={UsersRound}
+          title="Technicians"
+          description="At least one technician is required."
+        >
           <div className="mt-3 flex items-start gap-2">
             <TechniciansDropdown
               value={formData.selectedTechnician?.id || ''}
@@ -234,7 +216,7 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
                   key={tech.id}
                   className="flex items-center justify-between gap-3 rounded-[18px] border border-[#e8edf3] bg-[#f5fbff] p-3"
                 >
-                  <p className="truncate text-sm font-semibold text-[var(--primary-black)]">
+                  <p className="truncate text-sm font-semibold text-gray-900">
                     {tech.name || tech.full_name}
                   </p>
                   <IconButton
@@ -247,23 +229,14 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
               ))
             )}
           </div>
-        </div>
+        </ProjectFieldCard>
 
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-          <div className="mb-3 flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff7e6] text-[#f25822] ring-1 ring-[#fee39f]">
-              <Zap size={20} strokeWidth={2.2} />
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-[var(--primary-black)]">
-                Generators and tanks
-              </p>
-              <p className="steps-text">
-                Add at least one generator and one tank for each generator.
-              </p>
-            </div>
-          </div>
-
+        <ProjectFieldCard
+          icon={Zap}
+          title="Generators and tanks"
+          description="Add at least one generator and one tank for each generator."
+          tone="amber"
+        >
           <div className="flex items-start gap-2">
             <GeneratorDropdown
               value={formData.selectedGenerator?.id || ''}
@@ -285,7 +258,7 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
                   className="rounded-[22px] border border-[#d5eefc] bg-[#f5fbff] p-3"
                 >
                   <div className="mb-3 flex items-center justify-between gap-3">
-                    <p className="truncate text-sm font-semibold text-[var(--primary-black)]">
+                    <p className="truncate text-sm font-semibold text-gray-900">
                       {gen.name}
                     </p>
                     <IconButton
@@ -334,7 +307,7 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
               ))
             )}
           </div>
-        </div>
+        </ProjectFieldCard>
       </div>
     </section>
   );

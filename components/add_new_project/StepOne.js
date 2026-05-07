@@ -1,6 +1,7 @@
 'use client';
 
 import { CalendarDays, MapPin, ToggleLeft } from 'lucide-react';
+import { ProjectFieldCard, ProjectStepHeader } from './ProjectUi';
 
 function FieldError({ message }) {
   if (!message) return null;
@@ -18,90 +19,97 @@ export default function StepOne({ formData, setFormData, errors = {} }) {
 
   return (
     <section className="m-4">
-      <div className="mb-5 rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
-        <div className="flex items-start gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#fff7e6] text-[#f25822] ring-1 ring-[#fee39f]">
-            <MapPin size={22} strokeWidth={2.3} />
-          </span>
-          <div>
-            <h2>Event basics</h2>
-            <p className="steps-text mt-1">
-              Create the project identity and confirm where the fuel operation
-              will happen.
-            </p>
-          </div>
-        </div>
-      </div>
+      <ProjectStepHeader
+        eyebrow="Step 1 of 5"
+        title="Event basics"
+        description="Create the project identity and confirm where the fuel operation will happen."
+        icon={MapPin}
+      />
 
       <div className="grid grid-cols-1 gap-4">
-        <label>
-          Project name
-          <input
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Event or project name"
-            autoComplete="organization"
-          />
-          <FieldError message={errors.name} />
-        </label>
+        <ProjectFieldCard
+          icon={MapPin}
+          title="Project identity"
+          description="Name the project and set the site location."
+          tone="amber"
+        >
+          <div className="grid grid-cols-1 gap-4">
+            <label>
+              Project name
+              <input
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Event or project name"
+                autoComplete="organization"
+              />
+              <FieldError message={errors.name} />
+            </label>
 
-        <label>
-          Location
-          <input
-            name="location"
-            type="text"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Venue, address, city"
-            autoComplete="street-address"
-          />
-          <FieldError message={errors.location} />
-        </label>
+            <label>
+              Location
+              <input
+                name="location"
+                type="text"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Venue, address, city"
+                autoComplete="street-address"
+              />
+              <FieldError message={errors.location} />
+            </label>
+          </div>
+        </ProjectFieldCard>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label>
-            <span className="flex items-center gap-2">
-              <CalendarDays size={16} />
-              Start date
-            </span>
-            <input
-              type="date"
-              name="start_date"
-              value={formData.start_date}
-              onChange={handleChange}
-              className="h-[46.8px]"
-            />
-            <FieldError message={errors.start_date} />
-          </label>
+        <ProjectFieldCard
+          icon={CalendarDays}
+          title="Schedule"
+          description="Confirm the active project dates."
+        >
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <label>
+              <span className="flex items-center gap-2">
+                <CalendarDays size={16} />
+                Start date
+              </span>
+              <input
+                type="date"
+                name="start_date"
+                value={formData.start_date}
+                onChange={handleChange}
+                className="h-[46.8px]"
+              />
+              <FieldError message={errors.start_date} />
+            </label>
 
-          <label>
-            <span className="flex items-center gap-2">
-              <CalendarDays size={16} />
-              End date
-            </span>
-            <input
-              type="date"
-              name="end_date"
-              value={formData.end_date}
-              onChange={handleChange}
-              className="h-[46.8px]"
-            />
-            <FieldError message={errors.end_date} />
-          </label>
-        </div>
+            <label>
+              <span className="flex items-center gap-2">
+                <CalendarDays size={16} />
+                End date
+              </span>
+              <input
+                type="date"
+                name="end_date"
+                value={formData.end_date}
+                onChange={handleChange}
+                className="h-[46.8px]"
+              />
+              <FieldError message={errors.end_date} />
+            </label>
+          </div>
+        </ProjectFieldCard>
 
-        <div className="rounded-[22px] border border-[#e8edf3] bg-white/85 p-4">
+        <ProjectFieldCard>
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
                 <ToggleLeft size={20} strokeWidth={2.3} />
               </span>
               <div>
-                <p className="text-sm font-semibold text-[var(--primary-black)]">
+                <h3 className="text-base font-semibold text-gray-900">
                   Project status
-                </p>
+                </h3>
                 <p className="steps-text">
                   {formData.active ? 'Active and visible' : 'Inactive project'}
                 </p>
@@ -126,7 +134,7 @@ export default function StepOne({ formData, setFormData, errors = {} }) {
               />
             </button>
           </div>
-        </div>
+        </ProjectFieldCard>
       </div>
     </section>
   );

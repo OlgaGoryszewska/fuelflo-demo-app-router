@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
 export default function TechniciansDropdown({ value, onChange }) {
@@ -24,38 +25,40 @@ export default function TechniciansDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <div className="w-full">
-      <label className="flex flex-col w-full">
-        <select
-          className="pr-4 mr-4 w-full b-white h-[40px]"
-          value={value}
-          onChange={(e) => {
-            const selectedId = e.target.value;
+    <div className="relative w-full">
+      <select
+        className="h-12 w-full appearance-none pr-11"
+        value={value || ''}
+        onChange={(e) => {
+          const selectedId = e.target.value;
 
-            if (!selectedId) {
-              onChange(null);
-              return;
-            }
+          if (!selectedId) {
+            onChange(null);
+            return;
+          }
 
-            const selectedTechnician = technicians.find(
-              (t) => String(t.id) === selectedId
-            );
+          const selectedTechnician = technicians.find(
+            (t) => String(t.id) === selectedId
+          );
 
-            onChange({
-              id: selectedTechnician?.id,
-              name: selectedTechnician?.full_name,
-            });
-          }}
-        >
-          <option value=""></option>
+          onChange({
+            id: selectedTechnician?.id,
+            name: selectedTechnician?.full_name,
+          });
+        }}
+      >
+        <option value="">Select technician</option>
 
-          {technicians.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.full_name}
-            </option>
-          ))}
-        </select>
-      </label>
+        {technicians.map((t) => (
+          <option key={t.id} value={t.id}>
+            {t.full_name}
+          </option>
+        ))}
+      </select>
+      <ChevronDown
+        aria-hidden="true"
+        className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#717887]"
+      />
     </div>
   );
 }
