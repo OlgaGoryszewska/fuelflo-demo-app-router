@@ -20,6 +20,7 @@ import {
   Truck,
   User,
   UserPlus,
+  UsersRound,
   X,
   Zap,
 } from 'lucide-react';
@@ -190,11 +191,40 @@ const roleMenus = {
             description: 'Storage equipment',
             icon: Truck,
           },
+        ],
+      },
+      {
+        title: 'People & partners',
+        items: [
+          {
+            href: '/resources/manager',
+            label: 'Managers',
+            description: 'Operations leads',
+            icon: User,
+          },
           {
             href: '/resources/technician',
             label: 'Technicians',
             description: 'Assigned field users',
             icon: ShieldCheck,
+          },
+          {
+            href: '/resources/hire-desk',
+            label: 'Hire desk',
+            description: 'Project setup team',
+            icon: UserPlus,
+          },
+          {
+            href: '/resources/event_organizers',
+            label: 'Event organizers',
+            description: 'Customer contacts',
+            icon: UsersRound,
+          },
+          {
+            href: '/resources/fuel_suppliers',
+            label: 'Fuel suppliers',
+            description: 'Supplier contacts',
+            icon: Truck,
           },
         ],
       },
@@ -311,6 +341,41 @@ const roleMenus = {
             label: 'Register user',
             description: 'Create team profiles',
             icon: UserPlus,
+          },
+        ],
+      },
+      {
+        title: 'People & partners',
+        items: [
+          {
+            href: '/resources/manager',
+            label: 'Managers',
+            description: 'Operations leads',
+            icon: User,
+          },
+          {
+            href: '/resources/technician',
+            label: 'Technicians',
+            description: 'Field user profiles',
+            icon: ShieldCheck,
+          },
+          {
+            href: '/resources/hire-desk',
+            label: 'Hire desk',
+            description: 'Project setup team',
+            icon: UserPlus,
+          },
+          {
+            href: '/resources/event_organizers',
+            label: 'Event organizers',
+            description: 'Customer contacts',
+            icon: UsersRound,
+          },
+          {
+            href: '/resources/fuel_suppliers',
+            label: 'Fuel suppliers',
+            description: 'Supplier contacts',
+            icon: Truck,
           },
         ],
       },
