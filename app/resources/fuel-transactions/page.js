@@ -41,12 +41,36 @@ export default function FuelTransactionsPage() {
   }, []);
 
   return (
-    <div className="main-container">
-      <div className="generator-container mb-4">
-        <h2 className=" ">Fuel Deliveries</h2>
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {message && <p>{message}</p>}
+    <div className="mx-auto w-full max-w-[640px] px-3 py-4">
+      <div className="mb-3 px-1">
+        <p className="page-kicker">Fuel transactions</p>
+      </div>
+
+      <div className="background-container">
+        <div className="mb-4">
+          <h2>Fuel deliveries</h2>
+          <p className="steps-text mt-1">
+            Review recent fuel transaction dates and volumes.
+          </p>
+        </div>
+
+        {loading && (
+          <div className="rounded-xl border border-gray-100 bg-white p-4">
+            <p className="steps-text">Loading transactions...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+            {error}
+          </div>
+        )}
+
+        {message && !loading && !error && (
+          <div className="rounded-xl border border-gray-100 bg-white p-4">
+            <p className="steps-text">{message}</p>
+          </div>
+        )}
 
         {!loading && !error && transactions.length > 0 && (
           <FuelTransactionsList transactions={transactions} />

@@ -19,30 +19,31 @@ function FuelTransactionRow({ transaction }) {
   const sign = transaction.type === 'delivery' ? '+' : '-';
 
   return (
-    <li
-      className="file-row w-full flex items-center justify-between"
-      key={transaction.id}
-    >
+    <li className="w-full">
       <Link
-        className="steps-text"
+        className="flex items-center justify-between gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition active:scale-[0.98] active:border-[#62748e] active:bg-[#eef4fb]"
         href={`/resources/fuel-transactions/${transaction.id}`}
       >
-        {formatDate(transaction.created_at)}
+        <span className="steps-text text-gray-900">
+          {formatDate(transaction.created_at)}
+        </span>
+        <span className="text-sm font-semibold text-[#62748e]">
+          {sign} {difference.toFixed(2)} L
+        </span>
       </Link>
-      {sign} {difference.toFixed(2)} L
     </li>
   );
 }
 
 export default function FuelTransactionsList({ transactions = [] }) {
   return (
-    <div className="flex flex-col w-full">
-      <div className="pr-2 w-full flex justify-between">
-        <h4>Date</h4>
-        <h4>Vol</h4>
+    <div className="flex flex-col w-full gap-3">
+      <div className="flex items-center justify-between border-b border-gray-200 pb-3 text-sm font-semibold text-[#62748e]">
+        <span>Date</span>
+        <span>Volume</span>
       </div>
 
-      <ul className="flex flex-col w-full">
+      <ul className="flex flex-col w-full gap-1">
         {transactions.map((transaction) => (
           <FuelTransactionRow key={transaction.id} transaction={transaction} />
         ))}
