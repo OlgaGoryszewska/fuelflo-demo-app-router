@@ -9,7 +9,9 @@ import {
   Fuel,
   LayoutDashboard,
   Menu as MenuIcon,
-  Plus,  RefreshCcw,  User,
+  Plus,
+  RefreshCcw,
+  User,
   UserPlus,
   X,
 } from 'lucide-react';
@@ -209,16 +211,24 @@ export default function Menu() {
   const roleLabel = role ? roleLabels[role] : null;
 
   return (
-    <div className="menu" ref={menuRef}>
-      <nav className="flex h-14 items-center justify-between border-b border-gray-200 bg-white/75 px-3 backdrop-blur-xl">
-        <Link href={links[0]?.href || '/'} className="flex items-center gap-2">
-          <Image src={logo} alt="FuelFlo" className="h-auto w-10" />
+    <header
+      className="sticky top-0 z-[900] border-b border-white/60 bg-[#e2ecfc]/70 px-3 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] shadow-[0_8px_24px_rgba(98,116,142,0.08)] backdrop-blur-2xl supports-[backdrop-filter]:bg-[#e2ecfc]/55"
+      ref={menuRef}
+    >
+      <nav className="mx-auto flex h-14 w-full max-w-[640px] items-center justify-between">
+        <Link
+          href={links[0]?.href || '/'}
+          className="flex min-w-0 items-center gap-2 rounded-full border border-white/70 bg-white/65 px-2.5 py-1 shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-[0.98]"
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb]">
+            <Image src={logo} alt="FuelFlo" className="h-auto w-8" />
+          </span>
           <span className="leading-tight">
-            <span className="block text-sm font-semibold text-gray-900">
+            <span className="block text-sm font-semibold text-[#62748e]">
               FuelFlo
             </span>
             {roleLabel && (
-              <span className="block text-xs font-medium text-[#717887]">
+              <span className="block max-w-[120px] truncate pr-2 text-xs font-medium text-[#62748e]">
                 {roleLabel}
               </span>
             )}
@@ -230,7 +240,7 @@ export default function Menu() {
             type="button"
             onClick={refreshPage}
             aria-label="Refresh page"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90 active:bg-[#dbeaf5]"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/65 text-[#62748e] shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-90 active:bg-[#eef4fb]"
           >
             <RefreshCcw size={20} />
           </button>
@@ -240,7 +250,7 @@ export default function Menu() {
             onClick={toggleMenu}
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90 active:bg-[#dbeaf5]"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/65 text-[#62748e] shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-90 active:bg-[#eef4fb]"
           >
             {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
           </button>
@@ -248,7 +258,7 @@ export default function Menu() {
       </nav>
 
       <ul
-        className={`absolute right-3 left-3 z-[1000] mt-2 rounded-2xl border border-white/60 bg-white/95 p-2 shadow-[0_16px_40px_rgba(15,23,38,0.14)] backdrop-blur-xl ${
+        className={`absolute left-3 right-3 z-[1000] mx-auto mt-2 max-w-[640px] rounded-2xl border border-white/70 bg-white/85 p-2 shadow-[0_16px_40px_rgba(15,23,38,0.14)] backdrop-blur-2xl ${
           isOpen ? 'block' : 'hidden'
         }`}
       >
@@ -296,6 +306,6 @@ export default function Menu() {
             );
           })}
       </ul>
-    </div>
+    </header>
   );
 }
