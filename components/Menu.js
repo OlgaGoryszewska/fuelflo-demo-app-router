@@ -5,84 +5,380 @@ import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
+  Archive,
+  BarChart3,
+  Boxes,
   FolderKanban,
   Fuel,
   LayoutDashboard,
   Menu as MenuIcon,
   Plus,
   RefreshCcw,
+  RotateCcw,
+  ScrollText,
+  ShieldCheck,
+  Truck,
   User,
   UserPlus,
   X,
+  Zap,
 } from 'lucide-react';
 import logo from '@/public/flo-logo.png';
 import { supabase } from '@/lib/supabaseClient';
 
 const roleMenus = {
-  technician: [
-    {
-      href: '/operations/dashboard/technician',
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-    },
-    {
-      href: '/resources/projects/add-transaction',
-      label: 'Add transaction',
-      icon: Plus,
-    },
-    {
-      href: '/resources/fuel-transactions',
-      label: 'Fuel transactions',
-      icon: Fuel,
-    },
-    { href: '/resources/projects', label: 'Projects', icon: FolderKanban },
-    { href: '/resources/profile', label: 'Profile', icon: User },
-  ],
-  manager: [
-    {
-      href: '/operations/dashboard/manager',
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-    },
-    {
-      href: '/resources/projects/add-transaction',
-      label: 'Add transaction',
-      icon: Plus,
-    },
-    { href: '/resources/projects', label: 'Projects', icon: FolderKanban },
-    {
-      href: '/resources/fuel-transactions',
-      label: 'Fuel transactions',
-      icon: Fuel,
-    },
-    { href: '/resources/profile', label: 'Profile', icon: User },
-  ],
-  hire_desk: [
-    {
-      href: '/operations/dashboard/hire-desk',
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-    },
-    { href: '/add-forms/add-new-project', label: 'New project', icon: Plus },
-    {
-      href: '/resources/projects/add-transaction',
-      label: 'Add transaction',
-      icon: Plus,
-    },
-    { href: '/resources/projects', label: 'Projects', icon: FolderKanban },
-    { href: '/resources/fuel-transactions', label: 'Deliveries', icon: Fuel },
-    { href: '/register', label: 'Register user', icon: UserPlus },
-    { href: '/resources/profile', label: 'Profile', icon: User },
-  ],
-  fuel_supplier: [
-    {
-      href: '/dashboard/fuel-supplier',
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-    },
-    { href: '/resources/fuel-transactions/[id]/page.js', label: 'Deliveries', icon: Fuel },
-    { href: '/resources/profile', label: 'Profile', icon: User },
-  ],
+  technician: {
+    quick: [
+      {
+        href: '/resources/projects/add-transaction',
+        label: 'Add transaction',
+        description: 'Capture fuel evidence',
+        icon: Plus,
+      },
+      {
+        href: '/resources/projects',
+        label: 'Projects',
+        description: 'Assigned work',
+        icon: FolderKanban,
+      },
+    ],
+    sections: [
+      {
+        title: 'Work',
+        items: [
+          {
+            href: '/operations/dashboard/technician',
+            label: 'Dashboard',
+            description: 'Today’s field tools',
+            icon: LayoutDashboard,
+          },
+          {
+            href: '/resources/projects/add-transaction',
+            label: 'Add transaction',
+            description: 'Start delivery or return',
+            icon: Plus,
+          },
+          {
+            href: '/resources/projects',
+            label: 'Projects',
+            description: 'Open event fuel jobs',
+            icon: FolderKanban,
+          },
+        ],
+      },
+      {
+        title: 'Fuel records',
+        items: [
+          {
+            href: '/resources/fuel-transactions',
+            label: 'Deliveries',
+            description: 'Incoming fuel evidence',
+            icon: Fuel,
+          },
+          {
+            href: '/resources/fuel-transactions/returns',
+            label: 'Returns',
+            description: 'Returned fuel evidence',
+            icon: RotateCcw,
+          },
+        ],
+      },
+      {
+        title: 'Resources',
+        items: [
+          {
+            href: '/resources/generators',
+            label: 'Generators',
+            description: 'Assigned fleet records',
+            icon: Zap,
+          },
+          {
+            href: '/resources/external-tanks',
+            label: 'External tanks',
+            description: 'Fuel source records',
+            icon: Truck,
+          },
+        ],
+      },
+      {
+        title: 'Account',
+        items: [
+          {
+            href: '/resources/profile',
+            label: 'Profile',
+            description: 'Contact and assignments',
+            icon: User,
+          },
+        ],
+      },
+    ],
+  },
+  manager: {
+    quick: [
+      {
+        href: '/operations/dashboard/manager',
+        label: 'Dashboard',
+        description: 'Operations overview',
+        icon: LayoutDashboard,
+      },
+      {
+        href: '/resources/projects/add-transaction',
+        label: 'Add transaction',
+        description: 'Record fuel movement',
+        icon: Plus,
+      },
+    ],
+    sections: [
+      {
+        title: 'Work',
+        items: [
+          {
+            href: '/operations/dashboard/manager',
+            label: 'Dashboard',
+            description: 'Fuel position and actions',
+            icon: LayoutDashboard,
+          },
+          {
+            href: '/resources/projects',
+            label: 'Projects',
+            description: 'Active fuel operations',
+            icon: FolderKanban,
+          },
+          {
+            href: '/resources/projects/add-transaction',
+            label: 'Add transaction',
+            description: 'Create delivery or return',
+            icon: Plus,
+          },
+        ],
+      },
+      {
+        title: 'Fuel records',
+        items: [
+          {
+            href: '/resources/fuel-transactions',
+            label: 'Deliveries',
+            description: 'Incoming fuel proof',
+            icon: Fuel,
+          },
+          {
+            href: '/resources/fuel-transactions/returns',
+            label: 'Returns',
+            description: 'Returned fuel proof',
+            icon: RotateCcw,
+          },
+          {
+            href: '/resources/reports',
+            label: 'Reports',
+            description: 'PDFs and summaries',
+            icon: BarChart3,
+          },
+        ],
+      },
+      {
+        title: 'Resources',
+        items: [
+          {
+            href: '/resources/generators',
+            label: 'Generators',
+            description: 'Fleet equipment',
+            icon: Zap,
+          },
+          {
+            href: '/resources/external-tanks',
+            label: 'External tanks',
+            description: 'Storage equipment',
+            icon: Truck,
+          },
+          {
+            href: '/resources/technician',
+            label: 'Technicians',
+            description: 'Assigned field users',
+            icon: ShieldCheck,
+          },
+        ],
+      },
+      {
+        title: 'Account',
+        items: [
+          {
+            href: '/resources/profile',
+            label: 'Profile',
+            description: 'Contact and assignments',
+            icon: User,
+          },
+        ],
+      },
+    ],
+  },
+  hire_desk: {
+    quick: [
+      {
+        href: '/add-forms/add-new-project',
+        label: 'New project',
+        description: 'Create event job',
+        icon: Plus,
+      },
+      {
+        href: '/resources/projects',
+        label: 'Projects',
+        description: 'Manage jobs',
+        icon: FolderKanban,
+      },
+    ],
+    sections: [
+      {
+        title: 'Work',
+        items: [
+          {
+            href: '/operations/dashboard/hire-desk',
+            label: 'Dashboard',
+            description: 'Setup and dispatch tools',
+            icon: LayoutDashboard,
+          },
+          {
+            href: '/add-forms/add-new-project',
+            label: 'New project',
+            description: 'Create fuel operation',
+            icon: Plus,
+          },
+          {
+            href: '/resources/projects',
+            label: 'Projects',
+            description: 'All active jobs',
+            icon: FolderKanban,
+          },
+          {
+            href: '/resources/projects/archived',
+            label: 'Archived projects',
+            description: 'Closed job history',
+            icon: Archive,
+          },
+        ],
+      },
+      {
+        title: 'Fuel records',
+        items: [
+          {
+            href: '/resources/projects/add-transaction',
+            label: 'Add transaction',
+            description: 'Record delivery or return',
+            icon: Fuel,
+          },
+          {
+            href: '/resources/fuel-transactions',
+            label: 'Deliveries',
+            description: 'Fuel delivery records',
+            icon: Fuel,
+          },
+          {
+            href: '/resources/fuel-transactions/returns',
+            label: 'Returns',
+            description: 'Fuel return records',
+            icon: RotateCcw,
+          },
+          {
+            href: '/resources/reports',
+            label: 'Reports',
+            description: 'Project and fuel reports',
+            icon: ScrollText,
+          },
+        ],
+      },
+      {
+        title: 'Resources',
+        items: [
+          {
+            href: '/add-forms/add_equipment',
+            label: 'Add equipment',
+            description: 'Generator or tank setup',
+            icon: Boxes,
+          },
+          {
+            href: '/resources/generators',
+            label: 'Generators',
+            description: 'Fleet equipment',
+            icon: Zap,
+          },
+          {
+            href: '/resources/external-tanks',
+            label: 'External tanks',
+            description: 'Tank records',
+            icon: Truck,
+          },
+          {
+            href: '/register',
+            label: 'Register user',
+            description: 'Create team profiles',
+            icon: UserPlus,
+          },
+        ],
+      },
+      {
+        title: 'Account',
+        items: [
+          {
+            href: '/resources/profile',
+            label: 'Profile',
+            description: 'Contact and assignments',
+            icon: User,
+          },
+        ],
+      },
+    ],
+  },
+  fuel_supplier: {
+    quick: [
+      {
+        href: '/resources/projects',
+        label: 'Projects',
+        description: 'Assigned events',
+        icon: FolderKanban,
+      },
+      {
+        href: '/resources/fuel-transactions',
+        label: 'Deliveries',
+        description: 'Fuel records',
+        icon: Fuel,
+      },
+    ],
+    sections: [
+      {
+        title: 'Work',
+        items: [
+          {
+            href: '/resources/projects',
+            label: 'Projects',
+            description: 'Assigned fuel operations',
+            icon: FolderKanban,
+          },
+          {
+            href: '/resources/fuel-transactions',
+            label: 'Deliveries',
+            description: 'Delivery evidence',
+            icon: Fuel,
+          },
+          {
+            href: '/resources/fuel-transactions/returns',
+            label: 'Returns',
+            description: 'Returned fuel records',
+            icon: RotateCcw,
+          },
+        ],
+      },
+      {
+        title: 'Account',
+        items: [
+          {
+            href: '/resources/profile',
+            label: 'Profile',
+            description: 'Contact and assignments',
+            icon: User,
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const roleLabels = {
@@ -111,8 +407,13 @@ function isMenuItemActive(href, pathname) {
   return pathname === href || pathname?.startsWith(`${href}/`);
 }
 
+function flattenMenuItems(menu) {
+  return menu?.sections?.flatMap((section) => section.items) || [];
+}
+
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -190,6 +491,19 @@ export default function Menu() {
   }, [pathname]);
 
   useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 8);
+    }
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -203,22 +517,50 @@ export default function Menu() {
     };
   }, []);
 
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   if (pathname === '/') {
     return null;
   }
 
-  const links = role ? (roleMenus[role] ?? []) : [];
+  const menu = role ? roleMenus[role] : null;
+  const links = flattenMenuItems(menu);
   const roleLabel = role ? roleLabels[role] : null;
+  const homeHref = menu?.quick?.[0]?.href || links[0]?.href || '/';
 
   return (
     <header
-      className="sticky top-0 z-[900] border-b border-white/60 bg-[#e2ecfc]/70 px-3 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] shadow-[0_8px_24px_rgba(98,116,142,0.08)] backdrop-blur-2xl supports-[backdrop-filter]:bg-[#e2ecfc]/55"
+      className={`sticky top-0 z-[900] px-3 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] transition-all duration-300 ${
+        isScrolled && !isOpen
+          ? 'border-b border-white/60 bg-[#e2ecfc]/70 shadow-[0_10px_30px_rgba(98,116,142,0.16)] backdrop-blur-2xl supports-[backdrop-filter]:bg-[#e2ecfc]/55'
+          : 'border-b border-transparent bg-transparent shadow-none backdrop-blur-0'
+      }`}
       ref={menuRef}
     >
-      <nav className="mx-auto flex h-14 w-full max-w-[640px] items-center justify-between">
+      <nav
+        className={`mx-auto h-14 w-full max-w-[640px] items-center justify-between ${
+          isOpen ? 'hidden' : 'flex'
+        }`}
+      >
         <Link
-          href={links[0]?.href || '/'}
-          className="flex min-w-0 items-center gap-2 rounded-full border border-white/70 bg-white/65 px-2.5 py-1 shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-[0.98]"
+          href={homeHref}
+          className={`flex min-w-0 items-center gap-2 rounded-full border px-2.5 py-1 transition active:scale-[0.98] ${
+            isScrolled
+              ? 'border-white/70 bg-white/70 shadow-sm ring-1 ring-[#d5eefc]/70 backdrop-blur-xl'
+              : 'border-white/45 bg-white/45 shadow-none ring-1 ring-white/45 backdrop-blur-sm'
+          }`}
         >
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb]">
             <Image src={logo} alt="FuelFlo" className="h-auto w-8" />
@@ -240,7 +582,11 @@ export default function Menu() {
             type="button"
             onClick={refreshPage}
             aria-label="Refresh page"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/65 text-[#62748e] shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-90 active:bg-[#eef4fb]"
+            className={`flex h-11 w-11 items-center justify-center rounded-full border text-[#62748e] transition active:scale-90 active:bg-[#eef4fb] ${
+              isScrolled
+                ? 'border-white/70 bg-white/70 shadow-sm ring-1 ring-[#d5eefc]/70 backdrop-blur-xl'
+                : 'border-white/45 bg-white/45 shadow-none ring-1 ring-white/45 backdrop-blur-sm'
+            }`}
           >
             <RefreshCcw size={20} />
           </button>
@@ -250,62 +596,171 @@ export default function Menu() {
             onClick={toggleMenu}
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/65 text-[#62748e] shadow-sm ring-1 ring-[#d5eefc]/70 transition active:scale-90 active:bg-[#eef4fb]"
+            className={`flex h-11 w-11 items-center justify-center rounded-full border text-[#62748e] transition active:scale-90 active:bg-[#eef4fb] ${
+              isScrolled
+                ? 'border-white/70 bg-white/70 shadow-sm ring-1 ring-[#d5eefc]/70 backdrop-blur-xl'
+                : 'border-white/45 bg-white/45 shadow-none ring-1 ring-white/45 backdrop-blur-sm'
+            }`}
           >
             {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
           </button>
         </div>
       </nav>
 
-      <ul
-        className={`absolute left-3 right-3 z-[1000] mx-auto mt-2 max-w-[640px] rounded-2xl border border-white/70 bg-white/85 p-2 shadow-[0_16px_40px_rgba(15,23,38,0.14)] backdrop-blur-2xl ${
-          isOpen ? 'block' : 'hidden'
+      {isOpen && (
+        <button
+          type="button"
+          aria-label="Close menu backdrop"
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-[930] overflow-hidden bg-[#e2ecfc]/82 backdrop-blur-2xl"
+        >
+          <span className="pointer-events-none absolute inset-0 opacity-[0.11] [background-image:radial-gradient(#62748e_0.7px,transparent_0.7px)] [background-size:8px_8px]" />
+          <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/30 via-[#e2ecfc]/45 to-[#d5eefc]/55" />
+        </button>
+      )}
+
+      <div
+        className={`fixed left-3 right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-[1000] mx-auto max-h-[min(88vh,760px)] max-w-[640px] overflow-hidden rounded-[28px] border border-white/75 bg-[#f8fafc] shadow-[0_26px_80px_rgba(65,81,106,0.24)] ring-1 ring-[#d5eefc]/80 transition-all duration-200 ${
+          isOpen
+            ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+            : 'pointer-events-none -translate-y-2 scale-[0.98] opacity-0'
         }`}
       >
-        {!user && (
-          <li>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-[#f8fafc] to-[#eef4fb]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.11] [background-image:radial-gradient(#62748e_0.7px,transparent_0.7px)] [background-size:8px_8px]" />
+        <div className="relative max-h-[min(88vh,760px)] overflow-y-auto p-3">
+          <div className="mb-3 rounded-[22px] border border-[#e8edf3] bg-white p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] ring-1 ring-[#d5eefc]">
+                  <Image src={logo} alt="" className="h-auto w-8" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-base font-semibold text-gray-900">
+                    FuelFlo
+                  </span>
+                  <span className="steps-text block truncate">
+                    {roleLabel || 'Navigation'}
+                  </span>
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                aria-label="Close menu"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc] transition active:scale-90"
+              >
+                <X size={21} strokeWidth={2.3} />
+              </button>
+            </div>
+          </div>
+
+          {!user && (
             <Link
               onClick={handleLinkClick}
               href="/"
-              className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-gray-900 transition active:bg-[#eef4fb]"
+              className="mb-3 flex h-12 items-center justify-center rounded-2xl bg-[#41516a] px-4 text-sm font-semibold text-white shadow-sm transition active:scale-[0.98]"
             >
               Login
             </Link>
-          </li>
-        )}
+          )}
 
-        {user &&
-          links.map((item) => {
-            const Icon = item.icon;
-            const active = isMenuItemActive(item.href, pathname);
+          {user && menu?.quick?.length > 0 && (
+            <div className="mb-3 grid grid-cols-2 gap-2">
+              {menu.quick.map((item) => {
+                const Icon = item.icon;
+                const active = isMenuItemActive(item.href, pathname);
 
-            return (
-              <li key={item.href}>
-                <Link
-                  onClick={handleLinkClick}
-                  href={item.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition active:scale-[0.98] ${
-                    active
-                      ? 'bg-[#eef4fb] text-gray-900 ring-1 ring-[#d5eefc]'
-                      : 'text-gray-800 active:bg-[#eef4fb]'
-                  }`}
-                >
-                  <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-full ring-1 ${
+                return (
+                  <Link
+                    key={`quick-${item.href}`}
+                    onClick={handleLinkClick}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`rounded-[22px] border p-3 transition active:scale-[0.98] ${
                       active
-                        ? 'bg-white text-[#62748e] ring-[#d5eefc]'
-                        : 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]'
+                        ? 'border-[#41516a] bg-[#41516a] text-white shadow-[0_10px_26px_rgba(65,81,106,0.24)]'
+                        : 'border-[#e8edf3] bg-white text-gray-900'
                     }`}
                   >
-                    <Icon size={19} strokeWidth={2.2} />
-                  </span>
-                  <span>{item.label}</span>
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+                    <span
+                      className={`mb-3 flex h-10 w-10 items-center justify-center rounded-full ring-1 ${
+                        active
+                          ? 'bg-white/15 text-white ring-white/20'
+                          : 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]'
+                      }`}
+                    >
+                      <Icon size={20} strokeWidth={2.3} />
+                    </span>
+                    <span
+                      className={`block text-sm font-semibold ${
+                        active ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    <span
+                      className={`mt-1 block text-xs ${
+                        active ? 'text-white/75' : 'text-[#717887]'
+                      }`}
+                    >
+                      {item.description}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {user &&
+            menu?.sections?.map((section) => (
+              <section key={section.title} className="mb-3 last:mb-0">
+                <p className="mb-2 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#717887]">
+                  {section.title}
+                </p>
+                <div className="rounded-[22px] border border-[#e8edf3] bg-white p-1">
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    const active = isMenuItemActive(item.href, pathname);
+
+                    return (
+                      <Link
+                        key={`${section.title}-${item.href}`}
+                        onClick={handleLinkClick}
+                        href={item.href}
+                        aria-current={active ? 'page' : undefined}
+                        className={`flex items-center gap-3 rounded-[18px] px-3 py-3 transition active:scale-[0.99] ${
+                          active
+                            ? 'bg-[#eef4fb] text-gray-900 ring-1 ring-[#d5eefc]'
+                            : 'text-gray-800 active:bg-[#f5fbff]'
+                        }`}
+                      >
+                        <span
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-1 ${
+                            active
+                              ? 'bg-white text-[#41516a] ring-[#d5eefc]'
+                              : 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]'
+                          }`}
+                        >
+                          <Icon size={19} strokeWidth={2.2} />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-semibold text-gray-900">
+                            {item.label}
+                          </span>
+                          <span className="steps-text mt-0.5 block truncate">
+                            {item.description}
+                          </span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
+        </div>
+      </div>
     </header>
   );
 }
