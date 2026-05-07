@@ -551,6 +551,8 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
+      <ProjectFuelTransactionList projectId={projectId} />
+
       <section className="background-container mb-4">
         <SectionHeader
           eyebrow="Fuel control"
@@ -834,8 +836,6 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </section>
-
-      <ProjectFuelTransactionList projectId={projectId} />
 
       {project.location && (
         <section className="background-container-white mb-4 overflow-hidden">
