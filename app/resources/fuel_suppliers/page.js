@@ -16,7 +16,7 @@ export default function TechniciansPage() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('role', 'event_organizer')
+        .eq('role', 'fuel_supplier')
         .order('full_name', { ascending: false });
 
       if (error) setError(error.message);
@@ -30,7 +30,7 @@ export default function TechniciansPage() {
     <div className="main-container">
       <div>
         <div className="form-header ">
-          <h1 className="ml-2">Technicians</h1>
+          <h1 className="ml-2">Fuel suppliers</h1>
         </div>
         <div className="background-container">
           <div className="flex flex-col w-full"></div>

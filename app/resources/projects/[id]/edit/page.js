@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
 import ProgresionBar from '@/components/ProgresionBar';
@@ -12,6 +13,17 @@ import StepTwo from '@/components/add_new_project/StepTwo';
 import StepThree from '@/components/add_new_project/StepThree';
 import StepFour from '@/components/add_new_project/StepFour';
 import StepFive from '@/components/add_new_project/StepFive';
+import {
+  PROJECT_FORM_DEFAULTS,
+  PROJECT_STEP_FIELDS,
+  PROJECT_STEPS,
+  buildGeneratorsTanksRows,
+  buildProjectPayload,
+  firstInvalidStep,
+  hasErrors,
+  validateProjectForm,
+  validateProjectStep,
+} from '@/components/add_new_project/projectForm';
 
 export default function EditProjectPage() {
   const { id } = useParams();
@@ -20,47 +32,16 @@ export default function EditProjectPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    start_date: '',
-    end_date: '',
-    contractor_name: '',
-    contractor_address: '',
-    email: '',
-    mobile: '',
-
-    selectedTechnician: null,
-    technicians: [],
-    technician_ids: [],
-
-    generators: [],
-    selectedGenerator: null,
-
-    amount: '',
-    selling_price: '',
-    specification: '',
-    additional: '',
-    event_organizer_id: '',
-    fuel_suppliers_id: '',
-    active: true,
-    company_name: '',
-  });
-
-  const steps = [
-    <StepOne key="step-1" formData={formData} setFormData={setFormData} />,
-    <StepTwo key="step-2" formData={formData} setFormData={setFormData} />,
-    <StepThree key="step-3" formData={formData} setFormData={setFormData} />,
-    <StepFour key="step-4" formData={formData} setFormData={setFormData} />,
-    <StepFive key="step-5" formData={formData} />,
-  ];
+  const [formData, setFormData] = useState(PROJECT_FORM_DEFAULTS);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [feedback, setFeedback] = useState({ type: '', message: '' });
 
   useEffect(() => {
     if (!id) return;
 
     async function loadProject() {
       setLoading(true);
+      setFeedback({ type: '', message: '' });
 
       try {
         const projectId = isNaN(Number(id)) ? id : Number(id);
@@ -80,12 +61,18 @@ export default function EditProjectPage() {
             mobile,
             amount,
             selling_price,
+            expected_liters,
             specification,
             additional,
             event_organizer_id,
             fuel_suppliers_id,
+            manager_id,
             active,
-            company_name
+            company_name,
+            manager:profiles!projects_manager_id_fkey (
+              id,
+              full_name
+            )
           `
           )
           .eq('id', projectId)
@@ -124,15 +111,36 @@ export default function EditProjectPage() {
 
         if (fleetError) throw fleetError;
 
+        const profileIds = [
+          projectData.event_organizer_id,
+          projectData.fuel_suppliers_id,
+        ].filter(Boolean);
+        let relatedProfiles = [];
+
+        if (profileIds.length > 0) {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('id, full_name, role, email, phone')
+            .in('id', profileIds);
+
+          if (!error) relatedProfiles = data || [];
+        }
+
+        const eventOrganizer = relatedProfiles.find(
+          (profile) =>
+            String(profile.id) === String(projectData.event_organizer_id)
+        );
+        const fuelSupplier = relatedProfiles.find(
+          (profile) =>
+            String(profile.id) === String(projectData.fuel_suppliers_id)
+        );
         const technicians = (technicianRelations || [])
           .map((item) => ({
             id: item.profiles?.id,
             name: item.profiles?.full_name || 'Unnamed technician',
           }))
           .filter((tech) => tech.id);
-
-        const technician_ids = technicians.map((tech) => tech.id);
-
+        const technicianIds = technicians.map((tech) => tech.id);
         const groupedGenerators = [];
 
         (fleetData || []).forEach((row) => {
@@ -166,6 +174,7 @@ export default function EditProjectPage() {
         });
 
         setFormData({
+          ...PROJECT_FORM_DEFAULTS,
           name: projectData.name || '',
           location: projectData.location || '',
           start_date: projectData.start_date || '',
@@ -174,26 +183,55 @@ export default function EditProjectPage() {
           contractor_address: projectData.contractor_address || '',
           email: projectData.email || '',
           mobile: projectData.mobile || '',
-
+          manager_id: projectData.manager_id || null,
+          manager: projectData.manager
+            ? {
+                id: projectData.manager.id,
+                name: projectData.manager.full_name,
+                full_name: projectData.manager.full_name,
+              }
+            : null,
           selectedTechnician: null,
           technicians,
-          technician_ids,
-
+          technician_ids: technicianIds,
           generators: groupedGenerators,
           selectedGenerator: null,
-
           amount: projectData.amount ?? '',
           selling_price: projectData.selling_price ?? '',
+          expected_liters: projectData.expected_liters ?? '',
           specification: projectData.specification || '',
           additional: projectData.additional || '',
           event_organizer_id: projectData.event_organizer_id || '',
+          event_organizer: eventOrganizer
+            ? {
+                id: eventOrganizer.id,
+                name: eventOrganizer.full_name,
+                full_name: eventOrganizer.full_name,
+                role: eventOrganizer.role,
+                email: eventOrganizer.email,
+                phone: eventOrganizer.phone,
+              }
+            : null,
           fuel_suppliers_id: projectData.fuel_suppliers_id || '',
+          fuel_supplier: fuelSupplier
+            ? {
+                id: fuelSupplier.id,
+                name: fuelSupplier.full_name,
+                full_name: fuelSupplier.full_name,
+                role: fuelSupplier.role,
+                email: fuelSupplier.email,
+                phone: fuelSupplier.phone,
+              }
+            : null,
           active: projectData.active ?? true,
           company_name: projectData.company_name || '',
         });
       } catch (error) {
         console.error('Error loading project:', error);
-        alert(error.message || 'Failed to load project');
+        setFeedback({
+          type: 'error',
+          message: error.message || 'Failed to load project.',
+        });
       } finally {
         setLoading(false);
       }
@@ -202,49 +240,25 @@ export default function EditProjectPage() {
     loadProject();
   }, [id]);
 
-  const buildGeneratorsTanksRows = (projectId, generators) => {
-    return (generators || []).flatMap((generator) => {
-      if (!generator.tanks || generator.tanks.length === 0) {
-        return [
-          {
-            project_id: projectId,
-            generator_id: generator.id,
-            generator_name: generator.name,
-            tank_id: null,
-            tank_name: null,
-          },
-        ];
-      }
-
-      return generator.tanks.map((tank) => ({
-        project_id: projectId,
-        generator_id: generator.id,
-        generator_name: generator.name,
-        tank_id: tank.id,
-        tank_name: tank.name,
-      }));
-    });
-  };
-
-  const saveTechnicians = async (projectId, technicianIds) => {
+  async function saveTechnicians(projectId, technicianIds) {
     await supabase
       .from('profiles_projects')
       .delete()
       .eq('projects_id', projectId);
 
-    if (!technicianIds || technicianIds.length === 0) return;
-
-    const rows = technicianIds.map((technicianId) => ({
+    const rows = (technicianIds || []).map((technicianId) => ({
       projects_id: projectId,
       profiles_id: technicianId,
     }));
 
+    if (rows.length === 0) return;
+
     const { error } = await supabase.from('profiles_projects').insert(rows);
 
     if (error) throw error;
-  };
+  }
 
-  const saveGeneratorsTanks = async (projectId, generators) => {
+  async function saveGeneratorsTanks(projectId, generators) {
     await supabase
       .from('generators_tanks')
       .delete()
@@ -252,45 +266,63 @@ export default function EditProjectPage() {
 
     const rows = buildGeneratorsTanksRows(projectId, generators);
 
-    if (!rows.length) return;
+    if (rows.length === 0) return;
 
     const { error } = await supabase.from('generators_tanks').insert(rows);
 
     if (error) throw error;
-  };
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  function validateStep(stepIndex) {
+    const stepErrors = validateProjectStep(formData, stepIndex);
 
-    if (currentStep !== steps.length - 1) return;
+    setValidationErrors((current) => ({
+      ...Object.fromEntries(
+        Object.entries(current).filter(
+          ([key]) => !PROJECT_STEP_FIELDS[stepIndex].includes(key)
+        )
+      ),
+      ...stepErrors,
+    }));
+
+    if (hasErrors(stepErrors)) {
+      setFeedback({
+        type: 'warning',
+        message: 'Please fix the highlighted fields before continuing.',
+      });
+      return false;
+    }
+
+    setFeedback({ type: '', message: '' });
+    return true;
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const errors = validateProjectForm(formData);
+    setValidationErrors(errors);
+
+    if (hasErrors(errors)) {
+      const invalidStep = firstInvalidStep(formData);
+      if (invalidStep !== null) setCurrentStep(invalidStep);
+
+      setFeedback({
+        type: 'warning',
+        message: 'Some required project details are missing.',
+      });
+      return;
+    }
 
     setSubmitting(true);
+    setFeedback({ type: '', message: '' });
 
     try {
       const projectId = isNaN(Number(id)) ? id : Number(id);
 
-      const projectPayload = {
-        name: formData.name || null,
-        location: formData.location || null,
-        start_date: formData.start_date || null,
-        end_date: formData.end_date || null,
-        contractor_name: formData.contractor_name || null,
-        contractor_address: formData.contractor_address || null,
-        email: formData.email || null,
-        mobile: formData.mobile || null,
-        amount: formData.amount || null,
-        selling_price: formData.selling_price || null,
-        specification: formData.specification || null,
-        additional: formData.additional || null,
-        active: formData.active ?? true,
-        company_name: formData.company_name || null,
-        event_organizer_id: formData.event_organizer_id || null,
-        fuel_suppliers_id: formData.fuel_suppliers_id || null,
-      };
-
       const { error: projectError } = await supabase
         .from('projects')
-        .update(projectPayload)
+        .update(buildProjectPayload(formData))
         .eq('id', projectId);
 
       if (projectError) throw projectError;
@@ -298,36 +330,96 @@ export default function EditProjectPage() {
       await saveTechnicians(projectId, formData.technician_ids || []);
       await saveGeneratorsTanks(projectId, formData.generators || []);
 
-      alert('Project updated successfully!');
+      setFeedback({
+        type: 'success',
+        message: 'Project updated successfully.',
+      });
       router.push(`/resources/projects/${projectId}`);
       router.refresh();
     } catch (error) {
       console.error('Error updating project:', error);
-      alert(error.message || 'Failed to update project');
+      setFeedback({
+        type: 'error',
+        message: error.message || 'Failed to update project.',
+      });
     } finally {
       setSubmitting(false);
     }
-  };
+  }
+
+  const currentStepMeta = PROJECT_STEPS[currentStep];
+  const steps = [
+    <StepOne
+      key="step-1"
+      formData={formData}
+      setFormData={setFormData}
+      errors={validationErrors}
+    />,
+    <StepTwo
+      key="step-2"
+      formData={formData}
+      setFormData={setFormData}
+      errors={validationErrors}
+    />,
+    <StepThree
+      key="step-3"
+      formData={formData}
+      setFormData={setFormData}
+      errors={validationErrors}
+    />,
+    <StepFour
+      key="step-4"
+      formData={formData}
+      setFormData={setFormData}
+      errors={validationErrors}
+    />,
+    <StepFive key="step-5" formData={formData} />,
+  ];
 
   if (loading) {
     return (
-      <div className="main-container">
-        <div className="form-header">
-          <h1>Loading project...</h1>
+      <div className="mx-auto w-full max-w-[640px] px-3 py-4">
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white/80 p-4">
+          <p className="steps-text">Loading project...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="main-container">
-        <div className="form-header">
-          <h1>Edit Project</h1>
-        </div>
+    <div className="mx-auto w-full max-w-[640px] px-3 py-4">
+      <div className="mb-3 px-1">
+        <p className="page-kicker">Edit project</p>
+      </div>
 
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <div className="background-container">
+          <div className="mb-4">
+            <h2>{currentStepMeta.title}</h2>
+            <p className="steps-text mt-1">{currentStepMeta.description}</p>
+          </div>
+
           <ProgresionBar currentStep={currentStep} />
+
+          {feedback.message && (
+            <div
+              className={`mx-4 mb-4 rounded-[22px] border p-4 text-sm ${
+                feedback.type === 'success'
+                  ? 'border-[#d7edce] bg-[#f3fbef] text-[#2f8f5b]'
+                  : 'border-[#fee39f] bg-[#fff7e6] text-[#9a5f12]'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                {feedback.type === 'success' ? (
+                  <CheckCircle2 size={20} />
+                ) : (
+                  <AlertTriangle size={20} />
+                )}
+                <p>{feedback.message}</p>
+              </div>
+            </div>
+          )}
+
           {steps[currentStep]}
 
           <StepNavigation
@@ -336,9 +428,11 @@ export default function EditProjectPage() {
             totalSteps={steps.length}
             submitting={submitting}
             onSubmit={handleSubmit}
+            onValidateStep={validateStep}
+            submitLabel="Update project"
           />
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

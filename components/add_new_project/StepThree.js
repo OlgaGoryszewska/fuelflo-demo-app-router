@@ -1,40 +1,53 @@
 'use client';
 
+import { Plus, Trash2, UserRound, UsersRound, Zap } from 'lucide-react';
 import GeneratorDropdown from './GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
 import TechniciansDropdown from '@/components/dropdowns/TechniciansDropdown';
 import ManagerDropdown from '@/components/dropdowns/ManagerDropdown';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import PropaneTankOutlinedIcon from '@mui/icons-material/PropaneTankOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
-export default function StepThree({ formData, setFormData }) {
+function FieldError({ message }) {
+  if (!message) return null;
+  return <p className="mt-1 text-xs font-semibold text-[#b7791f]">{message}</p>;
+}
+
+function IconButton({ label, onClick, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="circle-btn shrink-0 text-[#62748e]"
+      title={label}
+      aria-label={label}
+    >
+      {children}
+    </button>
+  );
+}
+
+export default function StepThree({ formData, setFormData, errors = {} }) {
   const technicians = formData.technicians || [];
   const generators = formData.generators || [];
 
-  const handleManagerSelect = (manager) => {
+  function handleManagerSelect(manager) {
     setFormData((prev) => ({
       ...prev,
       manager: manager || null,
       manager_id: manager?.id || null,
     }));
-  };
+  }
 
-  const handleTechnicianSelect = (technician) => {
+  function handleTechnicianSelect(technician) {
     setFormData((prev) => ({
       ...prev,
       selectedTechnician: technician || null,
     }));
-  };
+  }
 
-  const handleAddTechnician = () => {
+  function handleAddTechnician() {
     const selected = formData.selectedTechnician;
 
-    if (!selected || !selected.id) return;
+    if (!selected?.id) return;
 
     const alreadyExists = technicians.some(
       (tech) => String(tech.id) === String(selected.id)
@@ -48,9 +61,9 @@ export default function StepThree({ formData, setFormData }) {
       technician_ids: [...(prev.technician_ids || []), selected.id],
       selectedTechnician: null,
     }));
-  };
+  }
 
-  const handleRemoveTechnician = (technicianId) => {
+  function handleRemoveTechnician(technicianId) {
     setFormData((prev) => ({
       ...prev,
       technicians: (prev.technicians || []).filter(
@@ -60,19 +73,19 @@ export default function StepThree({ formData, setFormData }) {
         (id) => String(id) !== String(technicianId)
       ),
     }));
-  };
+  }
 
-  const handleGeneratorSelect = (generator) => {
+  function handleGeneratorSelect(generator) {
     setFormData((prev) => ({
       ...prev,
       selectedGenerator: generator || null,
     }));
-  };
+  }
 
-  const handleAddGenerator = () => {
+  function handleAddGenerator() {
     const selected = formData.selectedGenerator;
 
-    if (!selected || !selected.id) return;
+    if (!selected?.id) return;
 
     const alreadyExists = generators.some(
       (gen) => String(gen.id) === String(selected.id)
@@ -93,9 +106,9 @@ export default function StepThree({ formData, setFormData }) {
       ],
       selectedGenerator: null,
     }));
-  };
+  }
 
-  const handleTankSelect = (generatorId, tank) => {
+  function handleTankSelect(generatorId, tank) {
     setFormData((prev) => ({
       ...prev,
       generators: (prev.generators || []).map((gen) =>
@@ -104,24 +117,22 @@ export default function StepThree({ formData, setFormData }) {
           : gen
       ),
     }));
-  };
+  }
 
-  const handleAddTank = (generatorId) => {
+  function handleAddTank(generatorId) {
     setFormData((prev) => ({
       ...prev,
       generators: (prev.generators || []).map((gen) => {
         if (String(gen.id) !== String(generatorId)) return gen;
 
         const selectedTank = gen.selectedTank;
-        if (!selectedTank || !selectedTank.id) return gen;
+        if (!selectedTank?.id) return gen;
 
         const alreadyExists = (gen.tanks || []).some(
           (tank) => String(tank.id) === String(selectedTank.id)
         );
 
-        if (alreadyExists) {
-          return { ...gen, selectedTank: null };
-        }
+        if (alreadyExists) return { ...gen, selectedTank: null };
 
         return {
           ...gen,
@@ -130,9 +141,9 @@ export default function StepThree({ formData, setFormData }) {
         };
       }),
     }));
-  };
+  }
 
-  const handleRemoveTank = (generatorId, tankId) => {
+  function handleRemoveTank(generatorId, tankId) {
     setFormData((prev) => ({
       ...prev,
       generators: (prev.generators || []).map((gen) => {
@@ -146,175 +157,185 @@ export default function StepThree({ formData, setFormData }) {
         };
       }),
     }));
-  };
+  }
 
-  const handleRemoveGenerator = (generatorId) => {
+  function handleRemoveGenerator(generatorId) {
     setFormData((prev) => ({
       ...prev,
       generators: (prev.generators || []).filter(
         (gen) => String(gen.id) !== String(generatorId)
       ),
     }));
-  };
+  }
 
   return (
-    <div className="m-4">
-      <h2 className="mb-2">Setup</h2>
-      <div className="flex flex-row ">
-        <div className=" mb-4 size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2">
-          <PeopleAltIcon />
-        </div>
-        <div className="flex flex-col">
-          <p className="h-mid-gray-s">Team</p>
-          <p className="steps-text">Assign manager and add technicians</p>
-        </div>
-      </div>
-
-      <label>Select Manager:</label>
-      <ManagerDropdown
-        value={formData.manager?.id || ''}
-        onChange={handleManagerSelect}
-      />
-
-      <label className="mt-2 block">Select Technician:</label>
-
-      <div className=" flex items-center">
-        <TechniciansDropdown
-          value={formData.selectedTechnician?.id || ''}
-          onChange={handleTechnicianSelect}
-        />
-
-        <button
-          type="button"
-          onClick={handleAddTechnician}
-          className="round-icon-button"
-        >
-          <AddIcon fontSize="small" />
-        </button>
-      </div>
-
-      <div className="mb-4">
-        {technicians.length === 0 ? (
-          <p className="steps-text mb-2">No technicians assigned yet.</p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {technicians.map((tech) => (
-              <div key={tech.id} className="mt-2 ">
-                <div className="h-11 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
-                  <div className="flex flex-row ml-2">
-                    <PersonOutlineOutlinedIcon className="mr-2" />
-                    <p>{tech.name}</p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveTechnician(tech.id)}
-                    className="round-icon-button "
-                  >
-                    <RemoveIcon fontSize="small" />
-                  </button>
-                </div>
-              </div>
-            ))}
+    <section className="m-4">
+      <div className="mb-5 rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
+        <div className="flex items-start gap-3">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
+            <UsersRound size={22} strokeWidth={2.3} />
+          </span>
+          <div>
+            <h2>Team and fleet</h2>
+            <p className="steps-text mt-1">
+              Assign field ownership and connect every generator to an external
+              tank.
+            </p>
           </div>
-        )}
-      </div>
-
-      <div className="flex flex-row mb-4 mt-6">
-        <div className="size-12 rounded-xl bg-[#CCE3F9] flex items-center justify-center text-[#62748e] mr-2">
-          <LocalShippingOutlinedIcon />
-        </div>
-        <div className="flex flex-col">
-          <p className=" h-mid-gray-s ">Add Fleet</p>
-          <p className="steps-text">Add generators and tanks to your fleet</p>
         </div>
       </div>
 
-      <label className="">Add Generator:</label>
+      <div className="grid grid-cols-1 gap-5">
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
+              <UserRound size={20} strokeWidth={2.2} />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-[var(--primary-black)]">
+                Manager
+              </p>
+              <p className="steps-text">Required for project responsibility.</p>
+            </div>
+          </div>
 
-      <div className=" flex items-center gap-2">
-        <GeneratorDropdown
-          value={formData.selectedGenerator?.id || ''}
-          onChange={handleGeneratorSelect}
-        />
+          <ManagerDropdown
+            value={formData.manager_id || formData.manager?.id || ''}
+            onChange={handleManagerSelect}
+          />
+          <FieldError message={errors.manager_id} />
+        </div>
 
-        <button
-          type="button"
-          onClick={handleAddGenerator}
-          className="round-icon-button"
-        >
-          <AddIcon fontSize="small" />
-        </button>
-      </div>
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
+          <p className="text-sm font-semibold text-[var(--primary-black)]">
+            Technicians
+          </p>
+          <p className="steps-text mt-1">
+            At least one technician is required.
+          </p>
 
-      <div className="mt-2 ">
-        {generators.length === 0 ? (
-          <p className="steps-text mb-2">No generators assigned yet.</p>
-        ) : (
-          <div className="flex flex-col ">
-            {generators.map((gen) => (
-              <div
-                key={gen.id}
-                className="mt-2 mb-2 p-2 rounded-xl bg-[#CCE3F9] "
-              >
-                <div className="h-10 mb-4 rounded-xl text-[#62748e] flex bg-[#e7f6ff] items-center justify-between">
-                  <div className="flex flex-row">
-                    <BoltOutlinedIcon className="ml-2 " />
-                    <p className=" ml-2 color-[#62748e]">{gen.name}</p>
+          <div className="mt-3 flex items-start gap-2">
+            <TechniciansDropdown
+              value={formData.selectedTechnician?.id || ''}
+              onChange={handleTechnicianSelect}
+            />
+            <IconButton label="Add technician" onClick={handleAddTechnician}>
+              <Plus size={16} strokeWidth={2.4} />
+            </IconButton>
+          </div>
+          <FieldError message={errors.technician_ids} />
+
+          <div className="mt-3 grid grid-cols-1 gap-2">
+            {technicians.length === 0 ? (
+              <p className="steps-text">No technicians assigned yet.</p>
+            ) : (
+              technicians.map((tech) => (
+                <div
+                  key={tech.id}
+                  className="flex items-center justify-between gap-3 rounded-[18px] border border-[#e8edf3] bg-[#f5fbff] p-3"
+                >
+                  <p className="truncate text-sm font-semibold text-[var(--primary-black)]">
+                    {tech.name || tech.full_name}
+                  </p>
+                  <IconButton
+                    label="Remove technician"
+                    onClick={() => handleRemoveTechnician(tech.id)}
+                  >
+                    <Trash2 size={15} strokeWidth={2.3} />
+                  </IconButton>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-[24px] border border-[#e8edf3] bg-white/85 p-4">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff7e6] text-[#f25822] ring-1 ring-[#fee39f]">
+              <Zap size={20} strokeWidth={2.2} />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-[var(--primary-black)]">
+                Generators and tanks
+              </p>
+              <p className="steps-text">
+                Add at least one generator and one tank for each generator.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2">
+            <GeneratorDropdown
+              value={formData.selectedGenerator?.id || ''}
+              onChange={handleGeneratorSelect}
+            />
+            <IconButton label="Add generator" onClick={handleAddGenerator}>
+              <Plus size={16} strokeWidth={2.4} />
+            </IconButton>
+          </div>
+          <FieldError message={errors.generators} />
+
+          <div className="mt-3 grid grid-cols-1 gap-3">
+            {generators.length === 0 ? (
+              <p className="steps-text">No generators assigned yet.</p>
+            ) : (
+              generators.map((gen) => (
+                <div
+                  key={gen.id}
+                  className="rounded-[22px] border border-[#d5eefc] bg-[#f5fbff] p-3"
+                >
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <p className="truncate text-sm font-semibold text-[var(--primary-black)]">
+                      {gen.name}
+                    </p>
+                    <IconButton
+                      label="Remove generator"
+                      onClick={() => handleRemoveGenerator(gen.id)}
+                    >
+                      <Trash2 size={15} strokeWidth={2.3} />
+                    </IconButton>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveGenerator(gen.id)}
-                    className="mr-2 "
-                  >
-                    <RemoveIcon fontSize="small" />
-                  </button>
-                </div>
-                <label className="ml-1">Add Tank:</label>
-                <div className="flex  ">
-                  <TankDropdown
-                    value={gen.selectedTank?.id || ''}
-                    onChange={(tank) => handleTankSelect(gen.id, tank)}
-                  />
 
-                  <button
-                    type="button"
-                    onClick={() => handleAddTank(gen.id)}
-                    className="round-icon-button "
-                  >
-                    <AddIcon fontSize="small" />
-                  </button>
-                </div>
+                  <div className="flex items-start gap-2">
+                    <TankDropdown
+                      value={gen.selectedTank?.id || ''}
+                      onChange={(tank) => handleTankSelect(gen.id, tank)}
+                    />
+                    <IconButton
+                      label="Add tank"
+                      onClick={() => handleAddTank(gen.id)}
+                    >
+                      <Plus size={16} strokeWidth={2.4} />
+                    </IconButton>
+                  </div>
 
-                {(gen.tanks || []).length === 0 ? (
-                  <p className="steps-text ml-1">No tanks assigned yet.</p>
-                ) : (
-                  <ul className="flex flex-col ">
-                    {(gen.tanks || []).map((tank) => (
-                      <li key={`${gen.id}-${tank.id}`}>
-                        <div className="h-10 rounded-xl text-[#62748e] flex bg-[#f5fbff] items-center justify-between">
-                          <div className="flex flex-row ml-2">
-                            <PropaneTankOutlinedIcon />
-                            <p className="ml-2">{tank.name}</p>
-                          </div>
-
+                  {(gen.tanks || []).length === 0 ? (
+                    <p className="steps-text mt-2">No tanks assigned yet.</p>
+                  ) : (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {(gen.tanks || []).map((tank) => (
+                        <span
+                          key={`${gen.id}-${tank.id}`}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#d5eefc] bg-white px-3 py-1 text-xs font-semibold text-[#62748e]"
+                        >
+                          {tank.name}
                           <button
                             type="button"
                             onClick={() => handleRemoveTank(gen.id, tank.id)}
-                            className="mr-2"
+                            aria-label={`Remove ${tank.name}`}
                           >
-                            <RemoveIcon fontSize="small" />
+                            <Trash2 size={12} strokeWidth={2.4} />
                           </button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

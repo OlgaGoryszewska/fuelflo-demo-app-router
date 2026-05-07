@@ -5,6 +5,7 @@ export default function StepNavigation({
   submitting,
   onSubmit,
   onValidateStep,
+  submitLabel = 'Save transaction',
 }) {
   const isLastStep = currentStep === totalSteps - 1;
   const isFirstStep = currentStep === 0;
@@ -51,7 +52,7 @@ export default function StepNavigation({
           className="flex h-12 flex-1 items-center justify-center rounded-2xl border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98] active:bg-[#dbeaf5] disabled:opacity-50"
           onClick={onSubmit}
         >
-          {submitting ? 'Saving...' : 'Save transaction'}
+          {submitting ? 'Saving...' : submitLabel}
         </button>
       )}
     </div>

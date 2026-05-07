@@ -1,15 +1,50 @@
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
+const ALLOWED_ROLES = new Set([
+  'technician',
+  'manager',
+  'hire_desk',
+  'event_organizer',
+  'fuel_supplier',
+]);
+
+function trimValue(value) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { full_name, email, password, role, address, phone } = body;
+    const full_name = trimValue(body.full_name);
+    const email = trimValue(body.email).toLowerCase();
+    const password = body.password || '';
+    const role = trimValue(body.role);
+    const address = trimValue(body.address);
+    const phone = trimValue(body.phone);
 
-    if (!full_name || !email || !password || !role) {
+    if (!full_name || !email || !password || !role || !address || !phone) {
       return Response.json(
         { error: 'Missing required fields.' },
         { status: 400 }
       );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return Response.json(
+        { error: 'Enter a valid email address.' },
+        { status: 400 }
+      );
+    }
+
+    if (password.length < 8) {
+      return Response.json(
+        { error: 'Password must be at least 8 characters.' },
+        { status: 400 }
+      );
+    }
+
+    if (!ALLOWED_ROLES.has(role)) {
+      return Response.json({ error: 'Invalid user role.' }, { status: 400 });
     }
 
     const supabaseAdmin = getSupabaseAdmin();
@@ -37,9 +72,9 @@ export async function POST(request) {
         id: user.id,
         full_name,
         email,
-        phone: phone || null,
+        phone,
         role,
-        address: address || null,
+        address,
       });
 
     if (profileError) {
