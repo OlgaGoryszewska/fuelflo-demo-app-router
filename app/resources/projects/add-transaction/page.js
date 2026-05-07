@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, Fuel, MapPin, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import formatDateShort from '@/components/FormatDateShort';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 const PROJECTS_CACHE_KEY = 'offline_active_projects';
 
@@ -144,11 +145,7 @@ export default function AddTransactionProjectPickerPage() {
           </div>
         )}
 
-        {loading && (
-          <div className="rounded-xl border border-gray-100 bg-white p-4">
-            <p className="steps-text">Loading projects...</p>
-          </div>
-        )}
+        {loading && <LoadingIndicator />}
 
         {error && (
           <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-600">

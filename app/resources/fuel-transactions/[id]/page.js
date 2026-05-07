@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionDetail from '@/components/fuel-transaction/FuelTransactionDetail';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 const TRANSACTION_SELECT = `
   id,
@@ -66,13 +67,7 @@ export default function FuelTransactionDetailPage() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="mx-auto w-full max-w-[640px] px-3 py-4">
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/80 p-4 text-sm text-[var(--primary-mid-gray)]">
-          Loading transaction...
-        </div>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   if (errorMessage) {

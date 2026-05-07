@@ -38,9 +38,13 @@ export default function FetchGeneratorsByName() {
 
   useEffect(() => {
     if (query.trim().length < 2) {
-      setResults([]);
-      setError(null);
-      return;
+      const clearTimer = setTimeout(() => {
+        setResults([]);
+        setError(null);
+        setIsLoading(false);
+      }, 0);
+
+      return () => clearTimeout(clearTimer);
     }
 
     const timer = setTimeout(async () => {

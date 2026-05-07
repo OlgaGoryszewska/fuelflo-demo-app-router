@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '@/public/avatar.png';
 import TransactionReportPreview from '@/components/reports/TransactionReportPreview';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -94,7 +95,7 @@ export default function TransactionDetailPage() {
   }
 
   if (loading) {
-    return <div className="main-container">Loading transaction...</div>;
+    return <LoadingIndicator />;
   }
 
   if (errorMessage) {

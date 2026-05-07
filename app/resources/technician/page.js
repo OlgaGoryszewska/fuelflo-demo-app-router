@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import formatDateShort from '@/components/FormatDateShort';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function TechniciansPage() {
   const [profile, setProfiles] = useState([]);
@@ -25,6 +26,8 @@ export default function TechniciansPage() {
     }
     load();
   }, []);
+
+  if (loading) return <LoadingIndicator />;
 
   return (
     <div className="main-container">

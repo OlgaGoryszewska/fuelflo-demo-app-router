@@ -11,6 +11,7 @@ import { saveGenerators, saveTanks } from '@/lib/offline/fieldData';
 import OfflineGeneratorSelect from '@/components/OfflineGeneratorSelect';
 import OfflineTankSelect from '@/components/OfflineTankSelect';
 import { TransactionFieldCard, TransactionStepHeader } from './TransactionUi';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default function Setup({ formData, setFormData }) {
   const [showScanner, setShowScanner] = useState(false);
@@ -120,9 +121,7 @@ export default function Setup({ formData, setFormData }) {
           </span>
         </button>
 
-        {isFetchingGenerator && (
-          <p className="steps-text mb-3">Loading generator...</p>
-        )}
+        {isFetchingGenerator && <LoadingIndicator />}
 
         {scanError && (
           <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">

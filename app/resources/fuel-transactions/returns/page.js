@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { CheckCircle2, Clock, RotateCcw } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionsList from '@/components/fuel-transaction/fuel-transaction-list.js';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 const TRANSACTION_SELECT = `
   id,
@@ -196,11 +197,7 @@ export default function FuelTransactionsPage() {
           </div>
         )}
 
-        {loading && (
-          <div className="rounded-[24px] border border-[#e8edf3] bg-white p-4">
-            <p className="steps-text">Loading transactions...</p>
-          </div>
-        )}
+        {loading && <LoadingIndicator />}
 
         {error && (
           <div className="rounded-[24px] border border-[#fee39f] bg-[#fff7e6] p-4 text-sm text-[#9a5f12]">

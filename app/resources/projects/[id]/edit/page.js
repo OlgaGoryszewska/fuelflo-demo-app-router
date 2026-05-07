@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
+import LoadingIndicator from '@/components/LoadingIndicator';
 import ProgresionBar from '@/components/ProgresionBar';
 import StepNavigation from '@/components/StepNavigation';
 
@@ -377,13 +378,7 @@ export default function EditProjectPage() {
   ];
 
   if (loading) {
-    return (
-      <div className="mx-auto w-full max-w-[640px] px-3 py-4">
-        <div className="rounded-[24px] border border-[#e8edf3] bg-white/80 p-4">
-          <p className="steps-text">Loading project...</p>
-        </div>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   return (
