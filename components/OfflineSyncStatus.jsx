@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getOfflineTransactions } from '@/lib/offline/offlineDb';
 import { syncTransactions } from '@/lib/offline/syncTransactions';
 
@@ -8,33 +8,36 @@ export default function OfflineSyncStatus() {
   const [pendingCount, setPendingCount] = useState(0);
   const [syncing, setSyncing] = useState(false);
 
-  async function refreshCount() {
+  const refreshCount = useCallback(async () => {
     const items = await getOfflineTransactions();
     setPendingCount(items.length);
-  }
+  }, []);
 
-  async function handleSync() {
+  const handleSync = useCallback(async () => {
     if (!navigator.onLine) return;
 
     setSyncing(true);
     await syncTransactions();
     await refreshCount();
     setSyncing(false);
-  }
+  }, [refreshCount]);
 
   useEffect(() => {
-    refreshCount();
+    const countTimer = window.setTimeout(refreshCount, 0);
 
     async function handleOnline() {
       await handleSync();
     }
 
     window.addEventListener('online', handleOnline);
+    window.addEventListener('offline-transactions-changed', refreshCount);
 
     return () => {
+      window.clearTimeout(countTimer);
       window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline-transactions-changed', refreshCount);
     };
-  }, []);
+  }, [handleSync, refreshCount]);
 
   if (pendingCount === 0) return null;
 

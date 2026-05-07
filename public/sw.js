@@ -1,7 +1,20 @@
-const CACHE_NAME = 'fuel-app-shell-v4';
+const CACHE_NAME = 'fuel-app-shell-v5';
+const PRECACHE_URLS = [
+  '/offline',
+  '/manifest.webmanifest',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/flo-logo.png',
+];
 
-self.addEventListener('install', () => {
-  self.skipWaiting();
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .catch(() => null)
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -76,14 +89,17 @@ self.addEventListener('fetch', (event) => {
             return cachedPage;
           }
 
-          return new Response(
-            '<h1>You are offline</h1><p>This page was not saved yet. Open it once with internet first.</p>',
-            {
-              headers: {
-                'Content-Type': 'text/html',
-              },
-            }
-          );
+          const offlinePage = await caches.match('/offline');
+
+          if (offlinePage) {
+            return offlinePage;
+          }
+
+          return new Response('You are offline.', {
+            headers: {
+              'Content-Type': 'text/plain',
+            },
+          });
         })
     );
 

@@ -10,7 +10,11 @@ import OperationBefore from '@/components/fuel-transaction/operation-before';
 import ReviewBefore from '@/components/fuel-transaction/review-before';
 import BeforeDeliverySuccessAlert from '@/components/fuel-transaction/before-delivery-success-alert';
 import { TransactionValidationMessage } from '@/components/fuel-transaction/TransactionUi';
-import { saveTransactionOffline } from '@/lib/offline/offlineDb';
+import {
+  markOfflineTransactionSynced,
+  saveTransactionOffline,
+  updateOfflineTransaction,
+} from '@/lib/offline/offlineDb';
 
 export default function NewTransaction() {
   const { id: projectId } = useParams();
@@ -172,6 +176,8 @@ export default function NewTransaction() {
     setErrorMessage('');
 
     const newTransactionId = crypto.randomUUID();
+    let savedLocalTransaction = false;
+
     try {
       const user = await getCurrentTechnician();
 
@@ -180,9 +186,10 @@ export default function NewTransaction() {
         user
       );
 
-      if (!navigator.onLine) {
-        await saveTransactionOffline(offlineTransaction);
+      await saveTransactionOffline(offlineTransaction);
+      savedLocalTransaction = true;
 
+      if (!navigator.onLine) {
         setSavedOffline(true);
         setTransactionId(newTransactionId);
         setSuccess(true);
@@ -196,6 +203,13 @@ export default function NewTransaction() {
           formData.before_photo_file,
           newTransactionId
         );
+
+        await updateOfflineTransaction(newTransactionId, {
+          before_photo_url: beforePhotoUrl,
+          before_photo_file: null,
+          before_upload_status: 'uploaded',
+          sync_status: 'pending',
+        });
       }
 
       const { data, error } = await supabase
@@ -220,19 +234,32 @@ export default function NewTransaction() {
       if (error) {
         console.error(error);
 
-        await saveTransactionOffline(offlineTransaction);
-
         setSavedOffline(true);
         setTransactionId(newTransactionId);
         setSuccess(true);
         return;
       }
 
+      await markOfflineTransactionSynced(data.id, {
+        before_photo_url: beforePhotoUrl,
+        before_photo_file: null,
+        before_upload_status: beforePhotoUrl ? 'uploaded' : 'pending',
+        remote_saved_at: new Date().toISOString(),
+      });
+
       setSavedOffline(false);
       setTransactionId(data.id);
       setSuccess(true);
     } catch (err) {
       console.error(err);
+
+      if (savedLocalTransaction) {
+        setSavedOffline(true);
+        setTransactionId(newTransactionId);
+        setSuccess(true);
+        return;
+      }
+
       setErrorMessage(err.message || 'Unexpected error occurred.');
       setSuccess(false);
     } finally {

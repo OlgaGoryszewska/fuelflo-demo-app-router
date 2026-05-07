@@ -1,10 +1,19 @@
-export default function ExternalTanks() {
+import { createClient } from '@/lib/supabase/server';
+import ExternalTanksResourceClient from '@/components/resources/ExternalTanksResourceClient';
+
+export const dynamic = 'force-dynamic';
+
+export default async function ExternalTanksPage() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('tanks')
+    .select('*')
+    .order('name', { ascending: true });
+
   return (
-    <div className="m-2.5">
-      <div className="form-header mb-4">
-        <h1 className="ml-2">External Tanks</h1>
-      </div>
-      <p>This is the External Tanks page.</p>
-    </div>
+    <ExternalTanksResourceClient
+      tanks={data || []}
+      errorMessage={error?.message || ''}
+    />
   );
 }

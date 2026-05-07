@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionDetail from '@/components/fuel-transaction/FuelTransactionDetail';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import { getOfflineTransaction } from '@/lib/offline/offlineDb';
 
 const TRANSACTION_SELECT = `
   id,
@@ -34,6 +35,39 @@ const TRANSACTION_SELECT = `
   )
 `;
 
+function createPhotoPreviewUrl(file) {
+  if (!file) return '';
+
+  return URL.createObjectURL(file);
+}
+
+function mapLocalTransaction(localTransaction) {
+  if (!localTransaction) return null;
+
+  return {
+    ...localTransaction,
+    before_photo_url:
+      localTransaction.before_photo_url ||
+      createPhotoPreviewUrl(localTransaction.before_photo_file),
+    after_photo_url:
+      localTransaction.after_photo_url ||
+      createPhotoPreviewUrl(localTransaction.after_photo_file),
+    generators: localTransaction.generator_name
+      ? {
+          id: localTransaction.generator_id,
+          name: localTransaction.generator_name,
+        }
+      : null,
+    tanks: localTransaction.tank_name
+      ? {
+          id: localTransaction.tank_id,
+          name: localTransaction.tank_name,
+        }
+      : null,
+    projects: null,
+  };
+}
+
 export default function ProjectTransactionDetailPage() {
   const { transactionId } = useParams();
   const [transaction, setTransaction] = useState(null);
@@ -47,6 +81,14 @@ export default function ProjectTransactionDetailPage() {
       setLoading(true);
       setErrorMessage('');
 
+      const localTransaction = await getOfflineTransaction(transactionId);
+
+      if (!navigator.onLine && localTransaction) {
+        setTransaction(mapLocalTransaction(localTransaction));
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('fuel_transactions')
         .select(TRANSACTION_SELECT)
@@ -54,8 +96,13 @@ export default function ProjectTransactionDetailPage() {
         .single();
 
       if (error) {
-        setErrorMessage(error.message);
-        setTransaction(null);
+        if (localTransaction) {
+          setTransaction(mapLocalTransaction(localTransaction));
+          setErrorMessage('');
+        } else {
+          setErrorMessage(error.message);
+          setTransaction(null);
+        }
       } else {
         setTransaction(data);
       }

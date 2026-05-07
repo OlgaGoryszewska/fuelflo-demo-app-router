@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import StepNavigation from '@/components/StepNavigation';
 import { supabase } from '@/lib/supabaseClient';
 import ReviewAfter from '@/components/fuel-transaction/review-after';
 import AfterDeliverySuccessAlert from '@/components/fuel-transaction/after-delivery-success-alert';
 import OperationAfter from '@/components/fuel-transaction/operation-after';
-import { updateOfflineTransaction } from '@/lib/offline/offlineDb';
+import {
+  getOfflineTransaction,
+  markOfflineTransactionSynced,
+  updateOfflineTransaction,
+} from '@/lib/offline/offlineDb';
 import { TransactionValidationMessage } from '@/components/fuel-transaction/TransactionUi';
 
 export default function TransactionAfter() {
@@ -21,6 +25,8 @@ export default function TransactionAfter() {
   const [validationMessage, setValidationMessage] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [localTransaction, setLocalTransaction] = useState(null);
+  const [loadingLocalTransaction, setLoadingLocalTransaction] = useState(true);
 
   const [formData, setFormData] = useState({
     after_fuel_level: '',
@@ -33,6 +39,34 @@ export default function TransactionAfter() {
     setValidationMessage('');
     setFormData(update);
   }
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLocalTransaction() {
+      const transaction = await getOfflineTransaction(transactionId);
+
+      if (!active) return;
+
+      setLocalTransaction(transaction || null);
+      setLoadingLocalTransaction(false);
+
+      if (
+        transaction?.status === 'completed' &&
+        (transaction.after_photo_file || transaction.after_photo_url) &&
+        transaction.after_fuel_level
+      ) {
+        setSavedOffline(transaction.sync_status !== 'synced');
+        setSuccess(true);
+      }
+    }
+
+    loadLocalTransaction();
+
+    return () => {
+      active = false;
+    };
+  }, [transactionId]);
 
   function validateStep(stepIndex) {
     let message = '';
@@ -87,20 +121,41 @@ export default function TransactionAfter() {
     return data.publicUrl;
   }
 
-  async function saveAfterOffline() {
+  async function saveAfterOffline(uploadedPhotoUrl = null) {
     const completedAt = new Date().toISOString();
+    const existing = await getOfflineTransaction(transactionId);
+
+    if (!existing) {
+      throw new Error(
+        'This transaction is not saved on this device. Open it online once, then try offline again.'
+      );
+    }
 
     await updateOfflineTransaction(transactionId, {
       project_id: projectId || null,
       after_fuel_level: formData.after_fuel_level || null,
-      after_photo_url: null,
-      after_photo_file: formData.after_photo_file || null,
+      after_photo_url: uploadedPhotoUrl,
+      after_photo_file: uploadedPhotoUrl ? null : formData.after_photo_file || null,
       after_photo_preview: formData.after_photo_preview || '',
+      after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
       completed_at: completedAt,
       after_completed_at: completedAt,
       status: 'completed',
+      sync_status: 'pending',
     });
 
+    setLocalTransaction({
+      ...existing,
+      after_fuel_level: formData.after_fuel_level || null,
+      after_photo_url: uploadedPhotoUrl,
+      after_photo_file: uploadedPhotoUrl ? null : formData.after_photo_file || null,
+      after_photo_preview: formData.after_photo_preview || '',
+      after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
+      completed_at: completedAt,
+      after_completed_at: completedAt,
+      status: 'completed',
+      sync_status: 'pending',
+    });
     setSavedOffline(true);
     setSuccess(true);
   }
@@ -111,6 +166,8 @@ export default function TransactionAfter() {
     setSubmitting(true);
     setErrorMessage('');
     setSavedOffline(false);
+    let savedLocalAfterEvidence = false;
+    let uploadedAfterPhotoUrl = null;
 
     try {
       if (!transactionId) {
@@ -120,13 +177,14 @@ export default function TransactionAfter() {
 
       if (!navigator.onLine) {
         await saveAfterOffline();
+        savedLocalAfterEvidence = true;
         return;
       }
 
-      let afterPhotoUrl = formData.after_photo_url || null;
+      uploadedAfterPhotoUrl = formData.after_photo_url || null;
 
       if (formData.after_photo_file) {
-        afterPhotoUrl = await uploadAfterPhoto(
+        uploadedAfterPhotoUrl = await uploadAfterPhoto(
           formData.after_photo_file,
           transactionId
         );
@@ -136,7 +194,7 @@ export default function TransactionAfter() {
         .from('fuel_transactions')
         .update({
           after_fuel_level: formData.after_fuel_level || null,
-          after_photo_url: afterPhotoUrl,
+          after_photo_url: uploadedAfterPhotoUrl,
           completed_at: new Date().toISOString(),
           status: 'completed',
         })
@@ -145,14 +203,37 @@ export default function TransactionAfter() {
       if (error) {
         console.error(error);
 
-        await saveAfterOffline();
+        await saveAfterOffline(uploadedAfterPhotoUrl);
+        savedLocalAfterEvidence = true;
         return;
+      }
+
+      if (localTransaction) {
+        await markOfflineTransactionSynced(transactionId, {
+          after_fuel_level: formData.after_fuel_level || null,
+          after_photo_url: uploadedAfterPhotoUrl,
+          after_photo_file: null,
+          after_upload_status: uploadedAfterPhotoUrl ? 'uploaded' : 'pending',
+          completed_at: new Date().toISOString(),
+          status: 'completed',
+          remote_saved_at: new Date().toISOString(),
+        });
       }
 
       setSavedOffline(false);
       setSuccess(true);
     } catch (err) {
       console.error(err);
+
+      if (!savedLocalAfterEvidence && localTransaction) {
+        try {
+          await saveAfterOffline(uploadedAfterPhotoUrl);
+          return;
+        } catch (offlineError) {
+          console.error(offlineError);
+        }
+      }
+
       setErrorMessage(err.message || 'Unexpected error occurred.');
     } finally {
       setSubmitting(false);
@@ -164,6 +245,8 @@ export default function TransactionAfter() {
     <ReviewAfter key={1} formData={formData} setFormData={updateFormData} />,
   ];
   const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
+  const cannotCompleteOffline =
+    !loadingLocalTransaction && !isOnline && !localTransaction;
 
   return (
     <div className="main-container">
@@ -174,6 +257,13 @@ export default function TransactionAfter() {
       {errorMessage && (
         <p className="mx-4 mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-600">
           {errorMessage}
+        </p>
+      )}
+
+      {cannotCompleteOffline && (
+        <p className="mx-4 mb-4 rounded border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
+          This transaction was not saved on this device. Connect to the
+          internet once before collecting after evidence for it offline.
         </p>
       )}
 
@@ -214,7 +304,7 @@ export default function TransactionAfter() {
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalSteps={steps.length}
-            submitting={submitting}
+            submitting={submitting || cannotCompleteOffline}
             onSubmit={handleSubmit}
             onValidateStep={validateStep}
           />
