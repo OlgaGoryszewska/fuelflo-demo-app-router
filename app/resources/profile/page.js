@@ -16,6 +16,7 @@ import {
   Mail,
   MapPin,
   Phone,
+  Plus,
   ShieldCheck,
   UserRound,
   UsersRound,
@@ -104,12 +105,15 @@ function MetricCard({ icon: Icon, label, value, hint, tone = 'slate' }) {
   );
 }
 
-function SectionHeader({ eyebrow, title, description }) {
+function SectionHeader({ eyebrow, title, description, action }) {
   return (
-    <div className="mb-4">
-      {eyebrow && <p className="page-kicker">{eyebrow}</p>}
-      <h2 className="mt-1">{title}</h2>
-      {description && <p className="steps-text mt-1">{description}</p>}
+    <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="min-w-0">
+        {eyebrow && <p className="page-kicker">{eyebrow}</p>}
+        <h2 className="mt-1">{title}</h2>
+        {description && <p className="steps-text mt-1">{description}</p>}
+      </div>
+      {action}
     </div>
   );
 }
@@ -147,6 +151,70 @@ function EmptyCard({ title, description }) {
         {title}
       </p>
       <p className="steps-text mt-1">{description}</p>
+    </div>
+  );
+}
+
+function AssignmentPanel({
+  availableProjects,
+  selectedProjectId,
+  setSelectedProjectId,
+  assigning,
+  assignMessage,
+  onAssign,
+}) {
+  return (
+    <div className="mb-4 rounded-[22px] border border-[#fee39f] bg-[#fff7e6] p-4">
+      <div className="mb-3 flex items-start gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#f25822] ring-1 ring-[#fee39f]">
+          <Plus size={19} strokeWidth={2.3} />
+        </span>
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-[var(--primary-black)]">
+            Assign a project
+          </p>
+          <p className="steps-text mt-1">
+            Link this profile to a project for field visibility.
+          </p>
+        </div>
+      </div>
+
+      {availableProjects.length === 0 ? (
+        <p className="rounded-[18px] border border-white/70 bg-white/70 p-3 text-sm text-[#9a5f12]">
+          All visible projects are already assigned to this profile.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-3">
+          <select
+            value={selectedProjectId}
+            onChange={(event) => setSelectedProjectId(event.target.value)}
+            className="h-12"
+          >
+            <option value="">Choose project</option>
+            {availableProjects.map((project) => (
+              <option key={project.id} value={project.id}>
+                {project.name || `Project ${project.id}`}
+              </option>
+            ))}
+          </select>
+
+          <button
+            type="button"
+            onClick={onAssign}
+            disabled={assigning || !selectedProjectId}
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#d5eefc] bg-white px-4 text-sm font-semibold text-[#41516a] shadow-sm transition active:scale-[0.98] disabled:opacity-50"
+          >
+            <Plus size={18} strokeWidth={2.2} />
+            {assigning ? 'Assigning...' : 'Assign project'}
+          </button>
+        </div>
+      )}
+
+      {assignMessage && (
+        <p className="mt-3 rounded-[18px] border border-white/70 bg-white/70 p-3 text-sm font-semibold text-[#62748e]">
+          {assignMessage}
+        </p>
+      )}
     </div>
   );
 }
@@ -242,10 +310,15 @@ export default function ProfilePage() {
   const router = useRouter();
   const [profile, setProfile] = useState(null);
   const [assignedProjects, setAssignedProjects] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [loggingOut, setLoggingOut] = useState(false);
+  const [showAssignPanel, setShowAssignPanel] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState('');
+  const [assigning, setAssigning] = useState(false);
+  const [assignMessage, setAssignMessage] = useState('');
 
   const loadProfileDashboard = useCallback(async () => {
     try {
@@ -275,38 +348,48 @@ export default function ProfilePage() {
         return;
       }
 
-      const [relationResult, managedResult, supplierResult, organizerResult] =
-        await Promise.all([
-          supabase
-            .from('profiles_projects')
-            .select(
-              `
+      const [
+        relationResult,
+        managedResult,
+        supplierResult,
+        organizerResult,
+        allProjectsResult,
+      ] = await Promise.all([
+        supabase
+          .from('profiles_projects')
+          .select(
+            `
               projects_id,
               projects:projects_id (
                 ${PROJECT_SELECT}
               )
             `
-            )
-            .eq('profiles_id', profileData.id),
-          supabase
-            .from('projects')
-            .select(PROJECT_SELECT)
-            .eq('manager_id', profileData.id),
-          supabase
-            .from('projects')
-            .select(PROJECT_SELECT)
-            .eq('fuel_suppliers_id', profileData.id),
-          supabase
-            .from('projects')
-            .select(PROJECT_SELECT)
-            .eq('event_organizer_id', profileData.id),
-        ]);
+          )
+          .eq('profiles_id', profileData.id),
+        supabase
+          .from('projects')
+          .select(PROJECT_SELECT)
+          .eq('manager_id', profileData.id),
+        supabase
+          .from('projects')
+          .select(PROJECT_SELECT)
+          .eq('fuel_suppliers_id', profileData.id),
+        supabase
+          .from('projects')
+          .select(PROJECT_SELECT)
+          .eq('event_organizer_id', profileData.id),
+        supabase
+          .from('projects')
+          .select(PROJECT_SELECT)
+          .order('start_date', { ascending: false }),
+      ]);
 
       const projectErrors = [
         relationResult.error,
         managedResult.error,
         supplierResult.error,
         organizerResult.error,
+        allProjectsResult.error,
       ].filter(Boolean);
 
       if (projectErrors.length > 0) throw projectErrors[0];
@@ -340,12 +423,14 @@ export default function ProfilePage() {
 
       setProfile(profileData);
       setAssignedProjects(Array.from(projectMap.values()));
+      setAllProjects(allProjectsResult.data || []);
       setTransactions(transactionData);
     } catch (error) {
       console.error('Error loading profile dashboard:', error);
       setErrorMessage(error.message || 'Could not load profile.');
       setProfile(null);
       setAssignedProjects([]);
+      setAllProjects([]);
       setTransactions([]);
     } finally {
       setLoading(false);
@@ -370,6 +455,62 @@ export default function ProfilePage() {
       pendingTransactions: pending,
     };
   }, [assignedProjects, transactions]);
+
+  const availableProjects = useMemo(() => {
+    const assignedIds = new Set(
+      assignedProjects.map((project) => String(project.id))
+    );
+
+    return allProjects.filter((project) => !assignedIds.has(String(project.id)));
+  }, [allProjects, assignedProjects]);
+
+  const handleAssignProject = async () => {
+    if (!profile?.id || !selectedProjectId || assigning) return;
+
+    setAssigning(true);
+    setAssignMessage('');
+
+    try {
+      const alreadyAssigned = assignedProjects.some(
+        (project) => String(project.id) === String(selectedProjectId)
+      );
+
+      if (alreadyAssigned) {
+        setAssignMessage('This project is already assigned to the profile.');
+        return;
+      }
+
+      const selectedProject = allProjects.find(
+        (project) => String(project.id) === String(selectedProjectId)
+      );
+      const projectIdValue = isNaN(Number(selectedProjectId))
+        ? selectedProjectId
+        : Number(selectedProjectId);
+
+      const { error } = await supabase.from('profiles_projects').insert([
+        {
+          profiles_id: profile.id,
+          projects_id: projectIdValue,
+        },
+      ]);
+
+      if (error) throw error;
+
+      if (selectedProject) {
+        setAssignedProjects((current) => [...current, selectedProject]);
+      } else {
+        await loadProfileDashboard();
+      }
+
+      setSelectedProjectId('');
+      setAssignMessage('Project assigned successfully.');
+    } catch (error) {
+      console.error('Error assigning project:', error);
+      setAssignMessage(error.message || 'Could not assign project.');
+    } finally {
+      setAssigning(false);
+    }
+  };
 
   const handleLogout = async () => {
     if (loggingOut) return;
@@ -532,7 +673,31 @@ export default function ProfilePage() {
           eyebrow="Assignments"
           title="Assigned projects"
           description="Projects connected to this profile through role or technician assignment."
+          action={
+            <button
+              type="button"
+              onClick={() => {
+                setShowAssignPanel((current) => !current);
+                setAssignMessage('');
+              }}
+              className="circle-btn shrink-0 text-[#62748e]"
+              title="Assign project"
+            >
+              <Plus size={16} strokeWidth={2.3} />
+            </button>
+          }
         />
+
+        {showAssignPanel && (
+          <AssignmentPanel
+            availableProjects={availableProjects}
+            selectedProjectId={selectedProjectId}
+            setSelectedProjectId={setSelectedProjectId}
+            assigning={assigning}
+            assignMessage={assignMessage}
+            onAssign={handleAssignProject}
+          />
+        )}
 
         {assignedProjects.length === 0 ? (
           <EmptyCard
