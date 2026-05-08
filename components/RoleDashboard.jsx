@@ -15,6 +15,7 @@ import {
   Wifi,
   WifiOff,
 } from 'lucide-react';
+import DashboardInsights from '@/components/dashboard/DashboardInsights';
 import DashboardTaskPanel from '@/components/dashboard/DashboardTaskPanel';
 import { getDashboardConfig } from '@/lib/navigation/roleNavigation';
 
@@ -221,6 +222,8 @@ export default function RoleDashboard({
             )}
           </aside>
         </div>
+
+        <DashboardInsights role={role} />
 
         <WorkspaceNav sections={dashboard.sections} />
       </div>
