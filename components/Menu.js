@@ -745,31 +745,23 @@ export default function Menu() {
                     aria-current={active ? 'page' : undefined}
                     className={`rounded-[22px] border p-3 transition active:scale-[0.98] ${
                       active
-                        ? 'border-[#41516a] bg-[#41516a] text-white shadow-[0_10px_26px_rgba(65,81,106,0.24)]'
+                        ? 'border-[#d5eefc] bg-[#eef4fb] text-gray-900 ring-1 ring-[#d5eefc]'
                         : 'border-[#e8edf3] bg-white text-gray-900'
                     }`}
                   >
                     <span
                       className={`mb-3 flex h-10 w-10 items-center justify-center rounded-full ring-1 ${
                         active
-                          ? 'bg-white/15 text-white ring-white/20'
+                          ? 'bg-white text-[#41516a] ring-[#d5eefc]'
                           : 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]'
                       }`}
                     >
                       <Icon size={20} strokeWidth={2.3} />
                     </span>
-                    <span
-                      className={`block text-sm font-semibold ${
-                        active ? 'text-white' : 'text-gray-900'
-                      }`}
-                    >
+                    <span className="block text-sm font-semibold text-gray-900">
                       {item.label}
                     </span>
-                    <span
-                      className={`mt-1 block text-xs ${
-                        active ? 'text-white/75' : 'text-[#717887]'
-                      }`}
-                    >
+                    <span className="mt-1 block text-xs text-[#717887]">
                       {item.description}
                     </span>
                   </Link>

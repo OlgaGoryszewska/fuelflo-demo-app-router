@@ -19,12 +19,47 @@ import LoadingIndicator from '@/components/LoadingIndicator';
 import { supabase } from '@/lib/supabaseClient';
 import avatar from '@/public/avatar.png';
 
-function managerMatchesSearch(manager, searchText) {
+const directoryThemes = {
+  warm: {
+    card:
+      'border-[#f6d78c] bg-gradient-to-br from-white via-[#fff8ea] to-[#fff2d1] active:border-[#fee39f] active:bg-[#fff7e6]',
+    kicker: 'text-[#9a5f12]',
+    arrowRing: 'ring-[#fee39f]',
+    statCard: 'border-[#f6d78c] bg-[#fff8ea]',
+    statText: 'text-[#9a5f12]',
+  },
+  desk: {
+    card:
+      'border-[#bfdff4] bg-gradient-to-br from-white via-[#f4fbff] to-[#e4f4fb] active:border-[#a7d8ea] active:bg-[#edf9fc]',
+    kicker: 'text-[#2b7384]',
+    arrowRing: 'ring-[#c7e7f0]',
+    statCard: 'border-[#c7e7f0] bg-[#f2fbfd]',
+    statText: 'text-[#2b7384]',
+  },
+  supplier: {
+    card:
+      'border-[#c8e6d5] bg-gradient-to-br from-white via-[#f5fcf7] to-[#e5f6ec] active:border-[#a9dcc0] active:bg-[#eef9f2]',
+    kicker: 'text-[#2f7d57]',
+    arrowRing: 'ring-[#c8e6d5]',
+    statCard: 'border-[#c8e6d5] bg-[#f3fbef]',
+    statText: 'text-[#2f7d57]',
+  },
+  event: {
+    card:
+      'border-[#ffd0ba] bg-gradient-to-br from-white via-[#fff8f4] to-[#ffe9df] active:border-[#ffb999] active:bg-[#fff1e9]',
+    kicker: 'text-[#b6532f]',
+    arrowRing: 'ring-[#ffd0ba]',
+    statCard: 'border-[#ffd0ba] bg-[#fff6f0]',
+    statText: 'text-[#b6532f]',
+  },
+};
+
+function profileMatchesSearch(profile, searchText) {
   const values = [
-    manager.full_name,
-    manager.email,
-    manager.phone,
-    manager.address,
+    profile.full_name,
+    profile.email,
+    profile.phone,
+    profile.address,
   ];
 
   return values.some((value) =>
@@ -34,14 +69,15 @@ function managerMatchesSearch(manager, searchText) {
   );
 }
 
-function buildProjectCounts(projects) {
+function buildProjectCounts(projects, projectField) {
   return projects.reduce((counts, project) => {
-    if (!project.manager_id) return counts;
+    const profileId = project[projectField];
+    if (!profileId) return counts;
 
-    const managerId = String(project.manager_id);
-    const current = counts.get(managerId) || { total: 0, active: 0 };
+    const key = String(profileId);
+    const current = counts.get(key) || { total: 0, active: 0 };
 
-    counts.set(managerId, {
+    counts.set(key, {
       total: current.total + 1,
       active: current.active + (project.active ? 1 : 0),
     });
@@ -50,17 +86,25 @@ function buildProjectCounts(projects) {
   }, new Map());
 }
 
-function ManagerCard({ manager, projectCount }) {
+function PartnerCard({
+  profile,
+  hrefBase,
+  singularLabel,
+  projectCount,
+  projectMetricLabel,
+  theme,
+}) {
   const activeProjects = projectCount?.active || 0;
   const totalProjects = projectCount?.total || 0;
+  const themeClasses = directoryThemes[theme] || directoryThemes.warm;
 
   return (
     <li>
       <Link
-        href={`/resources/manager/${manager.id}`}
-        className="group block rounded-[24px] border border-[#f6d78c] bg-gradient-to-br from-white via-[#fff8ea] to-[#fff2d1] p-4 shadow-[0_10px_26px_rgba(98,116,142,0.12)] ring-1 ring-white/70 transition active:scale-[0.98] active:border-[#fee39f] active:bg-[#fff7e6]"
+        href={`${hrefBase}/${profile.id}`}
+        className={`group block rounded-[24px] border p-4 shadow-[0_10px_26px_rgba(98,116,142,0.12)] ring-1 ring-white/70 transition active:scale-[0.98] ${themeClasses.card}`}
       >
-        <article aria-labelledby={`manager-${manager.id}-name`}>
+        <article aria-labelledby={`${profile.role}-${profile.id}-name`}>
           <div className="flex items-start gap-4">
             <Image
               src={avatar}
@@ -71,41 +115,45 @@ function ManagerCard({ manager, projectCount }) {
             <div className="min-w-0 flex-1">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9a5f12]">
-                    Manager
+                  <p
+                    className={`text-xs font-semibold uppercase tracking-[0.16em] ${themeClasses.kicker}`}
+                  >
+                    {singularLabel}
                   </p>
                   <h3
-                    id={`manager-${manager.id}-name`}
+                    id={`${profile.role}-${profile.id}-name`}
                     className="mt-1 truncate text-base font-semibold text-gray-950"
                   >
-                    {manager.full_name || 'Unnamed manager'}
+                    {profile.full_name || `Unnamed ${singularLabel.toLowerCase()}`}
                   </h3>
                 </div>
 
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/75 text-[#62748e] ring-1 ring-[#fee39f] transition group-active:translate-x-0.5">
+                <span
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/75 text-[#62748e] ring-1 transition group-active:translate-x-0.5 ${themeClasses.arrowRing}`}
+                >
                   <ArrowRight size={19} strokeWidth={2.2} />
                 </span>
               </div>
 
               <div className="mt-3 flex flex-col gap-1.5">
-                {manager.email && (
+                {profile.email && (
                   <p className="flex min-w-0 items-center gap-2 text-sm text-[#717887]">
                     <Mail size={14} className="shrink-0" />
-                    <span className="truncate">{manager.email}</span>
+                    <span className="truncate">{profile.email}</span>
                   </p>
                 )}
 
-                {manager.phone && (
+                {profile.phone && (
                   <p className="flex min-w-0 items-center gap-2 text-sm text-[#717887]">
                     <Phone size={14} className="shrink-0" />
-                    <span className="truncate">{manager.phone}</span>
+                    <span className="truncate">{profile.phone}</span>
                   </p>
                 )}
 
-                {manager.created_at && (
+                {profile.created_at && (
                   <p className="flex min-w-0 items-center gap-2 text-sm text-[#717887]">
                     <CalendarDays size={14} className="shrink-0" />
-                    <span>Added {formatDateShort(manager.created_at)}</span>
+                    <span>Added {formatDateShort(profile.created_at)}</span>
                   </p>
                 )}
               </div>
@@ -126,7 +174,7 @@ function ManagerCard({ manager, projectCount }) {
             <div className="rounded-[18px] border border-white/80 bg-white/70 p-3">
               <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#717887]">
                 <ShieldCheck size={14} />
-                Portfolio
+                {projectMetricLabel}
               </p>
               <p className="mt-1 text-sm font-semibold text-gray-950">
                 {totalProjects} total
@@ -139,91 +187,100 @@ function ManagerCard({ manager, projectCount }) {
   );
 }
 
-export default function ManagersPage() {
-  const [managers, setManagers] = useState([]);
+export default function PartnerDirectoryPage({
+  role,
+  title,
+  singularLabel,
+  directoryTitle,
+  description,
+  searchPlaceholder,
+  hrefBase,
+  projectField,
+  projectMetricLabel = 'Linked',
+  theme = 'warm',
+}) {
+  const [profiles, setProfiles] = useState([]);
   const [projectCounts, setProjectCounts] = useState(new Map());
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function loadManagers() {
+    async function loadProfiles() {
       setLoading(true);
       setError(null);
 
       try {
-        const { data: managerData, error: managerError } = await supabase
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select('id, full_name, email, phone, address, role, created_at')
-          .eq('role', 'manager')
+          .eq('role', role)
           .order('full_name', { ascending: true });
 
-        if (managerError) throw managerError;
+        if (profileError) throw profileError;
 
-        const managerIds = (managerData || []).map((manager) => manager.id);
+        const profileIds = (profileData || []).map((profile) => profile.id);
         let counts = new Map();
 
-        if (managerIds.length > 0) {
+        if (profileIds.length > 0 && projectField) {
           const { data: projectData, error: projectError } = await supabase
             .from('projects')
-            .select('id, manager_id, active')
-            .in('manager_id', managerIds);
+            .select(`id, active, ${projectField}`)
+            .in(projectField, profileIds);
 
           if (projectError) throw projectError;
-          counts = buildProjectCounts(projectData || []);
+          counts = buildProjectCounts(projectData || [], projectField);
         }
 
-        setManagers(managerData || []);
+        setProfiles(profileData || []);
         setProjectCounts(counts);
       } catch (err) {
-        console.error('Error loading managers:', err);
-        setError(err.message || 'Could not load managers.');
-        setManagers([]);
+        console.error(`Error loading ${title.toLowerCase()}:`, err);
+        setError(err.message || `Could not load ${title.toLowerCase()}.`);
+        setProfiles([]);
         setProjectCounts(new Map());
       } finally {
         setLoading(false);
       }
     }
 
-    loadManagers();
-  }, []);
+    loadProfiles();
+  }, [projectField, role, title]);
 
-  const filteredManagers = useMemo(() => {
+  const filteredProfiles = useMemo(() => {
     const searchText = query.trim().toLowerCase();
 
-    if (!searchText) return managers;
+    if (!searchText) return profiles;
 
-    return managers.filter((manager) =>
-      managerMatchesSearch(manager, searchText)
+    return profiles.filter((profile) =>
+      profileMatchesSearch(profile, searchText)
     );
-  }, [managers, query]);
+  }, [profiles, query]);
 
-  const activeManagerCount = useMemo(
+  const activeProfileCount = useMemo(
     () =>
-      managers.filter(
-        (manager) => (projectCounts.get(String(manager.id))?.active || 0) > 0
+      profiles.filter(
+        (profile) => (projectCounts.get(String(profile.id))?.active || 0) > 0
       ).length,
-    [managers, projectCounts]
+    [profiles, projectCounts]
   );
 
   return (
     <div className="main-container">
       <div className="form-header">
-        <h1 className="ml-2">Managers</h1>
+        <h1 className="ml-2">{title}</h1>
       </div>
 
       <section className="mb-4 px-1">
         <p className="page-kicker">People & partners</p>
         <div className="mt-2 flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2>Manager directory</h2>
-            <p className="steps-text mt-1">
-              Find operational leads, contact details, and active project load.
-            </p>
+            <h2>{directoryTitle}</h2>
+            <p className="steps-text mt-1">{description}</p>
           </div>
 
           <span className="shrink-0 rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
-            {managers.length}
+            {profiles.length}
           </span>
         </div>
       </section>
@@ -235,17 +292,25 @@ export default function ManagersPage() {
             Listed
           </p>
           <p className="mt-1 text-lg font-semibold text-gray-950">
-            {managers.length}
+            {profiles.length}
           </p>
         </div>
 
-        <div className="rounded-[22px] border border-[#f6d78c] bg-[#fff8ea] p-3 shadow-sm">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#9a5f12]">
+        <div
+          className={`rounded-[22px] border p-3 shadow-sm ${
+            (directoryThemes[theme] || directoryThemes.warm).statCard
+          }`}
+        >
+          <p
+            className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] ${
+              (directoryThemes[theme] || directoryThemes.warm).statText
+            }`}
+          >
             <BriefcaseBusiness size={15} />
             Active
           </p>
           <p className="mt-1 text-lg font-semibold text-gray-950">
-            {activeManagerCount}
+            {activeProfileCount}
           </p>
         </div>
       </section>
@@ -259,7 +324,7 @@ export default function ManagersPage() {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search managers, email, phone, or location"
+          placeholder={searchPlaceholder}
           className="!pl-12"
         />
       </div>
@@ -276,22 +341,26 @@ export default function ManagersPage() {
         </div>
       )}
 
-      {!loading && filteredManagers.length > 0 && (
+      {!loading && filteredProfiles.length > 0 && (
         <ul className="flex flex-col gap-3">
-          {filteredManagers.map((manager) => (
-            <ManagerCard
-              key={manager.id}
-              manager={manager}
-              projectCount={projectCounts.get(String(manager.id))}
+          {filteredProfiles.map((profile) => (
+            <PartnerCard
+              key={profile.id}
+              profile={profile}
+              hrefBase={hrefBase}
+              singularLabel={singularLabel}
+              projectCount={projectCounts.get(String(profile.id))}
+              projectMetricLabel={projectMetricLabel}
+              theme={theme}
             />
           ))}
         </ul>
       )}
 
-      {!loading && managers.length > 0 && filteredManagers.length === 0 && (
+      {!loading && profiles.length > 0 && filteredProfiles.length === 0 && (
         <div className="rounded-[24px] border border-dashed border-[#d5eefc] bg-white p-6 text-center">
           <p className="text-sm font-semibold text-gray-900">
-            No managers match your search.
+            No {title.toLowerCase()} match your search.
           </p>
           <p className="steps-text mt-1">
             Try searching by name, email, phone, or location.
@@ -299,16 +368,16 @@ export default function ManagersPage() {
         </div>
       )}
 
-      {!loading && managers.length === 0 && !error && (
+      {!loading && profiles.length === 0 && !error && (
         <div className="rounded-[24px] border border-dashed border-[#d5eefc] bg-white p-6 text-center">
           <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
             <UserRoundCheck size={24} strokeWidth={2.2} />
           </span>
           <p className="text-sm font-semibold text-gray-900">
-            No managers found.
+            No {title.toLowerCase()} found.
           </p>
           <p className="steps-text mt-1">
-            Registered manager profiles will appear here.
+            Registered {title.toLowerCase()} profiles will appear here.
           </p>
         </div>
       )}
