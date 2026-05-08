@@ -3,14 +3,22 @@
 import React from 'react';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { Download } from 'lucide-react';
-import TransactionReportDocument from './TransactionReportDocument';
+import ProjectReportDocument from './ProjectReportDocument';
 
-export default function TransactionReportPreview({
-  transaction,
+export default function ProjectReportPreview({
+  project,
+  summary,
+  transactions,
   showPreview = true,
 }) {
-  const fileName = `transaction-report-${transaction.id}.pdf`;
-  const document = <TransactionReportDocument transaction={transaction} />;
+  const fileName = `project-report-${project.id}.pdf`;
+  const document = (
+    <ProjectReportDocument
+      project={project}
+      summary={summary}
+      transactions={transactions}
+    />
+  );
 
   return (
     <div className="w-full space-y-4">
@@ -21,6 +29,7 @@ export default function TransactionReportPreview({
           </PDFViewer>
         </div>
       )}
+
       <PDFDownloadLink
         document={document}
         fileName={fileName}
@@ -29,7 +38,7 @@ export default function TransactionReportPreview({
         {({ loading }) => (
           <>
             <Download size={18} />
-            {loading ? 'Preparing PDF...' : 'Download transaction PDF'}
+            {loading ? 'Preparing PDF...' : 'Download project PDF'}
           </>
         )}
       </PDFDownloadLink>
