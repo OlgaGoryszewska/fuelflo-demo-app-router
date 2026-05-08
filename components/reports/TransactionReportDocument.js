@@ -252,6 +252,7 @@ export default function TransactionReportDocument({ transaction }) {
               <Text style={styles.imageTitle}>Before transaction</Text>
               {transaction.before_photo_url ? (
                 <Image
+                  alt="Before transaction"
                   src={transaction.before_photo_url}
                   style={styles.image}
                 />
@@ -265,7 +266,11 @@ export default function TransactionReportDocument({ transaction }) {
             <View style={styles.imageCard}>
               <Text style={styles.imageTitle}>After transaction</Text>
               {transaction.after_photo_url ? (
-                <Image src={transaction.after_photo_url} style={styles.image} />
+                <Image
+                  alt="After transaction"
+                  src={transaction.after_photo_url}
+                  style={styles.image}
+                />
               ) : (
                 <View style={styles.imagePlaceholder}>
                   <Text>No after photo</Text>

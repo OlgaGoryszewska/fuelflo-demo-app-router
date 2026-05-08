@@ -52,7 +52,9 @@ export default function ProjectFuelTransactionsList({ projectId }) {
   }, [projectId]);
 
   useEffect(() => {
-    loadTransactions();
+    const timeoutId = window.setTimeout(loadTransactions, 0);
+
+    return () => window.clearTimeout(timeoutId);
   }, [loadTransactions]);
 
   const enrichedTransactions = transactions.map((transaction) => ({

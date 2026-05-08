@@ -4,18 +4,18 @@ import { useEffect, useState } from 'react';
 
 export default function InstallAppCard() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [isIOS, setIsIOS] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
+  const [isIOS] = useState(() => {
+    if (typeof window === 'undefined') return false;
+
+    return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  });
+  const [isInstalled, setIsInstalled] = useState(() => {
+    if (typeof window === 'undefined') return false;
+
+    return window.matchMedia('(display-mode: standalone)').matches;
+  });
 
   useEffect(() => {
-    const ua = window.navigator.userAgent.toLowerCase();
-
-    setIsIOS(/iphone|ipad|ipod/.test(ua));
-
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstalled(true);
-    }
-
     function handleBeforeInstallPrompt(e) {
       e.preventDefault();
       setDeferredPrompt(e);

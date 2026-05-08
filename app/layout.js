@@ -21,7 +21,11 @@ const roboto = Roboto_Flex({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${roboto.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="theme-color" content="#e2ecfc" />
@@ -31,7 +35,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
 
-      <body>
+      <body suppressHydrationWarning>
         <ServiceWorkerRegister />
         <OfflineBanner />
         <AppShell>{children}</AppShell>

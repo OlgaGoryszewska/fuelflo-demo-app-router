@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 
 export default function OfflineBanner() {
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline, setIsOnline] = useState(
+    () => typeof navigator === 'undefined' || navigator.onLine
+  );
 
   useEffect(() => {
-    setIsOnline(navigator.onLine);
-
     function handleOnline() {
       setIsOnline(true);
     }
