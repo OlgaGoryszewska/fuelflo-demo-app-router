@@ -28,8 +28,11 @@ export default function OfflineBanner() {
   if (isOnline) return null;
 
   return (
-    <div className="fixed top-0 left-0  w-full bg-yellow-100 p-1 text-center text-sm text-yellow-800">
-      You are offline.
+    <div
+      role="status"
+      className="fixed left-0 top-0 z-[10000] w-full border-b border-[#fee39f] bg-[#fff7e6] p-2 text-center text-sm font-semibold text-[#9a5f12] shadow-sm"
+    >
+      You are offline. Field data will save locally and sync when connection returns.
     </div>
   );
 }

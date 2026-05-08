@@ -4,16 +4,16 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Fuel, MapPin, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import { loadActiveProjectsWithCache } from '@/lib/offline/activeProjectsCache';
 import formatDateShort from '@/components/FormatDateShort';
 import LoadingIndicator from '@/components/LoadingIndicator';
-
-const PROJECTS_CACHE_KEY = 'offline_active_projects';
 
 export default function AddTransactionProjectPickerPage() {
   const [projects, setProjects] = useState([]);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [warning, setWarning] = useState('');
   const [isOfflineData, setIsOfflineData] = useState(false);
   const [isOnline, setIsOnline] = useState(() =>
     typeof navigator === 'undefined' ? true : navigator.onLine
@@ -41,48 +41,15 @@ export default function AddTransactionProjectPickerPage() {
     async function load() {
       setLoading(true);
       setError(null);
+      setWarning('');
 
-      try {
-        const cachedProjects = localStorage.getItem(PROJECTS_CACHE_KEY);
+      const result = await loadActiveProjectsWithCache(supabase);
 
-        if (!navigator.onLine) {
-          if (cachedProjects) {
-            setProjects(JSON.parse(cachedProjects));
-            setIsOfflineData(true);
-          } else {
-            setError(
-              'No projects saved offline yet. Open projects once with internet before going to the field.'
-            );
-          }
-
-          setLoading(false);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from('projects')
-          .select('id, name, location, start_date')
-          .eq('active', true)
-          .order('start_date', { ascending: false });
-
-        if (error) throw error;
-
-        setProjects(data || []);
-        setIsOfflineData(false);
-        localStorage.setItem(PROJECTS_CACHE_KEY, JSON.stringify(data || []));
-      } catch (err) {
-        const cachedProjects = localStorage.getItem(PROJECTS_CACHE_KEY);
-
-        if (cachedProjects) {
-          setProjects(JSON.parse(cachedProjects));
-          setIsOfflineData(true);
-          setError('Could not refresh projects. Showing saved offline data.');
-        } else {
-          setError(err.message || 'Could not load projects.');
-        }
-      } finally {
-        setLoading(false);
-      }
+      setProjects(result.projects);
+      setIsOfflineData(result.isOfflineData);
+      setWarning(result.warning);
+      setError(result.error || null);
+      setLoading(false);
     }
 
     load();
@@ -139,9 +106,9 @@ export default function AddTransactionProjectPickerPage() {
           </div>
         )}
 
-        {isOfflineData && isOnline && (
+        {isOfflineData && isOnline && warning && (
           <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
-            Showing saved project data because refresh failed.
+            {warning}
           </div>
         )}
 

@@ -10,22 +10,22 @@ import {
   Search,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import { loadActiveProjectsWithCache } from '@/lib/offline/activeProjectsCache';
 import formatDateShort from '@/components/FormatDateShort';
 import LoadingIndicator from '@/components/LoadingIndicator';
-
-const PROJECTS_CACHE_KEY = 'offline_active_projects';
 
 export default function OngoingProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [warning, setWarning] = useState('');
   const [isOfflineData, setIsOfflineData] = useState(false);
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline, setIsOnline] = useState(() =>
+    typeof navigator === 'undefined' ? true : navigator.onLine
+  );
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    setIsOnline(navigator.onLine);
-
     function handleOnline() {
       setIsOnline(true);
     }
@@ -47,48 +47,18 @@ export default function OngoingProjectsPage() {
     async function load() {
       setLoading(true);
       setError(null);
+      setWarning('');
 
-      try {
-        const cachedProjects = localStorage.getItem(PROJECTS_CACHE_KEY);
+      const result = await loadActiveProjectsWithCache(supabase, {
+        offlineEmptyMessage:
+          'No projects saved offline yet. Open this page once with internet before going to the field.',
+      });
 
-        if (!navigator.onLine) {
-          if (cachedProjects) {
-            setProjects(JSON.parse(cachedProjects));
-            setIsOfflineData(true);
-          } else {
-            setError(
-              'No projects saved offline yet. Open this page once with internet before going to the field.'
-            );
-          }
-
-          setLoading(false);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from('projects')
-          .select('id, name, location, start_date')
-          .eq('active', true)
-          .order('start_date', { ascending: false });
-
-        if (error) throw error;
-
-        setProjects(data || []);
-        setIsOfflineData(false);
-        localStorage.setItem(PROJECTS_CACHE_KEY, JSON.stringify(data || []));
-      } catch (err) {
-        const cachedProjects = localStorage.getItem(PROJECTS_CACHE_KEY);
-
-        if (cachedProjects) {
-          setProjects(JSON.parse(cachedProjects));
-          setIsOfflineData(true);
-          setError('Could not refresh projects. Showing saved offline data.');
-        } else {
-          setError(err.message || 'Could not load projects.');
-        }
-      } finally {
-        setLoading(false);
-      }
+      setProjects(result.projects);
+      setIsOfflineData(result.isOfflineData);
+      setWarning(result.warning);
+      setError(result.error || null);
+      setLoading(false);
     }
 
     load();
@@ -108,27 +78,32 @@ export default function OngoingProjectsPage() {
   }, [projects, query]);
 
   return (
-    <div className="main-container">
-      <div className="form-header">
-        <h1 className="ml-2">Projects</h1>
+    <main className="mx-auto w-full max-w-[640px] px-3 py-4">
+      <div className="mb-3 px-1">
+        <p className="page-kicker">Projects</p>
       </div>
 
-      <div className="background-container">
+      <section className="mb-4 rounded-[28px] border border-[#d9e2ec] bg-gradient-to-br from-white via-[#f8fbff] to-[#d5eefc] p-5 shadow-[0_12px_30px_rgba(98,116,142,0.16)]">
         <div className="mb-3 flex items-start justify-between gap-3">
-          <div>
-            <h2>Active projects</h2>
+          <div className="min-w-0">
+            <p className="steps-text uppercase tracking-[0.18em]">
+              Ongoing work
+            </p>
+            <h2 className="mt-1">Active projects</h2>
             <p className="steps-text mt-1">
               Review project details, locations, and start dates.
             </p>
           </div>
 
           {!loading && (
-            <div className="rounded-full bg-white px-3 py-1 text-sm font-medium text-[#62748e] ring-1 ring-[#d5eefc]">
+            <div className="rounded-full bg-white/80 px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-white">
               {projects.length}
             </div>
           )}
         </div>
+      </section>
 
+      <section className="background-container-white mb-4">
         <div className="relative mb-4">
           <Search
             aria-hidden="true"
@@ -144,7 +119,7 @@ export default function OngoingProjectsPage() {
         </div>
 
         {!isOnline && (
-          <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
+          <div className="mb-4 rounded-[22px] border border-[#fee39f] bg-[#fff7e6] p-4 text-sm text-[#9a5f12]">
             <strong>Offline mode</strong>
             <p className="mt-1">
               Showing saved projects only. New fuel transactions will be saved
@@ -153,16 +128,16 @@ export default function OngoingProjectsPage() {
           </div>
         )}
 
-        {isOfflineData && isOnline && (
-          <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
-            Showing saved project data because refresh failed.
+        {isOfflineData && isOnline && warning && (
+          <div className="mb-4 rounded-[22px] border border-[#fee39f] bg-[#fff7e6] p-4 text-sm text-[#9a5f12]">
+            {warning}
           </div>
         )}
 
         {loading && <LoadingIndicator />}
 
         {error && (
-          <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+          <div className="mb-4 rounded-[22px] border border-red-200 bg-red-50 p-4 text-sm text-red-700">
             {error}
           </div>
         )}
@@ -173,7 +148,7 @@ export default function OngoingProjectsPage() {
               <Link
                 key={project.id}
                 href={`/resources/projects/${project.id}`}
-                className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition active:scale-[0.98] active:border-[#62748e] active:bg-[#eef4fb]"
+                className="flex items-center gap-3 rounded-[24px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.08)] transition active:scale-[0.98] active:border-[#62748e] active:bg-[#eef4fb]"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
                   <FolderKanban size={21} strokeWidth={2.2} />
@@ -185,7 +160,7 @@ export default function OngoingProjectsPage() {
                       {project.name}
                     </h3>
 
-                    <div className="shrink-0 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 ring-1 ring-green-100">
+                    <div className="shrink-0 rounded-full border border-[#d7edce] bg-[#f3fbef] px-2.5 py-1 text-xs font-semibold text-[#2f8f5b]">
                       Active
                     </div>
                   </div>
@@ -216,17 +191,17 @@ export default function OngoingProjectsPage() {
         )}
 
         {!loading && projects.length > 0 && filteredProjects.length === 0 && (
-          <div className="rounded-xl border border-gray-100 bg-white p-4">
+          <div className="rounded-[22px] border border-[#e8edf3] bg-white p-4">
             <p className="steps-text">No projects match your search.</p>
           </div>
         )}
 
         {!loading && projects.length === 0 && !error && (
-          <div className="rounded-xl border border-gray-100 bg-white p-4">
+          <div className="rounded-[22px] border border-[#e8edf3] bg-white p-4">
             <p className="steps-text">No active projects found.</p>
           </div>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

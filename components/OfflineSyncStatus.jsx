@@ -7,6 +7,9 @@ import { syncTransactions } from '@/lib/offline/syncTransactions';
 export default function OfflineSyncStatus() {
   const [pendingCount, setPendingCount] = useState(0);
   const [syncing, setSyncing] = useState(false);
+  const [isOnline, setIsOnline] = useState(
+    () => typeof navigator === 'undefined' || navigator.onLine
+  );
 
   const refreshCount = useCallback(async () => {
     const items = await getOfflineTransactions();
@@ -26,15 +29,22 @@ export default function OfflineSyncStatus() {
     const countTimer = window.setTimeout(refreshCount, 0);
 
     async function handleOnline() {
+      setIsOnline(true);
       await handleSync();
     }
 
+    function handleOffline() {
+      setIsOnline(false);
+    }
+
     window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
     window.addEventListener('offline-transactions-changed', refreshCount);
 
     return () => {
       window.clearTimeout(countTimer);
       window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
       window.removeEventListener('offline-transactions-changed', refreshCount);
     };
   }, [handleSync, refreshCount]);
@@ -45,7 +55,7 @@ export default function OfflineSyncStatus() {
     <div className="mx-4 my-3 rounded border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
       <p>Pending offline uploads: {pendingCount}</p>
 
-      {navigator.onLine ? (
+      {isOnline ? (
         <button
           type="button"
           onClick={handleSync}

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fuel-app-shell-v5';
+const CACHE_NAME = 'fuel-app-shell-v7';
 const PRECACHE_URLS = [
   '/offline',
   '/manifest.webmanifest',
@@ -69,6 +69,19 @@ async function cacheResponse(request, response) {
   await cache.put(request, response.clone());
 }
 
+async function notifyClientsOnlineRecovery() {
+  const clients = await self.clients.matchAll({
+    includeUncontrolled: true,
+    type: 'window',
+  });
+
+  for (const client of clients) {
+    client.postMessage({
+      type: 'FUELFLO_SW_ONLINE_RESPONSE',
+    });
+  }
+}
+
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
@@ -80,6 +93,7 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then(async (response) => {
           await cacheResponse(request, response);
+          notifyClientsOnlineRecovery();
           return response;
         })
         .catch(async () => {

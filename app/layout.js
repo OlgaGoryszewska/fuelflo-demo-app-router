@@ -4,6 +4,71 @@ import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import OfflineBanner from '@/components/OfflineBanner';
 import AppShell from '@/components/AppShell';
 
+const offlineRecoveryScript = `
+(function () {
+  var wasOfflineKey = 'fuelflo-was-offline';
+  var reloadKey = 'fuelflo-online-recovery-reloaded';
+
+  function markOffline() {
+    try {
+      sessionStorage.setItem(wasOfflineKey, '1');
+      sessionStorage.removeItem(reloadKey);
+    } catch (error) {}
+  }
+
+  function recoverOnline() {
+    try {
+      var wasOffline = sessionStorage.getItem(wasOfflineKey) === '1';
+      var alreadyReloaded = sessionStorage.getItem(reloadKey) === '1';
+
+      if (!wasOffline || alreadyReloaded) return;
+
+      sessionStorage.setItem(reloadKey, '1');
+      sessionStorage.removeItem(wasOfflineKey);
+
+      if (window.location.pathname === '/offline') {
+        window.location.replace('/');
+        return;
+      }
+
+      window.location.reload();
+    } catch (error) {
+      window.location.reload();
+    }
+  }
+
+  function recoverChunkError(event) {
+    var target = event && event.target;
+    var tagName = target && target.tagName;
+    var isAppAsset =
+      (tagName === 'SCRIPT' || tagName === 'LINK') &&
+      target &&
+      typeof target.src === 'string'
+        ? target.src.indexOf('/_next/') !== -1
+        : target && typeof target.href === 'string'
+          ? target.href.indexOf('/_next/') !== -1
+          : false;
+
+    if (!isAppAsset || !navigator.onLine) return;
+
+    try {
+      if (sessionStorage.getItem(reloadKey) === '1') return;
+      sessionStorage.setItem(reloadKey, '1');
+    } catch (error) {}
+
+    window.location.reload();
+  }
+
+  if (!navigator.onLine) {
+    markOffline();
+  }
+
+  window.addEventListener('offline', markOffline);
+  window.addEventListener('online', recoverOnline);
+  window.addEventListener('error', recoverChunkError, true);
+})();
+`;
+
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -36,6 +101,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: offlineRecoveryScript }} />
         <ServiceWorkerRegister />
         <OfflineBanner />
         <AppShell>{children}</AppShell>

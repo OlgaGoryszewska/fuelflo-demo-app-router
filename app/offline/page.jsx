@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Script from 'next/script';
+import { RefreshCcw, WifiOff } from 'lucide-react';
 
 export default function OfflinePage() {
   const [isOnline, setIsOnline] = useState(
@@ -27,26 +29,45 @@ export default function OfflinePage() {
   }, []);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
-      <section className="max-w-md rounded-2xl bg-white p-6 text-center shadow">
-        <h1 className="text-2xl font-semibold text-slate-900">
-          You are offline
-        </h1>
+    <main className="mx-auto flex min-h-screen w-full max-w-[640px] items-center px-3 py-8">
+      <Script id="fuelflo-offline-recover" strategy="beforeInteractive">
+        {`
+          window.addEventListener('online', function () {
+            window.location.replace('/');
+          });
+        `}
+      </Script>
 
-        <p className="mt-3 text-slate-600">
-          This page was not saved yet. Connect to the internet and try again.
+      <section className="w-full rounded-[28px] border border-[#fee39f] bg-gradient-to-br from-white via-[#fff8ea] to-[#fee39f] p-5 text-center shadow-[0_12px_30px_rgba(98,116,142,0.16)]">
+        <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/85 text-[#f25822] ring-1 ring-white">
+          <WifiOff size={27} strokeWidth={2.4} />
+        </span>
+
+        <p className="page-kicker">Offline mode</p>
+        <h2 className="mt-2">Connection lost</h2>
+
+        <p className="steps-text mx-auto mt-2 max-w-sm">
+          This page was not saved on this device yet. Saved projects and field
+          transactions still work offline and will sync when connection returns.
         </p>
 
-        <p className="mt-2 text-sm text-slate-500">
-          Status: {isOnline ? 'Online' : 'Offline'}
-        </p>
+        <div
+          className={`mx-auto mt-5 inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+            isOnline
+              ? 'border-[#d7edce] bg-[#f3fbef] text-[#2f8f5b]'
+              : 'border-[#fee39f] bg-white/70 text-[#9a5f12]'
+          }`}
+        >
+          {isOnline ? 'Online' : 'Offline'}
+        </div>
 
         <button
           type="button"
           onClick={() => window.location.reload()}
-          className="mt-5 rounded-lg bg-slate-900 px-4 py-2 text-white disabled:opacity-50"
+          className="button-big mt-5 gap-2 disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!isOnline}
         >
+          <RefreshCcw size={18} strokeWidth={2.3} />
           Try again
         </button>
       </section>
