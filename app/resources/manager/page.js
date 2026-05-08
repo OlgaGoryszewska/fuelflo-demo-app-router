@@ -208,49 +208,29 @@ export default function ManagersPage() {
 
   return (
     <div className="main-container">
-      <div className="form-header">
-        <h1 className="ml-2">Managers</h1>
-      </div>
-
       <section className="mb-4 px-1">
-        <p className="page-kicker">People & partners</p>
-        <div className="mt-2 flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2>Manager directory</h2>
-            <p className="steps-text mt-1">
+            <h1 className="text-2xl font-semibold leading-tight text-gray-950">
+              Manager directory
+            </h1>
+            <p className="steps-text mt-1.5 max-w-[34rem]">
               Find operational leads, contact details, and active project load.
             </p>
           </div>
 
-          <span className="shrink-0 rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
-            {managers.length}
-          </span>
+          <div className="flex shrink-0 flex-col items-end gap-2 pt-0.5">
+            <span className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
+              {managers.length} listed
+            </span>
+            <span className="rounded-full bg-[#fff8ea] px-3 py-1 text-xs font-semibold text-[#9a5f12] ring-1 ring-[#f6d78c]">
+              {activeManagerCount} active
+            </span>
+          </div>
         </div>
       </section>
 
-      <section className="mb-4 grid grid-cols-2 gap-3">
-        <div className="rounded-[22px] border border-[#d5eefc] bg-white p-3 shadow-sm">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#717887]">
-            <UserRoundCheck size={15} />
-            Listed
-          </p>
-          <p className="mt-1 text-lg font-semibold text-gray-950">
-            {managers.length}
-          </p>
-        </div>
-
-        <div className="rounded-[22px] border border-[#f6d78c] bg-[#fff8ea] p-3 shadow-sm">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#9a5f12]">
-            <BriefcaseBusiness size={15} />
-            Active
-          </p>
-          <p className="mt-1 text-lg font-semibold text-gray-950">
-            {activeManagerCount}
-          </p>
-        </div>
-      </section>
-
-      <div className="relative mb-4">
+      <div className="relative mb-4 mt-3">
         <Search
           aria-hidden="true"
           className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#717887]"

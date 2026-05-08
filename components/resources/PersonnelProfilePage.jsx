@@ -45,8 +45,8 @@ function MetricCard({ icon: Icon, label, value, hint, tone = 'slate' }) {
     slate: 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]',
     amber: 'bg-[#fff7e6] text-[#9a5f12] ring-[#fee39f]',
     desk: 'bg-[#f2fbfd] text-[#2b7384] ring-[#c7e7f0]',
-    supplier: 'bg-[#f3fbef] text-[#2f7d57] ring-[#c8e6d5]',
-    event: 'bg-[#fff6f0] text-[#b6532f] ring-[#ffd0ba]',
+    supplier: 'bg-[#f1f6f2] text-[#4f6959] ring-[#c9d7cd]',
+    event: 'bg-[#fff2fb] text-[#9b4ba3] ring-[#edc7f3]',
   };
 
   return (
@@ -218,8 +218,8 @@ function getProfileTheme(role) {
   if (role === 'fuel_supplier') {
     return {
       hero:
-        'border-[#c8e6d5] bg-gradient-to-br from-white via-[#f5fcf7] to-[#dff2e7]',
-      accent: 'bg-[#2f7d57]/10',
+        'border-[#c9d7cd] bg-gradient-to-br from-white via-[#f6faf7] to-[#e0ebe4]',
+      accent: 'bg-[#4f6959]/10',
       statIconTone: 'supplier',
     };
   }
@@ -227,8 +227,8 @@ function getProfileTheme(role) {
   if (role === 'event_organizer') {
     return {
       hero:
-        'border-[#ffd0ba] bg-gradient-to-br from-white via-[#fff8f4] to-[#ffe3d5]',
-      accent: 'bg-[#f25822]/10',
+        'border-[#edc7f3] bg-gradient-to-br from-white via-[#fff5ff] to-[#f6d9ef]',
+      accent: 'bg-[#9b4ba3]/10',
       statIconTone: 'event',
     };
   }

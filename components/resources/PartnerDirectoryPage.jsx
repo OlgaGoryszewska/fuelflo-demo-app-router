@@ -38,19 +38,19 @@ const directoryThemes = {
   },
   supplier: {
     card:
-      'border-[#c8e6d5] bg-gradient-to-br from-white via-[#f5fcf7] to-[#e5f6ec] active:border-[#a9dcc0] active:bg-[#eef9f2]',
-    kicker: 'text-[#2f7d57]',
-    arrowRing: 'ring-[#c8e6d5]',
-    statCard: 'border-[#c8e6d5] bg-[#f3fbef]',
-    statText: 'text-[#2f7d57]',
+      'border-[#c9d7cd] bg-gradient-to-br from-white via-[#f6faf7] to-[#e7efe9] active:border-[#aebfb4] active:bg-[#eef5f0]',
+    kicker: 'text-[#4f6959]',
+    arrowRing: 'ring-[#c9d7cd]',
+    statCard: 'border-[#c9d7cd] bg-[#f1f6f2]',
+    statText: 'text-[#4f6959]',
   },
   event: {
     card:
-      'border-[#ffd0ba] bg-gradient-to-br from-white via-[#fff8f4] to-[#ffe9df] active:border-[#ffb999] active:bg-[#fff1e9]',
-    kicker: 'text-[#b6532f]',
-    arrowRing: 'ring-[#ffd0ba]',
-    statCard: 'border-[#ffd0ba] bg-[#fff6f0]',
-    statText: 'text-[#b6532f]',
+      'border-[#edc7f3] bg-gradient-to-br from-white via-[#fff5ff] to-[#fbe3f3] active:border-[#e4aee9] active:bg-[#fff0fb]',
+    kicker: 'text-[#9b4ba3]',
+    arrowRing: 'ring-[#edc7f3]',
+    statCard: 'border-[#edc7f3] bg-[#fff2fb]',
+    statText: 'text-[#9b4ba3]',
   },
 };
 
@@ -267,55 +267,31 @@ export default function PartnerDirectoryPage({
 
   return (
     <div className="main-container">
-      <div className="form-header">
-        <h1 className="ml-2">{title}</h1>
-      </div>
-
       <section className="mb-4 px-1">
-        <p className="page-kicker">People & partners</p>
-        <div className="mt-2 flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2>{directoryTitle}</h2>
-            <p className="steps-text mt-1">{description}</p>
+            <h1 className="text-2xl font-semibold leading-tight text-gray-950">
+              {directoryTitle}
+            </h1>
+            <p className="steps-text mt-1.5 max-w-[34rem]">{description}</p>
           </div>
 
-          <span className="shrink-0 rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
-            {profiles.length}
-          </span>
+          <div className="flex shrink-0 flex-col items-end gap-2 pt-0.5">
+            <span className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
+              {profiles.length} listed
+            </span>
+            <span
+              className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
+                (directoryThemes[theme] || directoryThemes.warm).statCard
+              } ${(directoryThemes[theme] || directoryThemes.warm).statText}`}
+            >
+              {activeProfileCount} active
+            </span>
+          </div>
         </div>
       </section>
 
-      <section className="mb-4 grid grid-cols-2 gap-3">
-        <div className="rounded-[22px] border border-[#d5eefc] bg-white p-3 shadow-sm">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#717887]">
-            <UserRoundCheck size={15} />
-            Listed
-          </p>
-          <p className="mt-1 text-lg font-semibold text-gray-950">
-            {profiles.length}
-          </p>
-        </div>
-
-        <div
-          className={`rounded-[22px] border p-3 shadow-sm ${
-            (directoryThemes[theme] || directoryThemes.warm).statCard
-          }`}
-        >
-          <p
-            className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] ${
-              (directoryThemes[theme] || directoryThemes.warm).statText
-            }`}
-          >
-            <BriefcaseBusiness size={15} />
-            Active
-          </p>
-          <p className="mt-1 text-lg font-semibold text-gray-950">
-            {activeProfileCount}
-          </p>
-        </div>
-      </section>
-
-      <div className="relative mb-4">
+      <div className="relative mb-4 mt-3">
         <Search
           aria-hidden="true"
           className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#717887]"
