@@ -115,13 +115,16 @@ span {
 .main-container {
   display: flex;
   flex-direction: column;
-
-  padding: 0.6rem;
-  max-width: 600px;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 0.75rem;
+  box-sizing: border-box;
 }
 
 .main-content {
   flex: 1;
+  width: 100%;
 }
 html,
 body {
@@ -150,8 +153,10 @@ form,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 600px;
+  max-width: 640px;
   width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.4rem;
@@ -182,6 +187,8 @@ form {
   box-shadow: none;
   background-color: none;
   background: none;
+  max-width: none;
+  width: 100%;
 }
 
 .generator-container {

@@ -118,15 +118,16 @@ export default function ReportProjectsPage() {
 
         <label className="relative mb-4 block">
           <Search
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#9aa8b6]"
-            size={18}
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#9aa8b6]"
+            size={17}
+            strokeWidth={2.2}
           />
           <input
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search project, client, location"
-            className="pl-10"
+            className="!h-12 !pl-12 !pr-4"
           />
         </label>
 

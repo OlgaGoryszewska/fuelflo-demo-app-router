@@ -1,7 +1,6 @@
 import './globals.css';
 import { Poppins, Roboto_Flex } from 'next/font/google';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
-import OfflineBanner from '@/components/OfflineBanner';
 import AppShell from '@/components/AppShell';
 
 const offlineRecoveryScript = `
@@ -103,7 +102,6 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: offlineRecoveryScript }} />
         <ServiceWorkerRegister />
-        <OfflineBanner />
         <AppShell>{children}</AppShell>
       </body>
     </html>

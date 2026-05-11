@@ -88,7 +88,6 @@ export default function RoleDashboard({
     () => true
   );
 
-  const primaryAction = dashboard.primaryActions[0];
   const secondaryActions = dashboard.primaryActions.slice(1);
 
   return (
@@ -117,9 +116,6 @@ export default function RoleDashboard({
               </p>
             </div>
 
-            {primaryAction && (
-              <DashboardAction item={primaryAction} variant="primary" />
-            )}
           </div>
 
           {secondaryActions.length > 0 && (

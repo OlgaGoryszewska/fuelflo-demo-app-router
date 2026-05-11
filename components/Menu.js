@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu as MenuIcon, RefreshCcw, X } from 'lucide-react';
+import { Menu as MenuIcon, RefreshCcw, WifiOff, X } from 'lucide-react';
 import logo from '@/public/flo-logo.png';
 import { supabase } from '@/lib/supabaseClient';
 import {
@@ -17,6 +17,9 @@ import {
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOnline, setIsOnline] = useState(
+    () => typeof navigator === 'undefined' || navigator.onLine
+  );
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -92,6 +95,24 @@ export default function Menu() {
       subscription.unsubscribe();
     };
   }, [pathname]);
+
+  useEffect(() => {
+    function handleOnline() {
+      setIsOnline(true);
+    }
+
+    function handleOffline() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     function handleScroll() {
@@ -181,6 +202,19 @@ export default function Menu() {
         </Link>
 
         <div className="flex items-center gap-2">
+          {!isOnline && (
+            <div
+              className="flex h-11 items-center gap-2 rounded-full border border-[#fee39f] bg-[#fff7e6] px-3 text-[#9a5f12] shadow-sm ring-1 ring-white/70"
+              role="status"
+              title="Offline mode. Work saves locally and syncs when online."
+            >
+              <WifiOff size={18} strokeWidth={2.4} />
+              <span className="hidden text-xs font-semibold sm:inline">
+                Offline
+              </span>
+            </div>
+          )}
+
           <button
             type="button"
             onClick={refreshPage}
