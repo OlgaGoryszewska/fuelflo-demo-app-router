@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function InstallAppCard() {
+export default function InstallAppCard({ className = '' }) {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIOS] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -46,7 +46,9 @@ export default function InstallAppCard() {
   if (isInstalled) return null;
 
   return (
-    <section className="mx-4 mt-4 rounded-3xl border border-orange-100 bg-white p-5 shadow-sm">
+    <section
+      className={`rounded-3xl border border-orange-100 bg-white p-5 shadow-sm ${className}`}
+    >
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-500">
           Field mode

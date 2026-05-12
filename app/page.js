@@ -116,6 +116,19 @@ function LandingPage() {
               </div>
             </section>
 
+            {/* Access Cards */}
+            <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">Ready to get started?</h3>
+                  <p className="text-sm text-slate-600">Sign in to access your FuelFlo workspace</p>
+                </div>
+                <AuthForm />
+              </div>
+
+              <InstallAppCard className="h-full shadow-lg" />
+            </section>
+
             {/* Key Benefits */}
             <section>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -191,20 +204,6 @@ function LandingPage() {
 
           {/* Sidebar */}
           <aside className="space-y-6 lg:sticky lg:top-8">
-            {/* Sign In Card */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
-              <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Ready to get started?</h3>
-                <p className="text-sm text-slate-600">Sign in to access your FuelFlo workspace</p>
-              </div>
-              <AuthForm />
-            </div>
-
-            {/* Install Card */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
-              <InstallAppCard />
-            </div>
-
             {/* Contact Support */}
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
               <div className="text-center">
