@@ -9,6 +9,7 @@ import {
   CalendarDays,
   CheckCircle2,
   Clock3,
+  CreditCard,
   Mail,
   ReceiptText,
   Search,
@@ -218,14 +219,23 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
             )}
 
             {transaction.status !== 'paid' && (
-              <button
-                type="button"
-                onClick={() => onMarkPaid(transaction)}
-                className="inline-flex items-center gap-1 rounded-full border border-[#d7edce] bg-[#f3fbef] px-3 py-1 text-xs font-semibold text-[#2f8f5b]"
-              >
-                <CheckCircle2 size={13} />
-                Mark paid
-              </button>
+              <>
+                <Link
+                  href={`/resources/payments/${transaction.id}`}
+                  className="inline-flex items-center gap-1 rounded-full border border-[#d5eefc] bg-white px-3 py-1 text-xs font-semibold text-[#62748e] hover:bg-[#f8fbff]"
+                >
+                  <CreditCard size={13} />
+                  Pay now
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => onMarkPaid(transaction)}
+                  className="inline-flex items-center gap-1 rounded-full border border-[#d7edce] bg-[#f3fbef] px-3 py-1 text-xs font-semibold text-[#2f8f5b]"
+                >
+                  <CheckCircle2 size={13} />
+                  Mark paid
+                </button>
+              </>
             )}
           </div>
         </div>
