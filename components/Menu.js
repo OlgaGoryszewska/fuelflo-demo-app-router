@@ -179,7 +179,7 @@ export default function Menu() {
         }`}
       >
         <Link
-          href={homeHref}
+          href="/"
           className={`flex min-w-0 items-center gap-2 rounded-full border px-2.5 py-1 transition active:scale-[0.98] ${
             isScrolled
               ? 'border-white/70 bg-white/70 shadow-sm ring-1 ring-[#d5eefc]/70 backdrop-blur-xl'
