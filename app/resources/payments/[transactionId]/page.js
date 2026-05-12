@@ -3,13 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {
-  ArrowLeft,
-  CheckCircle2,
-  CreditCard,
-  ShieldCheck,
-  Wallet,
-} from 'lucide-react';
+import { ArrowLeft, CreditCard, ShieldCheck, Wallet } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import LoadingIndicator from '@/components/LoadingIndicator';
 
@@ -41,8 +35,6 @@ export default function PaymentPage() {
   const [message, setMessage] = useState('');
   const [payerName, setPayerName] = useState('');
   const [payerEmail, setPayerEmail] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('card');
-  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const outstanding = useMemo(() => {
     if (!transaction) return 0;
@@ -85,8 +77,6 @@ export default function PaymentPage() {
         return;
       }
 
-      setIsAuthorized(true);
-
       const { data, error: transactionError } = await supabase
         .from('financial_transactions')
         .select(
@@ -115,7 +105,6 @@ export default function PaymentPage() {
   async function handlePay(event) {
     event.preventDefault();
     setError('');
-    setMessage('');
 
     if (!transaction) return;
     if (!payerName.trim()) {
@@ -134,31 +123,35 @@ export default function PaymentPage() {
     setSending(true);
 
     try {
-      const { error: updateError } = await supabase
-        .from('financial_transactions')
-        .update({
-          amount_paid: toNumber(transaction.amount_due),
-          status: 'paid',
-          paid_at: new Date().toISOString(),
-          notes: transaction.notes
-            ? `${transaction.notes}\nPaid by ${payerName} via ${paymentMethod}`
-            : `Paid by ${payerName} via ${paymentMethod}`,
-        })
-        .eq('id', transaction.id);
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
 
-      if (updateError) {
-        throw updateError;
+      if (sessionError || !session?.access_token) {
+        throw new Error('Unable to confirm session. Please sign in again.');
       }
 
-      setMessage('Payment recorded successfully.');
-      setTransaction((current) => ({
-        ...current,
-        amount_paid: transaction.amount_due,
-        status: 'paid',
-        paid_at: new Date().toISOString(),
-      }));
-      setSending(false);
-      router.refresh();
+      const response = await fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ transaction_id: transaction.id }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Could not create checkout session.');
+      }
+
+      if (!result.url) {
+        throw new Error('Missing checkout URL.');
+      }
+
+      window.location.href = result.url;
     } catch (err) {
       setError(err.message || 'Could not process payment.');
       setSending(false);
@@ -172,8 +165,8 @@ export default function PaymentPage() {
   return (
     <main className="mx-auto w-full max-w-[860px] px-3 py-6">
       <div className="mb-4 flex items-center gap-3 text-sm text-slate-600">
-        <Link href="/resources/financial-transactions" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-medium hover:bg-slate-50">
-          <ArrowLeft size={16} /> Back to invoices
+        <Link href="/resources/payments" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-medium hover:bg-slate-50">
+          <ArrowLeft size={16} /> Back to payments
         </Link>
       </div>
 
@@ -281,30 +274,9 @@ export default function PaymentPage() {
                 <CreditCard size={20} />
               </span>
               <div>
-                <p className="font-semibold text-slate-900">Payment method</p>
-                <p className="steps-text text-slate-500">Choose how you want to pay.</p>
+                <p className="font-semibold text-slate-900">Card payment</p>
+                <p className="steps-text text-slate-500">Stripe will securely process your card payment.</p>
               </div>
-            </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {[
-                { value: 'card', label: 'Card' },
-                { value: 'bank_transfer', label: 'Bank transfer' },
-                { value: 'mobile', label: 'Mobile pay' },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setPaymentMethod(option.value)}
-                  className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
-                    paymentMethod === option.value
-                      ? 'border-slate-900 bg-slate-900 text-white'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
             </div>
           </div>
 
@@ -315,7 +287,7 @@ export default function PaymentPage() {
               </span>
               <div>
                 <p className="font-semibold text-slate-900">Secure payment</p>
-                <p className="steps-text text-slate-500">This page records a payment and updates invoice status.</p>
+                <p className="steps-text text-slate-500">Stripe checkout protects card details and handles authorization.</p>
               </div>
             </div>
           </div>
@@ -325,8 +297,8 @@ export default function PaymentPage() {
             disabled={sending || transaction.status === 'paid'}
             className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-[#dbeaf5] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {sending ? 'Processing payment...' : transaction.status === 'paid' ? 'Invoice paid' : 'Pay now'}
-            <CheckCircle2 size={18} />
+            {sending ? 'Redirecting to Stripe...' : transaction.status === 'paid' ? 'Invoice paid' : 'Pay with card'}
+            <CreditCard size={18} />
           </button>
         </form>
       </div>

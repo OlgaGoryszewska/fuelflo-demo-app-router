@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CreditCard, ReceiptText, Search } from 'lucide-react';
+import { ArrowRight, CheckCircle2, CreditCard, ReceiptText, Search } from 'lucide-react';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -226,13 +226,20 @@ export default function PaymentsPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/resources/payments/${invoice.id}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#d5eefc] bg-white px-4 py-2 text-sm font-semibold text-[#62748e] hover:bg-[#f8fbff]"
-                >
-                  <ArrowRight size={16} />
-                  Pay invoice
-                </Link>
+                {outstanding > 0 && invoice.status !== 'paid' ? (
+                  <Link
+                    href={`/resources/payments/${invoice.id}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#d5eefc] bg-white px-4 py-2 text-sm font-semibold text-[#62748e] hover:bg-[#f8fbff]"
+                  >
+                    <ArrowRight size={16} />
+                    Pay invoice
+                  </Link>
+                ) : (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#d7edce] bg-[#f3fbef] px-4 py-2 text-sm font-semibold text-[#2f8f5b]">
+                    <CheckCircle2 size={16} />
+                    Paid
+                  </span>
+                )}
                 <Link
                   href="/resources/financial-transactions"
                   className="inline-flex items-center gap-2 rounded-full border border-[#e8edf3] bg-white px-4 py-2 text-sm font-semibold text-[#62748e] hover:bg-[#f8fbff]"
