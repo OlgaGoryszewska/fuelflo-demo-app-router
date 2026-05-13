@@ -33,6 +33,11 @@ export default function TransactionAfter() {
     after_photo_url: '',
     after_photo_file: null,
     after_photo_preview: '',
+    after_location: null,
+    after_location_error: '',
+    after_captured_at: '',
+    after_photo_sha256: '',
+    after_capture_context: null,
   });
 
   function updateFormData(update) {
@@ -137,6 +142,11 @@ export default function TransactionAfter() {
       after_photo_url: uploadedPhotoUrl,
       after_photo_file: uploadedPhotoUrl ? null : formData.after_photo_file || null,
       after_photo_preview: formData.after_photo_preview || '',
+      after_location: formData.after_location || null,
+      after_location_error: formData.after_location_error || '',
+      after_captured_at: formData.after_captured_at || completedAt,
+      after_photo_sha256: formData.after_photo_sha256 || '',
+      after_capture_context: formData.after_capture_context || null,
       after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
       completed_at: completedAt,
       after_completed_at: completedAt,
@@ -150,6 +160,11 @@ export default function TransactionAfter() {
       after_photo_url: uploadedPhotoUrl,
       after_photo_file: uploadedPhotoUrl ? null : formData.after_photo_file || null,
       after_photo_preview: formData.after_photo_preview || '',
+      after_location: formData.after_location || null,
+      after_location_error: formData.after_location_error || '',
+      after_captured_at: formData.after_captured_at || completedAt,
+      after_photo_sha256: formData.after_photo_sha256 || '',
+      after_capture_context: formData.after_capture_context || null,
       after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
       completed_at: completedAt,
       after_completed_at: completedAt,
@@ -195,6 +210,11 @@ export default function TransactionAfter() {
         .update({
           after_fuel_level: formData.after_fuel_level || null,
           after_photo_url: uploadedAfterPhotoUrl,
+          after_location: formData.after_location || null,
+          after_captured_at:
+            formData.after_captured_at || new Date().toISOString(),
+          after_photo_sha256: formData.after_photo_sha256 || null,
+          after_capture_context: formData.after_capture_context || null,
           completed_at: new Date().toISOString(),
           status: 'completed',
         })
@@ -214,6 +234,11 @@ export default function TransactionAfter() {
           after_photo_url: uploadedAfterPhotoUrl,
           after_photo_file: null,
           after_upload_status: uploadedAfterPhotoUrl ? 'uploaded' : 'pending',
+          after_location: formData.after_location || null,
+          after_captured_at:
+            formData.after_captured_at || new Date().toISOString(),
+          after_photo_sha256: formData.after_photo_sha256 || null,
+          after_capture_context: formData.after_capture_context || null,
           completed_at: new Date().toISOString(),
           status: 'completed',
           remote_saved_at: new Date().toISOString(),

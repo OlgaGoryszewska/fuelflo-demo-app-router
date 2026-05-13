@@ -8,19 +8,7 @@ import LoadingIndicator from '@/components/LoadingIndicator';
 import { getOfflineTransaction } from '@/lib/offline/offlineDb';
 
 const TRANSACTION_SELECT = `
-  id,
-  created_at,
-  type,
-  status,
-  project_id,
-  generator_id,
-  technician_id,
-  completed_at,
-  before_fuel_level,
-  after_fuel_level,
-  before_photo_url,
-  after_photo_url,
-  tank_id,
+  *,
   generators (
     id,
     name

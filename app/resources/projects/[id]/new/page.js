@@ -40,6 +40,11 @@ export default function NewTransaction() {
     before_photo_url: '',
     before_photo_file: null,
     before_photo_preview: '',
+    before_location: null,
+    before_location_error: '',
+    before_captured_at: '',
+    before_photo_sha256: '',
+    before_capture_context: null,
     status: 'awaiting_after_evidence',
   });
 
@@ -161,6 +166,11 @@ export default function NewTransaction() {
       before_photo_url: null,
       before_photo_file: formData.before_photo_file || null,
       before_photo_preview: formData.before_photo_preview || '',
+      before_location: formData.before_location || null,
+      before_location_error: formData.before_location_error || '',
+      before_captured_at: formData.before_captured_at || new Date().toISOString(),
+      before_photo_sha256: formData.before_photo_sha256 || '',
+      before_capture_context: formData.before_capture_context || null,
 
       status: 'awaiting_after_evidence',
       sync_status: 'pending',
@@ -225,6 +235,11 @@ export default function NewTransaction() {
             completed_at: null,
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
+            before_location: formData.before_location || null,
+            before_captured_at:
+              formData.before_captured_at || new Date().toISOString(),
+            before_photo_sha256: formData.before_photo_sha256 || null,
+            before_capture_context: formData.before_capture_context || null,
             status: 'awaiting_after_evidence',
           },
         ])
@@ -244,6 +259,11 @@ export default function NewTransaction() {
         before_photo_url: beforePhotoUrl,
         before_photo_file: null,
         before_upload_status: beforePhotoUrl ? 'uploaded' : 'pending',
+        before_location: formData.before_location || null,
+        before_captured_at:
+          formData.before_captured_at || new Date().toISOString(),
+        before_photo_sha256: formData.before_photo_sha256 || null,
+        before_capture_context: formData.before_capture_context || null,
         remote_saved_at: new Date().toISOString(),
       });
 

@@ -1,8 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
-import { Camera, CheckCircle2, Gauge } from 'lucide-react';
+import { Camera, CheckCircle2, Gauge, MapPin } from 'lucide-react';
 import { TransactionFieldCard, TransactionStepHeader } from './TransactionUi';
+import {
+  getEvidenceCaptureContext,
+  getCurrentEvidenceLocation,
+  getFileSha256,
+} from '@/lib/evidence/captureEvidence';
 
 export default function OperationAfter({ formData, setFormData }) {
   function handleFuelLevelChange(e) {
@@ -22,16 +27,28 @@ export default function OperationAfter({ formData, setFormData }) {
     inputRef.current?.click();
   };
 
-  function handlePhotoChange(e) {
+  async function handlePhotoChange(e) {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const previewUrl = URL.createObjectURL(file);
+    const capturedAt = new Date().toISOString();
+    const [captureContext, { location, error: locationError }, photoHash] =
+      await Promise.all([
+        getEvidenceCaptureContext(),
+        getCurrentEvidenceLocation(),
+        getFileSha256(file),
+      ]);
 
     setFormData((prev) => ({
       ...prev,
       after_photo_file: file,
       after_photo_preview: previewUrl,
+      after_captured_at: capturedAt,
+      after_location: location,
+      after_location_error: locationError,
+      after_photo_sha256: photoHash,
+      after_capture_context: captureContext,
     }));
   }
 
@@ -81,6 +98,23 @@ export default function OperationAfter({ formData, setFormData }) {
               <CheckCircle2 size={18} />
               Photo attached
             </p>
+            <div
+              className={`mb-3 flex items-start gap-2 rounded-2xl border p-3 text-sm ${
+                formData.after_location
+                  ? 'border-green-100 bg-green-50 text-green-700'
+                  : 'border-yellow-200 bg-yellow-50 text-yellow-800'
+              }`}
+            >
+              <MapPin size={18} className="mt-0.5 shrink-0" />
+              <span>
+                {formData.after_location
+                  ? `Location captured within ${Math.round(
+                      formData.after_location.accuracy_meters || 0
+                    )} m accuracy.`
+                  : formData.after_location_error ||
+                    'Location was not captured for this photo.'}
+              </span>
+            </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={formData.after_photo_preview}

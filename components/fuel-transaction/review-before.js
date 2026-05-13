@@ -1,6 +1,6 @@
 'use client';
 
-import { Camera, CheckCircle2, Fuel } from 'lucide-react';
+import { Camera, CheckCircle2, Fuel, MapPin, ShieldCheck } from 'lucide-react';
 import {
   TransactionFieldCard,
   TransactionReviewRow,
@@ -35,6 +35,30 @@ export default function ReviewBefore({ formData }) {
             label="Meter reading"
             value={formData.before_fuel_level}
           />
+          <TransactionReviewRow
+            label="GPS evidence"
+            value={
+              formData.before_location
+                ? `${formData.before_location.latitude.toFixed(6)}, ${formData.before_location.longitude.toFixed(6)}`
+                : 'Not captured'
+            }
+          />
+          <TransactionReviewRow
+            label="GPS accuracy"
+            value={
+              formData.before_location?.accuracy_meters
+                ? `${Math.round(formData.before_location.accuracy_meters)} m`
+                : formData.before_location_error || 'Missing'
+            }
+          />
+          <TransactionReviewRow
+            label="Photo SHA-256"
+            value={
+              formData.before_photo_sha256
+                ? `${formData.before_photo_sha256.slice(0, 12)}...`
+                : 'Not calculated'
+            }
+          />
         </div>
       </TransactionFieldCard>
 
@@ -61,11 +85,16 @@ export default function ReviewBefore({ formData }) {
 
       <div className="flex items-start gap-3 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] p-4">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#62748e] ring-1 ring-[#d5eefc]">
-          <Fuel size={21} strokeWidth={2.2} />
+          {formData.before_location ? (
+            <ShieldCheck size={21} strokeWidth={2.2} />
+          ) : (
+            <MapPin size={21} strokeWidth={2.2} />
+          )}
         </span>
         <p className="text-sm text-[#62748e]">
-          Once saved, this record will appear in fuel transactions. If you are
-          offline, it will sync when the app reconnects.
+          Location and photo hash are saved with the evidence when available.
+          This strengthens the audit trail, but field GPS can still be affected
+          by device permissions and signal quality.
         </p>
       </div>
     </div>

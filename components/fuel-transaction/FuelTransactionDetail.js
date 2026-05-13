@@ -5,12 +5,19 @@ import Link from 'next/link';
 import {
   AlertTriangle,
   ArrowRight,
+  CalendarDays,
   CheckCircle2,
+  ClipboardCheck,
   Clock,
   Copy,
+  Database,
   FileText,
   Gauge,
+  HardDrive,
   ImageIcon,
+  Link as LinkIcon,
+  MapPin,
+  ShieldCheck,
 } from 'lucide-react';
 import formatDate from '@/components/FormatDate';
 import { supabase } from '@/lib/supabaseClient';
@@ -28,6 +35,62 @@ function formatLitres(value) {
 
 function shortId(value) {
   return value ? `${value.slice(0, 8)}...` : 'N/A';
+}
+
+function compactValue(value) {
+  if (value === null || value === undefined || value === '') return 'Missing';
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (typeof value === 'number') return String(value);
+  if (typeof value === 'string' && value.length > 42) {
+    return `${value.slice(0, 42)}...`;
+  }
+
+  return String(value);
+}
+
+function titleizeKey(key) {
+  return key
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function getFileName(url) {
+  if (!url) return 'Missing';
+
+  try {
+    const parsedUrl = new URL(url);
+    return decodeURIComponent(parsedUrl.pathname.split('/').pop() || url);
+  } catch {
+    return String(url).split('/').pop() || String(url);
+  }
+}
+
+function formatLocation(location) {
+  if (!location?.latitude || !location?.longitude) return 'Missing';
+
+  return `${Number(location.latitude).toFixed(6)}, ${Number(
+    location.longitude
+  ).toFixed(6)}`;
+}
+
+function formatAccuracy(location) {
+  if (!location?.accuracy_meters) return 'Accuracy missing';
+
+  return `±${Math.round(location.accuracy_meters)} m`;
+}
+
+function getMapHref(location) {
+  if (!location?.latitude || !location?.longitude) return '';
+
+  return `https://www.google.com/maps?q=${location.latitude},${location.longitude}`;
+}
+
+function getContextValue(context, key, fallback = 'Missing') {
+  return context?.[key] === null ||
+    context?.[key] === undefined ||
+    context?.[key] === ''
+    ? fallback
+    : String(context[key]);
 }
 
 function getEvidenceState(transaction) {
@@ -60,6 +123,46 @@ function getEvidenceState(transaction) {
     isDelivery,
     directionMatchesReading,
   };
+}
+
+function getScalarMetadata(transaction) {
+  const hiddenKeys = new Set(['generators', 'tanks', 'projects']);
+  const renderedKeys = new Set([
+    'id',
+    'type',
+    'status',
+    'project_id',
+    'generator_id',
+    'tank_id',
+    'technician_id',
+    'created_at',
+    'completed_at',
+    'before_fuel_level',
+    'after_fuel_level',
+    'before_photo_url',
+    'after_photo_url',
+    'before_photo_preview',
+    'after_photo_preview',
+    'before_location',
+    'after_location',
+    'before_captured_at',
+    'after_captured_at',
+    'before_photo_sha256',
+    'after_photo_sha256',
+    'before_capture_context',
+    'after_capture_context',
+    'sync_status',
+    'remote_saved_at',
+  ]);
+
+  return Object.entries(transaction)
+    .filter(([key, value]) => {
+      if (hiddenKeys.has(key)) return false;
+      if (renderedKeys.has(key)) return false;
+      if (typeof File !== 'undefined' && value instanceof File) return false;
+      return typeof value !== 'object' || value === null;
+    })
+    .sort(([firstKey], [secondKey]) => firstKey.localeCompare(secondKey));
 }
 
 function ProofPill({ tone = 'neutral', children }) {
@@ -217,6 +320,436 @@ function DetailRow({ label, value, href, copyValue, onCopy }) {
         </button>
       )}
     </div>
+  );
+}
+
+function MetadataStat({ icon: Icon, label, value, tone = 'slate' }) {
+  const tones = {
+    orange: 'bg-[#fff7e6] text-[#f25822] ring-[#fee39f]',
+    green: 'bg-[#f3fbef] text-[#2f8f5b] ring-[#d7edce]',
+    amber: 'bg-[#fff7e6] text-[#9a5f12] ring-[#fee39f]',
+    slate: 'bg-[#eef4fb] text-[#62748e] ring-[#d5eefc]',
+  };
+
+  return (
+    <div className="rounded-[20px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.06)]">
+      <span
+        className={`mb-3 flex h-10 w-10 items-center justify-center rounded-full ring-1 ${tones[tone]}`}
+      >
+        <Icon size={19} strokeWidth={2.3} />
+      </span>
+      <p className="text-lg font-semibold text-[var(--primary-black)]">
+        {value}
+      </p>
+      <p className="steps-text mt-1">{label}</p>
+    </div>
+  );
+}
+
+function ChecklistItem({ complete, label, value }) {
+  return (
+    <div className="flex items-start gap-3 rounded-[18px] border border-[#e8edf3] bg-[#f8fbff] p-3">
+      <span
+        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
+          complete ? 'bg-[#f3fbef] text-[#2f8f5b]' : 'bg-[#fff7e6] text-[#9a5f12]'
+        }`}
+      >
+        {complete ? (
+          <CheckCircle2 size={16} strokeWidth={2.4} />
+        ) : (
+          <AlertTriangle size={16} strokeWidth={2.4} />
+        )}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-sm font-semibold text-[var(--primary-black)]">
+          {label}
+        </span>
+        <span className="steps-text mt-0.5 block truncate">{value}</span>
+      </span>
+    </div>
+  );
+}
+
+function MetadataGroup({ title, icon: Icon, children }) {
+  return (
+    <div className="rounded-[22px] border border-[#e8edf3] bg-white/85 p-4">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e]">
+          <Icon size={16} strokeWidth={2.3} />
+        </span>
+        <p className="text-sm font-semibold text-[var(--primary-black)]">
+          {title}
+        </p>
+      </div>
+      <div className="divide-y divide-[#edf1f5]">{children}</div>
+    </div>
+  );
+}
+
+function RawMetadataDrawer({ entries, onCopy }) {
+  return (
+    <details className="rounded-[22px] border border-[#d5eefc] bg-[#f5fbff] p-4">
+      <summary className="cursor-pointer text-sm font-semibold text-[var(--primary-black)]">
+        Raw transaction metadata
+      </summary>
+      <div className="mt-3 divide-y divide-[#d5eefc]">
+        {entries.map(([key, value]) => (
+          <DetailRow
+            key={key}
+            label={titleizeKey(key)}
+            value={compactValue(value)}
+            copyValue={value === null || value === undefined ? '' : String(value)}
+            onCopy={onCopy}
+          />
+        ))}
+      </div>
+    </details>
+  );
+}
+
+function EvidenceMetadataSection({
+  transaction,
+  typeLabel,
+  movementLabel,
+  movementValue,
+  projectName,
+  generatorName,
+  projectId,
+  beforeReading,
+  afterReading,
+  displayedMovement,
+  isComplete,
+  hasBeforeEvidence,
+  hasAfterEvidence,
+  directionMatchesReading,
+  onCopy,
+}) {
+  const metadataEntries = getScalarMetadata(transaction);
+  const tankName = transaction.tanks?.name || transaction.tank_name || shortId(transaction.tank_id);
+  const technicianName =
+    transaction.technician?.full_name ||
+    transaction.technicians?.full_name ||
+    transaction.profiles?.full_name ||
+    shortId(transaction.technician_id);
+  const hasBeforeLocation = Boolean(transaction.before_location?.latitude);
+  const hasAfterLocation = Boolean(transaction.after_location?.latitude);
+  const hasHashes = Boolean(
+    transaction.before_photo_sha256 &&
+      (!hasAfterEvidence || transaction.after_photo_sha256)
+  );
+  const evidenceScore = [
+    hasBeforeEvidence,
+    hasAfterEvidence,
+    hasBeforeLocation,
+    !hasAfterEvidence || hasAfterLocation,
+    hasHashes,
+    directionMatchesReading,
+    Boolean(transaction.project_id),
+    Boolean(transaction.generator_id),
+    Boolean(transaction.tank_id),
+    Boolean(transaction.technician_id),
+  ].filter(Boolean).length;
+  const evidencePercent = Math.round((evidenceScore / 10) * 100);
+  const beforePhotoLabel = getFileName(transaction.before_photo_url || transaction.before_photo_preview);
+  const afterPhotoLabel = getFileName(transaction.after_photo_url || transaction.after_photo_preview);
+
+  return (
+    <section className="overflow-hidden rounded-[28px] border border-[#d5eefc] bg-white shadow-[0_12px_30px_rgba(98,116,142,0.12)]">
+      <div className="bg-gradient-to-br from-[#f8fbff] via-white to-[#fff7e6] p-5">
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="steps-text uppercase tracking-[0.18em]">
+              Evidence metadata
+            </p>
+            <h2 className="mt-1">Delivery and return audit trail</h2>
+            <p className="steps-text mt-1 max-w-[560px]">
+              One reviewed section for identity, readings, photos, timestamps,
+              assignment, and source records.
+            </p>
+          </div>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#62748e] ring-1 ring-[#d5eefc]">
+            <ShieldCheck size={23} strokeWidth={2.4} />
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <MetadataStat
+            icon={ClipboardCheck}
+            label="Evidence strength"
+            value={`${evidencePercent}%`}
+            tone={isComplete && directionMatchesReading ? 'green' : 'amber'}
+          />
+          <MetadataStat
+            icon={Gauge}
+            label={movementLabel}
+            value={movementValue}
+            tone={transaction.type === 'delivery' ? 'orange' : 'slate'}
+          />
+          <MetadataStat
+            icon={MapPin}
+            label="GPS proof"
+            value={`${[hasBeforeLocation, hasAfterLocation].filter(Boolean).length}/2`}
+            tone={hasBeforeLocation && (!hasAfterEvidence || hasAfterLocation) ? 'green' : 'amber'}
+          />
+          <MetadataStat
+            icon={Database}
+            label="Extra fields"
+            value={metadataEntries.length}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-4 p-5">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <ChecklistItem
+            complete={hasBeforeEvidence}
+            label="Before evidence"
+            value={`${formatLitres(beforeReading)} • ${beforePhotoLabel}`}
+          />
+          <ChecklistItem
+            complete={hasAfterEvidence}
+            label="After evidence"
+            value={`${formatLitres(afterReading)} • ${afterPhotoLabel}`}
+          />
+          <ChecklistItem
+            complete={hasBeforeLocation}
+            label="Before location"
+            value={`${formatLocation(transaction.before_location)} • ${formatAccuracy(
+              transaction.before_location
+            )}`}
+          />
+          <ChecklistItem
+            complete={!hasAfterEvidence || hasAfterLocation}
+            label="After location"
+            value={`${formatLocation(transaction.after_location)} • ${formatAccuracy(
+              transaction.after_location
+            )}`}
+          />
+          <ChecklistItem
+            complete={directionMatchesReading}
+            label="Reading direction"
+            value={
+              directionMatchesReading
+                ? `${typeLabel} direction matches readings`
+                : 'Readings conflict with transaction type'
+            }
+          />
+          <ChecklistItem
+            complete={hasHashes}
+            label="Photo hash"
+            value={
+              transaction.before_photo_sha256
+                ? `Before ${transaction.before_photo_sha256.slice(0, 12)}...`
+                : 'Missing SHA-256'
+            }
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <MetadataGroup title="Operational assignment" icon={LinkIcon}>
+            <DetailRow label="Transaction type" value={typeLabel} />
+            <DetailRow label="Status" value={transaction.status || 'Missing'} />
+            <DetailRow
+              label="Project"
+              value={projectName}
+              href={projectId ? `/resources/projects/${projectId}` : undefined}
+              copyValue={projectId}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Generator"
+              value={generatorName}
+              href="/resources/generators"
+              copyValue={transaction.generator_id}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="External tank"
+              value={tankName}
+              href="/resources/external-tanks"
+              copyValue={transaction.tank_id}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Technician"
+              value={technicianName}
+              href={
+                transaction.technician_id
+                  ? `/resources/technician/${transaction.technician_id}`
+                  : undefined
+              }
+              copyValue={transaction.technician_id}
+              onCopy={onCopy}
+            />
+          </MetadataGroup>
+
+          <MetadataGroup title="Timeline and capture" icon={CalendarDays}>
+            <DetailRow label="Created" value={formatDate(transaction.created_at)} />
+            <DetailRow
+              label="Completed"
+              value={isComplete ? formatDate(transaction.completed_at) : 'Pending'}
+            />
+            <DetailRow
+              label="Before photo"
+              value={beforePhotoLabel}
+              href={transaction.before_photo_url}
+              copyValue={transaction.before_photo_url}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Before GPS"
+              value={`${formatLocation(transaction.before_location)} • ${formatAccuracy(
+                transaction.before_location
+              )}`}
+              href={getMapHref(transaction.before_location)}
+              copyValue={formatLocation(transaction.before_location)}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Before captured"
+              value={
+                transaction.before_captured_at
+                  ? formatDate(transaction.before_captured_at)
+                  : 'Not recorded'
+              }
+            />
+            <DetailRow
+              label="Before SHA-256"
+              value={compactValue(transaction.before_photo_sha256)}
+              copyValue={transaction.before_photo_sha256}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="After photo"
+              value={afterPhotoLabel}
+              href={transaction.after_photo_url}
+              copyValue={transaction.after_photo_url}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="After GPS"
+              value={`${formatLocation(transaction.after_location)} • ${formatAccuracy(
+                transaction.after_location
+              )}`}
+              href={getMapHref(transaction.after_location)}
+              copyValue={formatLocation(transaction.after_location)}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="After captured"
+              value={
+                transaction.after_captured_at
+                  ? formatDate(transaction.after_captured_at)
+                  : 'Not recorded'
+              }
+            />
+            <DetailRow
+              label="After SHA-256"
+              value={compactValue(transaction.after_photo_sha256)}
+              copyValue={transaction.after_photo_sha256}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Sync status"
+              value={transaction.sync_status || transaction.status || 'Remote'}
+            />
+            <DetailRow
+              label="Remote saved"
+              value={
+                transaction.remote_saved_at
+                  ? formatDate(transaction.remote_saved_at)
+                  : 'Not recorded'
+              }
+            />
+          </MetadataGroup>
+        </div>
+
+        <MetadataGroup title="Capture environment" icon={ShieldCheck}>
+          <DetailRow
+            label="Before permission"
+            value={getContextValue(
+              transaction.before_capture_context,
+              'geolocation_permission_state'
+            )}
+          />
+          <DetailRow
+            label="Before secure capture"
+            value={
+              transaction.before_capture_context?.secure_context
+                ? 'HTTPS secure context'
+                : 'Not confirmed'
+            }
+          />
+          <DetailRow
+            label="Before timezone"
+            value={getContextValue(transaction.before_capture_context, 'timezone')}
+          />
+          <DetailRow
+            label="After permission"
+            value={getContextValue(
+              transaction.after_capture_context,
+              'geolocation_permission_state',
+              hasAfterEvidence ? 'Missing' : 'Pending'
+            )}
+          />
+          <DetailRow
+            label="After secure capture"
+            value={
+              transaction.after_capture_context?.secure_context
+                ? 'HTTPS secure context'
+                : hasAfterEvidence
+                  ? 'Not confirmed'
+                  : 'Pending'
+            }
+          />
+          <DetailRow
+            label="Device/browser"
+            value={
+              transaction.before_capture_context?.platform ||
+              transaction.after_capture_context?.platform ||
+              'Not recorded'
+            }
+          />
+        </MetadataGroup>
+
+        <MetadataGroup title="Record identity" icon={HardDrive}>
+          <DetailRow
+            label="Transaction ID"
+            value={shortId(transaction.id)}
+            copyValue={transaction.id}
+            onCopy={onCopy}
+          />
+          <DetailRow
+            label="Project ID"
+            value={shortId(transaction.project_id)}
+            copyValue={transaction.project_id}
+            onCopy={onCopy}
+          />
+          <DetailRow
+            label="Generator ID"
+            value={shortId(transaction.generator_id)}
+            copyValue={transaction.generator_id}
+            onCopy={onCopy}
+          />
+          <DetailRow
+            label="Tank ID"
+            value={shortId(transaction.tank_id)}
+            copyValue={transaction.tank_id}
+            onCopy={onCopy}
+          />
+          <DetailRow
+            label="Technician ID"
+            value={shortId(transaction.technician_id)}
+            copyValue={transaction.technician_id}
+            onCopy={onCopy}
+          />
+        </MetadataGroup>
+
+        {metadataEntries.length > 0 && (
+          <RawMetadataDrawer entries={metadataEntries} onCopy={onCopy} />
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -421,6 +954,7 @@ export default function FuelTransactionDetail({ transaction }) {
     beforeReading,
     afterReading,
     displayedMovement,
+    hasBeforeEvidence,
     hasAfterEvidence,
     isComplete,
     isDelivery,
@@ -494,68 +1028,23 @@ export default function FuelTransactionDetail({ transaction }) {
         </div>
       </section>
 
-      <section className="rounded-[24px] border border-[#e8edf3] bg-white/80 p-4">
-        <SectionTitle
-          eyebrow="Records"
-          title="Linked details"
-          description="Quiet admin references for this fuel movement."
-        />
-        <div>
-          <DetailRow label="Transaction type" value={typeLabel} />
-          <DetailRow
-            label="Status"
-            value={isComplete ? 'Complete' : 'Awaiting after evidence'}
-          />
-          <DetailRow
-            label="External tank"
-            value={transaction.tanks?.name || shortId(transaction.tank_id)}
-          />
-          <DetailRow
-            label="Created"
-            value={formatDate(transaction.created_at)}
-          />
-          <DetailRow
-            label="Completed"
-            value={
-              isComplete ? formatDate(transaction.completed_at) : 'Pending'
-            }
-          />
-          <DetailRow
-            label="Transaction ID"
-            value={shortId(transaction.id)}
-            copyValue={transaction.id}
-            onCopy={copyToClipboard}
-          />
-          <DetailRow
-            label="Project"
-            value={projectName}
-            href={`/resources/projects/${projectId}`}
-            copyValue={projectId}
-            onCopy={copyToClipboard}
-          />
-          <DetailRow
-            label="Generator"
-            value={generatorName}
-            href="/resources/generators"
-            copyValue={transaction.generator_id}
-            onCopy={copyToClipboard}
-          />
-          <DetailRow
-            label="Tank"
-            value={transaction.tanks?.name || shortId(transaction.tank_id)}
-            href="/resources/external-tanks"
-            copyValue={transaction.tank_id}
-            onCopy={copyToClipboard}
-          />
-          <DetailRow
-            label="Technician"
-            value={shortId(transaction.technician_id)}
-            href={`/resources/technician/${transaction.technician_id}`}
-            copyValue={transaction.technician_id}
-            onCopy={copyToClipboard}
-          />
-        </div>
-      </section>
+      <EvidenceMetadataSection
+        transaction={transaction}
+        typeLabel={typeLabel}
+        movementLabel={movementLabel}
+        movementValue={movementValue}
+        projectName={projectName}
+        generatorName={generatorName}
+        projectId={projectId}
+        beforeReading={beforeReading}
+        afterReading={afterReading}
+        displayedMovement={displayedMovement}
+        isComplete={isComplete}
+        hasBeforeEvidence={hasBeforeEvidence}
+        hasAfterEvidence={hasAfterEvidence}
+        directionMatchesReading={directionMatchesReading}
+        onCopy={copyToClipboard}
+      />
 
       <RecentProjectTransactions
         projectId={projectId}
