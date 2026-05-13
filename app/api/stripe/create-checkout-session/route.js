@@ -66,7 +66,7 @@ export async function POST(request) {
     const { data: transaction, error: transactionError } = await supabaseAdmin
       .from('financial_transactions')
       .select(
-        'id,invoice_number,amount_due,amount_paid,currency,contractor_email,status'
+        'id,invoice_number,amount_due,amount_paid,currency,contractor_id,contractor_role,contractor_email,status'
       )
       .eq('id', transactionId)
       .single();
@@ -74,6 +74,15 @@ export async function POST(request) {
     if (transactionError || !transaction) {
       return new Response(JSON.stringify({ error: 'Transaction not found' }), {
         status: 404,
+      });
+    }
+
+    if (
+      String(transaction.contractor_id) !== String(user.id) ||
+      transaction.contractor_role !== profile.role
+    ) {
+      return new Response(JSON.stringify({ error: 'Invoice is not assigned to this profile' }), {
+        status: 403,
       });
     }
 

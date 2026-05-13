@@ -147,7 +147,7 @@ function SummaryCard({ icon: Icon, label, value, hint, tone = 'slate' }) {
   );
 }
 
-function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
+function FinancialRow({ transaction, canManage, onMarkSent, onMarkPaid }) {
   const outstanding =
     toNumber(transaction.amount_due) - toNumber(transaction.amount_paid);
   const emailHref = getInvoiceEmailHref(transaction);
@@ -202,7 +202,7 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
               Due {formatDate(transaction.due_date)}
             </span>
 
-            {emailHref && (
+            {canManage && emailHref && (
               <Link
                 href={emailHref}
                 onClick={() => onMarkSent(transaction)}
@@ -213,7 +213,7 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
               </Link>
             )}
 
-            {transaction.status === 'draft' && (
+            {canManage && transaction.status === 'draft' && (
               <button
                 type="button"
                 onClick={() => onMarkSent(transaction)}
@@ -233,14 +233,16 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
                   <CreditCard size={13} />
                   Pay now
                 </Link>
-                <button
-                  type="button"
-                  onClick={() => onMarkPaid(transaction)}
-                  className="inline-flex items-center gap-1 rounded-full border border-[#d7edce] bg-[#f3fbef] px-3 py-1 text-xs font-semibold text-[#2f8f5b]"
-                >
-                  <CheckCircle2 size={13} />
-                  Mark paid
-                </button>
+                {canManage && (
+                  <button
+                    type="button"
+                    onClick={() => onMarkPaid(transaction)}
+                    className="inline-flex items-center gap-1 rounded-full border border-[#d7edce] bg-[#f3fbef] px-3 py-1 text-xs font-semibold text-[#2f8f5b]"
+                  >
+                    <CheckCircle2 size={13} />
+                    Mark paid
+                  </button>
+                )}
               </>
             )}
           </div>
@@ -253,6 +255,7 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
 export default function FinancialTransactionsPage() {
   const [transactions, setTransactions] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [profile, setProfile] = useState(null);
   const [form, setForm] = useState(defaultForm);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
@@ -264,11 +267,50 @@ export default function FinancialTransactionsPage() {
     setLoading(true);
     setError('');
 
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      setError('Please sign in to view financial transactions.');
+      setTransactions([]);
+      setProjects([]);
+      setProfile(null);
+      setLoading(false);
+      return;
+    }
+
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError || !profileData) {
+      setError('Unable to load your profile.');
+      setTransactions([]);
+      setProjects([]);
+      setProfile(null);
+      setLoading(false);
+      return;
+    }
+
+    setProfile(profileData);
+
+    let transactionQuery = supabase
+      .from('financial_transactions')
+      .select(FINANCIAL_SELECT)
+      .order('created_at', { ascending: false });
+
+    if (['event_organizer', 'fuel_supplier'].includes(profileData.role)) {
+      transactionQuery = transactionQuery
+        .eq('contractor_id', user.id)
+        .eq('contractor_role', profileData.role);
+    }
+
     const [transactionResult, projectResult] = await Promise.all([
-      supabase
-        .from('financial_transactions')
-        .select(FINANCIAL_SELECT)
-        .order('created_at', { ascending: false }),
+      transactionQuery,
       supabase
         .from('projects')
         .select(PROJECT_SELECT)
@@ -343,6 +385,8 @@ export default function FinancialTransactionsPage() {
     });
   }, [query, transactions]);
 
+  const canCreateFaktura = ['manager', 'hire_desk'].includes(profile?.role);
+
   function updateForm(field, value) {
     setMessage('');
     setError('');
@@ -390,36 +434,43 @@ export default function FinancialTransactionsPage() {
 
     try {
       const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
 
-      if (userError || !user) {
+      if (sessionError || !session?.access_token) {
         throw new Error('You must be signed in to create a faktura.');
       }
 
-      if (!form.invoice_number || !form.amount_due) {
-        throw new Error('Invoice number and amount are required.');
+      if (!form.invoice_number || !form.amount_due || !form.contractor_id) {
+        throw new Error('Invoice number, amount, and contractor are required.');
       }
 
-      const { error } = await supabase.from('financial_transactions').insert({
-        project_id: form.project_id || null,
-        invoice_number: form.invoice_number,
-        type: 'invoice',
-        status: 'draft',
-        contractor_id: form.contractor_id || null,
-        contractor_role: form.contractor_role || null,
-        contractor_name: form.contractor_name || null,
-        contractor_email: form.contractor_email || null,
-        amount_due: toNumber(form.amount_due),
-        amount_paid: 0,
-        currency: form.currency || 'SAR',
-        due_date: form.due_date || null,
-        notes: form.notes || null,
-        created_by: user.id,
+      const response = await fetch('/api/financial-transactions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          project_id: form.project_id || null,
+          invoice_number: form.invoice_number,
+          contractor_id: form.contractor_id || null,
+          contractor_role: form.contractor_role || null,
+          contractor_name: form.contractor_name || null,
+          contractor_email: form.contractor_email || null,
+          amount_due: toNumber(form.amount_due),
+          currency: form.currency || 'SAR',
+          due_date: form.due_date || null,
+          notes: form.notes || null,
+        }),
       });
 
-      if (error) throw error;
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Could not save financial transaction.');
+      }
 
       setForm(defaultForm);
       setMessage('Faktura saved as draft.');
@@ -516,6 +567,7 @@ export default function FinancialTransactionsPage() {
         </div>
       </section>
 
+      {canCreateFaktura && (
       <section className="mb-4 rounded-[28px] border border-[#e8edf3] bg-white p-5 shadow-[0_10px_30px_rgba(98,116,142,0.08)]">
         <div className="mb-5">
           <p className="page-kicker">Create faktura</p>
@@ -625,6 +677,7 @@ export default function FinancialTransactionsPage() {
           </div>
         )}
       </section>
+      )}
 
       <section className="mb-4 rounded-[28px] border border-[#e8edf3] bg-white p-5 shadow-[0_10px_30px_rgba(98,116,142,0.08)]">
         <div className="mb-4 flex items-start justify-between gap-3">
@@ -678,6 +731,7 @@ export default function FinancialTransactionsPage() {
               <FinancialRow
                 key={transaction.id}
                 transaction={transaction}
+                canManage={canCreateFaktura}
                 onMarkSent={(item) => updateTransactionStatus(item, 'sent')}
                 onMarkPaid={(item) => updateTransactionStatus(item, 'paid')}
               />

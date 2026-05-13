@@ -14,6 +14,8 @@ const SELECT_QUERY = `
   amount_paid,
   currency,
   due_date,
+  contractor_id,
+  contractor_role,
   contractor_name,
   contractor_email,
   projects(id,name)
@@ -59,10 +61,43 @@ export default function PaymentsPage() {
       setLoading(true);
       setError('');
 
-      const { data, error } = await supabase
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        setError('Please sign in to view your invoices.');
+        setInvoices([]);
+        setLoading(false);
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError || !profile) {
+        setError('Unable to load your profile.');
+        setInvoices([]);
+        setLoading(false);
+        return;
+      }
+
+      let invoiceQuery = supabase
         .from('financial_transactions')
         .select(SELECT_QUERY)
         .order('created_at', { ascending: false });
+
+      if (['event_organizer', 'fuel_supplier'].includes(profile.role)) {
+        invoiceQuery = invoiceQuery
+          .eq('contractor_id', user.id)
+          .eq('contractor_role', profile.role);
+      }
+
+      const { data, error } = await invoiceQuery;
 
       if (error) {
         setError(error.message);

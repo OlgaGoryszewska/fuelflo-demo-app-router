@@ -80,13 +80,22 @@ export default function PaymentPage() {
       const { data, error: transactionError } = await supabase
         .from('financial_transactions')
         .select(
-          `id, project_id, invoice_number, contractor_name, amount_due, amount_paid, currency, due_date, status, notes, paid_at, projects(id,name)`
+          `id, project_id, invoice_number, contractor_id, contractor_role, contractor_name, contractor_email, amount_due, amount_paid, currency, due_date, status, notes, paid_at, projects(id,name)`
         )
         .eq('id', transactionId)
         .single();
 
       if (transactionError || !data) {
         setError('Payment record not found.');
+        setLoading(false);
+        return;
+      }
+
+      if (
+        String(data.contractor_id) !== String(user.id) ||
+        data.contractor_role !== profile.role
+      ) {
+        setError('This invoice is not assigned to your profile.');
         setLoading(false);
         return;
       }
