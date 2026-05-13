@@ -16,6 +16,7 @@ import {
   Send,
 } from 'lucide-react';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import ProfileRoleDropdown from '@/components/dropdowns/ProfileRoleDropdown';
 import { supabase } from '@/lib/supabaseClient';
 
 const FINANCIAL_SELECT = `
@@ -24,6 +25,8 @@ const FINANCIAL_SELECT = `
   invoice_number,
   type,
   status,
+  contractor_id,
+  contractor_role,
   contractor_name,
   contractor_email,
   amount_due,
@@ -53,6 +56,8 @@ const PROJECT_SELECT = `
 const defaultForm = {
   project_id: '',
   invoice_number: '',
+  contractor_id: '',
+  contractor_role: '',
   contractor_name: '',
   contractor_email: '',
   amount_due: '',
@@ -163,6 +168,7 @@ function FinancialRow({ transaction, onMarkSent, onMarkPaid }) {
               <p className="steps-text mt-1 truncate">
                 {transaction.projects?.name || 'No project'} •{' '}
                 {transaction.contractor_name || 'No contractor'}
+                {transaction.contractor_role ? ` (${transaction.contractor_role.replace('_', ' ')})` : ''}
               </p>
             </div>
 
@@ -326,6 +332,7 @@ export default function FinancialTransactionsPage() {
         transaction.status,
         transaction.contractor_name,
         transaction.contractor_email,
+        transaction.contractor_role,
         transaction.projects?.name,
       ]
         .filter(Boolean)
@@ -354,9 +361,24 @@ export default function FinancialTransactionsPage() {
       ...current,
       project_id: projectId,
       contractor_name:
-        project?.contractor_name || project?.company_name || current.contractor_name,
-      contractor_email: project?.email || current.contractor_email,
+        current.contractor_id && current.contractor_name
+          ? current.contractor_name
+          : project?.contractor_name || project?.company_name || current.contractor_name,
+      contractor_email:
+        current.contractor_id && current.contractor_email
+          ? current.contractor_email
+          : project?.email || current.contractor_email,
       amount_due: estimatedAmount > 0 ? estimatedAmount.toFixed(2) : current.amount_due,
+    }));
+  }
+
+  function handleContractorSelect(profile) {
+    setForm((current) => ({
+      ...current,
+      contractor_id: profile?.id || '',
+      contractor_role: profile?.role || '',
+      contractor_name: profile?.full_name || current.contractor_name,
+      contractor_email: profile?.email || current.contractor_email,
     }));
   }
 
@@ -385,6 +407,8 @@ export default function FinancialTransactionsPage() {
         invoice_number: form.invoice_number,
         type: 'invoice',
         status: 'draft',
+        contractor_id: form.contractor_id || null,
+        contractor_role: form.contractor_role || null,
         contractor_name: form.contractor_name || null,
         contractor_email: form.contractor_email || null,
         amount_due: toNumber(form.amount_due),
@@ -462,8 +486,8 @@ export default function FinancialTransactionsPage() {
         </div>
       </section>
 
-      <section className="background-container-white mb-4">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <section className="mb-4 rounded-[28px] border border-[#e8edf3] bg-white p-5 shadow-[0_10px_30px_rgba(98,116,142,0.08)]">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           <SummaryCard
             icon={BadgeCent}
             label="Outstanding"
@@ -492,8 +516,8 @@ export default function FinancialTransactionsPage() {
         </div>
       </section>
 
-      <section className="background-container-white mb-4">
-        <div className="mb-4">
+      <section className="mb-4 rounded-[28px] border border-[#e8edf3] bg-white p-5 shadow-[0_10px_30px_rgba(98,116,142,0.08)]">
+        <div className="mb-5">
           <p className="page-kicker">Create faktura</p>
           <h2 className="mt-1">New financial transaction</h2>
           <p className="steps-text mt-1">
@@ -502,7 +526,7 @@ export default function FinancialTransactionsPage() {
         </div>
 
         <form
-          className="form-no-style grid max-w-none grid-cols-1 gap-3 p-0 shadow-none md:grid-cols-2"
+          className="grid w-full grid-cols-1 gap-4 md:grid-cols-2"
           onSubmit={handleCreateTransaction}
         >
           <label>
@@ -531,6 +555,16 @@ export default function FinancialTransactionsPage() {
 
           <label>
             Contractor
+            <ProfileRoleDropdown
+              value={form.contractor_id}
+              roles={['event_organizer', 'fuel_supplier']}
+              placeholder="Choose event organizer or fuel supplier"
+              onChange={handleContractorSelect}
+            />
+          </label>
+
+          <label>
+            Contractor name
             <input
               value={form.contractor_name}
               onChange={(event) => updateForm('contractor_name', event.target.value)}
@@ -592,7 +626,7 @@ export default function FinancialTransactionsPage() {
         )}
       </section>
 
-      <section className="background-container-white mb-4">
+      <section className="mb-4 rounded-[28px] border border-[#e8edf3] bg-white p-5 shadow-[0_10px_30px_rgba(98,116,142,0.08)]">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             <p className="page-kicker">Ledger</p>
