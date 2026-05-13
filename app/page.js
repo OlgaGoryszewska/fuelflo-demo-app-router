@@ -1,8 +1,9 @@
 'use client';
 export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { supabase } from '@/lib/supabaseClient';
 import {
   CheckCircle2,
   Fuel,
@@ -70,11 +71,13 @@ const ROLE_ROUTES = {
   technician: '/operations/dashboard/technician',
   manager: '/operations/dashboard/manager',
   hire_desk: '/operations/dashboard/hire-desk',
-  fuel_supplier: '/resources/profile',
-  event_organizer: '/resources/profile',
+  fuel_supplier: '/operations/dashboard/fuel_supplier',
+  event_organizer: '/operations/dashboard/event_organizer',
 };
 
-function LandingPage() {
+function LandingPage({ showAuthActions, user, profile }) {
+  const dashboardRoute = ROLE_ROUTES[profile?.role] || '/resources/projects';
+
   return (
     <main className="bg-slate-50 text-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -120,13 +123,35 @@ function LandingPage() {
             <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
               <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
                 <div className="text-center mb-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">Ready to get started?</h3>
-                  <p className="text-sm text-slate-600">Sign in to access your FuelFlo workspace</p>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                    {showAuthActions ? 'Ready to get started?' : 'Access your workspace'}
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    {showAuthActions
+                      ? 'Sign in to access your FuelFlo workspace.'
+                      : `Continue to your ${profile?.role?.replace('_', ' ') || 'dashboard'} workspace.`}
+                  </p>
                 </div>
-                <AuthForm />
+                {showAuthActions ? (
+                  <AuthForm />
+                ) : (
+                  <div className="space-y-4">
+                    <p className="text-sm text-slate-600">
+                      The home page stays visible for logged-in users too. Use the button below to go to your workspace.
+                    </p>
+                    <Link
+                      href={dashboardRoute}
+                      className="button-big w-full justify-center"
+                    >
+                      Go to dashboard
+                    </Link>
+                  </div>
+                )}
               </div>
 
-              <InstallAppCard className="h-full shadow-lg" />
+              {showAuthActions && (
+                <InstallAppCard className="h-full shadow-lg" />
+              )}
             </section>
 
             {/* Key Benefits */}
@@ -226,44 +251,11 @@ function LandingPage() {
   );
 }
 
-function LoggedInHomePage({ user, profile }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Redirect to role-specific dashboard after a brief moment
-    const timer = setTimeout(() => {
-      router.push(ROLE_ROUTES[profile.role] || '/resources/projects');
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [router, profile.role]);
-
-  return (
-    <main className="bg-slate-50 text-slate-900">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <div className="mx-auto h-24 w-24 rounded-full bg-green-100 flex items-center justify-center mb-6">
-            <svg className="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-semibold text-slate-900 mb-4">
-            Welcome back, {user.email?.split('@')[0]}!
-          </h1>
-          <p className="text-lg text-slate-600 mb-8">
-            Taking you to your {profile.role?.replace('_', ' ')} dashboard...
-          </p>
-          <LoadingIndicator />
-        </div>
-      </div>
-    </main>
-  );
-}
-
 export default function HomePage() {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     let mounted = true;
@@ -286,6 +278,10 @@ export default function HomePage() {
 
         if (!error && mounted) {
           setProfile(profileData);
+          // Redirect logged-in users directly to their dashboard
+          const dashboardRoute = ROLE_ROUTES[profileData.role] || '/resources/projects';
+          router.push(dashboardRoute);
+          return;
         }
       }
 
@@ -307,9 +303,13 @@ export default function HomePage() {
 
           if (!error) {
             setProfile(profileData);
+            // Redirect to dashboard when user logs in
+            const dashboardRoute = ROLE_ROUTES[profileData.role] || '/resources/projects';
+            router.push(dashboardRoute);
           }
         } else {
           setProfile(null);
+          setLoading(false);
         }
       }
     );
@@ -332,9 +332,13 @@ export default function HomePage() {
     );
   }
 
-  if (session && profile) {
-    return <LoggedInHomePage user={session.user} profile={profile} />;
-  }
-
-  return <LandingPage />;
+  // Only show landing page for non-logged-in users
+  // Logged-in users are redirected to their dashboard
+  return (
+    <LandingPage
+      showAuthActions={true}
+      user={null}
+      profile={null}
+    />
+  );
 }

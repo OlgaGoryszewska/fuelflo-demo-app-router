@@ -12,8 +12,8 @@ const ROLE_ROUTES = {
   technician: '/operations/dashboard/technician',
   manager: '/operations/dashboard/manager',
   hire_desk: '/operations/dashboard/hire-desk',
-  fuel_supplier: '/resources/profile',
-  event_organizer: '/resources/profile',
+  fuel_supplier: '/operations/dashboard/fuel_supplier',
+  event_organizer: '/operations/dashboard/event_organizer',
 };
 
 export default function AuthForm() {
