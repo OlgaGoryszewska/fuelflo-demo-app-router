@@ -17,6 +17,8 @@ import { loadActiveProjectsWithCache } from '@/lib/offline/activeProjectsCache';
 import formatDateShort from '@/components/FormatDateShort';
 import LoadingIndicator from '@/components/LoadingIndicator';
 
+const FUEL_TRANSACTION_ROLES = new Set(['technician', 'manager', 'hire_desk']);
+
 function Notice({ tone = 'warning', title, children }) {
   const styles =
     tone === 'error'
@@ -38,6 +40,8 @@ export default function AddTransactionProjectPickerPage() {
   const [error, setError] = useState(null);
   const [warning, setWarning] = useState('');
   const [isOfflineData, setIsOfflineData] = useState(false);
+  const [role, setRole] = useState('');
+  const [checkingRole, setCheckingRole] = useState(true);
   const [isOnline, setIsOnline] = useState(() =>
     typeof navigator === 'undefined' ? true : navigator.onLine
   );
@@ -61,6 +65,44 @@ export default function AddTransactionProjectPickerPage() {
   }, []);
 
   useEffect(() => {
+    async function loadRole() {
+      setCheckingRole(true);
+
+      try {
+        if (!navigator.onLine) {
+          setRole(localStorage.getItem('offline_user_role') || '');
+          return;
+        }
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          setRole('');
+          return;
+        }
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .maybeSingle();
+
+        if (profile?.role) {
+          localStorage.setItem('offline_user_role', profile.role);
+        }
+
+        setRole(profile?.role || '');
+      } finally {
+        setCheckingRole(false);
+      }
+    }
+
+    loadRole();
+  }, []);
+
+  useEffect(() => {
     async function load() {
       setLoading(true);
       setError(null);
@@ -77,6 +119,8 @@ export default function AddTransactionProjectPickerPage() {
 
     load();
   }, []);
+
+  const canCreateTransaction = FUEL_TRANSACTION_ROLES.has(role);
 
   const filteredProjects = useMemo(() => {
     const searchText = query.trim().toLowerCase();
@@ -136,6 +180,13 @@ export default function AddTransactionProjectPickerPage() {
       </section>
 
       <section className="background-container-white mb-4">
+        {!checkingRole && !canCreateTransaction && (
+          <Notice title="Fuel transaction access is restricted">
+            Event organizers can review project fuel records and invoices, but
+            they cannot create fuel transactions.
+          </Notice>
+        )}
+
         <div className="relative mb-4">
           <Search
             aria-hidden="true"
@@ -163,13 +214,13 @@ export default function AddTransactionProjectPickerPage() {
           <Notice>{warning}</Notice>
         )}
 
-        {loading && <LoadingIndicator />}
+        {(loading || checkingRole) && <LoadingIndicator />}
 
         {error && (
           <Notice tone="error">{error}</Notice>
         )}
 
-        {!loading && filteredProjects.length > 0 && (
+        {!loading && !checkingRole && canCreateTransaction && filteredProjects.length > 0 && (
           <div className="flex flex-col gap-3">
             {filteredProjects.map((project) => (
               <Link
@@ -214,7 +265,7 @@ export default function AddTransactionProjectPickerPage() {
           </div>
         )}
 
-        {!loading && projects.length > 0 && filteredProjects.length === 0 && (
+        {!loading && canCreateTransaction && projects.length > 0 && filteredProjects.length === 0 && (
           <div className="rounded-[22px] border border-[#e8edf3] bg-white p-4">
             <p className="text-sm font-semibold text-[var(--primary-black)]">
               No projects match your search.
@@ -225,7 +276,7 @@ export default function AddTransactionProjectPickerPage() {
           </div>
         )}
 
-        {!loading && projects.length === 0 && !error && (
+        {!loading && canCreateTransaction && projects.length === 0 && !error && (
           <div className="rounded-[22px] border border-[#e8edf3] bg-white p-4">
             <p className="text-sm font-semibold text-[var(--primary-black)]">
               No active projects found.

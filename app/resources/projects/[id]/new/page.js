@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StepNavigation from '@/components/StepNavigation';
 import { supabase } from '@/lib/supabaseClient';
 import { useParams } from 'next/navigation';
@@ -16,6 +16,8 @@ import {
   updateOfflineTransaction,
 } from '@/lib/offline/offlineDb';
 
+const FUEL_TRANSACTION_ROLES = new Set(['technician', 'manager', 'hire_desk']);
+
 export default function NewTransaction() {
   const { id: projectId } = useParams();
 
@@ -26,6 +28,8 @@ export default function NewTransaction() {
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [validationMessage, setValidationMessage] = useState('');
+  const [role, setRole] = useState('');
+  const [checkingRole, setCheckingRole] = useState(true);
 
   const [formData, setFormData] = useState({
     type: 'delivery',
@@ -52,6 +56,52 @@ export default function NewTransaction() {
     setValidationMessage('');
     setFormData(update);
   }
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadRole() {
+      setCheckingRole(true);
+
+      try {
+        if (!navigator.onLine) {
+          const savedRole = localStorage.getItem('offline_user_role') || '';
+          if (active) setRole(savedRole);
+          return;
+        }
+
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
+        if (error || !user) {
+          if (active) setRole('');
+          return;
+        }
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .maybeSingle();
+
+        if (profile?.role) {
+          localStorage.setItem('offline_user_role', profile.role);
+        }
+
+        if (active) setRole(profile?.role || '');
+      } finally {
+        if (active) setCheckingRole(false);
+      }
+    }
+
+    loadRole();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   function validateStep(stepIndex) {
     let message = '';
@@ -120,7 +170,7 @@ export default function NewTransaction() {
     return data.publicUrl;
   }
 
-  async function getCurrentTechnician() {
+  async function getCurrentTransactionUser() {
     if (navigator.onLine) {
       const {
         data: { user },
@@ -131,16 +181,36 @@ export default function NewTransaction() {
         throw new Error('Could not identify technician.');
       }
 
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profileError || !profile?.role) {
+        throw new Error('Could not verify your profile role.');
+      }
+
+      if (!FUEL_TRANSACTION_ROLES.has(profile.role)) {
+        throw new Error('Event organizers cannot create fuel transactions.');
+      }
+
       localStorage.setItem('offline_user_id', user.id);
+      localStorage.setItem('offline_user_role', profile.role);
       return user;
     }
 
     const savedUserId = localStorage.getItem('offline_user_id');
+    const savedRole = localStorage.getItem('offline_user_role');
 
     if (!savedUserId) {
       throw new Error(
         'You are offline and no technician was saved. Please login once with internet.'
       );
+    }
+
+    if (!FUEL_TRANSACTION_ROLES.has(savedRole)) {
+      throw new Error('Event organizers cannot create fuel transactions.');
     }
 
     return { id: savedUserId };
@@ -190,7 +260,7 @@ export default function NewTransaction() {
     let savedLocalTransaction = false;
 
     try {
-      const user = await getCurrentTechnician();
+      const user = await getCurrentTransactionUser();
 
       const offlineTransaction = createOfflineTransaction(
         newTransactionId,
@@ -301,12 +371,23 @@ export default function NewTransaction() {
     <ReviewBefore key={3} formData={formData} />,
   ];
   const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
+  const canCreateTransaction = FUEL_TRANSACTION_ROLES.has(role);
 
   return (
     <div className="main-container">
       <div className="form-header mt-4">
         <h1 className="ml-2">Add fuel transaction</h1>
       </div>
+
+      {!checkingRole && !canCreateTransaction && (
+        <div className="mx-4 mb-4 rounded-2xl border border-yellow-200 bg-yellow-50 p-4 text-sm text-yellow-900">
+          <p className="font-semibold">Fuel transaction access is restricted.</p>
+          <p className="mt-1">
+            Event organizers can review projects and invoices, but they cannot
+            create fuel transactions.
+          </p>
+        </div>
+      )}
 
       {errorMessage && (
         <p className="mx-4 mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-600">
@@ -320,7 +401,11 @@ export default function NewTransaction() {
           transactionId={transactionId}
           isOffline={savedOffline}
         />
-      ) : (
+      ) : checkingRole ? (
+        <p className="mx-4 rounded-2xl border border-gray-100 bg-white p-4 text-sm text-gray-600">
+          Checking fuel transaction access...
+        </p>
+      ) : canCreateTransaction ? (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
           <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
@@ -356,7 +441,7 @@ export default function NewTransaction() {
             onValidateStep={validateStep}
           />
         </form>
-      )}
+      ) : null}
     </div>
   );
 }

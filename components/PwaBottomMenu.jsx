@@ -4,6 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
 import { Building, Plus, User } from 'lucide-react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabaseClient';
 
 function getPwaSnapshot() {
   return (
@@ -29,8 +30,29 @@ export default function PwaBottomMenu() {
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [role, setRole] = useState('');
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    async function loadRole() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      setRole(data?.role || '');
+    }
+
+    loadRole();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,6 +88,7 @@ export default function PwaBottomMenu() {
   const projectsActive =
     pathname?.startsWith('/resources/projects') && !addTransactionActive;
   const profileActive = pathname === '/resources/profile';
+  const canCreateTransaction = Boolean(role) && role !== 'event_organizer';
 
   return (
     <nav
@@ -94,22 +117,24 @@ export default function PwaBottomMenu() {
           <Building size={24} strokeWidth={projectsActive ? 2.6 : 2} />
         </Link>
 
-        <Link
-          href="/resources/projects/add-transaction"
-          aria-current={addTransactionActive ? 'page' : undefined}
-          className={`
-            flex -translate-y-4 items-center justify-center rounded-full p-4 text-white
-            shadow-lg transition-all duration-200 active:scale-90 active:bg-[#344158]
-            active:ring-4 active:ring-[#62748e]/30
-            ${
-              addTransactionActive
-                ? 'scale-110 bg-[#41516a] ring-4 ring-[#62748e]/25 shadow-[0_12px_28px_rgba(65,81,106,0.35)]'
-                : 'bg-[#62748e] shadow-[0_8px_20px_rgba(98,116,142,0.25)]'
-            }
-          `}
-        >
-          <Plus size={26} strokeWidth={addTransactionActive ? 3 : 2} />
-        </Link>
+        {canCreateTransaction && (
+          <Link
+            href="/resources/projects/add-transaction"
+            aria-current={addTransactionActive ? 'page' : undefined}
+            className={`
+              flex -translate-y-4 items-center justify-center rounded-full p-4 text-white
+              shadow-lg transition-all duration-200 active:scale-90 active:bg-[#344158]
+              active:ring-4 active:ring-[#62748e]/30
+              ${
+                addTransactionActive
+                  ? 'scale-110 bg-[#41516a] ring-4 ring-[#62748e]/25 shadow-[0_12px_28px_rgba(65,81,106,0.35)]'
+                  : 'bg-[#62748e] shadow-[0_8px_20px_rgba(98,116,142,0.25)]'
+              }
+            `}
+          >
+            <Plus size={26} strokeWidth={addTransactionActive ? 3 : 2} />
+          </Link>
+        )}
 
         <Link
           href="/resources/profile"

@@ -28,6 +28,33 @@ export default function ProjectFuelTransactionsList({ projectId }) {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadRole() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (active) setRole(data?.role || '');
+    }
+
+    loadRole();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const loadTransactions = useCallback(async () => {
     if (!projectId) return;
@@ -64,6 +91,7 @@ export default function ProjectFuelTransactionsList({ projectId }) {
       name: 'This project',
     },
   }));
+  const canCreateTransaction = Boolean(role) && role !== 'event_organizer';
 
   return (
     <section className="background-container-white mb-4">
@@ -76,13 +104,15 @@ export default function ProjectFuelTransactionsList({ projectId }) {
           </p>
         </div>
 
-        <Link
-          href={`/resources/projects/${projectId}/new/`}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f25822] text-white shadow-[0_8px_20px_rgba(242,88,34,0.25)] active:scale-[0.96]"
-          title="Add fuel transaction"
-        >
-          <Plus size={22} strokeWidth={2.5} />
-        </Link>
+        {canCreateTransaction && (
+          <Link
+            href={`/resources/projects/${projectId}/new/`}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f25822] text-white shadow-[0_8px_20px_rgba(242,88,34,0.25)] active:scale-[0.96]"
+            title="Add fuel transaction"
+          >
+            <Plus size={22} strokeWidth={2.5} />
+          </Link>
+        )}
       </div>
 
       {loading && <LoadingIndicator />}
@@ -108,13 +138,15 @@ export default function ProjectFuelTransactionsList({ projectId }) {
           <p className="steps-text mt-1">
             Start with a delivery or return to build the project fuel record.
           </p>
-          <Link
-            href={`/resources/projects/${projectId}/new/`}
-            className="form-button mt-4 justify-center gap-2"
-          >
-            Add transaction
-            <ArrowRight size={18} />
-          </Link>
+          {canCreateTransaction && (
+            <Link
+              href={`/resources/projects/${projectId}/new/`}
+              className="form-button mt-4 justify-center gap-2"
+            >
+              Add transaction
+              <ArrowRight size={18} />
+            </Link>
+          )}
         </div>
       )}
 
