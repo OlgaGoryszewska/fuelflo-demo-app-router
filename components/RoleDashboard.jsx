@@ -21,6 +21,7 @@ import {
   Settings,
 } from 'lucide-react';
 import DashboardInsights from '@/components/dashboard/DashboardInsights';
+import DashboardFuelAlerts from '@/components/dashboard/DashboardFuelAlerts';
 import DashboardTaskPanel from '@/components/dashboard/DashboardTaskPanel';
 import { getDashboardConfig } from '@/lib/navigation/roleNavigation';
 
@@ -180,6 +181,8 @@ export default function RoleDashboard({
 
           {/* Sidebar */}
           <div className="space-y-6">
+            <DashboardFuelAlerts />
+
             {/* Activity Feed */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
