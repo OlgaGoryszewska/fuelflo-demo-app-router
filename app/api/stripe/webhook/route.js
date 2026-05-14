@@ -1,9 +1,17 @@
 import Stripe from 'stripe';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-11-15',
-});
+function getStripe() {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+  if (!stripeSecretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY');
+  }
+
+  return new Stripe(stripeSecretKey, {
+    apiVersion: '2023-11-15',
+  });
+}
 
 export async function POST(request) {
   const signature = request.headers.get('stripe-signature');
@@ -19,6 +27,7 @@ export async function POST(request) {
 
   let event;
   try {
+    const stripe = getStripe();
     event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
   } catch (error) {
     return new Response(JSON.stringify({ error: `Webhook signature verification failed: ${error.message}` }), {

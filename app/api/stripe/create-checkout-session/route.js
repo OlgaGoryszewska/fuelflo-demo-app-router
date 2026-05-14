@@ -1,11 +1,19 @@
 import Stripe from 'stripe';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-11-15',
-});
-
 const ALLOWED_ROLES = new Set(['event_organizer', 'fuel_supplier']);
+
+function getStripe() {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+  if (!stripeSecretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY');
+  }
+
+  return new Stripe(stripeSecretKey, {
+    apiVersion: '2023-11-15',
+  });
+}
 
 function toCents(amount) {
   return Math.round(Number(amount) * 100);
@@ -99,6 +107,7 @@ export async function POST(request) {
     const origin = new URL(request.url).origin;
     const currency = normalizeCurrency(transaction.currency) || 'usd';
     const amountCents = toCents(outstandingAmount);
+    const stripe = getStripe();
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
