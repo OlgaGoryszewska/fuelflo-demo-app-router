@@ -318,7 +318,7 @@ export default function HomePage() {
       mounted = false;
       listener.subscription.unsubscribe();
     };
-  }, []);
+  }, [router]);
 
   if (loading) {
     return (

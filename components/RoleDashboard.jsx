@@ -157,7 +157,7 @@ export default function RoleDashboard({
                       <ClipboardCheck className="h-5 w-5 text-orange-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">Today's focus</p>
+                      <p className="text-sm font-semibold text-slate-900">Today&apos;s focus</p>
                       <p className="mt-1 text-sm text-slate-600">{dashboard.focus}</p>
                     </div>
                   </div>
