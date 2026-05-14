@@ -159,6 +159,7 @@ export default function NewTransaction() {
       tank_name: formData.tank_name || '',
 
       technician_id: user.id,
+      created_by: user.id,
       completed_at: null,
 
       before_fuel_level: formData.before_fuel_level || null,
@@ -232,6 +233,7 @@ export default function NewTransaction() {
             generator_id: formData.generator_id || null,
             tank_id: formData.tank_id || null,
             technician_id: user.id,
+            created_by: user.id,
             completed_at: null,
             before_fuel_level: formData.before_fuel_level || null,
             before_photo_url: beforePhotoUrl,
@@ -264,6 +266,7 @@ export default function NewTransaction() {
           formData.before_captured_at || new Date().toISOString(),
         before_photo_sha256: formData.before_photo_sha256 || null,
         before_capture_context: formData.before_capture_context || null,
+        created_by: user.id,
         remote_saved_at: new Date().toISOString(),
       });
 

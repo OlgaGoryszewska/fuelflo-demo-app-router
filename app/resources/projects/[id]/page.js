@@ -179,6 +179,96 @@ function TipCard({ icon: Icon, title, description, tone = 'slate' }) {
   );
 }
 
+function FuelVarianceCard({
+  deliveredLitres,
+  returnedLitres,
+  expectedLitres,
+  netUsedLitres,
+  missingLitres,
+}) {
+  const hasExpected = expectedLitres > 0;
+  const needsReview = missingLitres > 0;
+
+  const columns = [
+    {
+      label: 'Delivered',
+      value: formatLitres(deliveredLitres),
+      tone: 'text-[#f25822]',
+    },
+    {
+      label: 'Returned',
+      value: formatLitres(returnedLitres),
+      tone: 'text-[#62748e]',
+    },
+    {
+      label: 'Expected',
+      value: hasExpected ? formatLitres(expectedLitres) : 'Missing',
+      tone: 'text-[var(--primary-black)]',
+    },
+    {
+      label: 'Unaccounted',
+      value: formatLitres(missingLitres),
+      tone: needsReview ? 'text-[#9a5f12]' : 'text-[#2f8f5b]',
+    },
+  ];
+
+  return (
+    <div
+      className={`rounded-[24px] border p-4 ${
+        needsReview
+          ? 'border-[#fee39f] bg-[#fff7e6]'
+          : 'border-[#d7edce] bg-[#f3fbef]'
+      }`}
+    >
+      <div className="mb-4 flex items-start gap-3">
+        <span
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white ${
+            needsReview ? 'text-[#9a5f12]' : 'text-[#2f8f5b]'
+          }`}
+        >
+          {needsReview ? (
+            <AlertTriangle size={20} strokeWidth={2.3} />
+          ) : (
+            <CheckCircle2 size={20} strokeWidth={2.3} />
+          )}
+        </span>
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-[var(--primary-black)]">
+            Fuel variance
+          </p>
+          <p className="steps-text mt-1">
+            {hasExpected
+              ? needsReview
+                ? `${formatLitres(
+                    missingLitres
+                  )} sits above expected use and needs review.`
+                : 'Delivered, returned, and expected use are balanced.'
+              : 'Add expected litres to calculate missing fuel.'}
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2">
+        {columns.map((column) => (
+          <div
+            key={column.label}
+            className="rounded-[18px] border border-white/70 bg-white/80 p-3"
+          >
+            <p className="steps-text">{column.label}</p>
+            <p className={`mt-1 text-sm font-semibold ${column.tone}`}>
+              {column.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <p className="steps-text mt-3">
+        Net used {formatLitres(netUsedLitres)}
+      </p>
+    </div>
+  );
+}
+
 export default function ProjectDetailPage() {
   const { id: projectId } = useParams();
   const [fuelSummary, setFuelSummary] = useState(null);
@@ -384,6 +474,8 @@ export default function ProjectDetailPage() {
   const sellingPrice = toNumber(project.selling_price);
   const marginPerLiter = sellingPrice - purchasePrice;
   const expectedLitres = toNumber(project.expected_liters);
+  const missingLitres =
+    expectedLitres > 0 ? Math.max(netUsedLitres - expectedLitres, 0) : 0;
   const actualRevenue = netUsedLitres * sellingPrice;
   const deliveredCost = deliveredLitres * purchasePrice;
   const grossMargin = actualRevenue - deliveredCost;
@@ -584,6 +676,15 @@ export default function ProjectDetailPage() {
             value={pendingEvidenceCount}
             hint="Needs after proof"
             tone={pendingEvidenceCount > 0 ? 'amber' : 'green'}
+          />
+        </div>
+        <div className="mt-3">
+          <FuelVarianceCard
+            deliveredLitres={deliveredLitres}
+            returnedLitres={returnedLitres}
+            expectedLitres={expectedLitres}
+            netUsedLitres={netUsedLitres}
+            missingLitres={missingLitres}
           />
         </div>
       </section>

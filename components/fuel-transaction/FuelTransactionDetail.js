@@ -132,6 +132,7 @@ function getScalarMetadata(transaction) {
     'type',
     'status',
     'project_id',
+    'created_by',
     'generator_id',
     'tank_id',
     'technician_id',
@@ -431,6 +432,10 @@ function EvidenceMetadataSection({
     transaction.technicians?.full_name ||
     transaction.profiles?.full_name ||
     shortId(transaction.technician_id);
+  const creatorName =
+    transaction.creator?.full_name ||
+    transaction.creator?.email ||
+    shortId(transaction.created_by || transaction.technician_id);
   const hasBeforeLocation = Boolean(transaction.before_location?.latitude);
   const hasAfterLocation = Boolean(transaction.after_location?.latitude);
   const hasHashes = Boolean(
@@ -568,6 +573,17 @@ function EvidenceMetadataSection({
               value={tankName}
               href="/resources/external-tanks"
               copyValue={transaction.tank_id}
+              onCopy={onCopy}
+            />
+            <DetailRow
+              label="Created by"
+              value={creatorName}
+              href={
+                transaction.created_by
+                  ? `/resources/technician/${transaction.created_by}`
+                  : undefined
+              }
+              copyValue={transaction.created_by}
               onCopy={onCopy}
             />
             <DetailRow
@@ -735,6 +751,12 @@ function EvidenceMetadataSection({
             label="Tank ID"
             value={shortId(transaction.tank_id)}
             copyValue={transaction.tank_id}
+            onCopy={onCopy}
+          />
+          <DetailRow
+            label="Created by ID"
+            value={shortId(transaction.created_by)}
+            copyValue={transaction.created_by}
             onCopy={onCopy}
           />
           <DetailRow

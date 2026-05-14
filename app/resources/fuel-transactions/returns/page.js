@@ -73,10 +73,15 @@ function TypeTabs({ activeType }) {
       href: '/resources/fuel-transactions/returns',
       type: 'return',
     },
+    {
+      label: 'Missing',
+      href: '/resources/fuel-transactions/missing',
+      type: 'missing',
+    },
   ];
 
   return (
-    <div className="mb-4 grid grid-cols-2 gap-2 rounded-[22px] border border-[#e8edf3] bg-white/70 p-1">
+    <div className="mb-4 grid grid-cols-3 gap-2 rounded-[22px] border border-[#e8edf3] bg-white/70 p-1">
       {tabs.map((tab) => {
         const isActive = tab.type === activeType;
 

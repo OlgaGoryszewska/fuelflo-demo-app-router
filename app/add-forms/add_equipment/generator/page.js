@@ -107,22 +107,41 @@ export default function AddGenerator() {
   }
 
   return (
-    <div className="main-container">
-      <div className="form-header mt-4">
-        <h1 className="ml-2">Add equipment</h1>
+    <main className="mx-auto w-full max-w-[640px] px-3 py-4">
+      <div className="mb-3 px-1">
+        <p className="page-kicker">Equipment</p>
       </div>
 
-      <form className="form-transaction" onSubmit={handleSubmit}>
-        <TransactionStepHeader
-          eyebrow="Generator"
-          title="Add generator"
-          description="Create the generator record used by projects and fuel transactions."
-        />
+      <section className="mb-4 overflow-hidden rounded-[28px] border border-[#d9e2ec] bg-gradient-to-br from-white via-[#f8fbff] to-[#d5eefc] p-5 shadow-[0_12px_30px_rgba(98,116,142,0.16)]">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="steps-text uppercase tracking-[0.18em]">
+              Generator
+            </p>
+            <h2 className="mt-2">Add generator</h2>
+            <p className="steps-text mt-1">
+              Create the generator record used by projects and fuel
+              transactions.
+            </p>
+          </div>
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-white/80 ring-1 ring-white">
+            <Image
+              src={generator}
+              alt="Generator"
+              className="h-12 w-12 object-contain"
+            />
+          </span>
+        </div>
+      </section>
 
-        <Image
-          src={generator}
-          alt="Generator"
-          className="mx-auto mb-4 h-28 w-28 object-contain"
+      <form
+        className="background-container-white mb-4"
+        onSubmit={handleSubmit}
+      >
+        <TransactionStepHeader
+          eyebrow="Create record"
+          title="Generator details"
+          description="Add identity and performance data used in fuel transactions."
         />
 
         <StatusMessage message={message} />
@@ -254,6 +273,6 @@ export default function AddGenerator() {
           {submitting ? 'Saving...' : 'Save generator'}
         </button>
       </form>
-    </div>
+    </main>
   );
 }

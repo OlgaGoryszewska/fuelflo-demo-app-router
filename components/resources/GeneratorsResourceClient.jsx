@@ -37,7 +37,7 @@ function matchesGenerator(generator, searchText) {
 
 function GeneratorCard({ generator }) {
   return (
-    <article className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+    <article className="rounded-[24px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.08)]">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
@@ -77,7 +77,7 @@ function GeneratorCard({ generator }) {
         />
       </div>
 
-      <div className="mt-4 rounded-2xl border border-gray-100 bg-white px-3">
+      <div className="mt-4 rounded-[20px] border border-[#e8edf3] bg-white px-3">
         <DetailLine label="Model number" value={generator.model_no} />
         <DetailLine label="Prime power" value={generator.prime_power} />
         <DetailLine label="Fleet number" value={generator.fleet_no} />

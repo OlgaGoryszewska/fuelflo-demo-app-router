@@ -13,35 +13,37 @@ export function ResourcePageShell({
   children,
 }) {
   return (
-    <div className="main-container">
-      <div className="form-header">
-        <h1 className="ml-2">{title}</h1>
+    <main className="mx-auto w-full max-w-[640px] px-3 py-4">
+      <div className="mb-3 px-1">
+        <p className="page-kicker">{eyebrow}</p>
       </div>
 
-      <div className="background-container">
-        <div className="mb-4 flex items-start justify-between gap-3">
+      <section className="mb-4 rounded-[28px] border border-[#d9e2ec] bg-gradient-to-br from-white via-[#f8fbff] to-[#d5eefc] p-5 shadow-[0_12px_30px_rgba(98,116,142,0.16)]">
+        <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="steps-text uppercase tracking-[0.18em]">{eyebrow}</p>
             <h2 className="mt-1">{title}</h2>
             {description && <p className="steps-text mt-1">{description}</p>}
           </div>
 
-          <span className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-[#d5eefc]">
+          <span className="rounded-full bg-white/80 px-3 py-1 text-sm font-semibold text-[#62748e] ring-1 ring-white">
             {count}
           </span>
         </div>
+      </section>
 
+      <section className="background-container-white mb-4">
         <Link
           href={actionHref}
-          className="mb-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98] active:bg-[#dbeaf5]"
+          className="mb-4 flex h-12 w-full items-center justify-center gap-2 rounded-[22px] border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98] active:bg-[#dbeaf5]"
         >
           <Plus size={18} strokeWidth={2.2} />
           {actionLabel}
         </Link>
 
         {children}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
@@ -76,7 +78,7 @@ export function ResourceError({ message }) {
 
 export function ResourceEmptyState({ icon: Icon, title, description, actionHref, actionLabel }) {
   return (
-    <div className="flex min-h-52 flex-col items-center justify-center rounded-2xl border border-dashed border-[#d5eefc] bg-white p-6 text-center">
+    <div className="flex min-h-52 flex-col items-center justify-center rounded-[24px] border border-dashed border-[#d5eefc] bg-white p-6 text-center">
       {Icon && (
         <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#eef4fb] text-[#62748e] ring-1 ring-[#d5eefc]">
           <Icon size={24} strokeWidth={2.2} />
@@ -86,7 +88,7 @@ export function ResourceEmptyState({ icon: Icon, title, description, actionHref,
       {description && <p className="steps-text mt-1">{description}</p>}
       <Link
         href={actionHref}
-        className="mt-4 flex h-11 items-center justify-center gap-2 rounded-2xl border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98]"
+        className="mt-4 flex h-11 items-center justify-center gap-2 rounded-[22px] border border-[#d5eefc] bg-[#eef4fb] px-4 text-sm font-semibold text-gray-900 shadow-sm transition active:scale-[0.98]"
       >
         <Plus size={17} strokeWidth={2.2} />
         {actionLabel}
@@ -97,7 +99,7 @@ export function ResourceEmptyState({ icon: Icon, title, description, actionHref,
 
 export function StatTile({ label, value, icon: Icon }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-3">
+    <div className="rounded-[18px] border border-[#e8edf3] bg-[#f8fbff] p-3">
       <div className="mb-2 flex items-center gap-2 text-[#717887]">
         {Icon && <Icon size={16} strokeWidth={2.2} />}
         <p className="text-xs font-semibold uppercase tracking-[0.08em]">
@@ -111,7 +113,7 @@ export function StatTile({ label, value, icon: Icon }) {
 
 export function DetailLine({ label, value }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-gray-100 py-3 last:border-b-0">
+    <div className="flex items-center justify-between gap-3 border-b border-[#edf1f5] py-3 last:border-b-0">
       <p className="text-sm text-[#717887]">{label}</p>
       <p className="max-w-[60%] truncate text-right text-sm font-semibold text-gray-900">
         {value || 'Missing'}

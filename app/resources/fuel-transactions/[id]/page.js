@@ -19,6 +19,18 @@ const TRANSACTION_SELECT = `
   projects (
     id,
     name
+  ),
+  creator:profiles!fuel_transactions_created_by_fkey (
+    id,
+    full_name,
+    email,
+    role
+  ),
+  technician:profiles!fuel_transactions_technician_id_fkey (
+    id,
+    full_name,
+    email,
+    role
   )
 `;
 
