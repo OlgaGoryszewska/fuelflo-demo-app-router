@@ -109,11 +109,11 @@ export default function AuthForm() {
             />
           </label>
 
-          <label htmlFor="password">
-            <span className="mb-1.5 flex items-center gap-2">
+          <div>
+            <label htmlFor="password" className="mb-1.5 flex items-center gap-2">
               <Lock size={16} />
               Password
-            </span>
+            </label>
             <span className="flex h-12 items-center rounded-[10px] border border-[var(--primary-gray-light)] bg-white pr-1.5">
               <input
                 id="password"
@@ -138,7 +138,7 @@ export default function AuthForm() {
                 )}
               </button>
             </span>
-          </label>
+          </div>
         </div>
       </TransactionFieldCard>
 
