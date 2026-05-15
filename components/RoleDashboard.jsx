@@ -32,6 +32,8 @@ const METRIC_ICONS = {
   default: TrendingUp,
 };
 
+const FUEL_ALERT_DASHBOARD_ROLES = new Set(['hire_desk', 'manager', 'technician']);
+
 function getOnlineSnapshot() {
   return navigator.onLine;
 }
@@ -95,6 +97,7 @@ export default function RoleDashboard({
   );
 
   const secondaryActions = dashboard.primaryActions.slice(1);
+  const showFuelAlerts = FUEL_ALERT_DASHBOARD_ROLES.has(role);
 
   return (
     <main className=" text-slate-900">
@@ -181,7 +184,7 @@ export default function RoleDashboard({
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <DashboardFuelAlerts />
+            {showFuelAlerts && <DashboardFuelAlerts />}
 
             {/* Activity Feed */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
