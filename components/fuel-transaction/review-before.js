@@ -36,6 +36,10 @@ export default function ReviewBefore({ formData }) {
             value={formData.before_fuel_level}
           />
           <TransactionReviewRow
+            label="Transaction note"
+            value={formData.operator_note}
+          />
+          <TransactionReviewRow
             label="GPS evidence"
             value={
               formData.before_location

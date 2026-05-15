@@ -874,6 +874,48 @@ function MovementNote({
   );
 }
 
+function FieldNotesSection({ transaction }) {
+  const notes = [
+    {
+      label: 'Transaction note',
+      value: transaction.operator_note,
+    },
+    {
+      label: 'Completion note',
+      value: transaction.after_note,
+    },
+    {
+      label: 'Review note',
+      value: transaction.review_note,
+    },
+  ].filter((item) => item.value);
+
+  if (notes.length === 0) return null;
+
+  return (
+    <section>
+      <SectionTitle
+        eyebrow="Notes"
+        title="Field notes"
+        description="Operator context saved with this transaction."
+      />
+      <div className="rounded-[24px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.08)]">
+        {notes.map((note) => (
+          <div
+            key={note.label}
+            className="border-b border-[#edf1f5] py-3 first:pt-0 last:border-b-0 last:pb-0"
+          >
+            <p className="steps-text">{note.label}</p>
+            <p className="mt-1 whitespace-pre-wrap text-sm font-semibold text-[var(--primary-black)]">
+              {note.value}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function RecentProjectTransactions({ projectId, currentTransactionId }) {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -1030,6 +1072,8 @@ export default function FuelTransactionDetail({
         hasAfterEvidence={hasAfterEvidence}
         movementLabel={movementLabel}
       />
+
+      <FieldNotesSection transaction={transaction} />
 
       <section>
         <SectionTitle

@@ -5,9 +5,12 @@ import { supabase } from '@/lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingIndicator from '@/components/LoadingIndicator';
 
+const SESSION_RESTORE_DELAY_MS = 700;
+
 export default function AuthGuard({ children }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [restoreChecked, setRestoreChecked] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -23,7 +26,26 @@ export default function AuthGuard({ children }) {
       if (!mounted) return;
 
       setSession(session);
-      setLoading(false);
+
+      if (session) {
+        setRestoreChecked(true);
+        setLoading(false);
+        return;
+      }
+
+      window.setTimeout(async () => {
+        if (!mounted) return;
+
+        const {
+          data: { session: restoredSession },
+        } = await supabase.auth.getSession();
+
+        if (!mounted) return;
+
+        setSession(restoredSession);
+        setRestoreChecked(true);
+        setLoading(false);
+      }, SESSION_RESTORE_DELAY_MS);
     }
 
     init();
@@ -31,6 +53,8 @@ export default function AuthGuard({ children }) {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
+        setRestoreChecked(true);
+        setLoading(false);
       }
     );
 
@@ -41,7 +65,7 @@ export default function AuthGuard({ children }) {
   }, []);
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || !restoreChecked) return;
 
     // Not logged in
     if (!session) {
@@ -55,7 +79,7 @@ export default function AuthGuard({ children }) {
     if (session && pathname === '/') {
       router.replace('/resources/projects');
     }
-  }, [session, loading, pathname, router]);
+  }, [session, loading, restoreChecked, pathname, router]);
 
   if (loading) {
     return <LoadingIndicator />;

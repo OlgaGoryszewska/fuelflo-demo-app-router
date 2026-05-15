@@ -42,6 +42,7 @@ export default function TransactionAfter() {
     after_captured_at: '',
     after_photo_sha256: '',
     after_capture_context: null,
+    after_note: '',
   });
 
   function updateFormData(update) {
@@ -155,6 +156,7 @@ export default function TransactionAfter() {
       after_captured_at: formData.after_captured_at || completedAt,
       after_photo_sha256: formData.after_photo_sha256 || '',
       after_capture_context: formData.after_capture_context || null,
+      after_note: formData.after_note?.trim() || null,
       after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
       completed_at: completedAt,
       after_completed_at: completedAt,
@@ -173,6 +175,7 @@ export default function TransactionAfter() {
       after_captured_at: formData.after_captured_at || completedAt,
       after_photo_sha256: formData.after_photo_sha256 || '',
       after_capture_context: formData.after_capture_context || null,
+      after_note: formData.after_note?.trim() || null,
       after_upload_status: uploadedPhotoUrl ? 'uploaded' : 'pending',
       completed_at: completedAt,
       after_completed_at: completedAt,
@@ -223,6 +226,7 @@ export default function TransactionAfter() {
             formData.after_captured_at || new Date().toISOString(),
           after_photo_sha256: formData.after_photo_sha256 || null,
           after_capture_context: formData.after_capture_context || null,
+          after_note: formData.after_note?.trim() || null,
           completed_at: new Date().toISOString(),
           status: 'completed',
         })
@@ -247,6 +251,7 @@ export default function TransactionAfter() {
             formData.after_captured_at || new Date().toISOString(),
           after_photo_sha256: formData.after_photo_sha256 || null,
           after_capture_context: formData.after_capture_context || null,
+          after_note: formData.after_note?.trim() || null,
           completed_at: new Date().toISOString(),
           status: 'completed',
           remote_saved_at: new Date().toISOString(),

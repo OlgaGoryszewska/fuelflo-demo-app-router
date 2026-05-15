@@ -49,6 +49,7 @@ export default function NewTransaction() {
     before_captured_at: '',
     before_photo_sha256: '',
     before_capture_context: null,
+    operator_note: '',
     status: 'awaiting_after_evidence',
   });
 
@@ -242,6 +243,7 @@ export default function NewTransaction() {
       before_captured_at: formData.before_captured_at || new Date().toISOString(),
       before_photo_sha256: formData.before_photo_sha256 || '',
       before_capture_context: formData.before_capture_context || null,
+      operator_note: formData.operator_note?.trim() || null,
 
       status: 'awaiting_after_evidence',
       sync_status: 'pending',
@@ -312,6 +314,7 @@ export default function NewTransaction() {
               formData.before_captured_at || new Date().toISOString(),
             before_photo_sha256: formData.before_photo_sha256 || null,
             before_capture_context: formData.before_capture_context || null,
+            operator_note: formData.operator_note?.trim() || null,
             status: 'awaiting_after_evidence',
           },
         ])
@@ -336,6 +339,7 @@ export default function NewTransaction() {
           formData.before_captured_at || new Date().toISOString(),
         before_photo_sha256: formData.before_photo_sha256 || null,
         before_capture_context: formData.before_capture_context || null,
+        operator_note: formData.operator_note?.trim() || null,
         created_by: user.id,
         remote_saved_at: new Date().toISOString(),
       });

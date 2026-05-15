@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CheckCircle2, Fuel, QrCode, ScanLine } from 'lucide-react';
+import { CheckCircle2, FileText, Fuel, QrCode, ScanLine } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import GeneratorDropdown from '@/components/add_new_project/GeneratorDropdown';
 import TankDropdown from '@/components/dropdowns/tank-dropdown';
@@ -193,6 +193,23 @@ export default function Setup({ formData, setFormData }) {
         ) : (
           <OfflineTankSelect formData={formData} setFormData={setFormData} />
         )}
+      </TransactionFieldCard>
+
+      <TransactionFieldCard
+        icon={FileText}
+        title="Transaction note"
+        description="Optional context for dispatch, delivery, return, or site conditions."
+      >
+        <textarea
+          value={formData.operator_note || ''}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              operator_note: event.target.value,
+            }))
+          }
+          placeholder="Add a short note, for example access issue, return reason, or supplier instruction."
+        />
       </TransactionFieldCard>
     </div>
   );

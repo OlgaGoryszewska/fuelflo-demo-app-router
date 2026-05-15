@@ -27,6 +27,10 @@ export default function ReviewAfter({ formData }) {
             value={formData.after_fuel_level}
           />
           <TransactionReviewRow
+            label="Completion note"
+            value={formData.after_note}
+          />
+          <TransactionReviewRow
             label="GPS evidence"
             value={
               formData.after_location

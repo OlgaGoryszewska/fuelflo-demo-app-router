@@ -525,6 +525,8 @@ export default function ProfilePage() {
       return;
     }
 
+    localStorage.removeItem('offline_user_id');
+    localStorage.removeItem('offline_user_role');
     router.replace('/');
   };
 

@@ -6,13 +6,16 @@ import {
   AlertTriangle,
   ArrowRight,
   CheckCircle2,
+  FileText,
   Fuel,
   Gauge,
   RotateCcw,
+  Save,
   Search,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
 
 function toNumber(value) {
   const parsed = Number(value);
@@ -114,12 +117,17 @@ function getVarianceRow(project, summary) {
   };
 }
 
-function MissingFuelRow({ row }) {
+function MissingFuelRow({
+  row,
+  review,
+  noteDraft,
+  onNoteChange,
+  onSaveNote,
+  saving,
+  canReview,
+}) {
   return (
-    <Link
-      href={`/resources/projects/${row.project.id}`}
-      className="block rounded-[24px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.08)] transition active:scale-[0.98] active:border-[#62748e] active:bg-[#eef4fb]"
-    >
+    <article className="rounded-[24px] border border-[#e8edf3] bg-white p-4 shadow-[0_4px_12px_rgba(98,116,142,0.08)]">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold text-[var(--primary-black)]">
@@ -182,15 +190,59 @@ function MissingFuelRow({ row }) {
           Net used {formatLitres(row.netUsed)} • Returns{' '}
           {row.returnRate.toFixed(0)}%
         </p>
-        <ArrowRight className="h-5 w-5 shrink-0 text-[#62748e]" />
+        <Link
+          href={`/resources/projects/${row.project.id}`}
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d5eefc] bg-[#eef4fb] text-[#62748e] active:scale-[0.95]"
+          aria-label={`Open ${row.project.name || 'project'}`}
+        >
+          <ArrowRight className="h-5 w-5" />
+        </Link>
       </div>
-    </Link>
+
+      <div className="mt-4 rounded-[20px] border border-[#e8edf3] bg-[#f8fbff] p-3">
+        <div className="mb-2 flex items-center gap-2">
+          <FileText size={16} className="text-[#62748e]" />
+          <p className="text-sm font-semibold text-[var(--primary-black)]">
+            Review note
+          </p>
+        </div>
+
+        {review?.note && (
+          <p className="mb-3 whitespace-pre-wrap rounded-2xl border border-white bg-white p-3 text-sm text-[#62748e]">
+            {review.note}
+          </p>
+        )}
+
+        {canReview && (
+          <div className="space-y-2">
+            <textarea
+              value={noteDraft}
+              onChange={(event) => onNoteChange(row.project.id, event.target.value)}
+              placeholder="Explain missing fuel, investigation result, or corrective action."
+            />
+            <button
+              type="button"
+              onClick={() => onSaveNote(row)}
+              disabled={saving}
+              className="button-big gap-2"
+            >
+              <Save size={17} />
+              {saving ? 'Saving...' : 'Save review note'}
+            </button>
+          </div>
+        )}
+      </div>
+    </article>
   );
 }
 
 export default function MissingFuelPage() {
   const [projects, setProjects] = useState([]);
   const [summaries, setSummaries] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [noteDrafts, setNoteDrafts] = useState({});
+  const [role, setRole] = useState('');
+  const [savingReviewId, setSavingReviewId] = useState('');
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -200,13 +252,18 @@ export default function MissingFuelPage() {
       setLoading(true);
       setError('');
 
-      const [projectResult, summaryResult] = await Promise.all([
+      const [currentRole, projectResult, summaryResult, reviewResult] =
+        await Promise.all([
+          getCurrentProfileRole(),
         supabase
           .from('projects')
           .select('id, name, location, expected_liters, active')
           .order('start_date', { ascending: false }),
         supabase.from('project_fuel_summary').select('*'),
-      ]);
+          supabase.from('fuel_variance_reviews').select('*'),
+        ]);
+
+      setRole(currentRole);
 
       if (projectResult.error) {
         setError(projectResult.error.message);
@@ -222,11 +279,77 @@ export default function MissingFuelPage() {
         setSummaries(summaryResult.data || []);
       }
 
+      if (!reviewResult.error) {
+        const nextReviews = reviewResult.data || [];
+        setReviews(nextReviews);
+        setNoteDrafts(
+          Object.fromEntries(
+            nextReviews.map((review) => [String(review.project_id), review.note || ''])
+          )
+        );
+      }
+
       setLoading(false);
     }
 
     load();
   }, []);
+
+  const reviewsByProject = useMemo(
+    () => new Map(reviews.map((review) => [String(review.project_id), review])),
+    [reviews]
+  );
+
+  const canReviewMissingFuel = ['manager', 'hire_desk'].includes(role);
+
+  function updateNoteDraft(projectId, value) {
+    setNoteDrafts((current) => ({
+      ...current,
+      [String(projectId)]: value,
+    }));
+  }
+
+  async function saveReviewNote(row) {
+    const projectKey = String(row.project.id);
+    const note = noteDrafts[projectKey]?.trim() || '';
+
+    setSavingReviewId(projectKey);
+    setError('');
+
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      const payload = {
+        project_id: row.project.id,
+        missing_litres: row.missing,
+        note,
+        status: note ? 'reviewed' : 'open',
+        created_by: user?.id || null,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { data, error: saveError } = await supabase
+        .from('fuel_variance_reviews')
+        .upsert(payload, { onConflict: 'project_id' })
+        .select()
+        .single();
+
+      if (saveError) throw saveError;
+
+      setReviews((current) => {
+        const withoutCurrent = current.filter(
+          (review) => String(review.project_id) !== projectKey
+        );
+        return [data, ...withoutCurrent];
+      });
+    } catch (caughtError) {
+      setError(caughtError.message || 'Could not save missing fuel note.');
+    } finally {
+      setSavingReviewId('');
+    }
+  }
 
   const rows = useMemo(() => {
     const summariesByProject = new Map(
@@ -351,7 +474,16 @@ export default function MissingFuelPage() {
         {!loading && !error && filteredRows.length > 0 && (
           <div className="grid grid-cols-1 gap-3">
             {filteredRows.map((row) => (
-              <MissingFuelRow key={row.project.id} row={row} />
+              <MissingFuelRow
+                key={row.project.id}
+                row={row}
+                review={reviewsByProject.get(String(row.project.id))}
+                noteDraft={noteDrafts[String(row.project.id)] || ''}
+                onNoteChange={updateNoteDraft}
+                onSaveNote={saveReviewNote}
+                saving={savingReviewId === String(row.project.id)}
+                canReview={canReviewMissingFuel}
+              />
             ))}
           </div>
         )}

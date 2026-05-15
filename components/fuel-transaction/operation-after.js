@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { Camera, CheckCircle2, Gauge, MapPin } from 'lucide-react';
+import { Camera, CheckCircle2, FileText, Gauge, MapPin } from 'lucide-react';
 import { TransactionFieldCard, TransactionStepHeader } from './TransactionUi';
 import {
   getEvidenceCaptureContext,
@@ -137,6 +137,23 @@ export default function OperationAfter({ formData, setFormData }) {
           value={formData.after_fuel_level}
           onChange={handleFuelLevelChange}
           placeholder="Enter final meter reading"
+        />
+      </TransactionFieldCard>
+
+      <TransactionFieldCard
+        icon={FileText}
+        title="Completion note"
+        description="Optional final context for the delivery or return."
+      >
+        <textarea
+          value={formData.after_note || ''}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              after_note: event.target.value,
+            }))
+          }
+          placeholder="Add a short note, for example fuel returned, access delay, or meter condition."
         />
       </TransactionFieldCard>
     </div>
