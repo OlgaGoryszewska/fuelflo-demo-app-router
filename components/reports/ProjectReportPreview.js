@@ -10,6 +10,7 @@ export default function ProjectReportPreview({
   summary,
   transactions,
   showPreview = true,
+  showFinancials = true,
 }) {
   const fileName = `project-report-${project.id}.pdf`;
   const document = (
@@ -17,6 +18,7 @@ export default function ProjectReportPreview({
       project={project}
       summary={summary}
       transactions={transactions}
+      showFinancials={showFinancials}
     />
   );
 

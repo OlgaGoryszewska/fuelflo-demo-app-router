@@ -1,7 +1,12 @@
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 const ALLOWED_STATUSES = new Set(['open', 'acknowledged', 'resolved', 'dismissed']);
-const ALLOWED_ROLES = new Set(['hire_desk', 'manager', 'technician']);
+const ALLOWED_ROLES = new Set([
+  'hire_desk',
+  'manager',
+  'technician',
+  'fuel_supplier',
+]);
 
 function json(payload, status = 200) {
   return new Response(JSON.stringify(payload), {

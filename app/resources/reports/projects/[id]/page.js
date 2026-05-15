@@ -16,6 +16,7 @@ import {
 import { supabase } from '@/lib/supabaseClient';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import ProjectReportPreview from '@/components/reports/ProjectReportPreview';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
 
 const PROJECT_SELECT = `
   id,
@@ -135,6 +136,7 @@ export default function ProjectReportPage() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -147,7 +149,8 @@ export default function ProjectReportPage() {
 
       const idValue = isNaN(Number(id)) ? id : Number(id);
 
-      const [projectResult, transactionResult] = await Promise.all([
+      const [currentRole, projectResult, transactionResult] = await Promise.all([
+        getCurrentProfileRole(),
         supabase.from('projects').select(PROJECT_SELECT).eq('id', idValue).single(),
         supabase
           .from('fuel_transactions')
@@ -155,6 +158,8 @@ export default function ProjectReportPage() {
           .eq('project_id', idValue)
           .order('created_at', { ascending: false }),
       ]);
+
+      setRole(currentRole);
 
       if (projectResult.error) {
         setError(projectResult.error.message);
@@ -228,6 +233,7 @@ export default function ProjectReportPage() {
   const grossMargin =
     netUsedLitres * toNumber(project.selling_price) -
     deliveredLitres * toNumber(project.amount);
+  const canViewProjectFinancials = role !== 'technician';
 
   return (
     <main className="mx-auto w-full max-w-[860px] px-3 py-4">
@@ -272,7 +278,9 @@ export default function ProjectReportPage() {
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             <p className="page-kicker">Summary</p>
-            <h2 className="mt-1">Fuel and margin</h2>
+            <h2 className="mt-1">
+              {canViewProjectFinancials ? 'Fuel and margin' : 'Fuel summary'}
+            </h2>
           </div>
           <ClipboardList className="text-[#62748e]" size={22} />
         </div>
@@ -296,12 +304,14 @@ export default function ProjectReportPage() {
             hint="Report fuel basis"
             tone="green"
           />
-          <MetricCard
-            icon={BadgeCent}
-            label="Gross margin"
-            value={formatMoney(grossMargin)}
-            tone={grossMargin >= 0 ? 'green' : 'slate'}
-          />
+          {canViewProjectFinancials && (
+            <MetricCard
+              icon={BadgeCent}
+              label="Gross margin"
+              value={formatMoney(grossMargin)}
+              tone={grossMargin >= 0 ? 'green' : 'slate'}
+            />
+          )}
           <MetricCard
             icon={CheckCircle2}
             label="Transactions"
@@ -327,6 +337,7 @@ export default function ProjectReportPage() {
           project={project}
           summary={summary}
           transactions={transactions}
+          showFinancials={canViewProjectFinancials}
         />
       </section>
 

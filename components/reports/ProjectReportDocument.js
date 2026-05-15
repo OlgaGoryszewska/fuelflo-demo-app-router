@@ -164,6 +164,7 @@ export default function ProjectReportDocument({
   project,
   summary,
   transactions = [],
+  showFinancials = true,
 }) {
   const deliveredLitres = toNumber(summary?.totalDeliveredLitres);
   const returnedLitres = toNumber(summary?.totalReturnedLitres);
@@ -206,10 +207,12 @@ export default function ProjectReportDocument({
             <Text style={styles.metricLabel}>Net used</Text>
             <Text style={styles.metricValue}>{formatLitres(netUsedLitres)}</Text>
           </View>
-          <View style={styles.metric}>
-            <Text style={styles.metricLabel}>Gross margin</Text>
-            <Text style={styles.metricValue}>{formatMoney(grossMargin)}</Text>
-          </View>
+          {showFinancials && (
+            <View style={styles.metric}>
+              <Text style={styles.metricLabel}>Gross margin</Text>
+              <Text style={styles.metricValue}>{formatMoney(grossMargin)}</Text>
+            </View>
+          )}
         </View>
 
         <View style={styles.section}>
@@ -238,25 +241,27 @@ export default function ProjectReportDocument({
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Fuel Financials</Text>
-          <View style={styles.row}>
-            <Text style={styles.label}>Buy price</Text>
-            <Text style={styles.value}>{purchasePrice.toFixed(2)} SAR/L</Text>
+        {showFinancials && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Fuel Financials</Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Buy price</Text>
+              <Text style={styles.value}>{purchasePrice.toFixed(2)} SAR/L</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Sell price</Text>
+              <Text style={styles.value}>{sellingPrice.toFixed(2)} SAR/L</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Revenue basis</Text>
+              <Text style={styles.value}>{formatMoney(revenue)}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Delivered cost</Text>
+              <Text style={styles.value}>{formatMoney(deliveredCost)}</Text>
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Sell price</Text>
-            <Text style={styles.value}>{sellingPrice.toFixed(2)} SAR/L</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Revenue basis</Text>
-            <Text style={styles.value}>{formatMoney(revenue)}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Delivered cost</Text>
-            <Text style={styles.value}>{formatMoney(deliveredCost)}</Text>
-          </View>
-        </View>
+        )}
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Fuel Transactions</Text>

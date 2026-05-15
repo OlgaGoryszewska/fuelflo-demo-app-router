@@ -503,6 +503,7 @@ export default function ProjectDetailPage() {
       )}`
     : '';
   const canEditProject = PROJECT_EDIT_ROLES.has(role);
+  const canViewProjectFinancials = role !== 'technician';
 
   const tips = [
     returnRate > 15
@@ -535,14 +536,16 @@ export default function ProjectDetailPage() {
             'All current transactions have after evidence, so this project is stronger for reporting and billing.',
           tone: 'green',
         },
-    {
-      icon: CircleDollarSign,
-      title: 'Price uplift opportunity',
-      description: `A 0.25 SAR/L uplift on current net use adds ${formatMoney(
-        uplift025
-      )}. A 0.50 SAR/L uplift adds ${formatMoney(uplift050)}.`,
-      tone: 'orange',
-    },
+    canViewProjectFinancials
+      ? {
+          icon: CircleDollarSign,
+          title: 'Price uplift opportunity',
+          description: `A 0.25 SAR/L uplift on current net use adds ${formatMoney(
+            uplift025
+          )}. A 0.50 SAR/L uplift adds ${formatMoney(uplift050)}.`,
+          tone: 'orange',
+        }
+      : null,
     expectedLitres > 0
       ? {
           icon: Gauge,
@@ -562,7 +565,7 @@ export default function ProjectDetailPage() {
             'Expected litres unlock forecast margin, variance, and better pricing decisions for similar events.',
           tone: 'slate',
         },
-  ];
+  ].filter(Boolean);
 
   return (
     <div className="mx-auto w-full max-w-[640px] px-3 py-4">
@@ -705,58 +708,64 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      <section className="background-container mb-4">
-        <SectionHeader
-          eyebrow="Margin"
-          title="Fuel financials"
-          description="Pricing, margin, and earning opportunity for this project."
-        />
-        <div className="grid grid-cols-2 gap-3">
-          <MetricCard
-            icon={Truck}
-            label="Buy price"
-            value={formatPrice(purchasePrice)}
+      {canViewProjectFinancials && (
+        <section className="background-container mb-4">
+          <SectionHeader
+            eyebrow="Margin"
+            title="Fuel financials"
+            description="Pricing, margin, and earning opportunity for this project."
           />
-          <MetricCard
-            icon={BadgeCent}
-            label="Sell price"
-            value={formatPrice(sellingPrice)}
-            tone="orange"
-          />
-          <MetricCard
-            icon={CircleDollarSign}
-            label="Margin per litre"
-            value={formatPrice(marginPerLiter)}
-            tone={marginTone}
-          />
-          <MetricCard
-            icon={ShieldCheck}
-            label="Gross margin"
-            value={formatMoney(grossMargin)}
-            hint={`Revenue ${formatMoney(actualRevenue)}`}
-            tone={grossMargin > 0 ? 'green' : 'amber'}
-          />
-          <MetricCard
-            icon={Gauge}
-            label="Expected litres"
-            value={
-              expectedLitres > 0 ? formatLitres(expectedLitres) : 'Missing'
-            }
-          />
-          <MetricCard
-            icon={CircleDollarSign}
-            label="Expected margin"
-            value={expectedLitres > 0 ? formatMoney(expectedMargin) : 'Missing'}
-            tone={expectedMargin > 0 ? 'green' : 'slate'}
-          />
-        </div>
-      </section>
+          <div className="grid grid-cols-2 gap-3">
+            <MetricCard
+              icon={Truck}
+              label="Buy price"
+              value={formatPrice(purchasePrice)}
+            />
+            <MetricCard
+              icon={BadgeCent}
+              label="Sell price"
+              value={formatPrice(sellingPrice)}
+              tone="orange"
+            />
+            <MetricCard
+              icon={CircleDollarSign}
+              label="Margin per litre"
+              value={formatPrice(marginPerLiter)}
+              tone={marginTone}
+            />
+            <MetricCard
+              icon={ShieldCheck}
+              label="Gross margin"
+              value={formatMoney(grossMargin)}
+              hint={`Revenue ${formatMoney(actualRevenue)}`}
+              tone={grossMargin > 0 ? 'green' : 'amber'}
+            />
+            <MetricCard
+              icon={Gauge}
+              label="Expected litres"
+              value={
+                expectedLitres > 0 ? formatLitres(expectedLitres) : 'Missing'
+              }
+            />
+            <MetricCard
+              icon={CircleDollarSign}
+              label="Expected margin"
+              value={expectedLitres > 0 ? formatMoney(expectedMargin) : 'Missing'}
+              tone={expectedMargin > 0 ? 'green' : 'slate'}
+            />
+          </div>
+        </section>
+      )}
 
       <section className="background-container-white mb-4">
         <SectionHeader
           eyebrow="Savings"
-          title="Money and time tips"
-          description="Actionable checks based on current fuel, pricing, and evidence."
+          title={canViewProjectFinancials ? 'Money and time tips' : 'Operational tips'}
+          description={
+            canViewProjectFinancials
+              ? 'Actionable checks based on current fuel, pricing, and evidence.'
+              : 'Actionable checks based on current fuel position and evidence.'
+          }
         />
         <div className="grid grid-cols-1 gap-3">
           {tips.map((tip) => (

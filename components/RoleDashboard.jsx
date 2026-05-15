@@ -32,7 +32,7 @@ const METRIC_ICONS = {
   default: TrendingUp,
 };
 
-const FUEL_ALERT_DASHBOARD_ROLES = new Set(['hire_desk', 'manager', 'technician']);
+const FUEL_ALERT_EXCLUDED_ROLES = new Set(['event_organizer']);
 
 function getOnlineSnapshot() {
   return navigator.onLine;
@@ -97,7 +97,7 @@ export default function RoleDashboard({
   );
 
   const secondaryActions = dashboard.primaryActions.slice(1);
-  const showFuelAlerts = FUEL_ALERT_DASHBOARD_ROLES.has(role);
+  const showFuelAlerts = Boolean(role) && !FUEL_ALERT_EXCLUDED_ROLES.has(role);
 
   return (
     <main className=" text-slate-900">
