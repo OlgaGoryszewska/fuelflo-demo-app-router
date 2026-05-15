@@ -6,6 +6,9 @@ import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionDetail from '@/components/fuel-transaction/FuelTransactionDetail';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import { getOfflineTransaction } from '@/lib/offline/offlineDb';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
+
+const TRANSACTION_EDIT_ROLES = new Set(['manager', 'hire_desk']);
 
 const TRANSACTION_SELECT = `
   *,
@@ -71,6 +74,7 @@ function mapLocalTransaction(localTransaction) {
 export default function ProjectTransactionDetailPage() {
   const { transactionId } = useParams();
   const [transaction, setTransaction] = useState(null);
+  const [role, setRole] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -81,7 +85,12 @@ export default function ProjectTransactionDetailPage() {
       setLoading(true);
       setErrorMessage('');
 
-      const localTransaction = await getOfflineTransaction(transactionId);
+      const [currentRole, localTransaction] = await Promise.all([
+        getCurrentProfileRole(),
+        getOfflineTransaction(transactionId),
+      ]);
+
+      setRole(currentRole);
 
       if (!navigator.onLine && localTransaction) {
         setTransaction(mapLocalTransaction(localTransaction));
@@ -143,7 +152,10 @@ export default function ProjectTransactionDetailPage() {
         <p className="page-kicker">Transaction details</p>
       </div>
 
-      <FuelTransactionDetail transaction={transaction} />
+      <FuelTransactionDetail
+        transaction={transaction}
+        canEditTransaction={TRANSACTION_EDIT_ROLES.has(role)}
+      />
     </div>
   );
 }

@@ -29,6 +29,9 @@ import ProjectFuelTransactionList from '@/components/ProjectFuelTransactionList'
 import LoadingIndicator from '@/components/LoadingIndicator';
 import formatDateShort from '@/components/FormatDateShort';
 import { supabase } from '@/lib/supabaseClient';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
+
+const PROJECT_EDIT_ROLES = new Set(['manager', 'hire_desk']);
 
 function toNumber(value) {
   const parsed = Number(value);
@@ -277,6 +280,7 @@ export default function ProjectDetailPage() {
   const [technicians, setTechnicians] = useState([]);
   const [fleetRows, setFleetRows] = useState([]);
   const [pendingEvidenceCount, setPendingEvidenceCount] = useState(0);
+  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -290,10 +294,12 @@ export default function ProjectDetailPage() {
       const idValue = isNaN(Number(projectId)) ? projectId : Number(projectId);
 
       try {
-        const { data: projectData, error: projectError } = await supabase
-          .from('projects')
-          .select(
-            `
+        const [currentRole, projectResult] = await Promise.all([
+          getCurrentProfileRole(),
+          supabase
+            .from('projects')
+            .select(
+              `
             id,
             name,
             location,
@@ -320,11 +326,14 @@ export default function ProjectDetailPage() {
               phone
             )
           `
-          )
-          .eq('id', idValue)
-          .single();
+            )
+            .eq('id', idValue)
+            .single(),
+        ]);
+        const { data: projectData, error: projectError } = projectResult;
 
         if (projectError) throw projectError;
+        setRole(currentRole);
 
         const [
           fuelSummaryResult,
@@ -493,6 +502,7 @@ export default function ProjectDetailPage() {
         project.location
       )}`
     : '';
+  const canEditProject = PROJECT_EDIT_ROLES.has(role);
 
   const tips = [
     returnRate > 15
@@ -625,7 +635,11 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <div className="relative mt-5 grid grid-cols-2 gap-3">
+        <div
+          className={`relative mt-5 grid gap-3 ${
+            canEditProject ? 'grid-cols-2' : 'grid-cols-1'
+          }`}
+        >
           <Link
             href={`/resources/projects/${projectId}/new`}
             className="button-big mb-0 justify-center gap-2 text-white"
@@ -633,13 +647,15 @@ export default function ProjectDetailPage() {
             <Plus size={18} />
             Transaction
           </Link>
-          <Link
-            href={`/resources/projects/${projectId}/edit`}
-            className="button-big mb-0 justify-center gap-2"
-          >
-            <Pencil size={18} />
-            Edit
-          </Link>
+          {canEditProject && (
+            <Link
+              href={`/resources/projects/${projectId}/edit`}
+              className="button-big mb-0 justify-center gap-2"
+            >
+              <Pencil size={18} />
+              Edit
+            </Link>
+          )}
         </div>
       </section>
 
@@ -901,13 +917,15 @@ export default function ProjectDetailPage() {
           title="Project notes"
           description="Operational notes captured during setup."
           action={
-            <Link
-              href={`/resources/projects/${projectId}/edit`}
-              className="circle-btn shrink-0 text-[#62748e]"
-              title="Edit project notes"
-            >
-              <Pencil size={15} strokeWidth={2.2} />
-            </Link>
+            canEditProject ? (
+              <Link
+                href={`/resources/projects/${projectId}/edit`}
+                className="circle-btn shrink-0 text-[#62748e]"
+                title="Edit project notes"
+              >
+                <Pencil size={15} strokeWidth={2.2} />
+              </Link>
+            ) : null
           }
         />
 

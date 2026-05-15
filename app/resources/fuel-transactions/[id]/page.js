@@ -5,6 +5,9 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import FuelTransactionDetail from '@/components/fuel-transaction/FuelTransactionDetail';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
+
+const TRANSACTION_EDIT_ROLES = new Set(['manager', 'hire_desk']);
 
 const TRANSACTION_SELECT = `
   *,
@@ -37,6 +40,7 @@ const TRANSACTION_SELECT = `
 export default function FuelTransactionDetailPage() {
   const { id } = useParams();
   const [transaction, setTransaction] = useState(null);
+  const [role, setRole] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -47,11 +51,17 @@ export default function FuelTransactionDetailPage() {
       setLoading(true);
       setErrorMessage('');
 
-      const { data, error } = await supabase
-        .from('fuel_transactions')
-        .select(TRANSACTION_SELECT)
-        .eq('id', id)
-        .single();
+      const [currentRole, transactionResult] = await Promise.all([
+        getCurrentProfileRole(),
+        supabase
+          .from('fuel_transactions')
+          .select(TRANSACTION_SELECT)
+          .eq('id', id)
+          .single(),
+      ]);
+      const { data, error } = transactionResult;
+
+      setRole(currentRole);
 
       if (error) {
         setErrorMessage(error.message);
@@ -96,7 +106,10 @@ export default function FuelTransactionDetailPage() {
         <p className="page-kicker">Transaction details</p>
       </div>
 
-      <FuelTransactionDetail transaction={transaction} />
+      <FuelTransactionDetail
+        transaction={transaction}
+        canEditTransaction={TRANSACTION_EDIT_ROLES.has(role)}
+      />
     </div>
   );
 }

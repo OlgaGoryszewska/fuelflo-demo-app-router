@@ -229,6 +229,7 @@ function ReceiptHero({
   beforeReading,
   afterReading,
   createdAt,
+  canEditTransaction,
 }) {
   const maxReading = Math.max(beforeReading || 0, afterReading || 0, 1);
   const beforePercent =
@@ -278,7 +279,7 @@ function ReceiptHero({
         />
       </div>
 
-      {!hasAfterEvidence && (
+      {!hasAfterEvidence && canEditTransaction && (
         <Link
           href={`${transactionHref}/after`}
           className="button-big relative mt-5 gap-2 text-white"
@@ -971,7 +972,10 @@ function RecentProjectTransactions({ projectId, currentTransactionId }) {
   );
 }
 
-export default function FuelTransactionDetail({ transaction }) {
+export default function FuelTransactionDetail({
+  transaction,
+  canEditTransaction = false,
+}) {
   const {
     beforeReading,
     afterReading,
@@ -1018,6 +1022,7 @@ export default function FuelTransactionDetail({ transaction }) {
         beforeReading={beforeReading}
         afterReading={afterReading}
         createdAt={transaction.created_at}
+        canEditTransaction={canEditTransaction}
       />
 
       <MovementNote

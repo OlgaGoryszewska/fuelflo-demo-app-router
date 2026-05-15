@@ -152,6 +152,114 @@ body {
   font-size: 16px;
 }
 
+.app-background {
+  --role-bg-base: #eaf3ff;
+  --role-bg-warm: rgba(255, 183, 77, 0.38);
+  --role-bg-cool: rgba(105, 145, 255, 0.32);
+  --role-bg-accent: rgba(255, 255, 255, 0.72);
+  --role-grain: rgba(23, 30, 44, 0.1);
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 14% 8%, var(--role-bg-warm), transparent 28rem),
+    radial-gradient(circle at 88% 12%, var(--role-bg-cool), transparent 30rem),
+    radial-gradient(circle at 52% 95%, var(--role-bg-accent), transparent 34rem),
+    linear-gradient(145deg, var(--role-bg-base), #f8fbff 48%, var(--role-bg-base));
+}
+
+.app-background::before,
+.app-background::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.app-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-content-layer {
+  z-index: 1;
+}
+
+.app-status-layer {
+  z-index: 20;
+}
+
+.app-bottom-nav-layer {
+  z-index: 80;
+}
+
+.app-menu-layer {
+  position: relative;
+  z-index: 900;
+}
+
+.app-background::before {
+  z-index: 0;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.42), transparent 38%),
+    linear-gradient(295deg, rgba(255, 255, 255, 0.34), transparent 42%);
+}
+
+.app-background::after {
+  z-index: 0;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(var(--role-grain) 0.65px, transparent 0.65px),
+    radial-gradient(rgba(255, 255, 255, 0.55) 0.75px, transparent 0.75px);
+  background-position:
+    0 0,
+    3px 4px;
+  background-size:
+    7px 7px,
+    11px 11px;
+  mix-blend-mode: multiply;
+}
+
+.app-background[data-app-role='technician'] {
+  --role-bg-base: #e8f8f2;
+  --role-bg-warm: rgba(255, 180, 84, 0.26);
+  --role-bg-cool: rgba(42, 170, 126, 0.34);
+  --role-bg-accent: rgba(181, 238, 217, 0.48);
+  --role-grain: rgba(15, 92, 77, 0.12);
+}
+
+.app-background[data-app-role='manager'] {
+  --role-bg-base: #eef2ff;
+  --role-bg-warm: rgba(255, 190, 104, 0.28);
+  --role-bg-cool: rgba(86, 111, 240, 0.34);
+  --role-bg-accent: rgba(203, 213, 255, 0.48);
+  --role-grain: rgba(44, 58, 129, 0.12);
+}
+
+.app-background[data-app-role='hire_desk'] {
+  --role-bg-base: #fff4e4;
+  --role-bg-warm: rgba(255, 138, 0, 0.35);
+  --role-bg-cool: rgba(88, 145, 166, 0.28);
+  --role-bg-accent: rgba(255, 230, 170, 0.48);
+  --role-grain: rgba(146, 74, 14, 0.12);
+}
+
+.app-background[data-app-role='fuel_supplier'] {
+  --role-bg-base: #e9f8ff;
+  --role-bg-warm: rgba(255, 196, 96, 0.25);
+  --role-bg-cool: rgba(35, 158, 220, 0.36);
+  --role-bg-accent: rgba(191, 232, 251, 0.54);
+  --role-grain: rgba(16, 91, 129, 0.12);
+}
+
+.app-background[data-app-role='event_organizer'] {
+  --role-bg-base: #fff0f5;
+  --role-bg-warm: rgba(255, 176, 102, 0.3);
+  --role-bg-cool: rgba(224, 78, 130, 0.25);
+  --role-bg-accent: rgba(255, 205, 224, 0.5);
+  --role-grain: rgba(131, 43, 78, 0.12);
+}
+
 .open-card,
 form,
 .generator-container,
@@ -594,7 +702,7 @@ li a:hover {
 .menu-items.open {
   display: block;
   border-bottom: 1px solid var(--primary-gray-light);
-  z-index: 1000;
+  z-index: 2000;
   position: absolute;
   background-color: #e2ecfc;
   width: 100%;

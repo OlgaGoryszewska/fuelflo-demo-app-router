@@ -13,6 +13,9 @@ import {
   updateOfflineTransaction,
 } from '@/lib/offline/offlineDb';
 import { TransactionValidationMessage } from '@/components/fuel-transaction/TransactionUi';
+import { getCurrentProfileRole } from '@/lib/auth/currentProfileRole';
+
+const TRANSACTION_EDIT_ROLES = new Set(['manager', 'hire_desk']);
 
 export default function TransactionAfter() {
   const params = useParams();
@@ -27,6 +30,7 @@ export default function TransactionAfter() {
   const [submitting, setSubmitting] = useState(false);
   const [localTransaction, setLocalTransaction] = useState(null);
   const [loadingLocalTransaction, setLoadingLocalTransaction] = useState(true);
+  const [role, setRole] = useState('');
 
   const [formData, setFormData] = useState({
     after_fuel_level: '',
@@ -49,10 +53,14 @@ export default function TransactionAfter() {
     let active = true;
 
     async function loadLocalTransaction() {
-      const transaction = await getOfflineTransaction(transactionId);
+      const [currentRole, transaction] = await Promise.all([
+        getCurrentProfileRole(),
+        getOfflineTransaction(transactionId),
+      ]);
 
       if (!active) return;
 
+      setRole(currentRole);
       setLocalTransaction(transaction || null);
       setLoadingLocalTransaction(false);
 
@@ -272,6 +280,7 @@ export default function TransactionAfter() {
   const isOnline = typeof navigator === 'undefined' ? true : navigator.onLine;
   const cannotCompleteOffline =
     !loadingLocalTransaction && !isOnline && !localTransaction;
+  const canEditTransaction = TRANSACTION_EDIT_ROLES.has(role);
 
   return (
     <div className="main-container">
@@ -292,13 +301,20 @@ export default function TransactionAfter() {
         </p>
       )}
 
+      {!loadingLocalTransaction && !canEditTransaction && (
+        <p className="mx-4 mb-4 rounded border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
+          Your role can view transaction evidence, but only managers and hire
+          desk users can edit or complete transaction evidence.
+        </p>
+      )}
+
       {success ? (
         <AfterDeliverySuccessAlert
           projectId={projectId}
           transactionId={transactionId}
           isOffline={savedOffline}
         />
-      ) : (
+      ) : !loadingLocalTransaction && !canEditTransaction ? null : (
         <form className="form-transaction" onSubmit={(e) => e.preventDefault()}>
           <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
