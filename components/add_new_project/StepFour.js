@@ -46,7 +46,7 @@ export default function StepFour({ formData, setFormData, errors = {} }) {
   const expectedEarnings = getExpectedEarnings(formData);
 
   return (
-    <section className="m-4">
+    <section className="m-2">
       <ProjectStepHeader
         eyebrow="Step 4 of 5"
         title="Fuel plan"

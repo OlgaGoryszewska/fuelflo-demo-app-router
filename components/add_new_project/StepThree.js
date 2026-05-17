@@ -170,7 +170,7 @@ export default function StepThree({ formData, setFormData, errors = {} }) {
   }
 
   return (
-    <section className="m-4">
+    <section className="m-2">
       <ProjectStepHeader
         eyebrow="Step 3 of 5"
         title="Team and fleet"

@@ -18,7 +18,7 @@ export default function StepOne({ formData, setFormData, errors = {} }) {
   }
 
   return (
-    <section className="m-4">
+    <section className="m-2">
       <ProjectStepHeader
         eyebrow="Step 1 of 5"
         title="Event basics"

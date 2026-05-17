@@ -64,7 +64,7 @@ export default function StepFive({ formData }) {
   const expectedEarnings = getExpectedEarnings(formData);
 
   return (
-    <section className="m-4">
+    <section className="m-2">
       <ProjectStepHeader
         eyebrow="Step 5 of 5"
         title="Review project"
